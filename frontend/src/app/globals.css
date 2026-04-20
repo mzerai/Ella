@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-ella-gray-50 text-ella-gray-900 font-body;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  /* ELLA's warm card style */
+  .ella-card {
+    @apply bg-white rounded-xl border border-ella-gray-200 p-5 transition-all duration-200;
+  }
+
+  .ella-card:hover {
+    @apply border-ella-amber-400 shadow-sm;
+  }
+
+  /* ELLA's chat bubble */
+  .ella-bubble {
+    @apply bg-ella-amber-50 rounded-xl rounded-tl-sm p-4 border-l-[3px] border-ella-amber-400;
+  }
+
+  /* User's chat bubble */
+  .user-bubble {
+    @apply bg-ella-gray-100 rounded-xl rounded-tr-sm p-4;
+  }
+
+  /* Score badges */
+  .score-excellent {
+    @apply bg-ella-teal-50 text-ella-teal-800;
+  }
+
+  .score-good {
+    @apply bg-ella-amber-100 text-ella-amber-800;
+  }
+
+  .score-needs-work {
+    @apply bg-ella-coral-50 text-ella-coral-800;
+  }
+
+  /* Prompt editor */
+  .prompt-editor {
+    @apply font-mono text-sm bg-ella-gray-50 border border-ella-gray-300 rounded-lg p-4
+           focus:outline-none focus:ring-2 focus:ring-ella-amber-400 focus:border-transparent
+           resize-y min-h-[120px];
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply bg-ella-amber-400 hover:bg-ella-amber-600 text-white font-medium
+           px-6 py-2.5 rounded-lg transition-all duration-200
+           active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Secondary button */
+  .btn-secondary {
+    @apply bg-white hover:bg-ella-gray-100 text-ella-gray-800 font-medium
+           px-6 py-2.5 rounded-lg border border-ella-gray-300 transition-all duration-200
+           active:scale-[0.98];
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    @apply h-1.5 rounded-full bg-ella-gray-200;
+  }
+
+  .progress-bar-fill {
+    @apply h-full rounded-full transition-all duration-500;
+  }
+}
