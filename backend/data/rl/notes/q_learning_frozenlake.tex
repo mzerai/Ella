@@ -1,0 +1,297 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{colortbl}
+
+\geometry{margin=2.2cm}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{lightaccent}{HTML}{EAF2F8}
+\definecolor{lightgray}{HTML}{F7F7F7}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Cours Deep Reinforcement Learning}
+\chead{\small Classe : 4IA}
+\rhead{\small Année : 2026}
+\lfoot{\small Enseignant : Mourad Zéraï, PhD - ESPRIT School of Engineering}
+\cfoot{}
+\rfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{accent}}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
+
+\newtheorem*{definition}{Définition}
+\newtheorem*{rappel}{Rappel}
+\newtheorem*{hypothese}{Hypothèse}
+\newtheorem*{propriete}{Propriété}
+\newtheorem*{theoreme}{Théorème}
+\newtheorem*{remarque}{Remarque}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pbb}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\argmax}{\operatorname*{argmax}}
+\newcommand{\given}{\,|\,}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Dérivation et explication pas à pas de Q-Learning}\\[0.4em]
+    {\large Note de cours rigoureuse, détaillée et appliquée à FrozenLake}
+\end{center}
+
+\vspace{0.6em}
+
+\section{Objectif}
+
+Le but de cette note est de dériver, pas à pas, l'algorithme de Q-Learning, de justifier chaque passage important et de montrer comment l'appliquer à FrozenLake.
+
+\section{Cadre et point de départ}
+
+On considère un MDP fini $(\mathcal S,\mathcal A,p,r,\gamma)$ avec $\gamma \in [0,1)$. On cherche la fonction état-action optimale
+\[
+q_*(s,a)=\max_{\pi} q_{\pi}(s,a).
+\]
+
+\begin{rappel}
+La fonction optimale vérifie l'équation d'optimalité de Bellman
+\[
+q_*(s,a)=\sum_{s',r} p(s',r\given s,a)\left[r+\gamma \max_{a'} q_*(s',a')\right].
+\]
+\end{rappel}
+
+Cette équation contient deux idées :
+\begin{itemize}[leftmargin=1.6em]
+    \item une \emph{espérance} sur la transition inconnue ;
+    \item une \emph{maximisation} sur l'action future.
+\end{itemize}
+Q-Learning remplace l'espérance exacte par des échantillons successifs et conserve la maximisation.
+
+\section{Passage du modèle exact à une mise à jour échantillonnée}
+
+\subsection{Opérateur de Bellman optimal pour $q$}
+
+On définit
+\[
+(T_*Q)(s,a)=\sum_{s',r} p(s',r\given s,a)\left[r+\gamma \max_{a'} Q(s',a')\right].
+\]
+Un point fixe de $T_*$ est une solution de l'équation d'optimalité de Bellman.
+
+\subsection{Observation d'une seule transition}
+
+Supposons qu'à l'instant $t$ on observe
+\[
+(S_t,A_t,R_{t+1},S_{t+1})=(s,a,r,s').
+\]
+Dans l'expression de $(T_*Q)(s,a)$, l'espérance
+\[
+\sum_{s',r} p(s',r\given s,a)\left[r+\gamma \max_{a'} Q(s',a')\right]
+\]
+est la moyenne de la variable aléatoire
+\[
+Y_t = R_{t+1}+\gamma \max_{a'} Q(S_{t+1},a')
+\]
+conditionnellement à $(S_t=s,A_t=a)$.
+
+\begin{propriete}
+Si les transitions sont générées par le MDP, alors
+\[
+\E[Y_t \given S_t=s,A_t=a] = (T_*Q)(s,a).
+\]
+\end{propriete}
+
+\paragraph{Justification.}
+C'est exactement la définition d'une espérance conditionnelle discrète :
+\[
+\E[Y_t \given s,a]
+=
+\sum_{s',r} p(s',r\given s,a)\left[r+\gamma\max_{a'}Q(s',a')\right].
+\]
+
+Le terme
+\[
+R_{t+1}+\gamma \max_{a'} Q(S_{t+1},a')
+\]
+est donc un \emph{estimateur non biaisé} de la cible de Bellman conditionnelle à l'état-action observé.
+
+\section{Idée de correction incrémentale}
+
+Si l'on connaissait $q_*$, on aurait idéalement
+\[
+Q(s,a)= (T_*Q)(s,a).
+\]
+Quand cette égalité n'est pas satisfaite, on mesure l'erreur locale par
+\[
+\delta_t = R_{t+1}+\gamma \max_{a'} Q(S_{t+1},a') - Q(S_t,A_t).
+\]
+Cette quantité est appelée \emph{erreur de Bellman échantillonnée} ou \emph{TD error}.
+
+\begin{rappel}
+Une correction incrémentale standard vers une cible $y_t$ s'écrit
+\[
+Q_{\text{new}} = Q_{\text{old}} + \alpha (y_t-Q_{\text{old}}),
+\]
+où $\alpha \in (0,1]$ est un pas d'apprentissage.
+\end{rappel}
+
+En prenant ici
+\[
+y_t = R_{t+1}+\gamma \max_{a'} Q(S_{t+1},a'),
+\]
+on obtient immédiatement la mise à jour de Q-Learning :
+\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma \max_{a'}Q(S_{t+1},a')-Q(S_t,A_t)\right].
+\]
+
+\section{Pourquoi cette formule est naturelle}
+
+\subsection{Réécriture convexe}
+
+La mise à jour peut se réécrire
+\[
+Q_{\text{new}}(S_t,A_t)
+=
+(1-\alpha)\,Q_{\text{old}}(S_t,A_t)
++
+\alpha \left[R_{t+1}+\gamma\max_{a'}Q_{\text{old}}(S_{t+1},a')\right].
+\]
+
+\paragraph{Interprétation.}
+La nouvelle valeur est une moyenne pondérée entre :
+\begin{itemize}[leftmargin=1.6em]
+    \item l'ancienne estimation ;
+    \item une cible issue de la transition observée.
+\end{itemize}
+
+\subsection{Pourquoi le maximum apparaît}
+
+Dans l'équation de Bellman optimale, après être arrivé en $s'$, l'agent choisit l'action qui maximise la valeur future. C'est pour cela que la cible contient
+\[
+\max_{a'}Q(S_{t+1},a').
+\]
+
+\begin{remarque}
+Cette maximisation définit une cible \emph{greedy}. Même si l'agent se comporte avec une politique exploratoire, la cible d'apprentissage correspond à la politique optimale recherchée.
+\end{remarque}
+
+\section{Caractère off-policy}
+
+\begin{definition}[Off-policy]
+Un algorithme est dit off-policy si la politique utilisée pour générer les données peut être différente de la politique implicitement évaluée ou améliorée.
+\end{definition}
+
+Q-Learning est off-policy car :
+\begin{itemize}[leftmargin=1.6em]
+    \item les données peuvent être générées par une politique $\epsilon$-greedy, ou toute autre politique suffisamment exploratoire ;
+    \item la cible utilise malgré tout
+    \[
+    \max_{a'}Q(S_{t+1},a'),
+    \]
+    c'est-à-dire la politique greedy associée à $Q$.
+\end{itemize}
+
+\section{Convergence : idée générale}
+
+Dans le cadre tabulaire fini, avec :
+\begin{itemize}[leftmargin=1.6em]
+    \item exploration suffisante ;
+    \item pas d'apprentissage $(\alpha_t)$ vérifiant les conditions de Robbins-Monro
+    \[
+    \sum_t \alpha_t = \infty,
+    \qquad
+    \sum_t \alpha_t^2 < \infty ;
+    \]
+    \item récompenses bornées ;
+\end{itemize}
+Q-Learning converge vers $q_*$.
+
+\paragraph{Idée mathématique.}
+La mise à jour est une approximation stochastique du point fixe
+\[
+Q=T_*Q.
+\]
+Comme $T_*$ est une contraction pour la norme infinie dans le cadre actualisé $\gamma<1$, les corrections aléatoires convergent vers l'unique point fixe.
+
+\section{Algorithme pas à pas}
+
+\begin{enumerate}[leftmargin=1.8em]
+    \item Initialiser $Q(s,a)$, par exemple à $0$.
+    \item Choisir une politique de comportement, souvent $\epsilon$-greedy par rapport à $Q$.
+    \item À chaque étape, observer $(S_t,A_t,R_{t+1},S_{t+1})$.
+    \item Calculer la cible
+    \[
+    y_t = R_{t+1}+\gamma \max_{a'} Q(S_{t+1},a').
+    \]
+    \item Mettre à jour
+    \[
+    Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha(y_t-Q(S_t,A_t)).
+    \]
+    \item Répéter jusqu'à stabilisation de $Q$ ou jusqu'à un budget d'épisodes fixé.
+\end{enumerate}
+
+\section{Application à FrozenLake}
+
+\subsection{Pourquoi FrozenLake convient}
+
+FrozenLake possède :
+\begin{itemize}[leftmargin=1.6em]
+    \item un nombre fini d'états ;
+    \item quatre actions discrètes ;
+    \item des transitions stochastiques si \texttt{is\_slippery=True} ;
+    \item une récompense rare : $1$ à l'arrivée, $0$ sinon.
+\end{itemize}
+C'est donc un exemple classique pour l'apprentissage tabulaire.
+
+\subsection{Cas non glissant}
+
+Quand \texttt{is\_slippery=False}, la transition est déterministe. La cible observée
+\[
+R_{t+1}+\gamma \max_{a'}Q(S_{t+1},a')
+\]
+est plus stable, donc l'apprentissage est plus rapide.
+
+\subsection{Cas glissant}
+
+Quand \texttt{is\_slippery=True}, la même action peut conduire à plusieurs états suivants. L'espérance exacte n'est pas calculée explicitement, mais les échantillons successifs finissent par l'approcher. C'est précisément le principe de Q-Learning.
+
+\subsection{Lecture pédagogique}
+
+Dans une interface FrozenLake, on peut :
+\begin{itemize}[leftmargin=1.6em]
+    \item afficher dans chaque case les quatre valeurs $Q(s,a)$ ;
+    \item déduire la politique greedy
+    \[
+    \pi_{\text{greedy}}(s)=\argmax_a Q(s,a) ;
+    \]
+    \item comparer l'évolution de l'apprentissage entre la version glissante et la version non glissante.
+\end{itemize}
+
+\section{Résumé}
+
+Q-Learning provient directement de l'équation d'optimalité de Bellman en remplaçant l'espérance par une transition échantillonnée et en conservant le maximum sur l'action future. Sa mise à jour
+\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma \max_{a'}Q(S_{t+1},a')-Q(S_t,A_t)\right]
+\]
+est une correction incrémentale vers le point fixe optimal. Dans FrozenLake, il apprend progressivement quelles actions augmentent la probabilité d'atteindre la case but.
+
+\end{document}

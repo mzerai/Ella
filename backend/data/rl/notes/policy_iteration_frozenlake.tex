@@ -1,0 +1,292 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+
+\geometry{margin=2.2cm}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{lightaccent}{HTML}{EAF2F8}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Cours Deep Reinforcement Learning}
+\chead{\small Classe : 4IA}
+\rhead{\small Année : 2026}
+\lfoot{\small Enseignant : Mourad Zéraï, PhD - ESPRIT School of Engineering}
+\cfoot{}
+\rfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{accent}}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
+
+\newtheorem*{definition}{Définition}
+\newtheorem*{rappel}{Rappel}
+\newtheorem*{hypothese}{Hypothèse}
+\newtheorem*{propriete}{Propriété}
+\newtheorem*{theoreme}{Théorème}
+\newtheorem*{remarque}{Remarque}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pbb}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\argmax}{\operatorname*{argmax}}
+\newcommand{\given}{\,|\,}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Dérivation et explication pas à pas de Policy Iteration}\\[0.4em]
+    {\large Note de cours rigoureuse, détaillée et appliquée à FrozenLake}
+\end{center}
+
+\vspace{0.6em}
+
+\section{Objectif}
+
+Le but de cette note est d'expliquer rigoureusement \emph{Policy Iteration}, d'en justifier les deux briques mathématiques - évaluation de politique et amélioration de politique - puis d'en montrer l'application à FrozenLake.
+
+\section{Cadre et définitions}
+
+On considère un MDP fini avec $\gamma\in[0,1)$.
+
+\begin{definition}[Valeur d'une politique]
+Pour une politique $\pi$,
+\[
+v_{\pi}(s)=\E_{\pi}[G_t \given S_t=s].
+\]
+\end{definition}
+
+\begin{definition}[Valeur état-action associée à $\pi$]
+\[
+q_{\pi}(s,a)=\sum_{s',r} p(s',r\given s,a)\left[r+\gamma v_{\pi}(s')\right].
+\]
+\end{definition}
+
+\begin{definition}[Politique gloutonne par rapport à $v$]
+Une politique $\pi'$ est dite gloutonne par rapport à une fonction $v$ si, pour tout état $s$,
+\[
+\pi'(s)\in \argmax_a \sum_{s',r} p(s',r\given s,a)\left[r+\gamma v(s')\right].
+\]
+\end{definition}
+
+Policy Iteration alterne :
+\begin{enumerate}[leftmargin=1.6em]
+    \item une phase d'évaluation exacte de la politique courante ;
+    \item une phase d'amélioration gloutonne.
+\end{enumerate}
+
+\section{Étape 1 : évaluation de politique}
+
+\subsection{Équation vérifiée par $v_{\pi}$}
+
+Pour une politique fixée $\pi$,
+\[
+v_{\pi}(s)=\sum_a \pi(a\given s)\sum_{s',r} p(s',r\given s,a)\left[r+\gamma v_{\pi}(s')\right].
+\]
+C'est l'équation de Bellman d'espérance.
+
+\subsection{Forme opérateur}
+
+On définit l'opérateur
+\[
+(T_{\pi}v)(s)=\sum_a \pi(a\given s)\sum_{s',r} p(s',r\given s,a)\left[r+\gamma v(s')\right].
+\]
+Alors
+\[
+v_{\pi}=T_{\pi}v_{\pi}.
+\]
+
+\subsection{Justification de la convergence de l'évaluation}
+
+Comme pour Value Iteration, on montre que $T_{\pi}$ est une contraction.
+
+\begin{theoreme}
+Pour tous $v,w$,
+\[
+\|T_{\pi}v-T_{\pi}w\|_{\infty}\le \gamma\|v-w\|_{\infty}.
+\]
+\end{theoreme}
+
+\paragraph{Justification.}
+Pour un état $s$,
+\begin{align*}
+|(T_{\pi}v)(s)-(T_{\pi}w)(s)|
+&= \left|\sum_a \pi(a\given s)\sum_{s',r}p(s',r\given s,a)\gamma\left[v(s')-w(s')\right]\right| \\
+&\le \sum_a \pi(a\given s)\sum_{s',r}p(s',r\given s,a)\gamma |v(s')-w(s')| \\
+&\le \gamma \|v-w\|_{\infty}\sum_a \pi(a\given s)\sum_{s',r}p(s',r\given s,a).
+\end{align*}
+Comme $\sum_a \pi(a\given s)=1$ et $\sum_{s',r}p(s',r\given s,a)=1$, on obtient
+\[
+|(T_{\pi}v)(s)-(T_{\pi}w)(s)|\le \gamma\|v-w\|_{\infty}.
+\]
+Puis on prend le maximum en $s$.
+
+Donc l'itération
+\[
+v^{(k+1)}=T_{\pi}v^{(k)}
+\]
+converge vers l'unique point fixe $v_{\pi}$.
+
+\section{Étape 2 : amélioration de politique}
+
+\subsection{Principe}
+
+Une fois $v_{\pi}$ calculée, on définit une nouvelle politique $\pi'$ gloutonne :
+\[
+\pi'(s)\in\argmax_a \sum_{s',r}p(s',r\given s,a)\left[r+\gamma v_{\pi}(s')\right].
+\]
+
+\subsection{Pourquoi cette politique est meilleure}
+
+Le résultat central est le théorème d'amélioration de politique.
+
+\begin{theoreme}[Policy Improvement]
+Si, pour tout état $s$,
+\[
+q_{\pi}(s,\pi'(s)) \ge v_{\pi}(s),
+\]
+alors
+\[
+v_{\pi'}(s)\ge v_{\pi}(s)\qquad \text{pour tout } s.
+\]
+\end{theoreme}
+
+\paragraph{Justification pas à pas.}
+Comme $\pi'$ est gloutonne par rapport à $v_{\pi}$,
+\[
+q_{\pi}(s,\pi'(s)) = \max_a q_{\pi}(s,a)\ge q_{\pi}(s,\pi(s))=v_{\pi}(s).
+\]
+Le dernier passage vient de l'identité
+\[
+v_{\pi}(s)=q_{\pi}(s,\pi(s))
+\]
+dans le cas d'une politique déterministe. Plus généralement,
+\[
+v_{\pi}(s)=\sum_a \pi(a\given s)q_{\pi}(s,a).
+\]
+
+On a donc
+\[
+v_{\pi}(s)\le \E_{\pi'}[R_{t+1}+\gamma v_{\pi}(S_{t+1})\given S_t=s].
+\]
+On réinjecte cette inégalité à l'instant suivant, puis encore, puis encore. On obtient une suite d'inégalités emboîtées qui, après itération, donne
+\[
+v_{\pi}(s)\le \E_{\pi'}\!\left[\sum_{k=0}^{n-1}\gamma^k R_{t+k+1}+\gamma^n v_{\pi}(S_{t+n}) \middle\vert S_t=s\right].
+\]
+Sous l'hypothèse $\gamma<1$ et avec des récompenses bornées, le terme résiduel $\gamma^n v_{\pi}(S_{t+n})$ tend vers $0$ lorsque $n\to\infty$. En passant à la limite, on obtient
+\[
+v_{\pi}(s)\le \E_{\pi'}[G_t\given S_t=s]=v_{\pi'}(s).
+\]
+
+\section{Algorithme complet}
+
+\subsection{Initialisation}
+
+On choisit une politique initiale $\pi_0$.
+
+\subsection{Boucle principale}
+
+À l'itération $k$ :
+
+\begin{enumerate}[leftmargin=1.6em]
+    \item \textbf{Évaluation} : calculer exactement ou numériquement $v_{\pi_k}$.
+    \item \textbf{Amélioration} : définir
+    \[
+    \pi_{k+1}(s)\in \argmax_a \sum_{s',r} p(s',r\given s,a)\left[r+\gamma v_{\pi_k}(s')\right].
+    \]
+\end{enumerate}
+
+\subsection{Critère d'arrêt}
+
+Si $\pi_{k+1}=\pi_k$, alors la politique est stable. Dans un MDP fini, une politique stable est optimale.
+
+\section{Pourquoi une politique stable est optimale}
+
+Si $\pi$ est stable, alors pour tout état
+\[
+\pi(s)\in \argmax_a \sum_{s',r}p(s',r\given s,a)\left[r+\gamma v_{\pi}(s')\right].
+\]
+Donc
+\[
+v_{\pi}(s)=\max_a \sum_{s',r}p(s',r\given s,a)\left[r+\gamma v_{\pi}(s')\right].
+\]
+Autrement dit, $v_{\pi}$ satisfait l'équation d'optimalité de Bellman. Par unicité du point fixe de l'opérateur optimal, on en déduit
+\[
+v_{\pi}=v_*.
+\]
+Donc $\pi$ est optimale.
+
+\section{Application à FrozenLake}
+
+\subsection{Politique initiale}
+
+Dans FrozenLake 4x4, on peut initialiser par exemple une politique uniforme :
+\[
+\pi_0(a\given s)=\frac14
+\]
+sur les états non terminaux, ou une politique déterministe arbitraire.
+
+\subsection{Évaluation dans FrozenLake}
+
+Comme le modèle de transition est connu via \texttt{env.unwrapped.P}, on peut évaluer exactement la politique par itération de Bellman :
+\[
+v^{(k+1)}(s)=\sum_a \pi(a\given s)\sum_i p_i\left[r_i+\gamma v^{(k)}(s'_i)\right].
+\]
+
+\subsection{Amélioration dans FrozenLake}
+
+Pour chaque case $s$ et action $a$ :
+\[
+q_{\pi}(s,a)=\sum_i p_i\left[r_i+\gamma v_{\pi}(s'_i)\right].
+\]
+Puis on choisit l'action de plus grande valeur.
+
+\subsection{Effet du mode glissant}
+
+En mode glissant, une action n'entraîne pas toujours la case désirée. L'amélioration de politique tient compte de ce risque. Une case proche d'un trou peut devenir moins attractive si une glissade y mène souvent.
+
+\section{Pseudo-code pédagogique}
+
+\begin{verbatim}
+Choisir une politique initiale pi
+
+Répéter :
+    Evaluer pi jusqu'à convergence pour obtenir v_pi
+
+    policy_stable = True
+    pour chaque état s :
+        old_action = pi(s)
+        pi(s) = argmax_a somme_{s',r} p(s',r|s,a)[r + gamma v_pi(s')]
+        si pi(s) != old_action :
+            policy_stable = False
+Jusqu'à ce que policy_stable soit vraie
+\end{verbatim}
+
+\section{Ce qu'il faut retenir}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item Policy Iteration sépare clairement \emph{évaluation} et \emph{amélioration}.
+    \item L'évaluation repose sur l'opérateur $T_{\pi}$, qui est une contraction.
+    \item L'amélioration gloutonne ne détériore jamais la politique et l'améliore souvent strictement.
+    \item Une politique stable est optimale.
+    \item Dans FrozenLake, l'algorithme est particulièrement transparent car le MDP est fini et le modèle est explicite.
+\end{itemize}
+
+\end{document}

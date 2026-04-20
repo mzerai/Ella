@@ -1,0 +1,260 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{colortbl}
+
+\geometry{margin=2.2cm}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{lightaccent}{HTML}{EAF2F8}
+\definecolor{lightgray}{HTML}{F7F7F7}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Cours Deep Reinforcement Learning}
+\chead{\small Classe : 4IA}
+\rhead{\small Année : 2026}
+\lfoot{\small Enseignant : Mourad Zéraï, PhD - ESPRIT School of Engineering}
+\cfoot{}
+\rfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{accent}}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
+
+\newtheorem*{definition}{Définition}
+\newtheorem*{rappel}{Rappel}
+\newtheorem*{hypothese}{Hypothèse}
+\newtheorem*{propriete}{Propriété}
+\newtheorem*{theoreme}{Théorème}
+\newtheorem*{remarque}{Remarque}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pbb}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\argmax}{\operatorname*{argmax}}
+\newcommand{\given}{\,|\,}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Synthèse comparative de huit algorithmes de reinforcement learning}\\[0.4em]
+    {\large Note de cours de synthèse avec application et lecture pédagogique pour FrozenLake}
+\end{center}
+
+\vspace{0.6em}
+
+\section{Objectif}
+
+Cette note synthétise huit algorithmes vus dans le cours :
+\begin{itemize}[leftmargin=1.6em]
+    \item Value Iteration ;
+    \item Policy Iteration ;
+    \item Monte Carlo Control ;
+    \item TD(0) ;
+    \item SARSA ;
+    \item Q-Learning ;
+    \item Double Q-Learning ;
+    \item DQN.
+\end{itemize}
+
+Le but est de les comparer selon leur nature mathématique, leur type d'apprentissage et leur pertinence pour FrozenLake.
+
+\section{Rappel des grandes familles}
+
+\subsection{Planification à partir d'un modèle}
+
+Value Iteration et Policy Iteration supposent que l'on dispose du modèle du MDP, c'est-à-dire des probabilités de transition et des récompenses. Ils calculent alors directement des fonctions de valeur ou des politiques en résolvant des équations de Bellman.
+
+\subsection{Méthodes d'échantillonnage tabulaires}
+
+Monte Carlo Control, TD(0), SARSA, Q-Learning et Double Q-Learning apprennent à partir de transitions ou d'épisodes observés. Ils conviennent très bien à FrozenLake car l'espace d'états est petit.
+
+\subsection{Approximation profonde}
+
+DQN remplace la table $Q(s,a)$ par un réseau de neurones. L'idée est essentielle en deep reinforcement learning, mais FrozenLake est trop petit pour que ce soit la solution la plus naturelle.
+
+\section{Tableau comparatif}
+
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{longtable}{>{\raggedright\arraybackslash}p{2.8cm}
+                  >{\centering\arraybackslash}p{1.6cm}
+                  >{\centering\arraybackslash}p{1.8cm}
+                  >{\centering\arraybackslash}p{1.8cm}
+                  >{\centering\arraybackslash}p{1.6cm}
+                  >{\centering\arraybackslash}p{1.2cm}
+                  >{\centering\arraybackslash}p{2.4cm}}
+\rowcolor{lightaccent}
+\textbf{Algorithme} & \textbf{Modèle} & \textbf{On-policy} & \textbf{Off-policy} & \textbf{Tabulaire} & \textbf{Deep} & \textbf{Adapté à FrozenLake} \\
+\midrule
+\endfirsthead
+
+\rowcolor{lightaccent}
+\textbf{Algorithme} & \textbf{Modèle} & \textbf{On-policy} & \textbf{Off-policy} & \textbf{Tabulaire} & \textbf{Deep} & \textbf{Adapté à FrozenLake} \\
+\midrule
+\endhead
+
+Value Iteration & Oui & Non applicable & Non applicable & Oui & Non & Excellent si le modèle est connu \\
+Policy Iteration & Oui & Non applicable & Non applicable & Oui & Non & Excellent si le modèle est connu \\
+Monte Carlo Control & Non & Oui, en version classique & Non, en version classique & Oui & Non & Très bon, surtout pour comprendre l'apprentissage par épisodes \\
+TD(0) & Non & Oui pour l'évaluation d'une politique fixée & Non applicable dans sa forme de base & Oui & Non & Très bon pour illustrer l'évaluation de politique \\
+SARSA & Non & Oui & Non & Oui & Non & Très bon, surtout en mode glissant \\
+Q-Learning & Non & Non & Oui & Oui & Non & Excellent comme référence tabulaire \\
+Double Q-Learning & Non & Non & Oui & Oui & Non & Très bon pour expliquer la surestimation du maximum \\
+DQN & Non & Généralement non & Oui & Non & Oui & Possible pédagogiquement, mais excessif pour un si petit MDP \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\section{Lecture ligne par ligne}
+
+\subsection{Colonne ``Modèle''}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item \textbf{Oui} signifie que l'algorithme a besoin de la dynamique du MDP.
+    \item \textbf{Non} signifie qu'il apprend à partir d'échantillons.
+\end{itemize}
+
+Value Iteration et Policy Iteration sont donc des méthodes de planification. Les six autres sont des méthodes de learning.
+
+\subsection{Colonnes ``On-policy'' et ``Off-policy''}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item Un algorithme \emph{on-policy} apprend sur la politique qui génère effectivement les données.
+    \item Un algorithme \emph{off-policy} apprend une autre politique que celle utilisée pour explorer.
+\end{itemize}
+
+\paragraph{Cas particuliers.}
+Pour Value Iteration et Policy Iteration, la distinction on-policy/off-policy n'est pas vraiment la bonne, car ces algorithmes manipulent directement le modèle au lieu d'apprendre à partir de trajectoires.
+
+\subsection{Colonne ``Tabulaire''}
+
+FrozenLake possède peu d'états et peu d'actions. Les représentations tabulaires sont donc naturelles :
+\[
+V(s), \qquad Q(s,a).
+\]
+DQN n'est pas tabulaire car il remplace la table par un réseau de neurones.
+
+\subsection{Colonne ``Deep''}
+
+Seul DQN relève explicitement du deep reinforcement learning dans cette liste. Les autres méthodes peuvent toutefois inspirer leurs versions profondes.
+
+\section{Forces et limites des huit algorithmes}
+
+\subsection{Value Iteration}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item \textbf{Force :} conceptuellement propre, directement relié à Bellman optimal.
+    \item \textbf{Limite :} exige le modèle.
+    \item \textbf{FrozenLake :} excellent pour visualiser $v_*(s)$ ou $q_*(s,a)$ exactement.
+\end{itemize}
+
+\subsection{Policy Iteration}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item \textbf{Force :} sépare clairement évaluation et amélioration.
+    \item \textbf{Limite :} exige le modèle ou une évaluation suffisamment précise.
+    \item \textbf{FrozenLake :} excellent pour montrer la suite des politiques successives.
+\end{itemize}
+
+\subsection{Monte Carlo Control}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item \textbf{Force :} très intuitif ; utilise les retours complets.
+    \item \textbf{Limite :} attend la fin des épisodes ; variance souvent élevée.
+    \item \textbf{FrozenLake :} bien adapté, car l'environnement est épisodique.
+\end{itemize}
+
+\subsection{TD(0)}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item \textbf{Force :} met à jour immédiatement ; simple à implémenter.
+    \item \textbf{Limite :} n'apprend que l'évaluation d'une politique dans sa forme de base.
+    \item \textbf{FrozenLake :} très utile pour montrer le bootstrap.
+\end{itemize}
+
+\subsection{SARSA}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item \textbf{Force :} on-policy ; prend en compte la politique exploratoire réellement suivie.
+    \item \textbf{Limite :} peut apprendre plus prudemment.
+    \item \textbf{FrozenLake :} particulièrement intéressant en version glissante, où une politique prudente a du sens.
+\end{itemize}
+
+\subsection{Q-Learning}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item \textbf{Force :} très standard ; converge vers l'optimum tabulaire sous hypothèses classiques.
+    \item \textbf{Limite :} surestimation possible à cause du maximum.
+    \item \textbf{FrozenLake :} excellent point de comparaison de base.
+\end{itemize}
+
+\subsection{Double Q-Learning}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item \textbf{Force :} réduit la surestimation de Q-Learning.
+    \item \textbf{Limite :} un peu plus lourd à expliquer et à implémenter.
+    \item \textbf{FrozenLake :} très instructif quand le caractère stochastique induit un bruit important.
+\end{itemize}
+
+\subsection{DQN}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item \textbf{Force :} passage aux grands espaces d'états.
+    \item \textbf{Limite :} complexité bien plus forte ; besoin de stabilisateurs comme replay buffer et target network.
+    \item \textbf{FrozenLake :} faisable à titre pédagogique, mais peu naturel par rapport à la simplicité du problème.
+\end{itemize}
+
+\section{Quel ordre pédagogique recommander sur FrozenLake ?}
+
+Un ordre cohérent est :
+\begin{enumerate}[leftmargin=1.8em]
+    \item Value Iteration ;
+    \item Policy Iteration ;
+    \item TD(0) ;
+    \item Monte Carlo Control ;
+    \item SARSA ;
+    \item Q-Learning ;
+    \item Double Q-Learning ;
+    \item DQN.
+\end{enumerate}
+
+\paragraph{Pourquoi cet ordre ?}
+On part d'abord des équations exactes de Bellman avec modèle, puis on passe progressivement :
+\begin{itemize}[leftmargin=1.6em]
+    \item à l'évaluation par échantillons ;
+    \item au contrôle tabulaire ;
+    \item enfin à l'approximation profonde.
+\end{itemize}
+
+\section{Résumé}
+
+Les huit algorithmes se répartissent en trois familles :
+\begin{itemize}[leftmargin=1.6em]
+    \item \textbf{planification avec modèle :} Value Iteration, Policy Iteration ;
+    \item \textbf{apprentissage tabulaire par échantillons :} Monte Carlo Control, TD(0), SARSA, Q-Learning, Double Q-Learning ;
+    \item \textbf{deep RL :} DQN.
+\end{itemize}
+
+Pour FrozenLake, les algorithmes tabulaires et les méthodes à base de modèle sont les plus naturels. DQN y reste utile surtout comme pont conceptuel vers des problèmes plus riches.
+
+\end{document}

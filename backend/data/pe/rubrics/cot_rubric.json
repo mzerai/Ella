@@ -1,0 +1,26 @@
+{
+  "rubric_id": "cot",
+  "extends": "base",
+  "extra_criteria": [
+    {
+      "id": "decomposition",
+      "title": {"fr": "Décomposition explicite", "en": "Explicit Decomposition"},
+      "max": 2,
+      "levels": {
+        "0": {"fr": "Aucune demande de raisonnement étape par étape", "en": "No step-by-step reasoning requested"},
+        "1": {"fr": "Mention vague de 'réfléchir' sans structure", "en": "Vague mention of 'think' without structure"},
+        "2": {"fr": "Demande explicite de raisonnement structuré étape par étape", "en": "Explicit request for structured step-by-step reasoning"}
+      }
+    },
+    {
+      "id": "reasoning_quality",
+      "title": {"fr": "Qualité du raisonnement obtenu", "en": "Reasoning Quality Obtained"},
+      "max": 2,
+      "levels": {
+        "0": {"fr": "Le LLM n'a pas montré ses étapes", "en": "The LLM did not show its steps"},
+        "1": {"fr": "Raisonnement partiel ou étapes manquantes", "en": "Partial reasoning or missing steps"},
+        "2": {"fr": "Raisonnement complet et étapes clairement articulées", "en": "Complete reasoning with clearly articulated steps"}
+      }
+    }
+  ]
+}

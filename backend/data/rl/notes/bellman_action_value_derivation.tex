@@ -1,0 +1,344 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{microtype}
+
+\geometry{margin=2.2cm}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{lightaccent}{HTML}{EAF2F8}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Cours Deep Reinforcement Learning}
+\chead{\small Classe : 4IA}
+\rhead{\small Année : 2026}
+\lfoot{\small Enseignant : Mourad Zéraï, PhD - ESPRIT School of Engineering}
+\cfoot{}
+\rfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{accent}}{\thesubsection.}{0.5em}{}
+
+\newtheorem*{definition}{Définition}
+\newtheorem*{rappel}{Rappel}
+\newtheorem*{hypothese}{Hypothèse}
+\newtheorem*{propriete}{Propriété}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pbb}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\given}{\,|\,}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Dérivation de l'équation de Bellman pour la fonction état-action $q_{\pi}$}\\[0.4em]
+    {\large Note de cours rigoureuse et détaillée}
+\end{center}
+
+\vspace{0.6em}
+
+\section{Objectif}
+
+Le but de cette note est de dériver, pas à pas, l'équation de Bellman vérifiée par la fonction état-action associée à une politique $\pi$, à savoir
+\[
+q_{\pi}(s,a) = \E_{\pi}\!\left[R_{t+1} + \gamma q_{\pi}(S_{t+1},A_{t+1}) \middle\vert S_t=s, A_t=a\right].
+\]
+Nous justifierons chaque passage à partir des définitions fondamentales, de la décomposition du retour, de la linéarité de l'espérance conditionnelle, de la loi de l'espérance totale et de la propriété de Markov.
+
+\section{Cadre probabiliste et notations}
+
+\begin{hypothese}
+On considère un processus de décision markovien (MDP) à temps discret. Pour chaque date $t \in \mathbb{N}$ :
+\begin{itemize}[leftmargin=1.6em]
+    \item $S_t$ désigne l'état à l'instant $t$ ;
+    \item $A_t$ désigne l'action choisie à l'instant $t$ ;
+    \item $R_{t+1}$ désigne la récompense reçue après avoir exécuté $A_t$ en $S_t$ ;
+    \item $\gamma \in [0,1)$ est le facteur d'actualisation.
+\end{itemize}
+La politique $\pi$ est une loi conditionnelle sur les actions :
+\[
+\pi(a\given s) = \Pbb(A_t=a \given S_t=s).
+\]
+\end{hypothese}
+
+\begin{definition}[Retour]
+Le retour à partir de l'instant $t$ est la variable aléatoire
+\[
+G_t = \sum_{k=0}^{\infty} \gamma^k R_{t+k+1},
+\]
+sous réserve que cette série soit bien définie, ce qui est le cas par exemple si les récompenses sont bornées et si $\gamma \in [0,1)$.
+\end{definition}
+
+\begin{definition}[Fonction état-action]
+La fonction état-action sous la politique $\pi$ est définie par
+\[
+q_{\pi}(s,a) = \E_{\pi}[G_t \given S_t=s, A_t=a].
+\]
+Autrement dit, $q_{\pi}(s,a)$ est le retour espéré quand on se trouve dans l'état $s$, que l'on impose l'action initiale $a$, puis que l'on suit ensuite la politique $\pi$.
+\end{definition}
+
+\section{Formule de départ}
+
+Partons de la définition :
+\[
+q_{\pi}(s,a) = \E_{\pi}[G_t \given S_t=s, A_t=a].
+\]
+La première étape consiste à décomposer le retour $G_t$.
+
+\subsection{Décomposition récursive du retour}
+
+\begin{propriete}
+Pour tout $t$,
+\[
+G_t = R_{t+1} + \gamma G_{t+1}.
+\]
+\end{propriete}
+
+\paragraph{Justification.}
+En partant de la définition du retour,
+\[
+G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots.
+\]
+On factorise tous les termes à partir du second par $\gamma$ :
+\[
+G_t = R_{t+1} + \gamma\left(R_{t+2} + \gamma R_{t+3} + \gamma^2 R_{t+4} + \cdots\right).
+\]
+Or, par définition même du retour à l'instant suivant,
+\[
+G_{t+1} = R_{t+2} + \gamma R_{t+3} + \gamma^2 R_{t+4} + \cdots.
+\]
+Donc
+\[
+G_t = R_{t+1} + \gamma G_{t+1}.
+\]
+
+\section{Substitution dans la définition de $q_{\pi}$}
+
+En remplaçant $G_t$ par son expression récursive dans la définition de $q_{\pi}$, on obtient
+\begin{align*}
+q_{\pi}(s,a)
+&= \E_{\pi}[G_t \given S_t=s, A_t=a] \\
+&= \E_{\pi}[R_{t+1} + \gamma G_{t+1} \given S_t=s, A_t=a].
+\end{align*}
+
+\subsection{Utilisation de la linéarité de l'espérance conditionnelle}
+
+\begin{propriete}[Linéarité]
+Si $X$ et $Y$ sont intégrables et si $c \in \R$, alors
+\[
+\E[X + cY \given \mathcal{F}] = \E[X \given \mathcal{F}] + c\,\E[Y \given \mathcal{F}].
+\]
+\end{propriete}
+
+On applique cette propriété avec
+\[
+X = R_{t+1}, \qquad Y = G_{t+1}, \qquad c = \gamma,
+\]
+et avec la tribu engendrée par l'information ``$S_t=s, A_t=a$''. Il vient
+\begin{align*}
+q_{\pi}(s,a)
+&= \E_{\pi}[R_{t+1} \given S_t=s, A_t=a]
++ \gamma\,\E_{\pi}[G_{t+1} \given S_t=s, A_t=a].
+\end{align*}
+
+Cette forme est correcte, mais elle ne fait pas encore apparaître explicitement l'état suivant $S_{t+1}$ ni l'action suivante $A_{t+1}$. Il faut donc raffiner la seconde espérance conditionnelle.
+
+\section{Conditionnement supplémentaire sur la transition suivante}
+
+On s'intéresse au terme
+\[
+\E_{\pi}[G_{t+1} \given S_t=s, A_t=a].
+\]
+Pour faire apparaître l'état et l'action au temps $t+1$, on utilise la loi de l'espérance totale sous forme conditionnelle.
+
+\begin{propriete}[Loi de l'espérance totale]
+Si $X$ est intégrable et si $Y,Z$ sont des variables aléatoires, alors
+\[
+\E[X \given Y] = \E\big[\E[X \given Y,Z] \given Y\big].
+\]
+Dans un cadre discret, cela s'écrit aussi sous forme de somme pondérée par les probabilités conditionnelles.
+\end{propriete}
+
+En appliquant cette formule avec
+\[
+X = G_{t+1}, \qquad Y=(S_t,A_t), \qquad Z=(S_{t+1},A_{t+1}),
+\]
+on obtient
+\[
+\E_{\pi}[G_{t+1} \given S_t=s, A_t=a]
+=
+\E_{\pi}\!\left[\E_{\pi}[G_{t+1} \given S_t=s, A_t=a, S_{t+1}, A_{t+1}] \middle\vert S_t=s, A_t=a\right].
+\]
+
+Dans un espace d'états et d'actions discret, cette identité devient
+\begin{align*}
+\E_{\pi}[G_{t+1} \given S_t=s, A_t=a]
+&= \sum_{s',a'} \Pbb_{\pi}(S_{t+1}=s', A_{t+1}=a' \given S_t=s, A_t=a) \\
+&\hspace{2em} \times \E_{\pi}[G_{t+1} \given S_t=s, A_t=a, S_{t+1}=s', A_{t+1}=a'].
+\end{align*}
+
+\section{Utilisation de la propriété de Markov}
+
+Le point clé est maintenant le suivant.
+
+\begin{propriete}[Propriété de Markov]
+Dans un MDP, conditionnellement à l'état courant et à l'action courante, la loi de la transition suivante ne dépend pas du passé complet. Plus précisément, la loi de $(S_{t+1},R_{t+1})$ conditionnée par l'histoire ne dépend que de $(S_t,A_t)$.
+
+De plus, à partir de l'instant $t+1$, si l'on connaît $S_{t+1}$ et l'action suivante $A_{t+1}$, l'espérance du retour futur ne dépend plus de $(S_t,A_t)$.
+\end{propriete}
+
+Ainsi,
+\[
+\E_{\pi}[G_{t+1} \given S_t=s, A_t=a, S_{t+1}=s', A_{t+1}=a']
+=
+\E_{\pi}[G_{t+1} \given S_{t+1}=s', A_{t+1}=a'].
+\]
+Par définition de la fonction état-action, mais appliquée à l'instant $t+1$ au lieu de $t$,
+\[
+\E_{\pi}[G_{t+1} \given S_{t+1}=s', A_{t+1}=a'] = q_{\pi}(s',a').
+\]
+Donc
+\[
+\E_{\pi}[G_{t+1} \given S_t=s, A_t=a]
+= \sum_{s',a'} \Pbb_{\pi}(s',a' \given s,a)\, q_{\pi}(s',a').
+\]
+Ici, pour alléger l'écriture,
+\[
+\Pbb_{\pi}(s',a' \given s,a)
+:= \Pbb_{\pi}(S_{t+1}=s', A_{t+1}=a' \given S_t=s, A_t=a).
+\]
+
+\section{Retour à l'équation principale}
+
+En remplaçant ce résultat dans l'expression précédente de $q_{\pi}(s,a)$, on trouve
+\begin{align*}
+q_{\pi}(s,a)
+&= \E_{\pi}[R_{t+1} \given S_t=s, A_t=a]
++ \gamma \sum_{s',a'} \Pbb_{\pi}(s',a' \given s,a)\, q_{\pi}(s',a').
+\end{align*}
+
+Cette écriture est déjà une forme correcte de l'équation de Bellman pour $q_{\pi}$. Il reste à expliciter la probabilité conjointe sous la politique $\pi$.
+
+\section{Factorisation de la loi conjointe sous la politique}
+
+Sous une politique stationnaire $\pi$, une fois l'état suivant $S_{t+1}=s'$ réalisé, l'action suivante $A_{t+1}$ est tirée selon la loi $\pi(\cdot \given s')$. Par conséquent,
+\[
+\Pbb_{\pi}(S_{t+1}=s', A_{t+1}=a' \given S_t=s, A_t=a)
+=
+\Pbb(S_{t+1}=s' \given S_t=s, A_t=a)\,\pi(a'\given s').
+\]
+
+Si l'on note
+\[
+p(s'\given s,a) = \Pbb(S_{t+1}=s' \given S_t=s, A_t=a),
+\]
+alors
+\[
+\Pbb_{\pi}(s',a' \given s,a) = p(s'\given s,a)\,\pi(a'\given s').
+\]
+D'où
+\[
+q_{\pi}(s,a)
+= \E_{\pi}[R_{t+1} \given S_t=s, A_t=a]
++ \gamma \sum_{s',a'} p(s'\given s,a)\,\pi(a'\given s')\, q_{\pi}(s',a').
+\]
+
+\section{Incorporation explicite de la récompense immédiate}
+
+Dans un MDP général, la récompense peut dépendre de $s$, $a$, $s'$ et éventuellement de sa propre loi conditionnelle. Pour écrire l'équation la plus standard, on introduit la dynamique jointe
+\[
+p(s',r \given s,a) := \Pbb(S_{t+1}=s', R_{t+1}=r \given S_t=s, A_t=a).
+\]
+Alors, par définition de l'espérance d'une variable discrète,
+\[
+\E_{\pi}[R_{t+1} \given S_t=s, A_t=a]
+= \sum_{s',r} p(s',r \given s,a)\,r.
+\]
+En remplaçant ce terme, on obtient
+\[
+q_{\pi}(s,a)
+= \sum_{s',r} p(s',r \given s,a)\,r
++ \gamma \sum_{s',a'} p(s'\given s,a)\,\pi(a'\given s')\, q_{\pi}(s',a').
+\]
+
+On peut fusionner les deux sommes en une seule écriture plus compacte :
+\[
+q_{\pi}(s,a)
+= \sum_{s',r} p(s',r \given s,a)
+\left[r + \gamma \sum_{a'} \pi(a'\given s') q_{\pi}(s',a')\right].
+\]
+C'est la forme classique de l'équation de Bellman pour la fonction état-action.
+
+\section{Forme compacte via la fonction de valeur d'état}
+
+Rappelons que la fonction de valeur d'état est définie par
+\[
+v_{\pi}(s') = \E_{\pi}[G_{t+1} \given S_{t+1}=s'] = \sum_{a'} \pi(a'\given s') q_{\pi}(s',a').
+\]
+Cette identité provient encore d'une loi de l'espérance totale conditionnée sur l'action choisie dans l'état $s'$.
+
+On peut alors écrire l'équation de Bellman pour $q_{\pi}$ sous la forme
+\[
+q_{\pi}(s,a)
+= \sum_{s',r} p(s',r \given s,a)\left[r + \gamma v_{\pi}(s')\right].
+\]
+Cette écriture est souvent la plus lisible lorsque l'on veut faire apparaître le lien entre $q_{\pi}$ et $v_{\pi}$.
+
+\section{Résumé logique de la dérivation}
+
+La dérivation repose sur la chaîne d'idées suivante :
+\begin{enumerate}[leftmargin=1.8em]
+    \item on part de la définition
+    \[
+    q_{\pi}(s,a)=\E_{\pi}[G_t \given S_t=s,A_t=a];
+    \]
+    \item on utilise la décomposition récursive du retour
+    \[
+    G_t = R_{t+1} + \gamma G_{t+1};
+    \]
+    \item on applique la linéarité de l'espérance conditionnelle ;
+    \item on introduit $(S_{t+1},A_{t+1})$ via la loi de l'espérance totale ;
+    \item on remplace l'espérance conditionnelle du retour futur par $q_{\pi}(s',a')$ grâce à la propriété de Markov et à la définition de $q_{\pi}$ ;
+    \item on développe la loi jointe sous la politique par
+    \[
+    \Pbb_{\pi}(s',a'\given s,a)=p(s'\given s,a)\pi(a'\given s');
+    \]
+    \item on obtient finalement l'équation de Bellman pour la fonction état-action.
+\end{enumerate}
+
+\section{Formule finale}
+
+Les formes usuelles à retenir sont donc :
+\[
+q_{\pi}(s,a) = \E_{\pi}\!\left[R_{t+1} + \gamma q_{\pi}(S_{t+1},A_{t+1}) \middle\vert S_t=s, A_t=a\right],
+\]
+\[
+q_{\pi}(s,a)
+= \sum_{s',r} p(s',r \given s,a)
+\left[r + \gamma \sum_{a'} \pi(a'\given s') q_{\pi}(s',a')\right],
+\]
+et encore
+\[
+q_{\pi}(s,a)
+= \sum_{s',r} p(s',r \given s,a)\left[r + \gamma v_{\pi}(s')\right].
+\]
+
+\vspace{0.8em}
+
+\noindent\textbf{Remarque pédagogique.} La différence essentielle avec la dérivation de $v_{\pi}$ est que l'on conditionne ici au départ sur \emph{un couple} $(S_t,A_t)$, ce qui fait apparaître naturellement, à l'étape suivante, le couple $(S_{t+1},A_{t+1})$ et donc une moyenne sur la politique seulement à partir du temps $t+1$.
+
+\end{document}

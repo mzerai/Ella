@@ -1,0 +1,273 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+
+\geometry{margin=2.2cm}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{lightaccent}{HTML}{EAF2F8}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Cours Deep Reinforcement Learning}
+\chead{\small Classe : 4IA}
+\rhead{\small Année : 2026}
+\lfoot{\small Enseignant : Mourad Zéraï, PhD - ESPRIT School of Engineering}
+\cfoot{}
+\rfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{accent}}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
+
+\newtheorem*{definition}{Définition}
+\newtheorem*{rappel}{Rappel}
+\newtheorem*{hypothese}{Hypothèse}
+\newtheorem*{propriete}{Propriété}
+\newtheorem*{theoreme}{Théorème}
+\newtheorem*{remarque}{Remarque}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pbb}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\argmax}{\operatorname*{argmax}}
+\newcommand{\given}{\,|\,}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Dérivation et explication pas à pas de DQN, avec application à FrozenLake}\\[0.4em]
+    {\large Note de cours rigoureuse, détaillée et appliquée à FrozenLake}
+\end{center}
+
+\vspace{0.6em}
+
+\section{Objectif}
+
+Le but de cette note est d'expliquer \emph{Deep Q-Network} (DQN) comme prolongement de Q-learning lorsque l'on n'utilise plus une table $Q(s,a)$, mais un réseau de neurones $Q_{\theta}(s,a)$ paramétré par $\theta$. L'application à FrozenLake sera présentée dans un cadre pédagogique simple.
+
+\section{Pourquoi passer d'une table à un réseau}
+
+Dans un petit MDP comme FrozenLake 4x4, une table suffit :
+\[
+Q:\mathcal S\times\mathcal A\to\R.
+\]
+Mais lorsque le nombre d'états devient grand ou continu, stocker explicitement toutes les valeurs devient difficile. On remplace alors la table par une fonction paramétrée :
+\[
+Q_{\theta}(s,a).
+\]
+
+Dans FrozenLake, cette approche n'est pas nécessaire pour la performance, mais elle est utile pour illustrer le passage du RL tabulaire au DRL.
+
+\section{Point de départ : l'équation d'optimalité de Bellman pour $q_*$}
+
+La fonction état-action optimale vérifie
+\[
+q_*(s,a)=\E\!\left[R_{t+1}+\gamma \max_{a'} q_*(S_{t+1},a') \middle\vert S_t=s,A_t=a\right].
+\]
+Q-learning tabulaire utilise alors la cible échantillonnée
+\[
+Y_t = R_{t+1}+\gamma \max_{a'}Q(S_{t+1},a').
+\]
+
+DQN reprend la même idée, mais avec une approximation paramétrée.
+
+\section{Approximation par réseau}
+
+On choisit un réseau de neurones de paramètres $\theta$ qui reçoit l'état $s$ en entrée et produit les 4 valeurs d'action :
+\[
+Q_{\theta}(s,\cdot) = \big(Q_{\theta}(s,\text{Left}),Q_{\theta}(s,\text{Down}),Q_{\theta}(s,\text{Right}),Q_{\theta}(s,\text{Up})\big).
+\]
+
+Dans FrozenLake, une représentation naturelle est un encodage \emph{one-hot} de l'état : un vecteur de taille 16 avec un seul 1 à la position de l'état courant.
+
+\section{Construction de la cible DQN}
+
+Pour une transition $(s,a,r,s',\text{done})$, la cible DQN standard est
+\[
+y =
+\begin{cases}
+r & \text{si l'état suivant est terminal},\\[0.4em]
+r + \gamma \max_{a'} Q_{\theta^-}(s',a') & \text{sinon.}
+\end{cases}
+\]
+Ici $\theta^-$ désigne les paramètres du \emph{réseau cible}.
+
+\subsection{Pourquoi un réseau cible}
+
+Si l'on utilisait le même réseau pour prédire et pour fabriquer la cible, celle-ci bougerait à chaque pas. Le problème d'optimisation deviendrait très instable. Le réseau cible fournit donc une cible plus lente et plus stable.
+
+\section{Fonction de coût}
+
+On veut que la sortie du réseau pour l'action jouée se rapproche de la cible. On définit donc la perte quadratique
+\[
+L(\theta)=\frac12\left(y-Q_{\theta}(s,a)\right)^2.
+\]
+
+\subsection{Pourquoi cette perte}
+
+Si l'on cherchait exactement à satisfaire l'équation de Bellman optimale sur les données observées, on voudrait que
+\[
+Q_{\theta}(s,a)\approx y.
+\]
+La perte quadratique pénalise l'écart entre le membre gauche et le membre droit.
+
+\section{Gradient de la perte}
+
+En dérivant par rapport à $\theta$,
+\[
+\nabla_{\theta}L(\theta)
+= -\left(y-Q_{\theta}(s,a)\right)\nabla_{\theta}Q_{\theta}(s,a).
+\]
+C'est une application directe de la règle de dérivation de
+\[
+\frac12(u(\theta))^2,
+\]
+dont la dérivée vaut
+\[
+u(\theta)\nabla_{\theta}u(\theta).
+\]
+Ici
+\[
+u(\theta)=y-Q_{\theta}(s,a),
+\]
+et $y$ est traité comme constant lors de la descente de gradient sur le mini-lot courant.
+
+\section{Mise à jour des paramètres}
+
+Une étape de descente de gradient s'écrit
+\[
+\theta \leftarrow \theta - \eta \nabla_{\theta}L(\theta),
+\]
+d'où
+\[
+\theta \leftarrow \theta + \eta \left(y-Q_{\theta}(s,a)\right)\nabla_{\theta}Q_{\theta}(s,a).
+\]
+
+\paragraph{Interprétation.}
+Le terme
+\[
+y-Q_{\theta}(s,a)
+\]
+joue le rôle d'une erreur TD, mais dans un cadre différentiable.
+
+\section{Pourquoi utiliser l'expérience replay}
+
+Les transitions successives d'un épisode sont très corrélées. Or, les méthodes de gradient stochastique supposent des échantillons moins corrélés. On stocke donc les transitions dans une mémoire, puis on entraîne le réseau sur des mini-lots tirés aléatoirement.
+
+\begin{itemize}[leftmargin=1.6em]
+    \item cela casse partiellement les corrélations temporelles ;
+    \item cela réutilise plusieurs fois les mêmes expériences ;
+    \item cela stabilise l'entraînement.
+\end{itemize}
+
+\section{Boucle DQN pas à pas}
+
+\begin{enumerate}[leftmargin=1.6em]
+    \item observer l'état $s$ ;
+    \item choisir une action selon une politique $\varepsilon$-gloutonne basée sur $Q_{\theta}$ ;
+    \item exécuter l'action et observer $(r,s',\text{done})$ ;
+    \item stocker la transition dans la mémoire replay ;
+    \item échantillonner un mini-lot ;
+    \item construire pour chaque transition une cible $y$ avec le réseau cible ;
+    \item minimiser la perte quadratique ;
+    \item mettre à jour périodiquement $\theta^-$ à partir de $\theta$.
+\end{enumerate}
+
+\section{Application à FrozenLake}
+
+\subsection{Entrée du réseau}
+
+Pour FrozenLake 4x4, l'entrée peut être un vecteur one-hot de dimension 16 :
+\[
+x(s)\in\{0,1\}^{16}.
+\]
+Une architecture simple suffit, par exemple :
+\[
+16 \to 64 \to 64 \to 4.
+\]
+
+\subsection{Sortie du réseau}
+
+La sortie contient 4 nombres :
+\[
+Q_{\theta}(s,\text{Left}),\quad Q_{\theta}(s,\text{Down}),\quad Q_{\theta}(s,\text{Right}),\quad Q_{\theta}(s,\text{Up}).
+\]
+
+\subsection{Exemple de cible}
+
+Si l'on observe :
+\[
+s=5,\quad a=\text{Right},\quad r=0,\quad s'=6,\quad \text{done}=0,
+\]
+alors
+\[
+y=0+\gamma \max_{a'}Q_{\theta^-}(6,a').
+\]
+
+Si, au contraire, l'action atteint le but et termine l'épisode, alors
+\[
+y=1.
+\]
+
+\subsection{Effet du mode glissant}
+
+En mode glissant, la relation entre action demandée et état suivant est plus bruitée. DQN apprend alors à moyenner ce comportement stochastique à travers les transitions du replay buffer.
+
+\subsection{Remarque pédagogique}
+
+Sur FrozenLake, DQN n'est pas le choix le plus simple ni le plus efficace. Value Iteration, Policy Iteration, Monte Carlo, SARSA ou Q-learning tabulaire sont souvent plus transparents. Mais DQN est très utile pour montrer le passage vers les grands espaces d'états.
+
+\section{Pseudo-code pédagogique}
+
+\begin{verbatim}
+Initialiser le réseau Q_theta
+Initialiser le réseau cible Q_theta_minus = Q_theta
+Initialiser la mémoire replay
+
+Pour chaque épisode :
+    observer l'état s
+    Répéter jusqu'à terminaison :
+        choisir a par politique epsilon-gloutonne à partir de Q_theta(s,.)
+        exécuter a, observer r, s', done
+        stocker (s,a,r,s',done) dans la mémoire
+        échantillonner un mini-lot depuis la mémoire
+        pour chaque transition :
+            si done :
+                y = r
+            sinon :
+                y = r + gamma * max_a' Q_theta_minus(s',a')
+        effectuer une étape de gradient sur
+            (y - Q_theta(s,a))^2
+        périodiquement :
+            copier theta dans theta_minus
+        s = s'
+\end{verbatim}
+
+\section{Ce qu'il faut retenir}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item DQN part de la même idée que Q-learning : satisfaire l'équation d'optimalité de Bellman de manière approchée.
+    \item La table $Q$ est remplacée par un réseau $Q_{\theta}$.
+    \item La cible utilise un réseau cible pour stabiliser l'apprentissage.
+    \item L'expérience replay réduit la corrélation des données.
+    \item Sur FrozenLake, DQN est surtout un outil pédagogique pour illustrer le DRL.
+\end{itemize}
+
+\end{document}

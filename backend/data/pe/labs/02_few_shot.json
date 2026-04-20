@@ -1,0 +1,65 @@
+{
+  "lab_id": "02_few_shot",
+  "title": {"fr": "Few-Shot Prompting", "en": "Few-Shot Prompting"},
+  "description": {
+    "fr": "Apprenez à sélectionner et formater des exemples qui guident le LLM vers le comportement désiré.",
+    "en": "Learn to select and format examples that guide the LLM toward the desired behavior."
+  },
+  "concept": {
+    "fr": "En few-shot, vous fournissez quelques exemples (2-5) au modèle pour illustrer le comportement attendu. La qualité, la diversité et la cohérence de format de vos exemples déterminent directement la qualité du résultat. C'est souvent plus fiable que le zero-shot pour les tâches de classification et de transformation.",
+    "en": "In few-shot, you provide a few examples (2-5) to the model to illustrate the expected behavior. The quality, diversity, and format consistency of your examples directly determine the result quality. It's often more reliable than zero-shot for classification and transformation tasks."
+  },
+  "rubric_id": "few_shot",
+  "missions": [
+    {
+      "mission_id": "sentiment_detector",
+      "title": {"fr": "Le Détecteur de Ton", "en": "The Tone Detector"},
+      "audience": "business",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Votre entreprise analyse les avis clients de ses restaurants. Le LLM doit classifier le ton d'un avis : POSITIF, NEUTRE, ou NÉGATIF.\n\nVotre tâche : Rédigez un prompt avec exactement 3 exemples (un par catégorie) puis demandez au LLM de classifier l'avis ci-dessous.\n\nAttention : L'avis à classifier est volontairement ambigu. C'est la qualité de vos exemples qui fera la différence.",
+        "en": "Your company analyzes customer reviews for its restaurants. The LLM must classify the tone of a review: POSITIVE, NEUTRAL, or NEGATIVE.\n\nYour task: Write a prompt with exactly 3 examples (one per category) then ask the LLM to classify the review below.\n\nNote: The review to classify is intentionally ambiguous. The quality of your examples will make the difference."
+      },
+      "input_text": {
+        "fr": "La nourriture était correcte, rien d'exceptionnel. Le serveur était sympathique mais le temps d'attente de 45 minutes pour un plat principal est inacceptable un mardi soir. Je ne suis pas sûr de revenir, mais je ne déconseillerais pas non plus l'endroit à quelqu'un.",
+        "en": "The food was decent, nothing exceptional. The waiter was friendly but the 45-minute wait for a main course is unacceptable on a Tuesday evening. I'm not sure I'd go back, but I wouldn't necessarily discourage someone from trying the place either."
+      },
+      "expected_behavior": "This is a NEUTRAL-to-NEGATIVE review. Good few-shot examples should help the LLM handle this ambiguity. The classification depends on example quality — well-chosen examples covering edge cases will produce more accurate results.",
+      "learning_objectives": [
+        {"fr": "Choisir des exemples couvrant les cas limites", "en": "Choose examples covering edge cases"},
+        {"fr": "Maintenir un format cohérent entre les exemples", "en": "Maintain consistent format across examples"},
+        {"fr": "Comprendre que la diversité des exemples impacte la précision", "en": "Understand that example diversity impacts accuracy"}
+      ],
+      "hints": [
+        {"fr": "Choisissez des exemples qui couvrent les cas ambigus, pas juste les cas évidents", "en": "Choose examples covering ambiguous cases, not just obvious ones"},
+        {"fr": "Gardez exactement le même format pour chaque exemple", "en": "Keep exactly the same format for each example"},
+        {"fr": "Un exemple NEUTRE bien choisi est plus utile qu'un exemple POSITIF évident", "en": "A well-chosen NEUTRAL example is more useful than an obvious POSITIVE one"}
+      ]
+    },
+    {
+      "mission_id": "format_converter",
+      "title": {"fr": "Le Traducteur de Format", "en": "The Format Translator"},
+      "audience": "engineering",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous intégrez un LLM dans un pipeline de données e-commerce. Il doit convertir des descriptions textuelles de produits en objets JSON structurés.\n\nVotre tâche : Rédigez un prompt avec 2-4 exemples de conversion texte→JSON, puis demandez la conversion du texte ci-dessous.\n\nLe JSON doit contenir : name, category, price (number), features (array of strings), in_stock (boolean).\n\nObjectif : Construire des exemples cohérents en format pour que le LLM généralise correctement.",
+        "en": "You are integrating an LLM into an e-commerce data pipeline. It must convert textual product descriptions into structured JSON objects.\n\nYour task: Write a prompt with 2-4 text→JSON conversion examples, then request the conversion of the text below.\n\nThe JSON must contain: name, category, price (number), features (array of strings), in_stock (boolean).\n\nObjective: Build format-consistent examples so the LLM generalizes correctly."
+      },
+      "input_text": {
+        "fr": "Casque audio sans fil Sony WH-1000XM5 en coloris noir. Réduction de bruit active exceptionnelle, autonomie de 30 heures, compatible Bluetooth 5.2 et multipoint. Prix : 349,99€. Actuellement disponible en stock.",
+        "en": "Sony WH-1000XM5 wireless headphones in black. Exceptional active noise cancellation, 30-hour battery life, Bluetooth 5.2 and multipoint compatible. Price: $349.99. Currently in stock."
+      },
+      "expected_behavior": "The LLM should output a valid JSON object with all required fields, correct types (price as number, features as array, in_stock as boolean). The quality of the examples determines whether the LLM gets the types right.",
+      "learning_objectives": [
+        {"fr": "Structurer des exemples avec un schéma JSON cohérent", "en": "Structure examples with a consistent JSON schema"},
+        {"fr": "Assurer la cohérence des types (number, array, boolean)", "en": "Ensure type consistency (number, array, boolean)"},
+        {"fr": "Généraliser un pattern à partir de peu d'exemples", "en": "Generalize a pattern from few examples"}
+      ],
+      "hints": [
+        {"fr": "Assurez-vous que TOUS vos exemples ont exactement les mêmes champs JSON", "en": "Make sure ALL your examples have exactly the same JSON fields"},
+        {"fr": "Variez les produits dans vos exemples (pas que de l'électronique)", "en": "Vary the products in your examples (not just electronics)"},
+        {"fr": "Les types doivent être cohérents : price toujours un number, jamais un string", "en": "Types must be consistent: price always a number, never a string"}
+      ]
+    }
+  ]
+}

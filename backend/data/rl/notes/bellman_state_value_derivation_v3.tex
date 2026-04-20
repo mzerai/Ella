@@ -1,0 +1,266 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[table]{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{array}
+\geometry{margin=2.35cm,headheight=14pt,headsep=10pt}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue,
+  pdfauthor={Mourad Zéraï},
+  pdftitle={Dérivation de l'équation de Bellman pour la fonction de valeur d'état}
+}
+
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+\definecolor{Accent}{RGB}{22,76,138}
+\definecolor{SoftRule}{RGB}{190,200,215}
+\definecolor{HeaderBg}{RGB}{246,248,252}
+
+\newtheorem{definition}{Définition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remarque}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\small \thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\begin{document}
+
+\noindent
+\setlength{\arrayrulewidth}{0.5pt}
+\renewcommand{\arraystretch}{1.18}
+\color{SoftRule}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{0.31\textwidth}|>{\centering\arraybackslash}p{0.21\textwidth}|>{\raggedleft\arraybackslash}p{0.38\textwidth}|}
+\hline
+\rowcolor{HeaderBg}
+\color{black}\textbf{Cours Deep Reinforcement Learning} & \color{black}\textbf{Classe : 4IA} & \color{black}\textbf{Année : 2026} \\
+\hline
+\color{black}\textbf{Enseignant :} Mourad Zéraï, PhD & \multicolumn{2}{>{\raggedleft\arraybackslash}p{0.61\textwidth}|}{\color{black}\textbf{Institution :} ESPRIT School of Engineering} \\
+\hline
+\end{tabular}
+\color{black}
+
+\vspace{1.1em}
+
+{\LARGE\bfseries\color{Accent} Dérivation de l'équation de Bellman pour la fonction de valeur d'état}\\[0.35em]
+{\large Sous une politique fixée $\pi$}\\[0.9em]
+{\normalsize Note de cours rigoureuse, avec justification élémentaire de chaque passage.}
+
+\vspace{0.4em}
+{\color{SoftRule}\hrule}
+
+\section*{1. Cadre probabiliste et hypothèses}
+
+On se place dans un processus de décision markovien (MDP) à temps discret. On note :
+\begin{itemize}[leftmargin=2em]
+    \item $S_t$ l'état au temps $t$ ;
+    \item $A_t$ l'action choisie au temps $t$ ;
+    \item $R_{t+1}$ la récompense reçue entre les temps $t$ et $t+1$ ;
+    \item $\pi(a\mid s)=\mathbb P_\pi(A_t=a\mid S_t=s)$ la politique fixée ;
+    \item $p(s',r\mid s,a)=\mathbb P(S_{t+1}=s',R_{t+1}=r\mid S_t=s,A_t=a)$ le noyau de transition-récompense.
+\end{itemize}
+
+On suppose que le retour actualisé est bien défini :
+\[
+G_t = \sum_{k=0}^{\infty} \gamma^k R_{t+k+1},
+\qquad 0\le \gamma <1,
+\]
+ou bien que l'épisode se termine presque sûrement avec somme finie. Cette hypothèse garantit que les espérances écrites ci-dessous existent.
+
+\begin{definition}[Fonction de valeur d'état]
+Pour tout état $s$, la fonction de valeur d'état sous la politique $\pi$ est définie par
+\[
+v_\pi(s) \coloneqq \mathbb E_\pi[G_t\mid S_t=s].
+\]
+\end{definition}
+
+\section*{2. Identité de décomposition du retour}
+
+Par définition du retour,
+\[
+G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots.
+\]
+En factorisant $\gamma$ dans tous les termes sauf le premier, on obtient l'identité fondamentale
+\[
+G_t = R_{t+1} + \gamma G_{t+1}.
+\]
+
+\textbf{Justification.}
+En effet,
+\[
+G_{t+1}=R_{t+2}+\gamma R_{t+3}+\gamma^2R_{t+4}+\cdots,
+\]
+donc
+\[
+\gamma G_{t+1}=\gamma R_{t+2}+\gamma^2R_{t+3}+\gamma^3R_{t+4}+\cdots,
+\]
+et en ajoutant $R_{t+1}$ on retrouve exactement le développement de $G_t$.
+
+\section*{3. Point de départ de la dérivation}
+
+Partons de la définition de $v_\pi$ :
+\[
+v_\pi(s)=\mathbb E_\pi[G_t\mid S_t=s].
+\]
+En utilisant l'identité précédente, on remplace $G_t$ par $R_{t+1}+\gamma G_{t+1}$ :
+\[
+v_\pi(s)=\mathbb E_\pi[R_{t+1}+\gamma G_{t+1}\mid S_t=s].
+\]
+
+\textbf{Formule utilisée.}
+On a simplement substitué une variable aléatoire par une variable presque sûrement égale.
+
+Ensuite, par linéarité de l'espérance conditionnelle,
+\[
+v_\pi(s)=\mathbb E_\pi[R_{t+1}\mid S_t=s] + \gamma\,\mathbb E_\pi[G_{t+1}\mid S_t=s].
+\]
+
+\textbf{Théorème utilisé.}
+Si $X$ et $Y$ sont intégrables et $c$ est une constante, alors
+\[
+\mathbb E[X+cY\mid \mathcal G]=\mathbb E[X\mid \mathcal G] + c\,\mathbb E[Y\mid \mathcal G].
+\]
+Ici $\mathcal G=\sigma(S_t)$.
+
+\section*{4. Introduction de l'action puis du prochain état}
+
+Le terme délicat est $\mathbb E_\pi[G_{t+1}\mid S_t=s]$ car $G_{t+1}$ dépend de l'action choisie et de la transition vers l'état suivant. On conditionne donc d'abord par l'action, puis par l'état suivant.
+
+\subsection*{4.1 Conditionnement par l'action}
+
+Par la loi de l'espérance totale,
+\[
+\mathbb E_\pi[G_{t+1}\mid S_t=s]
+=\sum_a \mathbb P_\pi(A_t=a\mid S_t=s)\,\mathbb E_\pi[G_{t+1}\mid S_t=s,A_t=a].
+\]
+Comme $\mathbb P_\pi(A_t=a\mid S_t=s)=\pi(a\mid s)$,
+\[
+\mathbb E_\pi[G_{t+1}\mid S_t=s]
+=\sum_a \pi(a\mid s)\,\mathbb E_\pi[G_{t+1}\mid S_t=s,A_t=a].
+\]
+
+\textbf{Théorème utilisé.}
+Loi de l'espérance totale conditionnelle, sous forme discrète :
+\[
+\mathbb E[X\mid Y=y]=\sum_z \mathbb P(Z=z\mid Y=y)\,\mathbb E[X\mid Y=y,Z=z].
+\]
+
+De la même façon,
+\[
+\mathbb E_\pi[R_{t+1}\mid S_t=s]
+=\sum_a \pi(a\mid s)\,\mathbb E_\pi[R_{t+1}\mid S_t=s,A_t=a].
+\]
+
+En réinjectant ces deux expressions,
+\[
+v_\pi(s)
+=\sum_a \pi(a\mid s)\Big(
+\mathbb E_\pi[R_{t+1}\mid S_t=s,A_t=a]
++\gamma\,\mathbb E_\pi[G_{t+1}\mid S_t=s,A_t=a]
+\Big).
+\]
+
+\subsection*{4.2 Conditionnement par le prochain état et la récompense}
+
+Fixons maintenant un état $s$ et une action $a$. Toujours par la loi de l'espérance totale,
+\[
+\mathbb E_\pi[R_{t+1}+\gamma G_{t+1}\mid S_t=s,A_t=a]
+=\sum_{s',r} p(s',r\mid s,a)\,\mathbb E_\pi[R_{t+1}+\gamma G_{t+1}\mid S_t=s,A_t=a,S_{t+1}=s',R_{t+1}=r].
+\]
+
+Or, sur l'événement $\{S_{t+1}=s',R_{t+1}=r\}$, la variable $R_{t+1}$ vaut exactement $r$. Donc
+\[
+\mathbb E_\pi[R_{t+1}+\gamma G_{t+1}\mid S_t=s,A_t=a,S_{t+1}=s',R_{t+1}=r]
+= r + \gamma\,\mathbb E_\pi[G_{t+1}\mid S_t=s,A_t=a,S_{t+1}=s',R_{t+1}=r].
+\]
+
+\section*{5. Utilisation de la propriété de Markov}
+
+La propriété de Markov affirme que, conditionnellement à l'état courant et à l'action courante, la loi du prochain couple $(S_{t+1},R_{t+1})$ ne dépend pas du passé. Pour la suite du processus, une fois $S_{t+1}$ connu, l'avenir ne dépend plus du passé que par cet état. Ainsi,
+\[
+\mathbb E_\pi[G_{t+1}\mid S_t=s,A_t=a,S_{t+1}=s',R_{t+1}=r]
+=\mathbb E_\pi[G_{t+1}\mid S_{t+1}=s'].
+\]
+
+Par définition de la fonction de valeur,
+\[
+\mathbb E_\pi[G_{t+1}\mid S_{t+1}=s'] = v_\pi(s').
+\]
+
+Donc
+\[
+\mathbb E_\pi[R_{t+1}+\gamma G_{t+1}\mid S_t=s,A_t=a,S_{t+1}=s',R_{t+1}=r]
+= r + \gamma v_\pi(s').
+\]
+
+En revenant à la somme précédente,
+\[
+\mathbb E_\pi[R_{t+1}+\gamma G_{t+1}\mid S_t=s,A_t=a]
+= \sum_{s',r} p(s',r\mid s,a)\big(r+\gamma v_\pi(s')\big).
+\]
+
+\section*{6. Équation de Bellman}
+
+On réinjecte cette expression dans la formule obtenue à l'étape 4.1 :
+\[
+v_\pi(s)
+=\sum_a \pi(a\mid s)
+\sum_{s',r} p(s',r\mid s,a)\big(r+\gamma v_\pi(s')\big).
+\]
+
+Nous avons donc dérivé l'équation de Bellman pour la fonction de valeur d'état :
+\[
+\boxed{
+v_\pi(s)
+=\sum_a \pi(a\mid s)
+\sum_{s',r} p(s',r\mid s,a)\big(r+\gamma v_\pi(s')\big)
+}
+\]
+
+\section*{7. Version compacte avec une espérance imbriquée}
+
+La même équation peut s'écrire de façon plus compacte :
+\[
+v_\pi(s)
+=\mathbb E_\pi\big[R_{t+1}+\gamma v_\pi(S_{t+1})\mid S_t=s\big].
+\]
+
+Cette forme est exactement équivalente à la forme développée avec les sommes. Les deux écritures se déduisent l'une de l'autre par la définition de l'espérance d'une variable aléatoire discrète.
+
+\section*{8. Lecture conceptuelle de chaque terme}
+
+L'équation de Bellman dit que la valeur d'un état $s$ est :
+\begin{enumerate}[leftmargin=2em]
+    \item la moyenne sur les actions choisies par la politique $\pi(\cdot\mid s)$ ;
+    \item la récompense immédiate moyenne ;
+    \item plus la valeur actualisée du prochain état $\gamma v_\pi(s')$ ;
+    \item le tout moyenné sur les transitions possibles du MDP.
+\end{enumerate}
+
+\section*{9. Remarque de rigueur}
+
+La dérivation repose sur quatre ingrédients fondamentaux :
+\begin{itemize}[leftmargin=2em]
+    \item la décomposition algébrique du retour $G_t = R_{t+1}+\gamma G_{t+1}$ ;
+    \item la linéarité de l'espérance conditionnelle ;
+    \item la loi de l'espérance totale ;
+    \item la propriété de Markov, qui permet de remplacer l'espérance conditionnelle du retour futur par $v_\pi(s')$ dès que l'état suivant est connu.
+\end{itemize}
+
+Sans la propriété de Markov, on ne pourrait pas, en général, résumer le futur uniquement par l'état $S_{t+1}$.
+
+\end{document}

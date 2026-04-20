@@ -1,0 +1,26 @@
+{
+  "rubric_id": "structured_output",
+  "extends": "base",
+  "extra_criteria": [
+    {
+      "id": "schema_defined",
+      "title": {"fr": "Schéma de sortie défini", "en": "Output Schema Defined"},
+      "max": 2,
+      "levels": {
+        "0": {"fr": "Aucun schéma spécifié", "en": "No schema specified"},
+        "1": {"fr": "Structure mentionnée mais incomplète", "en": "Structure mentioned but incomplete"},
+        "2": {"fr": "Schéma complet avec champs, types et contraintes", "en": "Complete schema with fields, types, and constraints"}
+      }
+    },
+    {
+      "id": "parsability",
+      "title": {"fr": "Parsabilité", "en": "Parsability"},
+      "max": 2,
+      "levels": {
+        "0": {"fr": "Le résultat n'est pas parsable (JSON/CSV invalide)", "en": "Result is not parsable (invalid JSON/CSV)"},
+        "1": {"fr": "Parsable avec des corrections mineures", "en": "Parsable with minor corrections"},
+        "2": {"fr": "Résultat directement parsable sans modification", "en": "Result directly parsable without modification"}
+      }
+    }
+  ]
+}

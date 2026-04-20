@@ -1,0 +1,241 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+
+\geometry{margin=2.2cm}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{lightaccent}{HTML}{EAF2F8}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Cours Deep Reinforcement Learning}
+\chead{\small Classe : 4IA}
+\rhead{\small Année : 2026}
+\lfoot{\small Enseignant : Mourad Zéraï, PhD - ESPRIT School of Engineering}
+\cfoot{}
+\rfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{accent}}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
+
+\newtheorem*{definition}{Définition}
+\newtheorem*{rappel}{Rappel}
+\newtheorem*{hypothese}{Hypothèse}
+\newtheorem*{propriete}{Propriété}
+\newtheorem*{theoreme}{Théorème}
+\newtheorem*{remarque}{Remarque}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pbb}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\argmax}{\operatorname*{argmax}}
+\newcommand{\given}{\,|\,}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Dérivation et explication pas à pas de SARSA}\\[0.4em]
+    {\large Note de cours rigoureuse, détaillée et appliquée à FrozenLake}
+\end{center}
+
+\vspace{0.6em}
+
+\section{Objectif}
+
+Le but de cette note est d'expliquer l'algorithme \emph{SARSA}, de dériver sa règle de mise à jour à partir de l'équation de Bellman d'espérance pour $q_{\pi}$, puis d'en montrer l'application à FrozenLake.
+
+\section{Point de départ : l'équation de Bellman pour $q_{\pi}$}
+
+Pour une politique $\pi$,
+\[
+q_{\pi}(s,a)=\E_{\pi}\!\left[R_{t+1}+\gamma q_{\pi}(S_{t+1},A_{t+1}) \middle\vert S_t=s,A_t=a\right].
+\]
+Cette équation dit que la valeur d'un couple état-action est l'espérance d'une récompense immédiate plus d'une valeur future actualisée.
+
+\section{Passage à l'idée de \emph{bootstrap}}
+
+Si l'on connaissait déjà $q_{\pi}$, l'équation ci-dessus permettrait de le vérifier. Mais comme $q_{\pi}$ est inconnu, SARSA remplace le terme exact
+\[
+q_{\pi}(S_{t+1},A_{t+1})
+\]
+par l'estimation courante
+\[
+Q(S_{t+1},A_{t+1}).
+\]
+
+\begin{remarque}
+C'est ce qu'on appelle le \emph{bootstrap} : on met à jour une estimation à l'aide d'une autre estimation.
+\end{remarque}
+
+\section{Construction de la cible temporelle}
+
+À partir d'une transition observée
+\[
+(S_t,A_t,R_{t+1},S_{t+1},A_{t+1}),
+\]
+on définit la cible temporelle
+\[
+Y_t = R_{t+1}+\gamma Q(S_{t+1},A_{t+1}).
+\]
+
+\paragraph{Pourquoi cette quantité est naturelle.}
+L'équation de Bellman suggère que
+\[
+q_{\pi}(S_t,A_t)
+\]
+doit être proche de
+\[
+R_{t+1}+\gamma q_{\pi}(S_{t+1},A_{t+1}).
+\]
+Comme $q_{\pi}$ est inconnu, on remplace le second terme par l'estimation courante.
+
+\section{Erreur TD}
+
+On définit l'erreur de différence temporelle :
+\[
+\delta_t = Y_t - Q(S_t,A_t)
+= R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_t,A_t).
+\]
+
+\paragraph{Interprétation.}
+\begin{itemize}[leftmargin=1.6em]
+    \item si $\delta_t>0$, la transition observée est meilleure que prévu ;
+    \item si $\delta_t<0$, elle est moins bonne que prévu ;
+    \item si $\delta_t=0$, l'estimation est localement cohérente avec la cible.
+\end{itemize}
+
+\section{Règle de mise à jour}
+
+SARSA effectue la correction
+\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha \delta_t,
+\]
+soit explicitement
+\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha\left[R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_t,A_t)\right].
+\]
+
+\subsection{Justification élémentaire}
+
+Cette mise à jour est une interpolation entre l'ancienne valeur et la cible :
+\begin{align*}
+Q_{\text{new}}(S_t,A_t)
+&= Q_{\text{old}}(S_t,A_t)+\alpha\left[Y_t-Q_{\text{old}}(S_t,A_t)\right] \\
+&= (1-\alpha)Q_{\text{old}}(S_t,A_t)+\alpha Y_t.
+\end{align*}
+Donc :
+\begin{itemize}[leftmargin=1.6em]
+    \item si $\alpha=1$, on remplace complètement par la cible ;
+    \item si $0<\alpha<1$, on effectue une correction partielle.
+\end{itemize}
+
+\section{Pourquoi SARSA est dit \emph{on-policy}}
+
+Le dernier terme utilise \emph{l'action réellement choisie au pas suivant}, à savoir $A_{t+1}$, qui provient de la politique courante. Si cette politique est $\varepsilon$-gloutonne, alors la mise à jour apprend la valeur de cette même politique $\varepsilon$-gloutonne.
+
+C'est précisément la différence avec Q-learning, qui utiliserait
+\[
+\max_{a'}Q(S_{t+1},a')
+\]
+à la place de $Q(S_{t+1},A_{t+1})$.
+
+\section{Contrôle avec SARSA}
+
+Pour faire du contrôle, on couple la mise à jour de $Q$ avec une politique dérivée de $Q$, souvent $\varepsilon$-gloutonne.
+
+\subsection{Politique $\varepsilon$-gloutonne}
+
+Pour chaque état $s$ :
+\[
+\pi(a\given s)=
+\begin{cases}
+1-\varepsilon+\dfrac{\varepsilon}{|\mathcal A|} & \text{si } a\in\argmax_b Q(s,b),\\[0.8em]
+\dfrac{\varepsilon}{|\mathcal A|} & \text{sinon.}
+\end{cases}
+\]
+
+\subsection{Boucle logique}
+
+\begin{enumerate}[leftmargin=1.6em]
+    \item choisir $A_t$ selon la politique courante ;
+    \item observer $(R_{t+1},S_{t+1})$ ;
+    \item choisir $A_{t+1}$ selon la même politique ;
+    \item mettre à jour $Q(S_t,A_t)$.
+\end{enumerate}
+
+\section{Application à FrozenLake}
+
+\subsection{Transition élémentaire}
+
+Dans FrozenLake, une transition fournit exactement les cinq objets qui donnent son nom à SARSA :
+\[
+(S_t,A_t,R_{t+1},S_{t+1},A_{t+1}).
+\]
+
+\subsection{Exemple concret}
+
+Supposons qu'en état $s=0$, l'agent choisisse Right. Il obtient la transition :
+\[
+S_t=0,\quad A_t=\text{Right},\quad R_{t+1}=0,\quad S_{t+1}=1.
+\]
+Puis la politique choisit
+\[
+A_{t+1}=\text{Down}.
+\]
+La mise à jour devient
+\[
+Q(0,\text{Right}) \leftarrow Q(0,\text{Right}) + \alpha\left[0+\gamma Q(1,\text{Down}) - Q(0,\text{Right})\right].
+\]
+
+\subsection{Effet du mode glissant}
+
+En mode glissant, l'action demandée peut produire une autre direction. SARSA apprend alors la valeur des actions \emph{dans l'environnement réellement subi}, y compris le risque de dérapage. Comme l'algorithme est on-policy, il tient compte du fait que la politique future continuera elle aussi à explorer.
+
+\subsection{Conséquence pédagogique importante}
+
+SARSA apprend souvent une politique plus prudente que Q-learning dans des environnements risqués, parce qu'il évalue la politique exploratoire réelle et non une politique idéale purement gloutonne.
+
+\section{Pseudo-code pédagogique}
+
+\begin{verbatim}
+Initialiser Q(s,a) arbitrairement
+Pour chaque épisode :
+    Initialiser s
+    Choisir a selon la politique epsilon-gloutonne dérivée de Q
+    Répéter jusqu'à terminaison :
+        Exécuter a, observer r, s'
+        Choisir a' selon la même politique epsilon-gloutonne
+        Q(s,a) = Q(s,a) + alpha * [r + gamma Q(s',a') - Q(s,a)]
+        s = s'
+        a = a'
+\end{verbatim}
+
+\section{Ce qu'il faut retenir}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item SARSA part directement de l'équation de Bellman d'espérance pour $q_{\pi}$.
+    \item La règle de mise à jour est obtenue en remplaçant la valeur exacte future par une estimation courante.
+    \item L'erreur TD mesure le désaccord local entre prédiction et cible.
+    \item SARSA est on-policy car il utilise l'action effectivement choisie au pas suivant.
+    \item Dans FrozenLake glissant, cela peut conduire à des comportements plus prudents.
+\end{itemize}
+
+\end{document}

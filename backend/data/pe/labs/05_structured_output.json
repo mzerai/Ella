@@ -1,0 +1,65 @@
+{
+  "lab_id": "05_structured_output",
+  "title": {"fr": "Structured Output", "en": "Structured Output"},
+  "description": {
+    "fr": "Apprenez à obtenir des sorties structurées et parsables — compétence critique pour intégrer un LLM dans un pipeline.",
+    "en": "Learn to get structured, parsable outputs — a critical skill for integrating LLMs into pipelines."
+  },
+  "concept": {
+    "fr": "L'une des compétences les plus demandées en prompt engineering est la capacité à obtenir des sorties structurées (JSON, CSV, tableaux) que du code peut parser automatiquement. Cela requiert de spécifier précisément le schéma, les types de données, les contraintes de validation, et de gérer les cas où le LLM dévie du format demandé.",
+    "en": "One of the most in-demand prompt engineering skills is getting structured outputs (JSON, CSV, tables) that code can automatically parse. This requires precisely specifying the schema, data types, validation constraints, and handling cases where the LLM deviates from the requested format."
+  },
+  "rubric_id": "structured_output",
+  "missions": [
+    {
+      "mission_id": "entity_extractor",
+      "title": {"fr": "L'Extracteur d'Entités", "en": "The Entity Extractor"},
+      "audience": "business",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous travaillez pour un cabinet de veille stratégique. Le LLM doit extraire les entités clés d'un article de presse et les retourner en JSON valide.\n\nVotre tâche : Rédigez un prompt qui extrait de l'article ci-dessous :\n- Les personnes mentionnées (nom, rôle)\n- Les organisations (nom, secteur)\n- Les chiffres clés (montant, contexte)\n- Le sentiment général (positif/neutre/négatif)\n\nLe résultat doit être un JSON valide et directement parsable.\n\nObjectif : Spécifier un schéma de sortie précis pour du JSON parsable.",
+        "en": "You work for a strategic intelligence firm. The LLM must extract key entities from a news article and return them as valid JSON.\n\nYour task: Write a prompt that extracts from the article below:\n- People mentioned (name, role)\n- Organizations (name, sector)\n- Key figures (amount, context)\n- Overall sentiment (positive/neutral/negative)\n\nThe result must be valid, directly parsable JSON.\n\nObjective: Specify a precise output schema for parsable JSON."
+      },
+      "input_text": {
+        "fr": "Le PDG de TechVision, Marie Dupont, a annoncé lors du salon VivaTech un partenariat stratégique avec Airbus Defence & Space pour développer des solutions de surveillance par drone basées sur l'IA. Le contrat, évalué à 45 millions d'euros sur 3 ans, prévoit le déploiement de 200 drones autonomes d'ici 2026. Le directeur innovation d'Airbus, Hans Müller, a qualifié cet accord de 'tournant pour l'industrie européenne de la défense'. Les analystes de Goldman Sachs ont relevé leur objectif de cours pour TechVision de 15%.",
+        "en": "TechVision CEO Marie Dupont announced at VivaTech a strategic partnership with Airbus Defence & Space to develop AI-based drone surveillance solutions. The contract, valued at €45 million over 3 years, plans to deploy 200 autonomous drones by 2026. Airbus Innovation Director Hans Müller called the deal 'a turning point for the European defense industry'. Goldman Sachs analysts raised their price target for TechVision by 15%."
+      },
+      "expected_behavior": "Valid JSON with arrays of persons, organizations, key_figures, and a sentiment field. All entities from the article should be captured.",
+      "learning_objectives": [
+        {"fr": "Définir un schéma JSON avec des types précis", "en": "Define a JSON schema with precise types"},
+        {"fr": "Extraire des entités structurées d'un texte libre", "en": "Extract structured entities from free text"},
+        {"fr": "Assurer la parsabilité directe du résultat", "en": "Ensure direct parsability of the result"}
+      ],
+      "hints": [
+        {"fr": "Montrez un exemple de la structure JSON attendue dans votre prompt", "en": "Show an example of the expected JSON structure in your prompt"},
+        {"fr": "Spécifiez les types : 'role' est un string, 'amount' est un nombre", "en": "Specify types: 'role' is a string, 'amount' is a number"},
+        {"fr": "Ajoutez 'Réponds UNIQUEMENT en JSON valide, sans texte avant ou après'", "en": "Add 'Respond ONLY with valid JSON, no text before or after'"}
+      ]
+    },
+    {
+      "mission_id": "dataset_generator",
+      "title": {"fr": "Le Générateur de Dataset", "en": "The Dataset Generator"},
+      "audience": "engineering",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous avez besoin de données synthétiques pour entraîner un modèle de classification de sentiment. Le LLM doit générer un mini-dataset au format CSV.\n\nVotre tâche : Rédigez un prompt qui génère exactement 5 lignes de données CSV avec les colonnes : text, label, confidence_score.\n- Les textes doivent être des avis clients variés (mix positif/négatif)\n- Les labels sont 'positive' ou 'negative'\n- Le confidence_score est un float entre 0.0 et 1.0\n- La première ligne doit être le header\n\nObjectif : Contrôler précisément le format, les types de données et la cohérence de la sortie.",
+        "en": "You need synthetic data to train a sentiment classification model. The LLM must generate a mini-dataset in CSV format.\n\nYour task: Write a prompt that generates exactly 5 rows of CSV data with columns: text, label, confidence_score.\n- Texts should be varied customer reviews (mix positive/negative)\n- Labels are 'positive' or 'negative'\n- confidence_score is a float between 0.0 and 1.0\n- First line must be the header\n\nObjective: Precisely control format, data types, and output consistency."
+      },
+      "input_text": {
+        "fr": "Générez un dataset CSV de 5 lignes pour l'entraînement d'un modèle de classification de sentiment sur des avis clients de restaurant.",
+        "en": "Generate a 5-row CSV dataset for training a sentiment classification model on restaurant customer reviews."
+      },
+      "expected_behavior": "CSV with header + exactly 5 data rows. Each row has: a review text (in quotes if it contains commas), 'positive' or 'negative' label, and a float between 0.0-1.0. Mix of positive and negative examples.",
+      "learning_objectives": [
+        {"fr": "Spécifier un format tabulaire précis", "en": "Specify a precise tabular format"},
+        {"fr": "Contrôler les types de données (string, float, enum)", "en": "Control data types (string, float, enum)"},
+        {"fr": "Assurer la cohérence et la diversité des données générées", "en": "Ensure consistency and diversity of generated data"}
+      ],
+      "hints": [
+        {"fr": "Spécifiez le séparateur CSV (virgule) et le traitement des guillemets", "en": "Specify the CSV separator (comma) and quote handling"},
+        {"fr": "Donnez les valeurs exactes possibles pour label : 'positive' ou 'negative'", "en": "Give the exact possible values for label: 'positive' or 'negative'"},
+        {"fr": "Précisez 'exactement 5 lignes de données + 1 ligne de header'", "en": "Specify 'exactly 5 data rows + 1 header row'"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "rubric_id": "few_shot",
+  "extends": "base",
+  "extra_criteria": [
+    {
+      "id": "example_quality",
+      "title": {"fr": "Qualité des exemples", "en": "Example Quality"},
+      "max": 2,
+      "levels": {
+        "0": {"fr": "Exemples absents, incohérents ou non pertinents", "en": "Examples missing, inconsistent, or irrelevant"},
+        "1": {"fr": "Exemples présents mais de qualité inégale", "en": "Examples present but uneven quality"},
+        "2": {"fr": "Exemples variés, représentatifs et bien formatés", "en": "Diverse, representative, well-formatted examples"}
+      }
+    },
+    {
+      "id": "format_consistency",
+      "title": {"fr": "Cohérence de format", "en": "Format Consistency"},
+      "max": 2,
+      "levels": {
+        "0": {"fr": "Les exemples ont des formats différents", "en": "Examples have different formats"},
+        "1": {"fr": "Format globalement cohérent avec quelques écarts", "en": "Generally consistent with minor deviations"},
+        "2": {"fr": "Tous les exemples suivent exactement le même pattern", "en": "All examples follow the exact same pattern"}
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "rubric_id": "zero_shot",
+  "extends": "base",
+  "extra_criteria": [
+    {
+      "id": "no_examples",
+      "title": {"fr": "Absence d'exemples", "en": "No Examples Used"},
+      "max": 2,
+      "penalty": true,
+      "description": {"fr": "Le prompt ne doit PAS contenir d'exemples", "en": "The prompt must NOT contain examples"},
+      "levels": {
+        "0": {"fr": "Exemples détectés — ce n'est plus du zero-shot", "en": "Examples detected — no longer zero-shot"},
+        "2": {"fr": "Aucun exemple, prompt purement instructionnel", "en": "No examples, purely instructional prompt"}
+      }
+    }
+  ]
+}

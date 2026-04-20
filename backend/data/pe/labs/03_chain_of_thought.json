@@ -1,0 +1,65 @@
+{
+  "lab_id": "03_chain_of_thought",
+  "title": {"fr": "Chain-of-Thought Prompting", "en": "Chain-of-Thought Prompting"},
+  "description": {
+    "fr": "Apprenez à forcer le LLM à expliciter son raisonnement pour améliorer la fiabilité sur des tâches complexes.",
+    "en": "Learn to force the LLM to show its reasoning to improve reliability on complex tasks."
+  },
+  "concept": {
+    "fr": "Le chain-of-thought (CoT) consiste à demander au modèle de décomposer son raisonnement en étapes explicites avant de donner sa réponse finale. Cette technique réduit significativement les erreurs sur les tâches de calcul, de logique et d'analyse. Le simple ajout de 'réfléchis étape par étape' peut transformer la qualité de la réponse.",
+    "en": "Chain-of-thought (CoT) involves asking the model to decompose its reasoning into explicit steps before giving its final answer. This technique significantly reduces errors on calculation, logic, and analysis tasks. Simply adding 'think step by step' can transform response quality."
+  },
+  "rubric_id": "cot",
+  "missions": [
+    {
+      "mission_id": "margin_problem",
+      "title": {"fr": "Le Problème de Marge", "en": "The Margin Problem"},
+      "audience": "business",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Un collègue du département finance vous pose cette question : 'Si j'achète un produit à 80€ et le revends à 120€ après avoir obtenu une remise fournisseur de 15% sur le prix d'achat, quelle est ma marge nette en pourcentage du prix de vente ?'\n\nVotre tâche : Rédigez un prompt qui force le LLM à montrer chaque étape de calcul avant de donner la réponse finale.\n\nAttention : Sans chain-of-thought, les LLM font souvent des erreurs sur ce type de calcul. Votre prompt doit imposer une démarche structurée.",
+        "en": "A colleague from the finance department asks: 'If I buy a product at €80 and resell it at €120 after getting a 15% supplier discount on the purchase price, what is my net margin as a percentage of the selling price?'\n\nYour task: Write a prompt that forces the LLM to show each calculation step before giving the final answer.\n\nNote: Without chain-of-thought, LLMs often make mistakes on this type of calculation. Your prompt must impose a structured approach."
+      },
+      "input_text": {
+        "fr": "Données du problème :\n- Prix d'achat initial : 80€\n- Remise fournisseur : 15% sur le prix d'achat\n- Prix de vente : 120€\n- Question : Quelle est la marge nette en pourcentage du prix de vente ?",
+        "en": "Problem data:\n- Initial purchase price: €80\n- Supplier discount: 15% on the purchase price\n- Selling price: €120\n- Question: What is the net margin as a percentage of the selling price?"
+      },
+      "expected_behavior": "The LLM should: 1) Calculate discounted price: 80 - (80*0.15) = 68€, 2) Calculate net margin: 120 - 68 = 52€, 3) Calculate margin percentage: (52/120)*100 = 43.33%. Each step should be explicit.",
+      "learning_objectives": [
+        {"fr": "Forcer la décomposition du raisonnement", "en": "Force reasoning decomposition"},
+        {"fr": "Réduire les erreurs de calcul via le CoT", "en": "Reduce calculation errors via CoT"},
+        {"fr": "Structurer les étapes intermédiaires", "en": "Structure intermediate steps"}
+      ],
+      "hints": [
+        {"fr": "Demandez explicitement 'montre chaque étape de calcul'", "en": "Explicitly ask 'show each calculation step'"},
+        {"fr": "Imposez un format : 'Étape 1: ... Étape 2: ... Réponse finale: ...'", "en": "Impose a format: 'Step 1: ... Step 2: ... Final answer: ...'"},
+        {"fr": "Demandez au LLM de vérifier son résultat à la fin", "en": "Ask the LLM to verify its result at the end"}
+      ]
+    },
+    {
+      "mission_id": "debug_logic",
+      "title": {"fr": "Le Débogueur Logique", "en": "The Logic Debugger"},
+      "audience": "engineering",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Un collègue vous montre un bout de pseudocode qui a un bug logique. Le LLM doit identifier le bug.\n\nVotre tâche : Rédigez un prompt qui demande au LLM d'analyser le code ligne par ligne, d'expliquer ce que fait chaque partie, puis d'identifier le bug.\n\nObjectif : Apprendre que décomposer l'analyse améliore la détection d'erreurs subtiles.",
+        "en": "A colleague shows you a pseudocode snippet with a logic bug. The LLM must identify the bug.\n\nYour task: Write a prompt that asks the LLM to analyze the code line by line, explain what each part does, then identify the bug.\n\nObjective: Learn that decomposing the analysis improves detection of subtle errors."
+      },
+      "input_text": {
+        "fr": "function findMax(array):\n    max_value = 0\n    for i = 0 to length(array):\n        if array[i] > max_value:\n            max_value = array[i]\n    return max_value\n\n// Test: findMax([-3, -1, -7, -2]) devrait retourner -1",
+        "en": "function findMax(array):\n    max_value = 0\n    for i = 0 to length(array):\n        if array[i] > max_value:\n            max_value = array[i]\n    return max_value\n\n// Test: findMax([-3, -1, -7, -2]) should return -1"
+      },
+      "expected_behavior": "The LLM should identify TWO bugs: 1) max_value initialized to 0 instead of array[0] or -infinity (fails for all-negative arrays), 2) the loop goes to length(array) instead of length(array)-1 (off-by-one, potential index out of bounds). Step-by-step analysis should catch both.",
+      "learning_objectives": [
+        {"fr": "Imposer une analyse ligne par ligne", "en": "Impose line-by-line analysis"},
+        {"fr": "Détecter les erreurs subtiles par décomposition", "en": "Detect subtle errors through decomposition"},
+        {"fr": "Comprendre que le CoT améliore la fiabilité sur les tâches d'analyse", "en": "Understand that CoT improves reliability on analysis tasks"}
+      ],
+      "hints": [
+        {"fr": "Demandez au LLM de tracer l'exécution avec les données de test", "en": "Ask the LLM to trace execution with test data"},
+        {"fr": "Demandez d'abord 'que fait ce code ?' avant 'quel est le bug ?'", "en": "First ask 'what does this code do?' before 'what is the bug?'"},
+        {"fr": "Demandez de vérifier les cas limites (tableau vide, valeurs négatives)", "en": "Ask to check edge cases (empty array, negative values)"}
+      ]
+    }
+  ]
+}

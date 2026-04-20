@@ -1,0 +1,324 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+
+\geometry{margin=2.2cm}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{lightaccent}{HTML}{EAF2F8}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Cours Deep Reinforcement Learning}
+\chead{\small Classe : 4IA}
+\rhead{\small Année : 2026}
+\lfoot{\small Enseignant : Mourad Zéraï, PhD - ESPRIT School of Engineering}
+\cfoot{}
+\rfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{accent}}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
+
+\newtheorem*{definition}{Définition}
+\newtheorem*{rappel}{Rappel}
+\newtheorem*{hypothese}{Hypothèse}
+\newtheorem*{propriete}{Propriété}
+\newtheorem*{theoreme}{Théorème}
+\newtheorem*{remarque}{Remarque}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pbb}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\argmax}{\operatorname*{argmax}}
+\newcommand{\given}{\,|\,}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Dérivation et explication pas à pas de Value Iteration}\\[0.4em]
+    {\large Note de cours rigoureuse, détaillée et appliquée à FrozenLake}
+\end{center}
+
+\vspace{0.6em}
+
+\section{Objectif}
+
+Le but de cette note est d'expliquer, pas à pas, l'algorithme de \emph{Value Iteration}, de justifier rigoureusement chaque passage mathématique, puis de montrer comment l'appliquer à l'environnement FrozenLake.
+
+\section{Cadre de départ}
+
+On considère un MDP fini $(\mathcal S,\mathcal A,p,r,\gamma)$ avec :
+\begin{itemize}[leftmargin=1.6em]
+    \item un ensemble fini d'états $\mathcal S$ ;
+    \item un ensemble fini d'actions $\mathcal A$ ;
+    \item une dynamique $p(s',r \given s,a)$ ;
+    \item un facteur d'actualisation $\gamma \in [0,1)$.
+\end{itemize}
+
+\begin{definition}[Valeur optimale]
+La fonction de valeur optimale est
+\[
+v_*(s) = \sup_{\pi} v_{\pi}(s),
+\]
+où $v_{\pi}(s)$ désigne la valeur de l'état $s$ sous la politique $\pi$.
+\end{definition}
+
+\begin{definition}[Équation d'optimalité de Bellman]
+Pour tout état $s$,
+\[
+v_*(s)=\max_{a\in\mathcal A}\sum_{s',r} p(s',r\given s,a)\left[r+\gamma v_*(s')\right].
+\]
+\end{definition}
+
+L'algorithme de Value Iteration consiste à transformer cette équation en un schéma itératif.
+
+\section{Construction de l'opérateur de Bellman optimal}
+
+\subsection{Définition de l'opérateur}
+
+On définit l'opérateur $T_*$ sur l'espace des fonctions $v:\mathcal S \to \R$ par
+\[
+(T_*v)(s)=\max_{a\in\mathcal A}\sum_{s',r} p(s',r\given s,a)\left[r+\gamma v(s')\right].
+\]
+
+\begin{rappel}
+L'équation d'optimalité de Bellman s'écrit alors simplement
+\[
+v_* = T_* v_*.
+\]
+Autrement dit, $v_*$ est un point fixe de $T_*$.
+\end{rappel}
+
+\subsection{Pourquoi cette réécriture est utile}
+
+Au lieu de chercher directement $v_*$, on part d'une fonction initiale $v^{(0)}$ puis on applique récursivement l'opérateur :
+\[
+v^{(k+1)} = T_* v^{(k)}.
+\]
+Il faut maintenant justifier pourquoi cette suite converge.
+
+\section{Propriété de contraction}
+
+\begin{theoreme}[Contraction de l'opérateur de Bellman optimal]
+Pour la norme infinie
+\[
+\|v-w\|_{\infty} = \max_{s\in\mathcal S}|v(s)-w(s)|,
+\]
+on a
+\[
+\|T_*v - T_*w\|_{\infty} \le \gamma \|v-w\|_{\infty}.
+\]
+\end{theoreme}
+
+\paragraph{Étape 1.}
+Fixons un état $s$. Alors
+\[
+(T_*v)(s)=\max_a Q_v(s,a), \qquad (T_*w)(s)=\max_a Q_w(s,a),
+\]
+où
+\[
+Q_v(s,a)=\sum_{s',r} p(s',r\given s,a)\left[r+\gamma v(s')\right].
+\]
+
+\paragraph{Étape 2.}
+On utilise l'inégalité élémentaire
+\[
+|\max_a x_a - \max_a y_a| \le \max_a |x_a-y_a|.
+\]
+Elle découle du fait que le maximum est une application 1-lipschitzienne pour la norme infinie sur un ensemble fini.
+
+Donc
+\[
+|(T_*v)(s)-(T_*w)(s)| \le \max_a |Q_v(s,a)-Q_w(s,a)|.
+\]
+
+\paragraph{Étape 3.}
+Pour une action fixée $a$,
+\begin{align*}
+Q_v(s,a)-Q_w(s,a)
+&= \sum_{s',r} p(s',r\given s,a)\left[\gamma v(s')-\gamma w(s')\right] \\
+&= \gamma \sum_{s',r} p(s',r\given s,a)\left[v(s')-w(s')\right].
+\end{align*}
+On a utilisé la linéarité de la somme et la distributivité du produit.
+
+\paragraph{Étape 4.}
+En valeur absolue,
+\begin{align*}
+|Q_v(s,a)-Q_w(s,a)|
+&\le \gamma \sum_{s',r} p(s',r\given s,a)\, |v(s')-w(s')|.
+\end{align*}
+On a utilisé l'inégalité triangulaire.
+
+\paragraph{Étape 5.}
+Comme
+\[
+|v(s')-w(s')| \le \|v-w\|_{\infty} \quad \text{pour tout } s',
+\]
+on obtient
+\begin{align*}
+|Q_v(s,a)-Q_w(s,a)|
+&\le \gamma \sum_{s',r} p(s',r\given s,a)\, \|v-w\|_{\infty}.
+\end{align*}
+
+\paragraph{Étape 6.}
+Le terme $\|v-w\|_{\infty}$ ne dépend pas de $(s',r)$, donc
+\[
+|Q_v(s,a)-Q_w(s,a)| \le \gamma \|v-w\|_{\infty} \sum_{s',r} p(s',r\given s,a).
+\]
+Or, comme $p(\cdot,\cdot\given s,a)$ est une loi de probabilité,
+\[
+\sum_{s',r} p(s',r\given s,a)=1.
+\]
+Donc
+\[
+|Q_v(s,a)-Q_w(s,a)| \le \gamma \|v-w\|_{\infty}.
+\]
+
+\paragraph{Étape 7.}
+En revenant à l'état $s$,
+\[
+|(T_*v)(s)-(T_*w)(s)| \le \gamma \|v-w\|_{\infty}.
+\]
+Comme ceci vaut pour tout état $s$, on prend le maximum sur $s$ et on obtient
+\[
+\|T_*v-T_*w\|_{\infty}\le \gamma \|v-w\|_{\infty}.
+\]
+
+\section{Conséquence : convergence de Value Iteration}
+
+Comme $0\le \gamma <1$, l'opérateur $T_*$ est une contraction stricte sur l'espace vectoriel de dimension finie des fonctions sur $\mathcal S$, muni de la norme infinie. Le théorème du point fixe de Banach s'applique alors.
+
+\begin{theoreme}[Point fixe et convergence]
+Il existe un unique point fixe $v_*$ tel que
+\[
+v_* = T_* v_*,
+\]
+et pour toute initialisation $v^{(0)}$,
+\[
+v^{(k+1)} = T_*v^{(k)}
+\]
+converge vers $v_*$ lorsque $k\to\infty$.
+\end{theoreme}
+
+\section{Algorithme pas à pas}
+
+\subsection{Initialisation}
+
+On choisit une valeur initiale, par exemple
+\[
+v^{(0)}(s)=0 \quad \text{pour tout } s.
+\]
+
+\subsection{Mise à jour}
+
+Pour chaque itération $k$ et pour chaque état $s$, on calcule
+\[
+v^{(k+1)}(s)=\max_{a}\sum_{s',r} p(s',r\given s,a)\left[r+\gamma v^{(k)}(s')\right].
+\]
+
+\subsection{Critère d'arrêt}
+
+On calcule
+\[
+\Delta_k = \max_s |v^{(k+1)}(s)-v^{(k)}(s)|.
+\]
+On s'arrête lorsque $\Delta_k < \theta$ pour un seuil choisi.
+
+\subsection{Extraction de la politique optimale}
+
+Une fois la valeur stabilisée, on choisit pour chaque état
+\[
+\pi_*(s) \in \argmax_a \sum_{s',r} p(s',r\given s,a)\left[r+\gamma v_*(s')\right].
+\]
+
+\section{Application à FrozenLake}
+
+\subsection{Description de l'environnement}
+
+Dans FrozenLake 4x4 :
+\begin{itemize}[leftmargin=1.6em]
+    \item les états sont les 16 cases de la grille ;
+    \item les actions sont Left, Down, Right, Up ;
+    \item certaines cases sont des trous ;
+    \item une case est le but ;
+    \item la récompense vaut $1$ seulement quand l'agent atteint le but, et $0$ sinon ;
+    \item les trous et le but sont terminaux.
+\end{itemize}
+
+Dans la version déterministe, l'action demandée est exécutée telle quelle. Dans la version glissante (\texttt{is\_slippery=True}), l'action choisie ne conduit pas toujours à la direction visée : la transition devient stochastique.
+
+\subsection{Modèle utilisé}
+
+FrozenLake fournit un modèle explicite des transitions de la forme
+\[
+P[s][a] = \{(p_i,s'_i,r_i,\text{done}_i)\}_i.
+\]
+Cela donne directement les probabilités $p(s',r\given s,a)$ nécessaires pour Value Iteration.
+
+\subsection{Écriture concrète de la mise à jour}
+
+Pour une case $s$ et une action $a$ :
+\[
+Q^{(k)}(s,a)=\sum_i p_i \left[r_i+\gamma v^{(k)}(s'_i)\right].
+\]
+Puis
+\[
+v^{(k+1)}(s)=\max_a Q^{(k)}(s,a).
+\]
+
+\subsection{Cas des états terminaux}
+
+Si $s$ est terminal, alors il est naturel de fixer
+\[
+v^{(k+1)}(s)=0
+\]
+si l'on considère qu'aucune récompense supplémentaire n'est reçue après la terminaison.
+
+\subsection{Interprétation}
+
+Value Iteration propage progressivement la promesse du but vers les cases en amont. Dans FrozenLake glissant, la présence d'aléa réduit certaines valeurs car même une bonne action peut mener à un trou ou à une déviation.
+
+\section{Pseudo-code pédagogique}
+
+\begin{verbatim}
+Initialiser v(s)=0 pour tous les états
+Répéter :
+    delta = 0
+    pour chaque état s :
+        old = v(s)
+        v(s) = max_a somme_{s',r} p(s',r|s,a)[r + gamma v(s')]
+        delta = max(delta, |v(s)-old|)
+Jusqu'à ce que delta < theta
+
+Pour chaque état s :
+    pi*(s) = argmax_a somme_{s',r} p(s',r|s,a)[r + gamma v(s')]
+\end{verbatim}
+
+\section{Ce qu'il faut retenir}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item Value Iteration part de l'équation d'optimalité de Bellman.
+    \item L'opérateur de Bellman optimal est une contraction pour la norme infinie.
+    \item Le théorème du point fixe de Banach garantit l'existence, l'unicité et la convergence vers $v_*$.
+    \item Dans FrozenLake, l'algorithme est exact car le modèle de transition est connu.
+    \item La politique optimale s'obtient ensuite par maximisation locale dans chaque état.
+\end{itemize}
+
+\end{document}

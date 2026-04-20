@@ -1,0 +1,257 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{colortbl}
+
+\geometry{margin=2.2cm}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{lightaccent}{HTML}{EAF2F8}
+\definecolor{lightgray}{HTML}{F7F7F7}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Cours Deep Reinforcement Learning}
+\chead{\small Classe : 4IA}
+\rhead{\small Année : 2026}
+\lfoot{\small Enseignant : Mourad Zéraï, PhD - ESPRIT School of Engineering}
+\cfoot{}
+\rfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{accent}}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
+
+\newtheorem*{definition}{Définition}
+\newtheorem*{rappel}{Rappel}
+\newtheorem*{hypothese}{Hypothèse}
+\newtheorem*{propriete}{Propriété}
+\newtheorem*{theoreme}{Théorème}
+\newtheorem*{remarque}{Remarque}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pbb}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\argmax}{\operatorname*{argmax}}
+\newcommand{\given}{\,|\,}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Dérivation et explication pas à pas de TD(0)}\\[0.4em]
+    {\large Note de cours rigoureuse, détaillée et appliquée à FrozenLake}
+\end{center}
+
+\vspace{0.6em}
+
+\section{Objectif}
+
+Le but de cette note est d'expliquer \emph{TD(0)} pour l'évaluation d'une politique, de dériver sa règle de mise à jour pas à pas et de l'appliquer à FrozenLake.
+
+\section{Cadre}
+
+On fixe une politique $\pi$. On cherche à estimer la fonction de valeur
+\[
+v_{\pi}(s)=\E_{\pi}[G_t \given S_t=s].
+\]
+
+\begin{rappel}
+L'équation de Bellman pour $v_{\pi}$ est
+\[
+v_{\pi}(s)=\sum_a \pi(a\given s)\sum_{s',r} p(s',r\given s,a)\left[r+\gamma v_{\pi}(s')\right].
+\]
+\end{rappel}
+
+On veut maintenant estimer cette fonction sans connaître explicitement le modèle complet et sans attendre la fin des épisodes comme en Monte Carlo.
+
+\section{Point de départ : la décomposition du retour}
+
+On sait que
+\[
+G_t = R_{t+1}+\gamma G_{t+1}.
+\]
+En prenant l'espérance conditionnelle sous $\pi$, on obtient
+\[
+v_{\pi}(S_t)=\E_{\pi}[R_{t+1}+\gamma G_{t+1}\given S_t].
+\]
+
+\subsection{Approximation fondamentale}
+
+L'idée de TD(0) est la suivante :
+\begin{itemize}[leftmargin=1.6em]
+    \item on ne remplace pas $G_{t+1}$ par le retour complet réellement observé ;
+    \item on le remplace par l'estimation courante
+    \[
+    V(S_{t+1}).
+    \]
+\end{itemize}
+
+On obtient alors une cible approchée :
+\[
+R_{t+1}+\gamma V(S_{t+1}).
+\]
+
+\begin{remarque}
+Cette opération s'appelle souvent \emph{bootstrapping}. On utilise une estimation pour en améliorer une autre.
+\end{remarque}
+
+\section{Erreur temporelle}
+
+On définit l'erreur TD
+\[
+\delta_t = R_{t+1}+\gamma V(S_{t+1})-V(S_t).
+\]
+
+\paragraph{Interprétation.}
+\begin{itemize}[leftmargin=1.6em]
+    \item Si $\delta_t>0$, la transition observée suggère que $V(S_t)$ est trop petite.
+    \item Si $\delta_t<0$, elle suggère que $V(S_t)$ est trop grande.
+\end{itemize}
+
+\section{Mise à jour TD(0)}
+
+Comme pour tout schéma de correction incrémentale, on déplace l'estimation actuelle dans la direction de la cible :
+\[
+V(S_t)\leftarrow V(S_t)+\alpha\delta_t.
+\]
+En remplaçant $\delta_t$, on obtient la règle classique :
+\[
+V(S_t)\leftarrow V(S_t)+\alpha\left[R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right].
+\]
+
+\section{Justification étape par étape}
+
+\subsection{Étape 1 : cible idéale}
+
+Si l'on connaissait exactement $v_{\pi}$, alors pour toute transition moyenne sous la politique $\pi$,
+\[
+v_{\pi}(S_t)\approx R_{t+1}+\gamma v_{\pi}(S_{t+1})
+\]
+au sens de l'espérance conditionnelle.
+
+\subsection{Étape 2 : remplacement de l'inconnu par l'estimation courante}
+
+Comme $v_{\pi}$ est inconnue, on remplace $v_{\pi}(S_{t+1})$ par $V(S_{t+1})$.
+
+\subsection{Étape 3 : correction proportionnelle à l'erreur}
+
+On applique ensuite le schéma général
+\[
+x_{\text{new}} = x_{\text{old}}+\alpha(\text{cible}-x_{\text{old}}),
+\]
+avec
+\[
+x_{\text{old}}=V(S_t), \qquad \text{cible}=R_{t+1}+\gamma V(S_{t+1}).
+\]
+
+\subsection{Étape 4 : obtention de TD(0)}
+
+On obtient
+\[
+V(S_t)\leftarrow V(S_t)+\alpha\left[R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right].
+\]
+
+\section{Pourquoi on parle de TD(0)}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item \textbf{TD} signifie \emph{Temporal Difference}, car on corrige la valeur d'un état en comparant deux prédictions faites à des instants successifs.
+    \item Le \textbf{0} signifie qu'on ne prend qu'un pas de bootstrap avant de revenir à l'estimation. On ne déroule pas plusieurs étapes avant la correction.
+\end{itemize}
+
+\section{Comparaison avec Monte Carlo}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item Monte Carlo attend la fin de l'épisode et utilise le retour complet
+    \[
+    G_t.
+    \]
+    \item TD(0) met à jour immédiatement après chaque transition avec
+    \[
+    R_{t+1}+\gamma V(S_{t+1}).
+    \]
+\end{itemize}
+
+\paragraph{Conséquence.}
+TD(0) apprend plus vite en ligne, mais introduit un biais de bootstrap. Monte Carlo est sans bootstrap mais attend la fin de l'épisode.
+
+\section{Convergence : idée générale}
+
+Dans le cadre tabulaire, si :
+\begin{itemize}[leftmargin=1.6em]
+    \item la politique $\pi$ est fixée ;
+    \item tous les états pertinents sont visités ;
+    \item les pas $(\alpha_t)$ satisfont les conditions standard d'approximation stochastique ;
+\end{itemize}
+alors TD(0) converge vers $v_{\pi}$.
+
+\paragraph{Lecture intuitive.}
+La mise à jour est une approximation stochastique du point fixe de l'opérateur de Bellman associé à la politique $\pi$.
+
+\section{Application à FrozenLake}
+
+\subsection{Choix d'une politique}
+
+On fixe par exemple :
+\begin{itemize}[leftmargin=1.6em]
+    \item une politique aléatoire uniforme ;
+    \item une politique manuelle ;
+    \item une politique greedy issue d'un autre algorithme.
+\end{itemize}
+
+\subsection{Déroulement}
+
+À chaque transition observée dans FrozenLake :
+\begin{enumerate}[leftmargin=1.8em]
+    \item on part d'un état $S_t$ ;
+    \item on choisit une action selon $\pi$ ;
+    \item on observe $R_{t+1}$ et $S_{t+1}$ ;
+    \item on met à jour
+    \[
+    V(S_t)\leftarrow V(S_t)+\alpha\left[R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right].
+    \]
+\end{enumerate}
+
+\subsection{Cas glissant}
+
+Quand \texttt{is\_slippery=True}, les transitions sont stochastiques. TD(0) est alors particulièrement naturel, car il apprend directement à partir des transitions observées sans exiger le modèle complet.
+
+\subsection{Lecture visuelle}
+
+Dans une interface FrozenLake, on peut afficher :
+\begin{itemize}[leftmargin=1.6em]
+    \item la valeur estimée $V(s)$ dans chaque case ;
+    \item la TD error de la dernière transition ;
+    \item l'évolution de $V$ au fil des épisodes.
+\end{itemize}
+
+\section{Résumé}
+
+TD(0) est l'algorithme le plus simple pour estimer $v_{\pi}$ en ligne. Il remplace le retour complet par une cible de bootstrap à un pas :
+\[
+R_{t+1}+\gamma V(S_{t+1}),
+\]
+puis corrige
+\[
+V(S_t)\leftarrow V(S_t)+\alpha\left[R_{t+1}+\gamma V(S_{t+1})-V(S_t)\right].
+\]
+Dans FrozenLake, il permet d'illustrer clairement l'idée de Temporal Difference, surtout si l'on compare sa vitesse de mise à jour à celle de Monte Carlo.
+
+\end{document}

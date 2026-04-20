@@ -1,0 +1,65 @@
+{
+  "lab_id": "01_zero_shot",
+  "title": {"fr": "Zero-Shot Prompting", "en": "Zero-Shot Prompting"},
+  "description": {
+    "fr": "Apprenez à obtenir des résultats du LLM sans fournir d'exemples, uniquement par la qualité de vos instructions.",
+    "en": "Learn to get results from the LLM without providing examples, using only the quality of your instructions."
+  },
+  "concept": {
+    "fr": "En zero-shot, vous n'avez aucun exemple à fournir au modèle. Votre seul levier est la précision de vos instructions : objectif clair, contraintes explicites, format de sortie défini. C'est le mode le plus courant et le plus exigeant du prompt engineering.",
+    "en": "In zero-shot, you provide no examples to the model. Your only leverage is the precision of your instructions: clear objective, explicit constraints, defined output format. This is the most common and demanding mode of prompt engineering."
+  },
+  "rubric_id": "zero_shot",
+  "missions": [
+    {
+      "mission_id": "summarize_article",
+      "title": {"fr": "Le Résumé Stratégique", "en": "The Strategic Summary"},
+      "audience": "business",
+      "difficulty": "beginner",
+      "instructions": {
+        "fr": "Vous êtes consultant junior dans un cabinet de conseil. Votre manager vous envoie un article sur l'impact de l'IA générative dans le secteur bancaire et vous demande un résumé exécutif pour le comité de direction.\n\nVotre tâche : Rédigez UN SEUL prompt (sans exemples) qui demande au LLM de résumer l'article ci-dessous en un résumé exécutif adapté à des dirigeants bancaires.\n\nAttention : En zero-shot, la précision de vos instructions est votre seul levier. Pensez au public cible, au format, à la longueur.",
+        "en": "You are a junior consultant at a consulting firm. Your manager sends you an article about generative AI's impact on banking and asks for an executive summary for the board of directors.\n\nYour task: Write ONE prompt (no examples) that asks the LLM to summarize the article below into a board-ready executive summary.\n\nRemember: In zero-shot, the precision of your instructions is your only leverage. Think about target audience, format, length."
+      },
+      "input_text": {
+        "fr": "L'intelligence artificielle générative transforme rapidement le secteur bancaire mondial. Selon un rapport de McKinsey publié en 2024, les banques qui adoptent l'IA générative pourraient augmenter leur productivité de 25 à 40% dans les fonctions de back-office. Les cas d'usage les plus prometteurs incluent l'automatisation de la rédaction de rapports réglementaires, la personnalisation des interactions client via des chatbots avancés, et l'analyse automatisée des risques de crédit.\n\nCependant, les défis restent significatifs. La conformité réglementaire (RGPD, Bâle III) impose des contraintes strictes sur l'utilisation des données clients par les modèles d'IA. Les risques d'hallucination — où le modèle génère des informations fausses mais convaincantes — sont particulièrement critiques dans un contexte financier. Plusieurs grandes banques européennes ont déjà signalé des incidents où des résumés automatisés contenaient des erreurs factuelles.\n\nLes investissements dans le secteur sont en forte hausse : JPMorgan a alloué 1,5 milliard de dollars à l'IA en 2024, tandis que BNP Paribas a créé une équipe dédiée de 200 ingénieurs IA. Les analystes prévoient que d'ici 2027, 80% des interactions bancaires de routine seront gérées par des systèmes d'IA, libérant les conseillers humains pour les opérations à haute valeur ajoutée.\n\nLa question clé pour les dirigeants n'est plus 'faut-il adopter l'IA ?' mais 'comment l'intégrer de manière responsable tout en maintenant la confiance des clients et la conformité réglementaire ?'",
+        "en": "Generative artificial intelligence is rapidly transforming the global banking sector. According to a McKinsey report published in 2024, banks adopting generative AI could increase productivity by 25-40% in back-office functions. The most promising use cases include automating regulatory report writing, personalizing customer interactions through advanced chatbots, and automated credit risk analysis.\n\nHowever, challenges remain significant. Regulatory compliance (GDPR, Basel III) imposes strict constraints on how customer data can be used by AI models. Hallucination risks — where the model generates false but convincing information — are particularly critical in a financial context. Several major European banks have already reported incidents where automated summaries contained factual errors.\n\nInvestments in the sector are surging: JPMorgan allocated $1.5 billion to AI in 2024, while BNP Paribas created a dedicated team of 200 AI engineers. Analysts predict that by 2027, 80% of routine banking interactions will be handled by AI systems, freeing human advisors for high-value operations.\n\nThe key question for executives is no longer 'should we adopt AI?' but 'how do we integrate it responsibly while maintaining customer trust and regulatory compliance?'"
+      },
+      "expected_behavior": "The LLM should produce a concise executive summary (3-5 bullet points or short paragraphs) highlighting key opportunities, risks, investment figures, and the strategic question. It should be written in a tone appropriate for board members.",
+      "learning_objectives": [
+        {"fr": "Formuler un objectif clair sans exemples", "en": "Formulate a clear objective without examples"},
+        {"fr": "Spécifier le public cible et le ton", "en": "Specify target audience and tone"},
+        {"fr": "Définir des contraintes de format et longueur", "en": "Define format and length constraints"}
+      ],
+      "hints": [
+        {"fr": "Pensez à préciser le public cible (dirigeants, pas techniciens)", "en": "Think about specifying the target audience (executives, not technicians)"},
+        {"fr": "Indiquez le format souhaité : bullet points ? paragraphe ? tableau ?", "en": "Indicate the desired format: bullet points? paragraph? table?"},
+        {"fr": "Fixez une contrainte de longueur (ex: max 150 mots)", "en": "Set a length constraint (e.g., max 150 words)"}
+      ]
+    },
+    {
+      "mission_id": "classify_ticket",
+      "title": {"fr": "Le Classificateur", "en": "The Classifier"},
+      "audience": "engineering",
+      "difficulty": "beginner",
+      "instructions": {
+        "fr": "Vous développez un système de triage automatique de tickets support. Le LLM doit classifier un ticket client dans une des catégories : BUG, FEATURE_REQUEST, QUESTION, COMPLAINT.\n\nVotre tâche : Rédigez UN SEUL prompt zero-shot qui classe correctement le ticket ci-dessous. Le prompt doit produire UNIQUEMENT la catégorie, sans explication.\n\nObjectif d'apprentissage : Formuler des catégories claires et des critères de classification implicites sans exemples.",
+        "en": "You are building an automatic support ticket triage system. The LLM must classify a customer ticket into one of these categories: BUG, FEATURE_REQUEST, QUESTION, COMPLAINT.\n\nYour task: Write ONE zero-shot prompt that correctly classifies the ticket below. The prompt should output ONLY the category, no explanation.\n\nLearning objective: Formulate clear categories and implicit classification criteria without examples."
+      },
+      "input_text": {
+        "fr": "Bonjour, depuis la mise à jour de la semaine dernière, le bouton 'Exporter en PDF' ne fonctionne plus sur la page des rapports mensuels. Quand je clique dessus, rien ne se passe. J'ai essayé avec Chrome et Firefox, même problème. Mes collègues ont le même souci. C'est assez urgent car on doit envoyer les rapports au client vendredi.",
+        "en": "Hello, since last week's update, the 'Export to PDF' button no longer works on the monthly reports page. When I click it, nothing happens. I tried with Chrome and Firefox, same issue. My colleagues have the same problem. This is quite urgent as we need to send the reports to the client by Friday."
+      },
+      "expected_behavior": "The LLM should output 'BUG' as this is clearly a regression bug (worked before update, reproducible, multiple users affected).",
+      "learning_objectives": [
+        {"fr": "Définir des catégories mutuellement exclusives", "en": "Define mutually exclusive categories"},
+        {"fr": "Contraindre le format de sortie (catégorie seule)", "en": "Constrain output format (category only)"},
+        {"fr": "Impliciter les critères de classification dans la consigne", "en": "Imply classification criteria in the instruction"}
+      ],
+      "hints": [
+        {"fr": "Définissez brièvement chaque catégorie pour lever l'ambiguïté", "en": "Briefly define each category to remove ambiguity"},
+        {"fr": "Précisez que la sortie doit être UN SEUL MOT", "en": "Specify that the output should be ONE WORD only"},
+        {"fr": "Pensez aux cas ambigus : un bug peut aussi être formulé comme une plainte", "en": "Think about ambiguous cases: a bug can also sound like a complaint"}
+      ]
+    }
+  ]
+}

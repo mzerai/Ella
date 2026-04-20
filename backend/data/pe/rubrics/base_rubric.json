@@ -1,0 +1,60 @@
+{
+  "rubric_id": "base",
+  "title": {
+    "fr": "Critères d'évaluation de base",
+    "en": "Base Evaluation Criteria"
+  },
+  "max_score": 10,
+  "criteria": [
+    {
+      "id": "clarity",
+      "title": {"fr": "Clarté de l'objectif", "en": "Objective Clarity"},
+      "max": 2,
+      "levels": {
+        "0": {"fr": "Objectif absent ou confus", "en": "Objective missing or confusing"},
+        "1": {"fr": "Objectif présent mais vague", "en": "Objective present but vague"},
+        "2": {"fr": "Objectif clair et sans ambiguïté", "en": "Clear and unambiguous objective"}
+      }
+    },
+    {
+      "id": "specificity",
+      "title": {"fr": "Précision de la consigne", "en": "Instruction Specificity"},
+      "max": 2,
+      "levels": {
+        "0": {"fr": "Instructions trop générales", "en": "Instructions too general"},
+        "1": {"fr": "Quelques détails utiles", "en": "Some useful details"},
+        "2": {"fr": "Instructions précises et actionables", "en": "Precise and actionable instructions"}
+      }
+    },
+    {
+      "id": "constraints",
+      "title": {"fr": "Contraintes utiles", "en": "Useful Constraints"},
+      "max": 2,
+      "levels": {
+        "0": {"fr": "Aucune contrainte", "en": "No constraints"},
+        "1": {"fr": "1-2 contraintes mais incomplètes", "en": "1-2 constraints but incomplete"},
+        "2": {"fr": "Contraintes pertinentes et suffisantes", "en": "Relevant and sufficient constraints"}
+      }
+    },
+    {
+      "id": "output_format",
+      "title": {"fr": "Format de sortie", "en": "Output Format"},
+      "max": 2,
+      "levels": {
+        "0": {"fr": "Aucune indication de format", "en": "No format indication"},
+        "1": {"fr": "Format mentionné mais vague", "en": "Format mentioned but vague"},
+        "2": {"fr": "Format explicite (JSON, bullets, tableau, etc.)", "en": "Explicit format (JSON, bullets, table, etc.)"}
+      }
+    },
+    {
+      "id": "effectiveness",
+      "title": {"fr": "Efficacité du résultat", "en": "Result Effectiveness"},
+      "max": 2,
+      "levels": {
+        "0": {"fr": "Résultat hors sujet ou inutile", "en": "Off-topic or useless result"},
+        "1": {"fr": "Résultat partiel ou imprécis", "en": "Partial or imprecise result"},
+        "2": {"fr": "Résultat qui remplit l'objectif de la mission", "en": "Result fulfills the mission objective"}
+      }
+    }
+  ]
+}

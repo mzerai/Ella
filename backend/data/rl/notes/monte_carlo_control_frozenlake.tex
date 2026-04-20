@@ -1,0 +1,243 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+
+\geometry{margin=2.2cm}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{lightaccent}{HTML}{EAF2F8}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Cours Deep Reinforcement Learning}
+\chead{\small Classe : 4IA}
+\rhead{\small Année : 2026}
+\lfoot{\small Enseignant : Mourad Zéraï, PhD - ESPRIT School of Engineering}
+\cfoot{}
+\rfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{accent}}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
+
+\newtheorem*{definition}{Définition}
+\newtheorem*{rappel}{Rappel}
+\newtheorem*{hypothese}{Hypothèse}
+\newtheorem*{propriete}{Propriété}
+\newtheorem*{theoreme}{Théorème}
+\newtheorem*{remarque}{Remarque}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pbb}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\argmax}{\operatorname*{argmax}}
+\newcommand{\given}{\,|\,}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Dérivation et explication pas à pas de Monte Carlo Control}\\[0.4em]
+    {\large Note de cours rigoureuse, détaillée et appliquée à FrozenLake}
+\end{center}
+
+\vspace{0.6em}
+
+\section{Objectif}
+
+Le but de cette note est d'expliquer \emph{Monte Carlo Control}, c'est-à-dire l'apprentissage d'une politique par estimation d'épisodes complets, sans modèle explicite des transitions, puis de détailler son application à FrozenLake.
+
+\section{Idée de base}
+
+Les méthodes Monte Carlo n'utilisent pas l'équation de Bellman comme mise à jour locale pas à pas. Elles attendent la fin d'un épisode, calculent le retour observé, puis utilisent ce retour comme échantillon de la valeur recherchée.
+
+\begin{definition}[Retour]
+\[
+G_t = R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\cdots+\gamma^{T-t-1}R_T,
+\]
+où $T$ désigne l'instant terminal de l'épisode.
+\end{definition}
+
+\begin{definition}[Valeur état-action]
+\[
+q_{\pi}(s,a)=\E_{\pi}[G_t \given S_t=s,A_t=a].
+\]
+\end{definition}
+
+L'idée est donc simple : si l'on observe beaucoup de retours $G_t$ après être passé par $(s,a)$, leur moyenne devrait approcher $q_{\pi}(s,a)$.
+
+\section{Pourquoi la moyenne empirique est légitime}
+
+Soient
+\[
+G_t^{(1)},G_t^{(2)},\dots,G_t^{(N)}
+\]
+des réalisations du retour obtenues lors de visites répétées du couple $(s,a)$ sous la même politique $\pi$.
+
+\begin{theoreme}[Loi forte des grands nombres, version intuitive]
+Si les variables sont intégrables et identiquement distribuées, alors
+\[
+\frac1N\sum_{i=1}^N G_t^{(i)} \to \E_{\pi}[G_t\given S_t=s,A_t=a]
+\]
+presque sûrement lorsque $N\to\infty$.
+\end{theoreme}
+
+Donc un estimateur naturel est
+\[
+\hat q_N(s,a)=\frac1N\sum_{i=1}^N G_t^{(i)}.
+\]
+
+\section{De l'évaluation au contrôle}
+
+\subsection{Évaluation Monte Carlo}
+
+Si la politique $\pi$ est fixée, on peut estimer $q_{\pi}(s,a)$ par moyenne empirique des retours observés après chaque visite de $(s,a)$.
+
+\subsection{Contrôle}
+
+Le contrôle consiste à améliorer la politique au fur et à mesure des estimations. L'idée est :
+\begin{enumerate}[leftmargin=1.6em]
+    \item estimer $q_{\pi}$ à partir des épisodes ;
+    \item rendre la politique plus gloutonne par rapport à cette estimation.
+\end{enumerate}
+
+\section{Pourquoi il faut de l'exploration}
+
+Si l'on choisit toujours l'action actuellement jugée meilleure, certains couples $(s,a)$ risquent de ne jamais être revisités. Dans ce cas, leurs estimations ne progresseront plus. Il faut donc garantir un minimum d'exploration.
+
+Deux approches classiques existent :
+\begin{itemize}[leftmargin=1.6em]
+    \item \emph{exploring starts} : on suppose que tout couple $(s,a)$ peut initier un épisode avec probabilité positive ;
+    \item politique \emph{$\varepsilon$-gloutonne} : avec probabilité $\varepsilon$, on choisit une action aléatoire.
+\end{itemize}
+
+Dans FrozenLake, la seconde approche est la plus simple à implémenter.
+
+\section{Mise à jour par moyenne incrémentale}
+
+Stocker toutes les visites est possible, mais inutile. Si $Q_n(s,a)$ est la moyenne des $n$ premiers retours et si $G_{n+1}$ est le nouveau retour, alors
+\[
+Q_{n+1}(s,a)=Q_n(s,a)+\frac{1}{n+1}\left(G_{n+1}-Q_n(s,a)\right).
+\]
+
+\paragraph{Justification.}
+Par définition,
+\[
+Q_{n+1}=\frac{nQ_n+G_{n+1}}{n+1}
+=Q_n+\frac{G_{n+1}-Q_n}{n+1}.
+\]
+Cette écriture est une simple réorganisation algébrique.
+
+\section{First-visit Monte Carlo control}
+
+\subsection{Principe}
+
+Dans la variante \emph{first-visit}, pour un épisode donné, on ne met à jour $(s,a)$ qu'à sa première apparition dans l'épisode. Cela évite la corrélation forte entre plusieurs occurrences du même couple dans un même épisode.
+
+\subsection{Étapes}
+
+Pour chaque épisode :
+\begin{enumerate}[leftmargin=1.6em]
+    \item générer un épisode en suivant la politique courante ;
+    \item calculer les retours $G_t$ en remontant l'épisode de la fin vers le début ;
+    \item pour chaque premier couple $(s,a)$ visité, mettre à jour $Q(s,a)$ ;
+    \item rendre la politique $\varepsilon$-gloutonne par rapport à $Q$.
+\end{enumerate}
+
+\section{Pourquoi l'amélioration est naturelle}
+
+Si l'estimateur $Q(s,a)$ approche $q_{\pi}(s,a)$, alors choisir
+\[
+\pi'(s)\in \argmax_a Q(s,a)
+\]
+revient à approcher la politique gloutonne par rapport à $q_{\pi}$. On transpose donc l'idée du théorème d'amélioration de politique, mais avec une estimation empirique au lieu d'une quantité exacte.
+
+\section{Application à FrozenLake}
+
+\subsection{Épisode typique}
+
+Un épisode est une suite :
+\[
+(s_0,a_0,r_1,s_1,a_1,r_2,\dots,s_T).
+\]
+Dans FrozenLake, la plupart des récompenses valent $0$, sauf l'atteinte du but qui donne généralement $1$.
+
+\subsection{Calcul concret des retours}
+
+Si la fin d'épisode vaut
+\[
+r_{t+1}=0,\quad r_{t+2}=0,\quad r_{t+3}=1,
+\]
+alors
+\[
+G_t = 0 + \gamma\cdot 0 + \gamma^2 \cdot 1 = \gamma^2.
+\]
+
+\subsection{Effet du mode glissant}
+
+En mode glissant, deux épisodes partis du même état et de la même action peuvent conduire à des suites très différentes. Monte Carlo est adapté à ce contexte car il apprend directement à partir des trajectoires réalisées, sans exiger le modèle exact.
+
+\subsection{Choix d'une politique $\varepsilon$-gloutonne}
+
+Pour chaque état $s$ :
+\[
+\pi(a\given s)=
+\begin{cases}
+1-\varepsilon+\dfrac{\varepsilon}{|\mathcal A|} & \text{si } a \in \argmax_b Q(s,b),\\[0.8em]
+\dfrac{\varepsilon}{|\mathcal A|} & \text{sinon.}
+\end{cases}
+\]
+On conserve ainsi une probabilité strictement positive de tester toutes les actions.
+
+\section{Pseudo-code pédagogique}
+
+\begin{verbatim}
+Initialiser Q(s,a) arbitrairement
+Initialiser la politique comme epsilon-gloutonne par rapport à Q
+Initialiser N(s,a)=0
+
+Pour chaque épisode :
+    Générer l'épisode sous la politique courante
+    G = 0
+    Parcourir l'épisode à rebours :
+        G = gamma * G + reward
+        Si (s,a) est une première visite dans l'épisode :
+            N(s,a) = N(s,a) + 1
+            Q(s,a) = Q(s,a) + (1/N(s,a)) * (G - Q(s,a))
+            Mettre à jour la politique epsilon-gloutonne dans l'état s
+\end{verbatim}
+
+\section{Limites et intérêts}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item La méthode ne s'applique qu'à des épisodes terminaux ou à des retours bien définis.
+    \item Elle n'a pas besoin du modèle de transition.
+    \item Elle peut être lente si la récompense utile n'apparaît qu'à la fin, comme dans FrozenLake.
+    \item Elle est simple conceptuellement : on apprend par moyenne de retours observés.
+\end{itemize}
+
+\section{Ce qu'il faut retenir}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item Monte Carlo Control estime directement $q_{\pi}$ par moyenne empirique de retours.
+    \item La justification probabiliste repose sur la loi des grands nombres.
+    \item L'amélioration de politique se fait en rendant la politique gloutonne ou $\varepsilon$-gloutonne par rapport à $Q$.
+    \item Dans FrozenLake, la méthode apprend à partir d'épisodes complets, avec ou sans glissement.
+\end{itemize}
+
+\end{document}

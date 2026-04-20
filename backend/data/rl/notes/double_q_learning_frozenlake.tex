@@ -1,0 +1,244 @@
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{colortbl}
+
+\geometry{margin=2.2cm}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{lightaccent}{HTML}{EAF2F8}
+\definecolor{lightgray}{HTML}{F7F7F7}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Cours Deep Reinforcement Learning}
+\chead{\small Classe : 4IA}
+\rhead{\small Année : 2026}
+\lfoot{\small Enseignant : Mourad Zéraï, PhD - ESPRIT School of Engineering}
+\cfoot{}
+\rfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{accent}}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
+
+\newtheorem*{definition}{Définition}
+\newtheorem*{rappel}{Rappel}
+\newtheorem*{hypothese}{Hypothèse}
+\newtheorem*{propriete}{Propriété}
+\newtheorem*{theoreme}{Théorème}
+\newtheorem*{remarque}{Remarque}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pbb}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\argmax}{\operatorname*{argmax}}
+\newcommand{\given}{\,|\,}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Dérivation et explication pas à pas de Double Q-Learning}\\[0.4em]
+    {\large Note de cours rigoureuse, détaillée et appliquée à FrozenLake}
+\end{center}
+
+\vspace{0.6em}
+
+\section{Objectif}
+
+Le but de cette note est d'expliquer l'algorithme de Double Q-Learning, de montrer d'où vient l'idée du \emph{double}, puis d'appliquer l'algorithme à FrozenLake.
+
+\section{Pourquoi Q-Learning peut être optimiste}
+
+\subsection{Rappel de la cible de Q-Learning}
+
+Dans Q-Learning, la cible est
+\[
+Y_t^{\text{QL}} = R_{t+1}+\gamma \max_{a'} Q(S_{t+1},a').
+\]
+
+\subsection{Source du problème}
+
+Le même tableau $Q$ joue deux rôles à la fois :
+\begin{itemize}[leftmargin=1.6em]
+    \item il sert à \emph{sélectionner} l'action future via le $\max$ ;
+    \item il sert à \emph{évaluer} la qualité de cette action.
+\end{itemize}
+
+\begin{remarque}
+Quand plusieurs estimations sont bruitées, le maximum a tendance à sélectionner une valeur trop grande. Cela crée un biais d'optimisme.
+\end{remarque}
+
+\subsection{Justification simple du ``double''}
+
+Considérons des estimateurs aléatoires
+\[
+\widehat q_1,\widehat q_2,\ldots,\widehat q_m
+\]
+d'une même quantité vraie. Même si chacun est non biaisé, le maximum vérifie en général
+\[
+\E\left[\max_i \widehat q_i\right] \ge \max_i \E[\widehat q_i].
+\]
+
+\paragraph{Pourquoi ?}
+La fonction ``maximum'' est convexe. Par l'inégalité de Jensen,
+\[
+\max_i \E[\widehat q_i] \le \E\left[\max_i \widehat q_i\right].
+\]
+Il existe donc une tendance à la surestimation.
+
+\paragraph{Idée du double.}
+On sépare les deux rôles :
+\begin{itemize}[leftmargin=1.6em]
+    \item un premier estimateur choisit l'action qui semble la meilleure ;
+    \item un second estimateur évalue cette action.
+\end{itemize}
+On réduit ainsi le couplage entre sélection et évaluation, donc le biais d'optimisme.
+
+\section{Construction de Double Q-Learning}
+
+\subsection{Deux tables au lieu d'une}
+
+On maintient deux tableaux :
+\[
+Q^A(s,a), \qquad Q^B(s,a).
+\]
+
+À chaque transition, on choisit aléatoirement lequel des deux tableaux sera mis à jour.
+
+\subsection{Mise à jour de $Q^A$}
+
+Si l'on met à jour $Q^A$, on choisit d'abord l'action à partir de $Q^A$ :
+\[
+a^*=\argmax_{a'} Q^A(S_{t+1},a').
+\]
+Puis on l'évalue avec $Q^B$ :
+\[
+Y_t^{A} = R_{t+1}+\gamma Q^B(S_{t+1},a^*).
+\]
+La mise à jour devient
+\[
+Q^A(S_t,A_t)\leftarrow Q^A(S_t,A_t)+\alpha\left[Y_t^A-Q^A(S_t,A_t)\right].
+\]
+
+\subsection{Mise à jour symétrique de $Q^B$}
+
+Si l'on met à jour $Q^B$, on fait l'inverse :
+\[
+b^*=\argmax_{a'} Q^B(S_{t+1},a'),
+\]
+puis
+\[
+Y_t^{B}=R_{t+1}+\gamma Q^A(S_{t+1},b^*),
+\]
+et
+\[
+Q^B(S_t,A_t)\leftarrow Q^B(S_t,A_t)+\alpha\left[Y_t^B-Q^B(S_t,A_t)\right].
+\]
+
+\section{Pourquoi cette séparation est utile}
+
+\subsection{Découplage partiel}
+
+Dans Q-Learning standard, la valeur choisie par le $\max$ et la valeur utilisée pour l'évaluation proviennent du même tableau. Dans Double Q-Learning, la table utilisée pour l'évaluation n'est pas celle qui a servi à la sélection.
+
+\paragraph{Effet principal.}
+Le bruit qui a poussé à choisir une action n'est plus exactement le même bruit que celui qui sert à l'évaluer. Le biais de surestimation diminue donc.
+
+\subsection{Ce que le ``double'' ne signifie pas}
+
+Le mot ``double'' ne veut pas dire qu'on cherche deux politiques optimales différentes. Il signifie seulement qu'on maintient deux estimateurs afin de mieux contrôler le biais produit par l'opérateur maximum.
+
+\section{Forme complète de l'algorithme}
+
+\begin{enumerate}[leftmargin=1.8em]
+    \item Initialiser $Q^A$ et $Q^B$.
+    \item À l'instant $t$, choisir $A_t$ selon une politique de comportement, souvent $\epsilon$-greedy par rapport à
+    \[
+    Q^{\text{tot}} = Q^A+Q^B
+    \]
+    ou par rapport à leur moyenne.
+    \item Observer $(S_t,A_t,R_{t+1},S_{t+1})$.
+    \item Tirer au hasard le tableau à mettre à jour.
+    \item Si l'on met à jour $Q^A$, utiliser
+    \[
+    a^*=\argmax_{a'}Q^A(S_{t+1},a'), \qquad
+    Y_t^A=R_{t+1}+\gamma Q^B(S_{t+1},a^*).
+    \]
+    \item Sinon, utiliser
+    \[
+    b^*=\argmax_{a'}Q^B(S_{t+1},a'), \qquad
+    Y_t^B=R_{t+1}+\gamma Q^A(S_{t+1},b^*).
+    \]
+    \item Répéter.
+\end{enumerate}
+
+\section{Lien avec Bellman}
+
+Double Q-Learning reste une approximation stochastique de l'équation d'optimalité de Bellman. La différence ne porte pas sur le point fixe visé, mais sur la façon de construire une cible moins biaisée pendant l'apprentissage.
+
+\begin{remarque}
+En pratique, on extrait souvent la politique finale à partir de
+\[
+Q^{\text{final}}(s,a)=Q^A(s,a)+Q^B(s,a)
+\]
+ou de leur moyenne.
+\end{remarque}
+
+\section{Application à FrozenLake}
+
+\subsection{Pourquoi l'effet est visible}
+
+Dans FrozenLake, surtout quand \texttt{is\_slippery=True}, les récompenses sont rares et les transitions sont bruitées. Les estimations intermédiaires de $Q$ peuvent donc varier fortement.
+
+\paragraph{Conséquence.}
+Le terme
+\[
+\max_{a'}Q(S_{t+1},a')
+\]
+de Q-Learning peut surestimer trop tôt certaines branches. Double Q-Learning tempère cet effet.
+
+\subsection{Lecture pédagogique sur la grille}
+
+Dans une interface visuelle, on peut :
+\begin{itemize}[leftmargin=1.6em]
+    \item afficher $Q^A$ et $Q^B$ séparément ;
+    \item afficher aussi leur somme ou leur moyenne ;
+    \item comparer la politique greedy finale avec celle de Q-Learning standard ;
+    \item observer que l'apprentissage est souvent moins ``agressivement optimiste''.
+\end{itemize}
+
+\subsection{Cas non glissant et glissant}
+
+\begin{itemize}[leftmargin=1.6em]
+    \item En version non glissante, la différence avec Q-Learning peut être faible car le bruit de transition est faible.
+    \item En version glissante, Double Q-Learning devient plus intéressant car il limite mieux les surestimations dues au bruit et à la rareté de la récompense.
+\end{itemize}
+
+\section{Résumé}
+
+Double Q-Learning part d'un constat simple : dans Q-Learning, le même estimateur sert à choisir et à évaluer l'action future, ce qui crée une surestimation moyenne. Le ``double'' consiste à utiliser deux estimateurs
+\[
+Q^A \text{ et } Q^B
+\]
+pour séparer ces deux rôles. L'algorithme vise toujours la même solution optimale, mais avec des cibles d'apprentissage moins optimistes. Dans FrozenLake, cette idée est particulièrement instructive lorsque l'environnement est glissant.
+
+\end{document}
