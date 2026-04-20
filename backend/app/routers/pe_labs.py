@@ -85,6 +85,7 @@ async def get_lab_detail(lab_id: str):
             "audience": m.get("audience", ""),
             "difficulty": m.get("difficulty", ""),
             "instructions": m["instructions"],
+            "input_text": m.get("input_text", {}),
             "hints": m.get("hints", []),
         })
 

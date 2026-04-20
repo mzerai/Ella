@@ -1,5 +1,5 @@
 /**
- * ELLA's avatar — the warm "E" circle used throughout the UI.
+ * Ella's avatar — the warm "E" circle used throughout the UI.
  */
 
 interface EllaAvatarProps {
@@ -21,7 +21,7 @@ export default function EllaAvatar({
     <div
       className={`rounded-full flex items-center justify-center text-white font-semibold shrink-0 ${sizes[size]} ${className}`}
       style={{
-        background: "linear-gradient(135deg, #EF9F27, #D85A30)",
+        background: "linear-gradient(135deg, #E94560, #FF6B6B)",
       }}
     >
       E

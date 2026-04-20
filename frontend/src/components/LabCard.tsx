@@ -28,24 +28,24 @@ export default function LabCard({
     >
       <div className="flex items-center gap-3 mb-3">
         <div
-          className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-medium ${
+          className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold ${
             locked
               ? "bg-ella-gray-200 text-ella-gray-500"
-              : "bg-ella-amber-100 text-ella-amber-800"
+              : "bg-ella-accent-bg text-ella-accent"
           }`}
         >
           {number}
         </div>
-        <h3 className="font-body font-medium text-base">{title}</h3>
+        <h3 className="font-bold text-base">{title}</h3>
       </div>
-      <p className="text-sm text-ella-gray-700 mb-4 leading-relaxed">
+      <p className="text-sm text-ella-gray-700 mb-4 leading-relaxed line-clamp-2">
         {description}
       </p>
       <div className="flex items-center gap-2">
-        <ProgressBar value={progress} className="flex-1" />
+        <ProgressBar value={progress} className="flex-1 shrink-0" />
         <span
-          className={`text-xs font-medium ${
-            locked ? "text-ella-gray-500" : progress > 0 ? "text-ella-teal-600" : "text-ella-gray-500"
+          className={`text-xs font-bold leading-none ${
+            locked ? "text-ella-gray-500" : progress > 0 ? "text-ella-primary" : "text-ella-gray-500"
           }`}
         >
           {locked ? "Verrouillé" : `${progress}%`}

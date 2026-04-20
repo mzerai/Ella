@@ -99,6 +99,7 @@ export interface PEMission {
   audience: string;
   difficulty: string;
   instructions: { fr: string; en: string };
+  input_text?: { fr: string; en: string };
   hints: Array<{ fr: string; en: string }>;
 }
 

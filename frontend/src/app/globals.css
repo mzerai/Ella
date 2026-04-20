@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,69 +8,61 @@
   body {
     @apply bg-ella-gray-50 text-ella-gray-900 font-body;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
-
   h1, h2, h3 {
-    @apply font-heading;
+    @apply font-body font-bold;
   }
 }
 
 @layer components {
-  /* ELLA's warm card style */
   .ella-card {
-    @apply bg-white rounded-xl border border-ella-gray-200 p-5 transition-all duration-200;
+    @apply bg-white rounded-lg border border-ella-gray-200 p-5 transition-all duration-200 hover:shadow-md hover:border-ella-primary/30;
   }
 
-  .ella-card:hover {
-    @apply border-ella-amber-400 shadow-sm;
-  }
-
-  /* ELLA's chat bubble */
   .ella-bubble {
-    @apply bg-ella-amber-50 rounded-xl rounded-tl-sm p-4 border-l-[3px] border-ella-amber-400;
+    @apply bg-ella-primary-bg rounded-xl p-4 border-l-4 border-ella-primary text-ella-gray-900 shadow-sm transition-all;
   }
 
-  /* User's chat bubble */
   .user-bubble {
-    @apply bg-ella-gray-100 rounded-xl rounded-tr-sm p-4;
+    @apply bg-white border border-ella-gray-200 rounded-xl p-4 text-ella-gray-900 shadow-sm transition-all;
   }
 
-  /* Score badges */
   .score-excellent {
-    @apply bg-ella-teal-50 text-ella-teal-800;
+    @apply bg-ella-success-bg text-green-800 border border-ella-success/10;
   }
 
   .score-good {
-    @apply bg-ella-amber-100 text-ella-amber-800;
+    @apply bg-ella-warning-bg text-yellow-800 border border-ella-warning/10;
   }
 
   .score-needs-work {
-    @apply bg-ella-coral-50 text-ella-coral-800;
+    @apply bg-ella-accent-bg text-ella-accent-dark border border-ella-accent/10;
   }
 
-  /* Prompt editor */
   .prompt-editor {
-    @apply font-mono text-sm bg-ella-gray-50 border border-ella-gray-300 rounded-lg p-4
-           focus:outline-none focus:ring-2 focus:ring-ella-amber-400 focus:border-transparent
-           resize-y min-h-[120px];
+    @apply font-mono text-sm bg-ella-gray-900 text-ella-dark-text border border-ella-gray-700 rounded-xl p-4
+           focus:outline-none focus:ring-2 focus:ring-ella-accent focus:border-transparent
+           resize-y min-h-[120px] placeholder-ella-gray-500 shadow-inner;
   }
 
-  /* Primary button */
   .btn-primary {
-    @apply bg-ella-amber-400 hover:bg-ella-amber-600 text-white font-medium
-           px-6 py-2.5 rounded-lg transition-all duration-200
-           active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply bg-ella-accent hover:bg-ella-accent-dark text-white font-bold
+           px-6 py-2.5 rounded-full transition-all duration-200 shadow-md hover:shadow-lg
+           active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
-  /* Secondary button */
   .btn-secondary {
-    @apply bg-white hover:bg-ella-gray-100 text-ella-gray-800 font-medium
-           px-6 py-2.5 rounded-lg border border-ella-gray-300 transition-all duration-200
-           active:scale-[0.98];
+    @apply bg-white hover:bg-ella-gray-100 text-ella-gray-900 font-medium
+           px-6 py-2.5 rounded-full border border-ella-gray-300 transition-all duration-200
+           active:scale-[0.97];
   }
 
-  /* Progress bar */
+  .btn-outline-white {
+    @apply bg-transparent hover:bg-white/10 text-white font-medium
+           px-6 py-2.5 rounded-full border border-white/40 transition-all duration-200
+           active:scale-[0.97];
+  }
+
   .progress-bar {
     @apply h-1.5 rounded-full bg-ella-gray-200;
   }
