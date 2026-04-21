@@ -153,7 +153,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-ella-dark to-ella-primary-dark pt-16 pb-12 relative overflow-hidden flex items-center min-h-[40vh] md:min-h-[45vh]">
+      <section className="bg-gradient-to-br from-ella-dark to-ella-primary-dark pt-12 pb-10 relative overflow-hidden flex items-center min-h-[35vh] md:min-h-[40vh]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 w-full text-center md:text-left">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="shrink-0 animate-fade-in order-2 md:order-1">
@@ -166,7 +166,7 @@ export default function HomePage() {
                 <span className="text-ella-accent">coaché par Ella.</span>
               </h1>
               
-              <p className="text-lg text-ella-dark-text/80 mb-8 max-w-2xl leading-relaxed animate-slide-up [animation-delay:0.1s]">
+              <p className="text-base md:text-lg text-ella-dark-text/80 mb-6 max-w-2xl leading-relaxed animate-slide-up [animation-delay:0.1s]">
                 La plateforme d'apprentissage immersif d'ESPRIT. <br className="hidden md:block" />
                 Des cours interactifs, des labs pratiques, et Ella — ton coach IA personnel.
               </p>
@@ -191,14 +191,14 @@ export default function HomePage() {
       </section>
 
       {/* Course catalog Section */}
-      <section id="catalog" className="py-16 md:py-20 bg-white">
+      <section id="catalog" className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="mb-10 text-center md:text-left">
-            <h2 className="text-3xl font-bold text-ella-gray-900 mb-2">Nos formations</h2>
-            <p className="text-ella-gray-500 font-medium">Des parcours conçus par des experts, enrichis par l'IA</p>
+          <div className="mb-6 text-center md:text-left">
+            <h2 className="text-3xl font-bold text-ella-gray-900 mb-1">Nos formations</h2>
+            <p className="text-sm text-ella-gray-500 font-medium">Des parcours conçus par des experts, enrichis par l'IA</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
             {COURSES.map((course) => (
               <div
                 key={course.id}
@@ -260,9 +260,9 @@ export default function HomePage() {
       </section>
 
       {/* Ella Teaser Section (Light Gray) */}
-      <section className="py-20 bg-ella-gray-50 border-t border-ella-gray-100">
+      <section className="py-12 bg-ella-gray-50 border-t border-ella-gray-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="bg-white border border-ella-gray-200 rounded-[2.5rem] p-8 md:p-12 text-center md:text-left flex flex-col md:flex-row items-center gap-8 md:gap-12 shadow-xl shadow-ella-gray-900/5">
+          <div className="bg-white border border-ella-gray-200 rounded-[2rem] p-6 md:p-10 text-center md:text-left flex flex-col md:flex-row items-center gap-6 md:gap-10 shadow-xl shadow-ella-gray-900/5">
             <div className="shrink-0">
               <EllaAvatar size="lg" className="ring-8 ring-ella-primary/5" />
             </div>

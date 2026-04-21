@@ -37,11 +37,20 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <EllaAvatar size="md" className="group-hover:scale-110 transition-transform duration-300" />
+          <Link href="/" className="flex items-center gap-2 md:gap-3 group">
+            {/* LearnLab Icon */}
+            <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-white shadow-lg shadow-ella-gray-200 border border-ella-gray-100 flex items-center justify-center p-1.5 transition-transform duration-300 group-hover:scale-110">
+               <img src="/assets/logo_learnlab_icon.png" alt="LearnLab" className="w-full h-full object-contain" />
+            </div>
+
+            {/* Text Identity */}
             <div className="flex flex-col">
-              <span className="text-xl font-black text-ella-gray-900 tracking-tight leading-none">Ella</span>
-              <span className="text-[10px] font-black uppercase tracking-widest text-ella-accent">LearnLab</span>
+              <span className="text-xs md:text-sm font-black text-ella-gray-900 tracking-tight leading-none">
+                ESPRIT <span className="text-ella-primary">LearnLab</span> Arena
+              </span>
+              <span className="text-[10px] md:text-sm font-black tracking-widest text-ella-accent leading-none mt-1">
+                ELLA
+              </span>
             </div>
           </Link>
 
