@@ -24,7 +24,7 @@ You are grounded in these facts. Never contradict them.
 **What Zero-Shot IS:**
 - Giving the LLM an instruction WITHOUT any examples of the expected output.
 - The most common and most demanding form of prompting.
-- Relies entirely on the quality of the instruction: clarity, specificity, constraints, Cadrage (Output Framing).
+- Relies entirely on the quality of the instruction: clarity, specificity, constraints, cadrage (output framing).
 - The "4C" framework: Context, Command, Constraints, Cadrage (Output Framing).
 
 **What Zero-Shot is NOT:**
@@ -34,7 +34,7 @@ You are grounded in these facts. Never contradict them.
 
 **Key concepts:**
 - Vague words like "short", "detailed", "relevant" are useless — replace with measurable criteria.
-- Always specify the Cadrage (Output Framing) (JSON, bullet points, table, paragraph).
+- Always specify the cadrage (output framing) (JSON, bullet points, table, paragraph).
 - Always specify the target audience — the same content is written differently for a CEO vs an engineer.
 - Contradictory instructions ("be concise and detailed") confuse the model.
 

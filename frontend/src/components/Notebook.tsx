@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import EllaAvatar from "./EllaAvatar";
 import { sendChatMessage, type NotebookCell } from "@/lib/api";
+import { useAuth } from "@/components/AuthProvider";
 
 interface NotebookProps {
     cells: NotebookCell[];
@@ -12,6 +13,7 @@ interface NotebookProps {
 }
 
 export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
+    const { user } = useAuth();
     // Track which cells are unlocked.
     const [unlockedUpTo, setUnlockedUpTo] = useState(0);
     // Track checkpoint responses and Ella feedback
@@ -99,8 +101,15 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                 const lower = result.answer.toLowerCase();
                 const positiveSignals = [
                     "bien joué", "bravo", "excellent", "bonne réponse", "tu as compris",
-                    "tu as bien compris", "correct", "bonne voie", "well done", "good job",
-                    "you got it", "tu maîtrises", "c'est exact", "parfait"
+                    "tu as bien compris", "correct", "bonne voie", "tu maîtrises",
+                    "c'est exact", "parfait", "bonne compréhension", "bon travail",
+                    "très bien", "bonne analyse", "tu as raison", "bonne intuition",
+                    "tu as identifié", "belle amélioration", "c'est ça", "exactement",
+                    "tu as su", "bonne reformulation", "bien vu", "bon réflexe",
+                    "ta réponse montre une bonne", "tu as ajouté", "tu as bien",
+                    "well done", "good job", "you got it", "correct", "excellent",
+                    "good understanding", "you understood", "nice work", "that's right",
+                    "good analysis", "you identified", "great improvement"
                 ];
                 passed = positiveSignals.some(signal => lower.includes(signal));
             }
@@ -378,9 +387,14 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                                     <EllaAvatar size="lg" />
                                 </div>
                                 <h3 className="text-2xl font-black text-ella-gray-900 mb-3">Bravo ! Module complété.</h3>
-                                <p className="text-base font-bold text-ella-gray-600 leading-relaxed mb-8 max-w-xl mx-auto">
-                                    {cell.message[lang]}
-                                </p>
+                                <div className="text-base font-bold text-ella-gray-600 leading-relaxed mb-8 max-w-xl mx-auto">
+                                    {(() => {
+                                        const fullName = user?.user_metadata?.full_name || "";
+                                        const firstName = fullName.split(" ")[0] || "";
+                                        const prefix = firstName ? `Bravo ${firstName} ! ` : "Bravo ! ";
+                                        return prefix + cell.message[lang];
+                                    })()}
+                                </div>
                                 <a
                                     href={cell.next_url}
                                     onClick={() => {
