@@ -1,0 +1,114 @@
+{
+  "module_id": "02_few_shot",
+  "title": {"fr": "Few-Shot Prompting", "en": "Few-Shot Prompting"},
+  "description": {
+    "fr": "Apprenez à guider le modèle avec des exemples bien choisis.",
+    "en": "Learn to guide the model with well-chosen examples."
+  },
+  "cells": [
+    {
+      "id": "intro_01",
+      "type": "content",
+      "title": {"fr": "Le zero-shot ne suffit pas toujours", "en": "Zero-Shot Isn't Always Enough"},
+      "content": {
+        "fr": "Vous avez appris dans le Module 1 à rédiger des prompts sans exemples. C'est puissant, mais parfois insuffisant. Imaginez que vous demandiez à un LLM de classifier des emails internes selon une taxonomie propre à votre entreprise — \"P1-Urgent\", \"P2-Standard\", \"P3-Info\" — le modèle n'a jamais vu ces catégories. En zero-shot, il va deviner. En few-shot, vous lui **montrez** ce que vous voulez.\n\n**Few-shot** = vous fournissez **quelques exemples** (2 à 5) au modèle pour illustrer le comportement attendu avant de lui poser votre question.\n\nC'est la différence entre dire à quelqu'un \"trie ces dossiers\" (zero-shot) et lui montrer 3 dossiers déjà triés puis dire \"continue comme ça\" (few-shot).",
+        "en": "In Module 1, you learned to write prompts without examples. That's powerful, but sometimes insufficient. Imagine asking an LLM to classify internal emails using your company's taxonomy — \"P1-Urgent\", \"P2-Standard\", \"P3-Info\" — the model has never seen these categories. In zero-shot, it'll guess. In few-shot, you **show** it what you want.\n\n**Few-shot** = you provide **a few examples** (2 to 5) to illustrate the expected behavior before asking your question.\n\nIt's the difference between telling someone \"sort these files\" (zero-shot) and showing them 3 sorted files then saying \"keep going like this\" (few-shot)."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Imagine que tu dois classifier des tickets support en 3 catégories : BUG, FEATURE, QUESTION. Pourquoi le zero-shot pourrait-il être insuffisant ici ? Dans quel cas précis des exemples aideraient ?",
+        "en": "Imagine you need to classify support tickets into 3 categories: BUG, FEATURE, QUESTION. Why might zero-shot be insufficient here? In what specific case would examples help?"
+      },
+      "ella_system_hint": "The student should mention that edge cases are ambiguous — a ticket saying 'the button doesn't work as I expected' could be a BUG or a FEATURE request. Examples would show the model where the boundary is. Praise if they mention ambiguity or edge cases.",
+      "mode": "free"
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {"fr": "Anatomie d'un prompt few-shot", "en": "Anatomy of a Few-Shot Prompt"},
+      "content": {
+        "fr": "Un prompt few-shot a 3 parties :\n\n### 📐 L'instruction\nComme en zero-shot, vous commencez par expliquer la tâche. Mais plus brièvement, car les exemples vont faire le gros du travail.\n\n> \"Classifie le sentiment de chaque avis client comme POSITIF, NEUTRE ou NÉGATIF.\"\n\n### 📎 Les exemples\nChaque exemple est une paire **input → output** :\n\n> Avis : \"Le produit est arrivé en avance et fonctionne parfaitement.\"\n> Sentiment : POSITIF\n>\n> Avis : \"La livraison était dans les délais, rien de spécial.\"\n> Sentiment : NEUTRE\n>\n> Avis : \"Produit défectueux, service client injoignable.\"\n> Sentiment : NÉGATIF\n\n### ❓ La requête\nL'input réel, présenté exactement dans le même format :\n\n> Avis : \"La qualité est correcte pour le prix, mais l'emballage était abîmé.\"\n> Sentiment :\n\nLe modèle complète naturellement en suivant le pattern.",
+        "en": "A few-shot prompt has 3 parts:\n\n### 📐 The Instruction\nLike zero-shot, start by explaining the task. But more briefly, since examples do the heavy lifting.\n\n> \"Classify the sentiment of each customer review as POSITIVE, NEUTRAL, or NEGATIVE.\"\n\n### 📎 The Examples\nEach example is an **input → output** pair:\n\n> Review: \"The product arrived early and works perfectly.\"\n> Sentiment: POSITIVE\n>\n> Review: \"Delivery was on time, nothing special.\"\n> Sentiment: NEUTRAL\n>\n> Review: \"Defective product, customer service unreachable.\"\n> Sentiment: NEGATIVE\n\n### ❓ The Query\nThe actual input, in exactly the same format:\n\n> Review: \"Quality is decent for the price, but the packaging was damaged.\"\n> Sentiment:\n\nThe model naturally completes by following the pattern."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Écris un prompt few-shot complet pour classifier des emails en 3 catégories : URGENT, NORMAL, INFO. Inclus une instruction, 3 exemples (un par catégorie), et une requête. Utilise exactement le même format pour chaque exemple.",
+        "en": "Write a complete few-shot prompt to classify emails into 3 categories: URGENT, NORMAL, INFO. Include an instruction, 3 examples (one per category), and a query. Use exactly the same format for each example."
+      },
+      "ella_system_hint": "Check for: 1) Clear instruction at the start, 2) Exactly 3 examples with consistent format, 3) A query in the same format. Common mistakes: inconsistent separators between examples, mixing formats (one uses 'Category:' another uses '→'), forgetting the query at the end. Praise format consistency. If examples are too obvious, suggest edge cases.",
+      "mode": "rewrite"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {"fr": "Les 5 règles d'or des exemples", "en": "The 5 Golden Rules of Examples"},
+      "content": {
+        "fr": "### Règle 1 : Cohérence de format absolue\nTous vos exemples doivent suivre **exactement** le même format. Si un utilise \"Sentiment : POSITIF\" et un autre \"→ positif\", le modèle ne saura pas lequel imiter.\n\n### Règle 2 : Couvrir les cas difficiles\nN'utilisez pas vos exemples pour montrer des cas évidents. Le modèle sait déjà que \"Extraordinaire !\" est positif. Montrez les **cas limites** — les cas ambigus.\n\n### Règle 3 : Diversité des exemples\nSi tous vos exemples concernent des restaurants, le modèle va sur-adapter au domaine de la restauration. Variez les domaines.\n\n### Règle 4 : Le bon nombre (2-5)\n2-3 pour les tâches simples, 4-5 pour les complexes. Au-delà de 5, rarement utile.\n\n### Règle 5 : L'ordre compte\nCommencez par un exemple clair, terminez par le plus proche du cas réel. Cas limites au milieu.",
+        "en": "### Rule 1: Absolute Format Consistency\nAll examples must follow **exactly** the same format. If one uses \"Sentiment: POSITIVE\" and another \"→ positive\", the model won't know which to imitate.\n\n### Rule 2: Cover Edge Cases\nDon't use examples for obvious cases. The model knows \"Amazing!\" is positive. Show **edge cases** — ambiguous ones.\n\n### Rule 3: Example Diversity\nIf all examples are about restaurants, the model over-adapts. Vary the domains.\n\n### Rule 4: Right Number (2-5)\n2-3 for simple tasks, 4-5 for complex. Beyond 5, rarely useful.\n\n### Rule 5: Order Matters\nStart with a clear example, end with one closest to the real case. Edge cases in the middle."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Voici des exemples pour un classificateur de sentiment :\n\nExemple 1 : \"J'adore ce produit !\" → POSITIF\nExemple 2 : \"C'est horrible.\" → NÉGATIF\nExemple 3 : \"Bien.\" → POSITIF\n\nCes exemples violent au moins 2 des 5 règles d'or. Lesquelles ? Propose de meilleurs exemples.",
+        "en": "Here are examples for a sentiment classifier:\n\nExample 1: \"I love this product!\" → POSITIVE\nExample 2: \"This is horrible.\" → NEGATIVE\nExample 3: \"Good.\" → POSITIVE\n\nThese examples violate at least 2 of the 5 golden rules. Which ones? Suggest better examples."
+      },
+      "ella_system_hint": "Violations: Rule 2 (all obvious cases, no edge cases — 'Bien/Good' is arguably neutral not positive), Rule 3 (no diversity, very short texts). Missing: a NEUTRAL example. Better examples would include an ambiguous review like 'Correct but nothing special' as NEUTRAL, a mixed review, and varied domains. Praise if they identify Rule 2 and suggest edge case examples.",
+      "mode": "free"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {"fr": "Few-shot pour les formats complexes", "en": "Few-Shot for Complex Formats"},
+      "content": {
+        "fr": "Le few-shot est particulièrement puissant pour les transformations **format → format** :\n\n### Texte → JSON\nMontrez 2-3 exemples avec le schéma exact. Le modèle reproduit les champs, les types et la structure.\n\n### Texte → SQL\nMontrez des paires (question → requête SQL). Le modèle apprend votre schéma de BDD.\n\n### Texte → Texte (réécriture)\nMontrez le style cible : ton formel, résumé concis, traduction technique.\n\n### Texte → Catégorie\nLe cas le plus classique. Un exemple par catégorie pour fixer les frontières.\n\nDans tous ces cas, la **cohérence de format entre les exemples** est le facteur #1 de réussite.",
+        "en": "Few-shot is particularly powerful for **format → format** transformations:\n\n### Text → JSON\nShow 2-3 examples with the exact schema. The model reproduces fields, types, and structure.\n\n### Text → SQL\nShow pairs (question → SQL query). The model learns your database schema.\n\n### Text → Text (rewriting)\nShow the target style: formal tone, concise summary, technical translation.\n\n### Text → Category\nThe most classic case. One example per category to fix boundaries.\n\nIn all cases, **format consistency between examples** is the #1 success factor."
+      }
+    },
+    {
+      "id": "checkpoint_04",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Écris un prompt few-shot qui convertit des descriptions de produits en JSON. Le JSON doit avoir : name (string), price (number), in_stock (boolean). Donne 2 exemples puis une requête pour : \"Casque Bluetooth Sony, 89€, disponible\".",
+        "en": "Write a few-shot prompt that converts product descriptions to JSON. The JSON must have: name (string), price (number), in_stock (boolean). Give 2 examples then a query for: \"Sony Bluetooth headphones, €89, available\"."
+      },
+      "ella_system_hint": "Check: 1) price must be a NUMBER (89, not '89€'), 2) in_stock must be BOOLEAN (true, not 'available'), 3) format consistent across both examples. Common mistake: price as string with currency symbol. If they get the types right, praise them — that's the key skill. If types are wrong, explain why json.loads() would fail.",
+      "mode": "rewrite"
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {"fr": "Les pièges du few-shot", "en": "Few-Shot Traps"},
+      "content": {
+        "fr": "### Piège 1 : Exemples biaisés\nSi tous vos exemples sont POSITIF, le modèle va sur-classifier en POSITIF. Équilibrez.\n\n### Piège 2 : Format incohérent\nSi un exemple retourne `{\"price\": \"45€\"}` et un autre `{\"price\": 45}`, le modèle ne saura pas lequel suivre.\n\n### Piège 3 : Exemples trop similaires\n3 exemples du même domaine ne montrent pas la généralité du pattern.\n\n### Piège 4 : Trop d'exemples\nAu-delà de 5, vous consommez des tokens sans gain de qualité.\n\n### Piège 5 : Exemples incorrects\nSi un exemple contient une erreur, le modèle risque de la reproduire.",
+        "en": "### Trap 1: Biased Examples\nIf all examples are POSITIVE, the model over-classifies as POSITIVE. Balance them.\n\n### Trap 2: Inconsistent Format\nIf one example returns `{\"price\": \"45€\"}` and another `{\"price\": 45}`, the model won't know which to follow.\n\n### Trap 3: Too-Similar Examples\n3 examples from the same domain don't show pattern generality.\n\n### Trap 4: Too Many Examples\nBeyond 5, you consume tokens with no quality gain.\n\n### Trap 5: Incorrect Examples\nIf an example contains an error, the model may reproduce it."
+      }
+    },
+    {
+      "id": "checkpoint_05",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Dernière question avant le lab : quand faut-il passer du zero-shot au few-shot ? Donne-moi 3 situations concrètes où tu ajouterais des exemples à un prompt.",
+        "en": "Last question before the lab: when should you switch from zero-shot to few-shot? Give me 3 concrete situations where you'd add examples to a prompt."
+      },
+      "ella_system_hint": "Good answers: 1) When the model doesn't understand a custom format/taxonomy, 2) When it confuses similar categories, 3) When you need a very specific output format (JSON with exact fields). Bad answer: 'always use few-shot' — no, zero-shot is fine for common tasks. Praise specificity. The student is ready for the lab if they can articulate when examples add value.",
+      "mode": "free"
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Excellent ! Tu maîtrises les 5 règles d'or et tu sais quand utiliser le few-shot. Direction le lab — cette fois tu vas créer tes propres exemples et voir l'impact sur le résultat du LLM. N'oublie pas : cohérence de format, cas limites, diversité !",
+        "en": "Excellent! You've mastered the 5 golden rules and know when to use few-shot. Off to the lab — this time you'll create your own examples and see the impact on LLM output. Remember: format consistency, edge cases, diversity!"
+      },
+      "next_url": "/courses/prompt-engineering/labs/02_few_shot"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "module_id": "01_zero_shot",
+  "title": {"fr": "Zero-Shot Prompting", "en": "Zero-Shot Prompting"},
+  "description": {
+    "fr": "Apprenez à obtenir des résultats du LLM sans exemples, uniquement par la qualité de vos instructions.",
+    "en": "Learn to get results from the LLM without examples, using only the quality of your instructions."
+  },
+  "cells": [
+    {
+      "id": "intro_01",
+      "type": "content",
+      "title": {"fr": "C'est quoi le Zero-Shot ?", "en": "What is Zero-Shot?"},
+      "content": {
+        "fr": "Quand vous utilisez ChatGPT, Claude ou un autre LLM, vous faites déjà du zero-shot sans le savoir. Vous tapez une instruction, le modèle répond. Pas d'exemples, pas de démonstration préalable — juste votre consigne.\n\n**Zero-shot** = vous demandez au modèle de réaliser une tâche **sans lui montrer d'exemples** de ce que vous attendez.\n\nC'est le mode par défaut du prompt engineering, et paradoxalement, c'est le plus exigeant. Pourquoi ? Parce que sans exemples pour guider le modèle, **la qualité de votre instruction est votre seul levier**.\n\nUn bon prompt zero-shot, c'est comme un bon brief à un freelance que vous n'avez jamais rencontré : si votre brief est vague, le résultat sera décevant. Si votre brief est précis, vous obtenez exactement ce que vous voulez.",
+        "en": "When you use ChatGPT, Claude, or any other LLM, you're already doing zero-shot prompting without knowing it. You type an instruction, the model responds. No examples, no prior demonstration — just your instruction.\n\n**Zero-shot** = you ask the model to perform a task **without showing it any examples** of what you expect.\n\nIt's the default mode of prompt engineering, and paradoxically, the most demanding. Why? Because without examples to guide the model, **the quality of your instruction is your only leverage**.\n\nA good zero-shot prompt is like a good brief to a freelancer you've never met: if your brief is vague, the result will be disappointing. If your brief is precise, you get exactly what you need."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Avant de continuer, explique-moi dans tes propres mots : quelle est la différence entre donner une instruction à un LLM avec des exemples et sans exemples ? Et pourquoi le zero-shot est-il considéré comme plus exigeant ?",
+        "en": "Before we continue, explain in your own words: what's the difference between giving an LLM an instruction with examples versus without? And why is zero-shot considered more demanding?"
+      },
+      "ella_system_hint": "The student should mention that zero-shot has no examples so the instruction must be more precise. If they mention the freelancer analogy, praise them. If they confuse zero-shot with 'no effort', correct them gently — zero-shot requires MORE precision, not less.",
+      "mode": "free"
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {"fr": "Pourquoi ça marche ?", "en": "Why Does It Work?"},
+      "content": {
+        "fr": "Les LLM comme Llama, GPT ou Claude ont été entraînés sur des milliards de textes. Ils ont \"vu\" des résumés, des classifications, des traductions, des analyses — dans tous les formats possibles. Quand vous leur donnez une instruction claire, ils s'appuient sur ces patterns appris pour produire un résultat.\n\nLe zero-shot fonctionne bien quand :\n- La tâche est **courante** (résumer, classifier, traduire, reformuler)\n- L'instruction est **claire et spécifique**\n- Le format de sortie est **bien défini**\n\nLe zero-shot fonctionne mal quand :\n- La tâche est **inhabituelle** ou très spécialisée\n- L'instruction est **ambiguë**\n- Vous avez besoin d'un comportement **très précis** que seuls des exemples pourraient illustrer\n\nDans ces cas-là, on passe au few-shot (Module 2) ou au chain-of-thought (Module 3).",
+        "en": "LLMs like Llama, GPT, or Claude were trained on billions of texts. They've \"seen\" summaries, classifications, translations, analyses — in every possible format. When you give them a clear instruction, they rely on these learned patterns to produce a result.\n\nZero-shot works well when:\n- The task is **common** (summarize, classify, translate, rephrase)\n- The instruction is **clear and specific**\n- The output format is **well-defined**\n\nZero-shot works poorly when:\n- The task is **unusual** or highly specialized\n- The instruction is **ambiguous**\n- You need a **very specific behavior** that only examples could illustrate\n\nIn those cases, you switch to few-shot (Module 2) or chain-of-thought (Module 3)."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Donne-moi un exemple de tâche où le zero-shot marcherait bien, et un exemple où il marcherait mal. Explique pourquoi dans chaque cas.",
+        "en": "Give me an example of a task where zero-shot would work well, and one where it would work poorly. Explain why in each case."
+      },
+      "ella_system_hint": "Good zero-shot tasks: summarization, translation, simple classification. Bad zero-shot tasks: classifying with custom company categories, following a very specific output format the model hasn't seen. Praise concrete examples. If the student is vague, ask for more specificity.",
+      "mode": "free"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {"fr": "Les 4C — Anatomie d'un bon prompt zero-shot", "en": "The 4C's — Anatomy of a Good Zero-Shot Prompt"},
+      "content": {
+        "fr": "Un prompt zero-shot efficace contient 4 composantes — les \"4C\" :\n\n### 🎯 Contexte\nQui êtes-vous ? Pour qui est le résultat ? Quelle est la situation ?\n\n> ❌ \"Résume ce texte.\"\n>\n> ✅ \"Tu es un analyste financier senior. Résume ce rapport trimestriel pour le comité de direction de la banque. Les lecteurs sont des non-techniciens qui veulent comprendre l'impact business.\"\n\n### 📋 Consigne\nQue doit faire le modèle ? Soyez explicite et précis.\n\n> ❌ \"Analyse ce texte.\"\n>\n> ✅ \"Identifie les 3 risques principaux mentionnés dans ce texte, classe-les par ordre de gravité, et pour chacun donne une recommandation actionable en une phrase.\"\n\n### 🔒 Contraintes\nQuelles limites imposez-vous ? Longueur, ton, format, interdictions ?\n\n> \"Maximum 200 mots. Ton professionnel. Pas de jargon technique.\"\n\n### 📦 Format de sortie\nComment le résultat doit-il être structuré ?\n\n> \"Retourne le résultat en JSON avec les champs : title, summary, risk_level.\"",
+        "en": "An effective zero-shot prompt contains 4 components — the \"4C's\":\n\n### 🎯 Context\nWho are you? Who is the result for? What's the situation?\n\n> ❌ \"Summarize this text.\"\n>\n> ✅ \"You are a senior financial analyst. Summarize this quarterly report for the bank's board of directors. The readers are non-technical executives who want to understand the business impact.\"\n\n### 📋 Command\nWhat should the model do? Be explicit and precise.\n\n> ❌ \"Analyze this text.\"\n>\n> ✅ \"Identify the 3 main risks mentioned in this text, rank them by severity, and for each one provide an actionable recommendation in one sentence.\"\n\n### 🔒 Constraints\nWhat limits do you impose? Length, tone, format, prohibitions?\n\n> \"Maximum 200 words. Professional tone. No technical jargon.\"\n\n### 📦 Output Format\nHow should the result be structured?\n\n> \"Return the result as JSON with these fields: title, summary, risk_level.\""
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Voici un prompt : \"Résume cet article.\"\n\nC'est un prompt zero-shot, mais il est faible. Identifie les C manquants, puis réécris-le en ajoutant les 4C. Imagine que le résumé est pour un manager pressé dans une banque.",
+        "en": "Here's a prompt: \"Summarize this article.\"\n\nIt's a zero-shot prompt, but it's weak. Identify the missing C's, then rewrite it adding all 4C's. Imagine the summary is for a busy bank manager."
+      },
+      "ella_system_hint": "The original prompt is missing ALL 4 C's: no context (who's the audience?), vague command ('summarize' how?), no constraints (length? tone?), no output format. A good rewrite should specify: role/audience (bank manager), specific task (3 key points), constraints (max 100 words, professional tone), format (bullet points or executive summary). Praise any improvement. If they only add 2 C's, point out what's still missing.",
+      "mode": "rewrite"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {"fr": "Exemples concrets : avant/après", "en": "Concrete Examples: Before/After"},
+      "content": {
+        "fr": "### Exemple 1 — Classification\n\n**Prompt faible :**\n> \"De quoi parle ce texte ?\"\n\n**Problème :** trop vague. Le modèle peut résumer, thématiser, lister des mots-clés.\n\n**Prompt amélioré :**\n> \"Classifie le texte ci-dessous dans exactement UNE de ces catégories : TECHNOLOGIE, FINANCE, SANTÉ, POLITIQUE, SPORT. Réponds uniquement avec le nom de la catégorie, sans explication.\"\n\n### Exemple 2 — Résumé\n\n**Prompt faible :**\n> \"Résume cet article.\"\n\n**Prompt amélioré :**\n> \"Résume cet article en exactement 3 bullet points. Chaque point fait maximum 20 mots. Le résumé s'adresse à un manager pressé. Commence chaque point par un verbe d'action.\"\n\n### Exemple 3 — Extraction\n\n**Prompt faible :**\n> \"Quels sont les chiffres importants dans ce texte ?\"\n\n**Prompt amélioré :**\n> \"Extrais tous les montants financiers mentionnés dans le texte. Pour chaque montant, indique : le montant exact, la devise, et le contexte (en 5 mots max). Présente en tableau markdown.\"",
+        "en": "### Example 1 — Classification\n\n**Weak prompt:**\n> \"What is this text about?\"\n\n**Problem:** too vague. The model could summarize, identify themes, list keywords.\n\n**Improved prompt:**\n> \"Classify the text below into exactly ONE of these categories: TECHNOLOGY, FINANCE, HEALTH, POLITICS, SPORTS. Respond with only the category name, no explanation.\"\n\n### Example 2 — Summarization\n\n**Weak prompt:**\n> \"Summarize this article.\"\n\n**Improved prompt:**\n> \"Summarize this article in exactly 3 bullet points. Each point is maximum 20 words. The summary is for a busy manager. Start each point with an action verb.\"\n\n### Example 3 — Data Extraction\n\n**Weak prompt:**\n> \"What are the important numbers in this text?\"\n\n**Improved prompt:**\n> \"Extract all financial amounts mentioned in the text. For each amount, indicate: the exact figure, the currency, and the context (in 5 words max). Present as a markdown table.\""
+      }
+    },
+    {
+      "id": "checkpoint_04",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Regarde les 3 exemples \"avant/après\" ci-dessus. Choisis celui qui t'a le plus surpris et explique-moi : qu'est-ce qui rend le prompt amélioré tellement meilleur que l'original ? Cite au moins 2 différences précises.",
+        "en": "Look at the 3 before/after examples above. Pick the one that surprised you most and explain: what makes the improved prompt so much better than the original? Cite at least 2 specific differences."
+      },
+      "ella_system_hint": "The student should identify specific improvements like: added constraints (length, format), specified audience, gave explicit categories, constrained output format, removed ambiguity. Praise specific observations. If they only say 'it's more detailed', push them to be more precise about WHICH details matter.",
+      "mode": "free"
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {"fr": "Les 5 pièges du zero-shot", "en": "The 5 Zero-Shot Traps"},
+      "content": {
+        "fr": "### Piège 1 : \"Le modèle sait ce que je veux\"\nNon. Le modèle ne lit pas dans vos pensées. Tout ce qui n'est pas explicite dans votre prompt est laissé au hasard.\n\n### Piège 2 : Les instructions contradictoires\n\"Sois concis et détaillé.\" — Le modèle ne sait pas résoudre cette contradiction.\n\n### Piège 3 : L'absence de format\nSi vous ne spécifiez pas de format, le modèle choisit pour vous — et il choisit souvent mal.\n\n### Piège 4 : Les mots vagues\n\"Intéressant\", \"pertinent\", \"bien\", \"court\" — ces mots ne veulent rien dire pour un LLM. Remplacez par des critères mesurables :\n- \"court\" → \"maximum 100 mots\"\n- \"détaillé\" → \"inclus 3 exemples concrets avec des chiffres\"\n\n### Piège 5 : Trop d'instructions à la fois\nUn prompt qui demande 10 choses différentes en un seul bloc va produire un résultat médiocre.",
+        "en": "### Trap 1: \"The model knows what I want\"\nNo. The model cannot read your mind. Everything not explicit in your prompt is left to chance.\n\n### Trap 2: Contradictory instructions\n\"Be concise and detailed.\" — The model can't resolve this contradiction.\n\n### Trap 3: No format specified\nIf you don't specify a format, the model chooses for you — and it often chooses poorly.\n\n### Trap 4: Vague words\n\"Interesting,\" \"relevant,\" \"good,\" \"short\" — these words mean nothing to an LLM. Replace with measurable criteria:\n- \"short\" → \"maximum 100 words\"\n- \"detailed\" → \"include 3 concrete examples with numbers\"\n\n### Trap 5: Too many instructions at once\nA prompt that asks for 10 different things in one block will produce mediocre results."
+      }
+    },
+    {
+      "id": "checkpoint_05",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Mini-quiz ! Voici un prompt :\n\n\"Sois concis mais donne-moi une analyse détaillée et complète de ce rapport, en format libre, sur les points intéressants.\"\n\nCombien de pièges ce prompt contient-il ? Lesquels ? Réécris-le en corrigeant chaque piège.",
+        "en": "Mini-quiz! Here's a prompt:\n\n\"Be concise but give me a detailed and complete analysis of this report, in free format, about the interesting points.\"\n\nHow many traps does this prompt contain? Which ones? Rewrite it fixing each trap."
+      },
+      "ella_system_hint": "This prompt contains traps 2 (contradictory: concise AND detailed), 3 (no format: 'format libre'), 4 (vague: 'intéressants'), and arguably 5 (too many asks). That's 3-4 traps. A good rewrite would pick concise OR detailed, specify a format (3 bullet points), replace 'intéressants' with specific criteria, and focus on one clear ask. Celebrate if they find 3+ traps. If they rewrite well, praise the specific improvements.",
+      "mode": "rewrite"
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {"fr": "Checklist zero-shot", "en": "Zero-Shot Checklist"},
+      "content": {
+        "fr": "Avant de valider votre prompt, vérifiez ces points :\n\n- ✅ **Objectif clair** — quelqu'un d'autre comprendrait la tâche en lisant mon prompt ?\n- ✅ **Public cible** — ai-je précisé pour qui est le résultat ?\n- ✅ **Contraintes** — ai-je fixé au moins une contrainte (longueur, ton, format) ?\n- ✅ **Format de sortie** — ai-je dit au modèle comment structurer sa réponse ?\n- ✅ **Pas de mots vagues** — ai-je remplacé \"court\", \"détaillé\", \"pertinent\" par des critères mesurables ?\n- ✅ **Pas d'exemples** — si j'ai ajouté des exemples, ce n'est plus du zero-shot\n\nSi votre prompt coche ces 6 points, vous êtes prêt pour le lab.",
+        "en": "Before validating your prompt, check these points:\n\n- ✅ **Clear objective** — would someone else understand the task by reading my prompt?\n- ✅ **Target audience** — did I specify who the result is for?\n- ✅ **Constraints** — did I set at least one constraint (length, tone, format)?\n- ✅ **Output format** — did I tell the model how to structure its response?\n- ✅ **No vague words** — did I replace \"short\", \"detailed\", \"relevant\" with measurable criteria?\n- ✅ **No examples** — if I added examples, it's no longer zero-shot\n\nIf your prompt checks all 6 points, you're ready for the lab."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Bravo, tu as terminé la leçon sur le Zero-Shot ! Tu maîtrises les 4C et tu sais éviter les pièges courants. Il est temps de mettre tout ça en pratique dans le lab. Rappelle-toi : Contexte, Consigne, Contraintes, Format. Allez, montre-moi ce que tu sais faire !",
+        "en": "Well done, you've completed the Zero-Shot lesson! You know the 4C's and how to avoid common traps. Time to put it all into practice in the lab. Remember: Context, Command, Constraints, Output Format. Let's see what you've got!"
+      },
+      "next_url": "/courses/prompt-engineering/labs/01_zero_shot"
+    }
+  ]
+}

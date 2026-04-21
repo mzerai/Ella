@@ -69,91 +69,107 @@ function CourseContent() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-ella-bg">
+    <div className="flex flex-col min-h-screen bg-white">
       {/* Course Header Band */}
-      <header className="bg-ella-primary text-white pt-10 pb-12 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center gap-2 mb-3">
-            <Link href="/" className="text-white/70 hover:text-white text-sm transition-colors">Catalogues</Link>
-            <span className="text-white/40 text-sm">/</span>
-            <span className="text-white text-sm font-medium">Prompt Engineering</span>
+      <header className="bg-gradient-to-br from-ella-dark to-ella-primary-dark text-white pt-12 pb-16 px-4 sm:px-6 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-ella-accent/10 rounded-full blur-[100px] -mr-32 -mt-32"></div>
+        <div className="max-w-5xl mx-auto relative z-10">
+          <div className="flex items-center gap-2 mb-4">
+            <Link href="/" className="text-white/50 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors">Catalogue</Link>
+            <span className="text-white/20 text-xs">/</span>
+            <span className="text-white/90 text-xs font-bold uppercase tracking-widest">Prompt Engineering</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">Prompt Engineering</h1>
-          <p className="text-ella-primary-bg/80 max-w-2xl text-lg leading-relaxed font-light">
+          <h1 className="text-4xl sm:text-5xl font-black mb-6 tracking-tight">Prompt Engineering</h1>
+          <p className="text-ella-dark-text/70 max-w-2xl text-lg leading-relaxed font-medium">
             Maîtrisez l'art de piloter les Large Language Models (LLM) avec précision pour transformer vos idées en résultats concrets.
           </p>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 -mt-8 pb-16 w-full">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 -mt-10 pb-20 w-full relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Module List */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-6">
+            <div className="flex items-center justify-between mb-2">
+                <h2 className="text-sm font-black text-ella-gray-400 uppercase tracking-widest">Le parcours d'apprentissage</h2>
+            </div>
+            
             {modules.map((mod, index) => (
-              <Link
+              <div
                 key={mod.lab_id}
-                href={`/courses/prompt-engineering/labs/${mod.lab_id}`}
-                className="block group"
+                className="bg-white rounded-[2rem] border border-ella-gray-200 p-6 flex flex-col md:flex-row md:items-center gap-6 transition-all hover:shadow-2xl hover:shadow-ella-gray-900/5 group"
               >
-                <div className="bg-white rounded-xl border border-ella-gray-200 p-5 flex items-center gap-5 transition-all hover:border-ella-primary/40 hover:shadow-sm">
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center shrink-0 font-bold text-xl transition-colors
-                    ${mod.status === 'in-progress' ? 'bg-ella-accent text-white' : 
-                      mod.status === 'completed' ? 'bg-ella-success text-white' : 'bg-ella-gray-100 text-ella-gray-400'}`}>
-                    {mod.number}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-ella-gray-900 mb-1 group-hover:text-ella-primary transition-colors">{mod.title}</h3>
-                    <p className="text-xs text-ella-gray-600 line-clamp-1">{mod.description}</p>
-                  </div>
-                  <div className="text-ella-gray-300 group-hover:text-ella-primary transition-colors pr-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 font-black text-2xl shadow-lg transition-transform group-hover:scale-110
+                  ${mod.status === 'in-progress' ? 'bg-ella-accent text-white shadow-ella-accent/20' : 
+                    mod.status === 'completed' ? 'bg-ella-success text-white' : 'bg-ella-gray-50 text-ella-gray-300 border border-ella-gray-100'}`}>
+                  {mod.number}
                 </div>
-              </Link>
+                
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-xl font-bold text-ella-gray-900 mb-1.5">{mod.title}</h3>
+                  <p className="text-sm text-ella-gray-500 line-clamp-2 md:line-clamp-1 font-medium italic mb-4 md:mb-0 opacity-80">{mod.description}</p>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                    <Link
+                        href={`/courses/prompt-engineering/modules/${mod.lab_id}`}
+                        className="btn-secondary !text-xs !py-3 !px-5 !rounded-xl font-black bg-ella-primary/5 text-ella-primary hover:bg-ella-primary hover:text-white border-none shadow-none"
+                    >
+                        Leçon
+                    </Link>
+                    <Link
+                        href={`/courses/prompt-engineering/labs/${mod.lab_id}`}
+                        className="btn-primary !text-xs !py-3 !px-5 !rounded-xl font-black shadow-lg shadow-ella-accent/10"
+                    >
+                        Lab
+                    </Link>
+                </div>
+              </div>
             ))}
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Ella Welcome */}
-            <div className="bg-ella-primary-bg border border-ella-primary/20 rounded-xl p-5 shadow-sm">
-              <div className="flex items-center gap-3 mb-4">
+            <div className="bg-white border-2 border-ella-primary/10 rounded-[2rem] p-6 shadow-xl shadow-ella-primary/5 overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-ella-primary/5 rounded-full -mr-12 -mt-12"></div>
+              <div className="flex items-center gap-3 mb-4 relative z-10">
                 <EllaAvatar size="sm" />
-                <h4 className="font-bold text-ella-primary-dark">Le mot d'Ella</h4>
+                <h4 className="font-black text-ella-gray-900 uppercase tracking-widest text-[10px]">Le mot d'Ella</h4>
               </div>
-              <p className="text-sm text-ella-primary-dark/80 leading-relaxed italic">
-                "Content de te voir ici ! Le Prompt Engineering n'est pas une science exacte, c'est un dialogue. Prends ton temps sur le zero-shot, c'est la base de tout ce qui suit."
+              <p className="text-sm text-ella-gray-700 leading-relaxed font-bold italic relative z-10">
+                "Content de te voir ici ! Chaque module commence par une leçon interactive. C'est là que nous allons discuter pour valider tes bases avant de passer à l'action dans le Lab."
               </p>
             </div>
 
             {/* Course Progress */}
-            <div className="bg-white border border-ella-gray-200 rounded-xl p-5 shadow-sm">
-              <div className="flex justify-between items-center mb-3">
-                <h4 className="font-bold text-ella-gray-900 text-sm italic">Progression</h4>
-                <span className="text-xs font-bold text-ella-primary">20%</span>
+            <div className="bg-white border border-ella-gray-200 rounded-[2rem] p-6 shadow-sm">
+              <div className="flex justify-between items-center mb-4">
+                <h4 className="font-black text-ella-gray-900 uppercase tracking-widest text-[10px]">Ma Progression</h4>
+                <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-black text-ella-primary">20%</span>
+                </div>
               </div>
-              <div className="progress-bar">
-                <div className="progress-bar-fill bg-ella-primary" style={{ width: '20%' }}></div>
+              <div className="w-full h-3 bg-ella-gray-100 rounded-full overflow-hidden">
+                <div className="h-full bg-ella-primary transition-all duration-1000" style={{ width: '20%' }}></div>
               </div>
-              <div className="mt-4 flex justify-between text-[10px] uppercase tracking-wider font-bold text-ella-gray-500">
+              <div className="mt-4 flex justify-between text-[10px] uppercase tracking-widest font-black text-ella-gray-400">
                 <span>1/5 Modules</span>
-                <span>4 missions à venir</span>
+                <span>4 labs restants</span>
               </div>
             </div>
 
             {/* Help Card */}
-            <Link href="/chat" className="block p-4 bg-ella-accent rounded-xl text-white hover:bg-ella-accent-dark transition-colors shadow-lg shadow-ella-accent/20">
-              <div className="flex items-center gap-3">
-                <div className="bg-white/20 p-2 rounded-lg">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <Link href="/chat" className="group block p-6 bg-ella-accent rounded-[2rem] text-white hover:bg-ella-accent-dark transition-all shadow-2xl shadow-ella-accent/30 active:scale-95">
+              <div className="flex items-center gap-4">
+                <div className="bg-white/20 p-3 rounded-2xl group-hover:rotate-12 transition-transform">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold">Un blocage ?</h4>
-                  <p className="text-xs text-white/80">Demande de l'aide à Ella en direct.</p>
+                  <h4 className="text-base font-black uppercase tracking-tight leading-none mb-1">Un blocage ?</h4>
+                  <p className="text-xs text-white/70 font-bold uppercase tracking-widest">Parler à Ella</p>
                 </div>
               </div>
             </Link>
@@ -164,8 +180,9 @@ function CourseContent() {
       {/* Error state */}
       {error && (
         <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-8">
-          <div className="bg-ella-accent-bg text-ella-accent-dark p-4 rounded-lg text-sm border border-ella-accent/20">
-             Désolé {error}. Ella fait une petite sieste...
+          <div className="bg-ella-accent/5 border border-ella-accent/20 text-ella-accent text-sm font-bold p-6 rounded-[2rem] flex items-center gap-4">
+             <span className="text-2xl">😴</span>
+             <p>Désolé {error}. Ella fait une petite sieste...</p>
           </div>
         </div>
       )}

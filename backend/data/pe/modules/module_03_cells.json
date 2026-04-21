@@ -1,0 +1,95 @@
+{
+  "module_id": "03_chain_of_thought",
+  "title": {"fr": "Chain-of-Thought Prompting", "en": "Chain-of-Thought Prompting"},
+  "description": {
+    "fr": "Forcez le LLM à raisonner étape par étape pour améliorer la fiabilité sur les tâches complexes.",
+    "en": "Force the LLM to reason step by step to improve reliability on complex tasks."
+  },
+  "cells": [
+    {
+      "id": "intro_01",
+      "type": "content",
+      "title": {"fr": "Pourquoi les LLM se trompent sur les tâches complexes", "en": "Why LLMs Fail on Complex Tasks"},
+      "content": {
+        "fr": "Posez cette question à un LLM : \"Un magasin vend un article à 120€. Il fait une promotion de 25%, puis ajoute une taxe de 10% sur le prix réduit. Quel est le prix final ?\"\n\nSans instruction particulière, le LLM va souvent répondre directement — et se tromper. Pourquoi ? Parce qu'il prend des **raccourcis**. Il essaie de donner la réponse en un seul saut, sans passer par les étapes intermédiaires.\n\nLes humains font pareil quand ils calculent de tête : ils sautent des étapes et font des erreurs. La solution ? Poser le calcul sur papier, étape par étape.\n\n**Chain-of-Thought (CoT)** = forcer le LLM à montrer son raisonnement étape par étape avant de donner sa réponse finale.\n\nRésultat : l'étude de Wei et al. (2022) a montré que le simple fait d'ajouter \"Let's think step by step\" améliore les performances en mathématiques de **+40%**.",
+        "en": "Ask an LLM: \"A store sells an item for €120. They apply a 25% discount, then add 10% tax on the reduced price. What's the final price?\"\n\nWithout special instructions, the LLM often answers directly — and gets it wrong. Why? Because it takes **shortcuts**. It tries to give the answer in one jump, without going through intermediate steps.\n\nHumans do the same when calculating mentally: they skip steps and make errors. The solution? Work it out on paper, step by step.\n\n**Chain-of-Thought (CoT)** = forcing the LLM to show its reasoning step by step before giving its final answer.\n\nResult: Wei et al. (2022) showed that simply adding \"Let's think step by step\" improves math performance by **+40%**."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Résous le problème du magasin (120€, -25%, +10% taxe) toi-même, étape par étape. Puis explique pourquoi un LLM sans CoT pourrait se tromper — quel raccourci prendrait-il ?",
+        "en": "Solve the store problem (€120, -25%, +10% tax) yourself, step by step. Then explain why an LLM without CoT might get it wrong — what shortcut would it take?"
+      },
+      "ella_system_hint": "Correct: 120 × 0.75 = 90, then 90 × 1.10 = 99€. Common LLM mistake: applying 25%-10%=15% discount → 120 × 0.85 = 102€ (wrong — tax on reduced price, not on original). Praise if they get 99€. If they get 102€, explain the error gently — it proves the point about shortcuts!",
+      "mode": "free"
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {"fr": "Les 3 niveaux du CoT", "en": "The 3 Levels of CoT"},
+      "content": {
+        "fr": "### Niveau 1 : Le déclencheur simple\nAjoutez une phrase magique à la fin de votre prompt :\n\n> \"Réfléchis étape par étape avant de répondre.\"\n> \"Let's think step by step.\"\n\nC'est la technique la plus simple. Elle fonctionne bien pour les tâches de calcul et de logique simples.\n\n### Niveau 2 : Les étapes imposées\nVous définissez explicitement les étapes que le modèle doit suivre :\n\n> \"Analyse ce problème en suivant ces étapes :\n> 1. Identifie les données du problème\n> 2. Détermine la formule à appliquer\n> 3. Effectue le calcul étape par étape\n> 4. Vérifie le résultat\n> 5. Donne ta réponse finale\"\n\nPlus rigoureux. Recommandé pour les tâches complexes.\n\n### Niveau 3 : Few-shot CoT\nVous combinez le CoT avec des exemples. Vous montrez un problème résolu étape par étape, puis demandez au modèle de résoudre un problème similaire :\n\n> Problème : 3 pizzas à 12€, réduction de 10%.\n> Étape 1 : 3 × 12 = 36€\n> Étape 2 : 36 × 0.10 = 3.60€\n> Étape 3 : 36 - 3.60 = 32.40€\n> Réponse : 32.40€\n>\n> Problème : [votre nouveau problème]\n> Étape 1 :",
+        "en": "### Level 1: The Simple Trigger\nAdd a magic phrase at the end of your prompt:\n\n> \"Think step by step before answering.\"\n> \"Let's think step by step.\"\n\nSimplest technique. Works well for basic calculation and logic tasks.\n\n### Level 2: Imposed Steps\nYou explicitly define the steps the model must follow:\n\n> \"Analyze this problem following these steps:\n> 1. Identify the problem's data\n> 2. Determine the formula to apply\n> 3. Perform the calculation step by step\n> 4. Verify the result\n> 5. Give your final answer\"\n\nMore rigorous. Recommended for complex tasks.\n\n### Level 3: Few-Shot CoT\nCombine CoT with examples. Show a step-by-step solved problem, then ask the model to solve a similar one:\n\n> Problem: 3 pizzas at €12, 10% discount.\n> Step 1: 3 × 12 = €36\n> Step 2: 36 × 0.10 = €3.60\n> Step 3: 36 - 3.60 = €32.40\n> Answer: €32.40\n>\n> Problem: [your new problem]\n> Step 1:"
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Écris un prompt de Niveau 2 (étapes imposées) pour résoudre ce problème : \"Une entreprise a 150 employés. 60% sont en CDI, les autres en CDD. Les CDI coûtent 45 000€/an, les CDD 30 000€/an. Quel est le budget salarial total ?\" Impose au moins 4 étapes.",
+        "en": "Write a Level 2 prompt (imposed steps) to solve this: \"A company has 150 employees. 60% are permanent, the rest are temporary. Permanent employees cost €45,000/year, temporary €30,000/year. What's the total salary budget?\" Impose at least 4 steps."
+      },
+      "ella_system_hint": "Good steps: 1) Calculate permanent count (150 × 0.60 = 90), 2) Calculate temporary count (150 - 90 = 60), 3) Calculate permanent cost (90 × 45000), 4) Calculate temporary cost (60 × 30000), 5) Sum total, 6) Verify. Answer: 4,050,000 + 1,800,000 = 5,850,000€. Praise if they include a verification step. If they forget step 2 (calculating temp count), point it out.",
+      "mode": "rewrite"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {"fr": "CoT au-delà des maths", "en": "CoT Beyond Math"},
+      "content": {
+        "fr": "Le CoT n'est pas que pour les calculs. Il transforme la qualité des réponses sur :\n\n### Analyse de code\n> \"Analyse ce code ligne par ligne. Pour chaque ligne, explique ce qu'elle fait. Identifie les bugs potentiels. Donne ta conclusion finale.\"\n\n### Prise de décision business\n> \"Je dois choisir entre le Fournisseur A et B. Analyse en suivant ces étapes : 1) Compare les prix, 2) Compare les délais, 3) Évalue les risques, 4) Donne ta recommandation avec justification.\"\n\n### Évaluation critique\n> \"Évalue cet argument en suivant ces étapes : 1) Identifie la thèse principale, 2) Liste les preuves données, 3) Identifie les faiblesses logiques, 4) Donne ton verdict.\"\n\nDans tous ces cas, le CoT force le modèle à **structurer sa pensée** au lieu de répondre par intuition.",
+        "en": "CoT isn't just for calculations. It transforms response quality on:\n\n### Code Analysis\n> \"Analyze this code line by line. For each line, explain what it does. Identify potential bugs. Give your final conclusion.\"\n\n### Business Decision-Making\n> \"I must choose between Supplier A and B. Analyze following these steps: 1) Compare prices, 2) Compare delivery times, 3) Assess risks, 4) Give your recommendation with justification.\"\n\n### Critical Evaluation\n> \"Evaluate this argument following these steps: 1) Identify the main thesis, 2) List the evidence given, 3) Identify logical weaknesses, 4) Give your verdict.\"\n\nIn all these cases, CoT forces the model to **structure its thinking** instead of answering by intuition."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Choisis un domaine qui t'intéresse (code, business, science, droit...) et écris un prompt CoT Niveau 2 pour une tâche d'analyse dans ce domaine. Impose au moins 4 étapes de raisonnement + une étape de vérification.",
+        "en": "Choose a domain you're interested in (code, business, science, law...) and write a Level 2 CoT prompt for an analysis task in that domain. Impose at least 4 reasoning steps + a verification step."
+      },
+      "ella_system_hint": "The student should apply CoT to a non-math domain. Key: steps should be logical and sequential, ending with verification. Praise creativity in domain choice. If the steps are too vague ('analyze', 'evaluate'), push them to be specific. A verification step is essential — if missing, insist.",
+      "mode": "rewrite"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {"fr": "Les pièges du CoT", "en": "CoT Traps"},
+      "content": {
+        "fr": "### Piège 1 : CoT sur des tâches simples\n\"Traduis 'bonjour' en anglais. Réfléchis étape par étape.\" — Inutile et ridicule.\n\n### Piège 2 : Pas de structure\nDire \"réfléchis\" sans imposer d'étapes. Le modèle peut produire un raisonnement long et mal organisé.\n\n### Piège 3 : Faire confiance aveuglément\nLe modèle peut produire un raisonnement qui **semble** logique mais qui est faux. Vérifiez toujours l'étape finale.\n\n### Piège 4 : Oublier la réponse finale\nLe modèle s'emballe dans le raisonnement et oublie de conclure. Toujours imposer : \"Termine par : RÉPONSE FINALE : [X]\".\n\n### Piège 5 : Trop de verbosité\nSans limite, le raisonnement peut s'étendre sur 500 mots. Imposez \"3 à 5 étapes maximum\" ou \"chaque étape en 1 phrase\".",
+        "en": "### Trap 1: CoT on Simple Tasks\n\"Translate 'bonjour' to English. Think step by step.\" — Useless and ridiculous.\n\n### Trap 2: No Structure\nSaying \"think\" without imposing steps. The model may produce long, disorganized reasoning.\n\n### Trap 3: Blind Trust\nThe model can produce reasoning that **looks** logical but is wrong. Always verify the final step.\n\n### Trap 4: Forgetting the Final Answer\nThe model gets carried away reasoning and forgets to conclude. Always impose: \"End with: FINAL ANSWER: [X]\".\n\n### Trap 5: Too Verbose\nWithout limits, reasoning can extend to 500 words. Impose \"3 to 5 steps maximum\" or \"each step in 1 sentence\"."
+      }
+    },
+    {
+      "id": "checkpoint_04",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Quand faut-il utiliser le CoT et quand faut-il l'éviter ? Donne 2 situations où le CoT est indispensable et 2 où il est inutile.",
+        "en": "When should you use CoT and when should you avoid it? Give 2 situations where CoT is essential and 2 where it's unnecessary."
+      },
+      "ella_system_hint": "Essential: multi-step calculations, complex analysis with multiple factors, code debugging, comparing options. Unnecessary: translation, simple classification, reformulation, factual questions. If the student says 'always use CoT', correct them — it wastes tokens on simple tasks. Praise nuanced answers.",
+      "mode": "free"
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Tu maîtrises les 3 niveaux du CoT et tu sais quand l'utiliser. Le lab va te confronter à un vrai problème : forcer un LLM à montrer son raisonnement sur un calcul de marge (business) ou un debug de code (engineering). Impose des étapes, exige une vérification, et n'oublie pas la réponse finale !",
+        "en": "You've mastered the 3 levels of CoT and know when to use it. The lab will confront you with a real problem: forcing an LLM to show its reasoning on a margin calculation (business) or code debugging (engineering). Impose steps, demand verification, and don't forget the final answer!"
+      },
+      "next_url": "/courses/prompt-engineering/labs/03_chain_of_thought"
+    }
+  ]
+}

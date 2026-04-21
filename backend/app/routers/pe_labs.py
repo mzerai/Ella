@@ -96,3 +96,41 @@ async def get_lab_detail(lab_id: str):
         "concept": lab.get("concept", {}),
         "missions": missions,
     }
+
+
+@router.get("/modules/{module_id}")
+async def get_module_cells(module_id: str):
+    """Return the notebook cells for a PE module."""
+    import json
+    import os
+
+    # Resolve the data directory relative to this file
+    modules_dir = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..", "..", "data", "pe", "modules")
+    )
+
+    # Map module_id to filename
+    module_files = {
+        "01_zero_shot": "module_01_cells.json",
+        "02_few_shot": "module_02_cells.json",
+        "03_chain_of_thought": "module_03_cells.json",
+        "04_system_prompts": "module_04_cells.json",
+        "05_structured_output": "module_05_cells.json",
+    }
+
+    filename = module_files.get(module_id)
+    if not filename:
+        raise HTTPException(
+            status_code=404, detail=f"Module configuration for '{module_id}' not found"
+        )
+
+    filepath = os.path.join(modules_dir, filename)
+    if not os.path.exists(filepath):
+        raise HTTPException(status_code=404, detail=f"Module file '{filename}' not found")
+
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        logger.error("Error reading module file %s: %s", filename, e)
+        raise HTTPException(status_code=500, detail="Failed to load module content")

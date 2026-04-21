@@ -1,0 +1,95 @@
+{
+  "module_id": "05_structured_output",
+  "title": {"fr": "Structured Output", "en": "Structured Output"},
+  "description": {
+    "fr": "Obtenez des sorties structurées et parsables — JSON, CSV, tableaux — pour intégrer un LLM dans un pipeline.",
+    "en": "Get structured, parsable outputs — JSON, CSV, tables — to integrate an LLM into a pipeline."
+  },
+  "cells": [
+    {
+      "id": "intro_01",
+      "type": "content",
+      "title": {"fr": "Pourquoi le texte libre ne suffit pas", "en": "Why Free Text Isn't Enough"},
+      "content": {
+        "fr": "Vous savez maintenant rédiger des prompts efficaces. Mais il y a un problème : les LLM répondent en **texte libre**. Et le texte libre, un programme ne sait pas le lire.\n\nImaginez : votre LLM analyse 500 emails et doit les classifier. Si la réponse est \"Cet email semble être un spam car il contient des mots suspects...\", votre programme ne peut rien en faire. Il lui faut `{\"category\": \"spam\", \"confidence\": 0.95}`.\n\n**Structured output** = obtenir du LLM une sortie dans un format **précis et parsable** (JSON, CSV, XML, SQL) que votre code peut directement utiliser.\n\nC'est le pont entre le LLM et le reste de votre système. Sans structured output, le LLM est un assistant qui parle. Avec, c'est un composant logiciel qui s'intègre dans un pipeline.",
+        "en": "You now know how to write effective prompts. But there's a problem: LLMs respond in **free text**. And programs can't read free text.\n\nImagine: your LLM analyzes 500 emails to classify them. If the answer is \"This email seems to be spam because it contains suspicious words...\", your program can't use it. It needs `{\"category\": \"spam\", \"confidence\": 0.95}`.\n\n**Structured output** = getting the LLM to produce output in a **precise, parsable format** (JSON, CSV, XML, SQL) that your code can directly use.\n\nIt's the bridge between the LLM and the rest of your system. Without structured output, the LLM is an assistant that talks. With it, it's a software component that integrates into a pipeline."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Donne-moi un exemple concret de ton domaine (engineering ou business) où tu aurais besoin que le LLM retourne du JSON au lieu de texte libre. Décris les champs que le JSON devrait contenir.",
+        "en": "Give me a concrete example from your domain (engineering or business) where you'd need the LLM to return JSON instead of free text. Describe the fields the JSON should contain."
+      },
+      "ella_system_hint": "Engineering examples: bug report parsing (severity, component, description), code review results (file, line, issue, fix_suggestion), API log analysis. Business examples: customer feedback classification (sentiment, topic, urgency), invoice extraction (vendor, amount, date, currency). Praise specificity. If they give field names AND types, that's advanced thinking.",
+      "mode": "free"
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {"fr": "Les 4 techniques", "en": "The 4 Techniques"},
+      "content": {
+        "fr": "### Technique 1 : Instruction directe\nLa plus simple — demandez directement :\n> \"Réponds uniquement en JSON valide. Aucun texte en dehors du JSON.\"\n\n### Technique 2 : Schéma explicite\nDéfinissez les champs, types et contraintes :\n> \"Retourne un JSON avec ces champs :\n> - name (string, obligatoire)\n> - price (number, en euros sans symbole)\n> - in_stock (boolean)\n> - tags (array of strings, max 5)\"\n\n### Technique 3 : Exemple concret\nMontrez exactement à quoi le JSON doit ressembler (c'est du few-shot appliqué au format) :\n> \"Retourne un JSON comme cet exemple :\n> {\"name\": \"Laptop Pro\", \"price\": 1299.99, \"in_stock\": true, \"tags\": [\"tech\", \"portable\"]}\"\n\n### Technique 4 : System prompt dédié\nPour un assistant qui doit TOUJOURS retourner du JSON :\n> System: \"Tu es une API. Tu réponds EXCLUSIVEMENT en JSON valide. Jamais de texte, jamais de markdown, jamais d'explication. Le JSON doit être directement parsable par json.loads().\"\n\n**La meilleure approche** : combiner les 4 techniques dans un seul prompt.",
+        "en": "### Technique 1: Direct Instruction\nSimplest — ask directly:\n> \"Respond only in valid JSON. No text outside the JSON.\"\n\n### Technique 2: Explicit Schema\nDefine fields, types, and constraints:\n> \"Return a JSON with these fields:\n> - name (string, required)\n> - price (number, in euros without symbol)\n> - in_stock (boolean)\n> - tags (array of strings, max 5)\"\n\n### Technique 3: Concrete Example\nShow exactly what the JSON should look like (few-shot applied to format):\n> \"Return a JSON like this example:\n> {\"name\": \"Laptop Pro\", \"price\": 1299.99, \"in_stock\": true, \"tags\": [\"tech\", \"portable\"]}\"\n\n### Technique 4: Dedicated System Prompt\nFor an assistant that must ALWAYS return JSON:\n> System: \"You are an API. You respond EXCLUSIVELY in valid JSON. Never text, never markdown, never explanation. The JSON must be directly parsable by json.loads().\"\n\n**Best approach**: combine all 4 techniques in one prompt."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Écris un prompt qui combine les 4 techniques pour extraire des informations d'une description de produit. Le JSON doit contenir : name (string), price (number), currency (string, enum: EUR/USD/TND), features (array of strings). Utilise un schéma ET un exemple.",
+        "en": "Write a prompt combining all 4 techniques to extract info from a product description. The JSON must contain: name (string), price (number), currency (string, enum: EUR/USD/TND), features (array of strings). Use both a schema AND an example."
+      },
+      "ella_system_hint": "A perfect answer combines: 1) 'Respond only in valid JSON' (technique 1), 2) field definitions with types (technique 2), 3) a concrete example JSON (technique 3), 4) optionally a system prompt framing (technique 4). Key checks: price must be number not string, currency must be enum, features must be array. If they include 'directly parsable by json.loads()' or 'no text outside JSON', that's excellent.",
+      "mode": "rewrite"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {"fr": "Les erreurs courantes et comment les prévenir", "en": "Common Failures and How to Prevent Them"},
+      "content": {
+        "fr": "### Erreur 1 : Texte avant ou après le JSON\nLe LLM écrit \"Voici le résultat :\" avant le JSON → `json.loads()` échoue.\n**Solution** : \"Retourne UNIQUEMENT le JSON. Aucun texte avant ni après.\"\n\n### Erreur 2 : Backticks markdown\nLe LLM met ```json ... ``` autour du JSON.\n**Solution** : \"Pas de backticks, pas de markdown. JSON brut uniquement.\"\n\n### Erreur 3 : Types incorrects\nLe prix retourné comme \"45€\" (string) au lieu de 45 (number).\n**Solution** : Spécifiez les types explicitement. \"price: number (PAS de symbole de devise, PAS de string)\"\n\n### Erreur 4 : Champs manquants\nLe LLM oublie un champ quand l'information n'est pas disponible.\n**Solution** : \"Si une information est absente, utilise null (pas de string vide, pas d'omission).\"\n\n### Erreur 5 : Champs inventés\nLe LLM ajoute des champs que vous n'avez pas demandés.\n**Solution** : \"Retourne EXACTEMENT les champs listés. N'ajoute aucun champ supplémentaire.\"\n\n### La règle d'or\n**Ne faites JAMAIS confiance à 100% à la sortie d'un LLM.** Toujours valider en code avec un try/catch et un schéma de validation.",
+        "en": "### Error 1: Text Before/After JSON\nThe LLM writes \"Here's the result:\" before JSON → `json.loads()` fails.\n**Fix**: \"Return ONLY the JSON. No text before or after.\"\n\n### Error 2: Markdown Backticks\nThe LLM wraps with ```json ... ```.\n**Fix**: \"No backticks, no markdown. Raw JSON only.\"\n\n### Error 3: Incorrect Types\nPrice returned as \"45€\" (string) instead of 45 (number).\n**Fix**: Specify types explicitly. \"price: number (NO currency symbol, NOT a string)\"\n\n### Error 4: Missing Fields\nThe LLM omits a field when info isn't available.\n**Fix**: \"If information is missing, use null (not empty string, not omission).\"\n\n### Error 5: Invented Fields\nThe LLM adds fields you didn't ask for.\n**Fix**: \"Return EXACTLY the listed fields. Do not add extra fields.\"\n\n### The Golden Rule\n**NEVER trust LLM output 100%.** Always validate in code with try/catch and a validation schema."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Voici un prompt : \"Extrais les infos du produit en JSON.\" \n\nCe prompt va provoquer au moins 3 des 5 erreurs courantes. Lesquelles ? Réécris-le pour les prévenir toutes.",
+        "en": "Here's a prompt: \"Extract product info as JSON.\"\n\nThis prompt will trigger at least 3 of the 5 common errors. Which ones? Rewrite it to prevent all of them."
+      },
+      "ella_system_hint": "This prompt risks: Error 1 (text before JSON — no 'only JSON' instruction), Error 2 (backticks — no 'no markdown' instruction), Error 3 (wrong types — no schema), Error 4 (missing fields — no null instruction), Error 5 (extra fields — no field restriction). A good rewrite specifies all fields with types, adds 'only JSON, no markdown, no extra text', defines null handling, and restricts to listed fields. Praise comprehensive rewrites.",
+      "mode": "rewrite"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {"fr": "Au-delà du JSON", "en": "Beyond JSON"},
+      "content": {
+        "fr": "Le JSON est le format le plus courant, mais d'autres formats structurés sont utiles :\n\n### CSV\nPour générer des datasets ou des tableaux :\n> \"Génère un CSV avec les colonnes : nom, âge, ville. 10 lignes. Séparateur virgule. Pas de texte en dehors du CSV.\"\n\n### Markdown Table\nPour des résultats lisibles dans un rapport :\n> \"Présente les résultats en tableau markdown avec les colonnes : Critère, Score, Commentaire.\"\n\n### YAML / XML\nPour des configurations ou des fichiers de données spécifiques.\n\n### La même règle s'applique à tous\nSpécifiez le format, donnez un exemple, contraignez la sortie, validez en code.",
+        "en": "JSON is the most common format, but other structured formats are useful:\n\n### CSV\nFor generating datasets or tables:\n> \"Generate a CSV with columns: name, age, city. 10 rows. Comma separator. No text outside the CSV.\"\n\n### Markdown Table\nFor readable results in a report:\n> \"Present results as a markdown table with columns: Criteria, Score, Comment.\"\n\n### YAML / XML\nFor configurations or specific data files.\n\n### The Same Rule Applies to All\nSpecify the format, give an example, constrain the output, validate in code."
+      }
+    },
+    {
+      "id": "checkpoint_04",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Écris un prompt qui génère exactement 5 lignes de CSV pour un dataset de classification de sentiment. Colonnes : text, sentiment, confidence. Les sentiments doivent être variés (positif, négatif, neutre). Le confidence doit être un nombre entre 0 et 1.",
+        "en": "Write a prompt that generates exactly 5 rows of CSV for a sentiment classification dataset. Columns: text, sentiment, confidence. Sentiments must be varied (positive, negative, neutral). Confidence must be a number between 0 and 1."
+      },
+      "ella_system_hint": "Check: 1) Explicit column names, 2) Exact row count (5), 3) Sentiment values constrained to positive/negative/neutral, 4) Confidence as decimal 0-1, 5) 'No text outside CSV'. Common mistake: not specifying header row, not constraining sentiment values, confidence as percentage instead of decimal. Praise if they add 'include header row' and 'comma separator'.",
+      "mode": "rewrite"
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Tu maîtrises les 4 techniques de structured output et tu sais prévenir les 5 erreurs courantes. Le lab va te confronter au cas réel : extraire des entités d'un article en JSON (business) ou générer un dataset CSV (engineering). Rappelle-toi : schéma, types, exemple, et 'uniquement le JSON, rien d'autre' !",
+        "en": "You've mastered the 4 structured output techniques and know how to prevent the 5 common errors. The lab will confront you with a real case: extracting entities from an article as JSON (business) or generating a CSV dataset (engineering). Remember: schema, types, example, and 'only JSON, nothing else'!"
+      },
+      "next_url": "/courses/prompt-engineering/labs/05_structured_output"
+    }
+  ]
+}

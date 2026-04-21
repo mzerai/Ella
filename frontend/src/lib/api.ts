@@ -162,6 +162,45 @@ export async function runPELab(
 }
 
 // ============================================
+// Module Cells API
+// ============================================
+
+export interface ContentCell {
+  id: string;
+  type: "content";
+  title: { fr: string; en: string };
+  content: { fr: string; en: string };
+}
+
+export interface EllaCheckpointCell {
+  id: string;
+  type: "ella_checkpoint";
+  question: { fr: string; en: string };
+  ella_system_hint: string;
+  mode: "free" | "rewrite" | "quiz";
+}
+
+export interface EllaGateCell {
+  id: string;
+  type: "ella_gate";
+  message: { fr: string; en: string };
+  next_url: string;
+}
+
+export type NotebookCell = ContentCell | EllaCheckpointCell | EllaGateCell;
+
+export interface ModuleData {
+  module_id: string;
+  title: { fr: string; en: string };
+  description: { fr: string; en: string };
+  cells: NotebookCell[];
+}
+
+export async function getModuleCells(moduleId: string): Promise<ModuleData> {
+  return apiFetch<ModuleData>(`/api/labs/pe/modules/${moduleId}`);
+}
+
+// ============================================
 // Health Check
 // ============================================
 
