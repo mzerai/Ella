@@ -5,29 +5,34 @@ import ReactMarkdown from "react-markdown";
 import EllaAvatar from "./EllaAvatar";
 import { sendChatMessage, type NotebookCell } from "@/lib/api";
 import { useAuth } from "@/components/AuthProvider";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
+import remarkGfm from "remark-gfm";
 
 interface NotebookProps {
     cells: NotebookCell[];
     moduleId: string;
     lang: "fr" | "en";
+    courseId?: "pe" | "rl";
 }
 
-export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
+export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: NotebookProps) {
     const { user } = useAuth();
     // Track which cells are unlocked.
     const [unlockedUpTo, setUnlockedUpTo] = useState(0);
     // Track checkpoint responses and Ella feedback
     const [checkpointState, setCheckpointState] = useState<
-        Record<string, { 
-            response: string; 
-            feedback: string; 
-            loading: boolean; 
-            submitted: boolean; 
-            passed: boolean; 
-            attempts: number 
+        Record<string, {
+            response: string;
+            feedback: string;
+            loading: boolean;
+            submitted: boolean;
+            passed: boolean;
+            attempts: number
         }>
     >({});
-    
+
     const cellRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
     // On mount, auto-unlock consecutive content cells from the start
@@ -70,8 +75,8 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
     };
 
     const handleCheckpointSubmit = async (cellId: string, cellIndex: number, question: string, hint: string) => {
-        const state = checkpointState[cellId] || { 
-            response: "", feedback: "", loading: false, submitted: false, passed: false, attempts: 0 
+        const state = checkpointState[cellId] || {
+            response: "", feedback: "", loading: false, submitted: false, passed: false, attempts: 0
         };
         if (!state.response.trim()) return;
 
@@ -94,7 +99,7 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                     page_title: `Module ${moduleId}`,
                     algorithm: "",
                     lab_name: `Checkpoint ${cellId}`,
-                    extra: { course_id: "pe", checkpoint_mode: true }
+                    extra: { course_id: courseId, checkpoint_mode: true }
                 },
                 conversation_history: []
             });
@@ -173,7 +178,7 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
         <div className="max-w-3xl mx-auto space-y-10 pb-20">
             {cells.map((cell, index) => {
                 const isLocked = index > unlockedUpTo;
-                
+
                 return (
                     <div
                         key={cell.id}
@@ -188,27 +193,43 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                                 </h2>
                                 <div className="prose prose-sm max-w-none text-ella-gray-700 leading-relaxed space-y-4">
                                     <ReactMarkdown
+                                        remarkPlugins={[remarkGfm, remarkMath]}
+                                        rehypePlugins={[rehypeKatex]}
                                         components={{
-                                            h3: ({children}) => {
-                                                const text = String(children);
-                                                const emojiMatch = text.match(/^([\uD800-\uDBFF][\uDC00-\uDFFF]|\S)\s*/);
-                                                const emoji = emojiMatch ? emojiMatch[0] : "";
-                                                const rest = emojiMatch ? text.slice(emojiMatch[0].length) : text;
+                                            h3: ({ children }) => {
+                                                // Extract text-only content for emoji detection
+                                                // but preserve React nodes (math, links, etc.) for rendering
+                                                const childArray = Array.isArray(children) ? children : [children];
+
+                                                // Check if the first child starts with an emoji
+                                                let emoji = "";
+                                                let restChildren = childArray;
+
+                                                const firstChild = childArray[0];
+                                                if (typeof firstChild === "string") {
+                                                    const emojiMatch = firstChild.match(/^([\uD800-\uDBFF][\uDC00-\uDFFF]|[🎮🏁♟️🧬🤖🚗🧠🎯🔑💡⚠️📖])\s*/u);
+                                                    if (emojiMatch) {
+                                                        emoji = emojiMatch[1];
+                                                        const restText = firstChild.slice(emojiMatch[0].length);
+                                                        restChildren = [restText, ...childArray.slice(1)].filter(c => c !== "");
+                                                    }
+                                                }
+
                                                 return (
                                                     <h3 className="text-lg font-black text-ella-gray-900 mt-10 mb-4 flex items-center gap-3">
                                                         {emoji && <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-ella-gray-100 text-base">{emoji}</span>}
-                                                        <span className="border-b-2 border-ella-primary/10 pb-1">{rest}</span>
+                                                        <span className="border-b-2 border-ella-primary/10 pb-1">{restChildren}</span>
                                                     </h3>
                                                 );
                                             },
-                                            blockquote: ({children}) => {
+                                            blockquote: ({ children }) => {
                                                 const content = String(children);
                                                 const isSuccess = content.includes("✅");
                                                 const isWarning = content.includes("❌");
-                                                
+
                                                 let bgColor = "bg-ella-accent/5";
                                                 let borderColor = "border-ella-accent";
-                                                
+
                                                 if (isSuccess) {
                                                     bgColor = "bg-green-50/50";
                                                     borderColor = "border-green-500";
@@ -223,20 +244,52 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                                                     </blockquote>
                                                 );
                                             },
-                                            strong: ({children}) => <strong className="font-bold text-ella-gray-900">{children}</strong>,
-                                            code: ({children}) => (
+                                            strong: ({ children }) => <strong className="font-bold text-ella-gray-900">{children}</strong>,
+                                            code: ({ children }) => (
                                                 <code className="bg-ella-gray-100 text-ella-accent-dark px-1.5 py-0.5 rounded text-[13px] font-mono border border-ella-gray-200">
                                                     {children}
                                                 </code>
                                             ),
-                                            pre: ({children}) => (
+                                            pre: ({ children }) => (
                                                 <pre className="bg-ella-dark text-ella-dark-text p-5 rounded-2xl overflow-x-auto my-6 shadow-lg border border-white/5">
                                                     {children}
                                                 </pre>
                                             ),
-                                            a: ({href, children}) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-ella-accent hover:text-ella-accent-dark underline font-bold">{children}</a>,
-                                            ul: ({children}) => <ul className="list-disc pl-6 space-y-2 my-4">{children}</ul>,
-                                            ol: ({children}) => <ol className="list-decimal pl-6 space-y-2 my-4">{children}</ol>,
+                                            a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-ella-accent hover:text-ella-accent-dark underline font-bold">{children}</a>,
+                                            ul: ({ children }) => <ul className="list-disc pl-6 space-y-2 my-4">{children}</ul>,
+                                            ol: ({ children }) => <ol className="list-decimal pl-6 space-y-2 my-4">{children}</ol>,
+                                            table: ({ children }) => (
+                                                <div className="overflow-x-auto my-6">
+                                                    <table className="w-full text-sm border-collapse rounded-xl overflow-hidden shadow-sm ring-1 ring-ella-gray-200">
+                                                        {children}
+                                                    </table>
+                                                </div>
+                                            ),
+                                            thead: ({ children }) => (
+                                                <thead className="bg-ella-gray-50 text-ella-gray-900 font-black text-xs uppercase tracking-wider">
+                                                    {children}
+                                                </thead>
+                                            ),
+                                            tbody: ({ children }) => (
+                                                <tbody className="divide-y divide-ella-gray-100">
+                                                    {children}
+                                                </tbody>
+                                            ),
+                                            tr: ({ children }) => (
+                                                <tr className="hover:bg-ella-primary-bg/30 transition-colors">
+                                                    {children}
+                                                </tr>
+                                            ),
+                                            th: ({ children }) => (
+                                                <th className="px-4 py-3 text-left border-b-2 border-ella-gray-200">
+                                                    {children}
+                                                </th>
+                                            ),
+                                            td: ({ children }) => (
+                                                <td className="px-4 py-3 text-ella-gray-700">
+                                                    {children}
+                                                </td>
+                                            ),
                                         }}
                                     >
                                         {cell.content[lang]}
@@ -249,7 +302,7 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                         {cell.type === "ella_checkpoint" && (
                             <div className="bg-white border-2 border-ella-primary/10 rounded-[2rem] p-6 md:p-8 my-10 shadow-xl shadow-ella-primary/5 relative overflow-hidden group">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-ella-primary/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
-                                
+
                                 <div className="flex items-start gap-4 mb-6 relative z-10">
                                     <div className="shrink-0 p-1 bg-white rounded-xl shadow-sm border border-ella-primary/10">
                                         <EllaAvatar size="md" />
@@ -269,11 +322,11 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                                 <div className="ml-0 md:ml-16 relative z-10 space-y-6">
                                     {/* Ella's Feedback (shown if submitted) */}
                                     {checkpointState[cell.id]?.submitted && (
-                                        <div 
+                                        <div
                                             id={`feedback-${cell.id}`}
                                             className={`bg-white border-l-4 rounded-r-2xl p-6 shadow-lg ring-1 transition-all animate-slide-up
-                                                ${checkpointState[cell.id]?.passed 
-                                                    ? 'border-ella-success ring-ella-success/10 shadow-ella-success/5' 
+                                                ${checkpointState[cell.id]?.passed
+                                                    ? 'border-ella-success ring-ella-success/10 shadow-ella-success/5'
                                                     : 'border-ella-accent ring-ella-accent/10 shadow-ella-accent/5'}`}
                                         >
                                             <div className="flex items-center gap-3 mb-3">
@@ -284,7 +337,13 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                                                 </p>
                                             </div>
                                             <div className="text-sm font-medium text-ella-gray-700 leading-relaxed prose prose-sm max-w-none">
-                                                <ReactMarkdown>
+                                                <ReactMarkdown
+                                                    remarkPlugins={[remarkGfm, remarkMath]}
+                                                    rehypePlugins={[rehypeKatex]}
+                                                    components={{
+                                                        a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-ella-accent hover:text-ella-accent-dark underline font-bold">{children}</a>,
+                                                    }}
+                                                >
                                                     {checkpointState[cell.id]?.feedback}
                                                 </ReactMarkdown>
                                             </div>
@@ -416,7 +475,10 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                                     }}
                                     className="btn-primary !py-4 !px-12 !text-lg !font-black !rounded-2xl shadow-xl shadow-ella-accent/30 hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-3"
                                 >
-                                    Passer au Lab →
+                                    {cell.next_url.includes('/labs/')
+                                        ? (lang === "fr" ? "Passer au Lab →" : "Go to Lab →")
+                                        : (lang === "fr" ? "Module suivant →" : "Next Module →")
+                                    }
                                 </a>
                             </div>
                         )}
@@ -428,7 +490,7 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                                     <div className="w-2 h-2 rounded-full bg-ella-primary/30"></div>
                                     {cell.title[lang]}
                                 </h3>
-                                <div 
+                                <div
                                     className="w-full overflow-hidden rounded-3xl border border-ella-gray-100 bg-white p-6 shadow-md shadow-ella-gray-400/5"
                                     dangerouslySetInnerHTML={{ __html: cell.svg }}
                                 />

@@ -90,9 +90,20 @@ def _get_embedding_model():
         return None
 
 
-# Topic filter mapping: which topics are relevant for each lab page
+# Topic filter mapping: which topics are relevant for each lab/module page
 _PAGE_TOPICS = {
+    # Legacy lab page IDs (from LearnLab migration)
+    "policy_evaluation_lab": {"policy_evaluation", "dynamic_programming", "mdp_basics", "general_rl"},
+    "value_iteration_lab": {"value_iteration", "dynamic_programming", "policy_evaluation", "mdp_basics", "general_rl"},
+    "policy_iteration_lab": {"policy_iteration", "dynamic_programming", "policy_evaluation", "mdp_basics", "general_rl"},
     "q_learning_lab": {"q_learning", "td_learning", "general_rl", "mdp_basics"},
+    # New RL module IDs (notebook checkpoints use these)
+    "rl_00_culture": {"general_rl", "mdp_basics"},
+    "rl_01_bellman": {"policy_evaluation", "mdp_basics", "general_rl"},
+    "rl_02_planning": {"policy_evaluation", "value_iteration", "policy_iteration", "dynamic_programming", "mdp_basics", "general_rl"},
+    "rl_03_td_mc": {"td_learning", "monte_carlo", "policy_evaluation", "general_rl", "mdp_basics"},
+    "rl_04_control": {"sarsa", "q_learning", "double_q_learning", "td_learning", "general_rl", "mdp_basics"},
+    "rl_05_deep_rl": {"dqn", "double_q_learning", "q_learning", "general_rl"},
 }
 
 # PE topic filter mapping

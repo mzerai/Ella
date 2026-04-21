@@ -1,0 +1,122 @@
+{
+  "module_id": "rl_05_deep_rl",
+  "title": {
+    "fr": "Vers le Deep RL — DQN et Synthèse",
+    "en": "Towards Deep RL — DQN and Synthesis"
+  },
+  "description": {
+    "fr": "Découvrez comment le Reinforcement Learning passe au niveau supérieur grâce au Deep Learning. DQN, Experience Replay, Réseaux Cibles, et une synthèse des 8 algorithmes du cours.",
+    "en": "Discover how Reinforcement Learning levels up through Deep Learning. DQN, Experience Replay, Target Networks, and a synthesis of the 8 algorithms in the course."
+  },
+  "cells": [
+    {
+      "id": "intro_01",
+      "type": "content",
+      "title": {
+        "fr": "Le mur du tabulaire",
+        "en": "The Tabular Wall"
+      },
+      "content": {
+        "fr": "Dans FrozenLake, on avait 16 états. Un tableau $16 \\times 4$ suffisait largement pour stocker toutes les Q-valeurs. Mais regardez le monde réel :\n- **Atari** : $210 \\times 160$ pixels avec 128 couleurs → $128^{33600}$ états possibles.\n- **Go** : $10^{170}$ positions possibles.\n- **Robotique** : états et actions continus (positions, couples moteurs).\n\nDans ces cas-là, le tabulaire est impossible. On ne visitera jamais deux fois le même état exact. Il nous faut une méthode pour **généraliser** : apprendre d'un état et appliquer ce savoir à un état similaire.\n\n### L'approximation de fonction\n\nAu lieu d'un tableau, on utilise un modèle paramétré (réseau de neurones) $Q_\\theta(s, a) \\approx q_*(s, a)$. Le réseau prend l'état en entrée et prédit les Q-valeurs pour chaque action.",
+        "en": "In FrozenLake, we had 16 states. A $16 \\times 4$ table was more than enough to store all Q-values. But look at the real world:\n- **Atari**: $210 \\times 160$ pixels with 128 colors → $128^{33600}$ possible states.\n- **Go**: $10^{170}$ possible positions.\n- **Robotics**: continuous states and actions (positions, motor torques).\n\nIn these cases, tabular RL is impossible. We'll never visit the exact same state twice. We need a way to **generalize**: learn from one state and apply that knowledge to similar states.\n\n### Function Approximation\n\nInstead of a table, we use a parameterized model (neural network) $Q_\\theta(s, a) \\approx q_*(s, a)$. The network takes the state as input and predicts Q-values for each action."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "DQN — Architecture et Stabilité",
+        "en": "DQN — Architecture and Stability"
+      },
+      "content": {
+        "fr": "En 2013, DeepMind publie un papier révolutionnaire : **DQN**. L'idée est d'appliquer Q-learning avec un réseau de neurones convolutif. Mais l'entraînement d'un réseau est instable en RL car la cible change à chaque mise à jour.\n\n### Le Target Network (Réseau Cible)\n\nLa cible de Q-learning $R + \\gamma \\max Q(S', a')$ dépend elle-même des paramètres du réseau. C'est comme courir après une cible mouvante.\n\nPour stabiliser l'apprentissage, DQN utilise un deuxième réseau, le **Target Network** (paramétré par $\\theta^-$). Ses poids sont copiés du réseau principal périodiquement mais restent fixes entre temps. La cible devient stable :\n$$y = R + \\gamma \\max_{a'} Q_{\\theta^-}(S', a')$$\n\n### La fonction de perte (Loss)\n\nOn minimise l'erreur quadratique entre la cible fixe et la prédiction actuelle :\n$$L(\\theta) = \\mathbb{E}\\left[ \\left( y - Q_\\theta(S, A) \\right)^2 \\right]$$",
+        "en": "In 2013, DeepMind published a landmark paper: **DQN**. The idea was to apply Q-learning using a convolutional neural network. But training a network is unstable in RL because the target changes with every update.\n\n### The Target Network\n\nThe Q-learning target $R + \\gamma \\max Q(S', a')$ itself depends on the network parameters. It's like chasing a moving target.\n\nTo stabilize learning, DQN uses a second network, the **Target Network** (parameterized by $\\theta^-$). Its weights are copied from the main network periodically but remain fixed in between. The target becomes stable:\n$$y = R + \\gamma \\max_{a'} Q_{\\theta^-}(S', a')$$\n\n### The Loss Function\n\nWe minimize the mean squared error between the fixed target and the current prediction:\n$$L(\\theta) = \\mathbb{E}\\left[ \\left( y - Q_\\theta(S, A) \\right)^2 \\right]$$"
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Pourquoi DQN utilise-t-il un 'Target Network' séparé au lieu de simplement mettre à jour le réseau principal à chaque étape ?",
+        "en": "Why does DQN use a separate 'Target Network' instead of just updating the main network at every step?"
+      },
+      "ella_system_hint": "The goal is stability. If the same network is used for both prediction and target, the target moves every time we update, which can lead to oscillations or divergence. The target network provides a stable learning signal for a fixed period. If the student mentioned 'stability' or 'moving target', they are on the right track.",
+      "mode": "free"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "L'Experience Replay",
+        "en": "Experience Replay"
+      },
+      "content": {
+        "fr": "En RL standard, on apprend d'une transition et on la jette. Mais les transitions successives d'un épisode sont très corrélées, ce qui 'brouille' l'apprentissage des réseaux de neurones qui préfèrent des données indépendantes.\n\n### Pourquoi utiliser l'Experience Replay ?\n\nOn stocke les transitions $(s, a, r, s', done)$ dans une mémoire tampon (buffer). Au lieu d'apprendre sur la transition immédiate, on tire un **mini-batch aléatoire** dans cette mémoire.\n\n**Avantages clés :**\n1. **Casse les corrélations temporelles** : Les échantillons ne se suivent pas dans le temps.\n2. **Efficacité des données** : Chaque expérience est réutilisée plusieurs fois pour l'entraînement.\n3. **Stabilité** : En moyennant sur des expériences variées, on évite que le réseau ne 'sur-apprenne' la trajectoire récente.",
+        "en": "In standard RL, we learn from a transition and discard it. But successive transitions in an episode are highly correlated, which 'blurs' the learning of neural networks that prefer independent data.\n\n### Why use Experience Replay?\n\nWe store transitions $(s, a, r, s', done)$ in a buffer. Instead of learning on the immediate transition, we draw a **random mini-batch** from this memory.\n\n**Key benefits:**\n1. **Breaks temporal correlations**: Samples do not follow each other in time.\n2. **Data efficiency**: Each experience is reused multiple times for training.\n3. **Stability**: By averaging over varied experiences, we prevent the network from 'over-learning' the recent trajectory."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Quels sont les deux problèmes majeurs que l'Experience Replay tente de résoudre pour permettre aux réseaux de neurones d'apprendre efficacement en RL ?",
+        "en": "What are the two major problems that Experience Replay tries to solve to allow neural networks to learn effectively in RL?"
+      },
+      "ella_system_hint": "They should mention (1) Temporal correlations between consecutive states (breaking long-term trajectories) and (2) Sample efficiency (reusing experiences). If they also mention stability or making data look more i.i.d. (independent and identically distributed), that's excellent.",
+      "mode": "free"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "DQN sur FrozenLake",
+        "en": "DQN on FrozenLake"
+      },
+      "content": {
+        "fr": "Comment appliquer un réseau de neurones à une petite grille 4x4 ? Voici l'architecture typique utilisée dans le lab :\n\n### 1. L'entrée (Input)\nOn utilise un encodage **one-hot** de l'état (dimension 16). C'est un vecteur avec un 1 à l'indice de la case actuelle et 0 ailleurs.\n\n### 2. Le réseau\nUn réseau simple suffit : \n- Une couche d'entrée (16)\n- Deux couches cachées (ex: 64 neurones chacune)\n- Une couche de sortie (4) correspondant aux 4 actions possibles.\n\n### 3. La sortie (Output)\nLa sortie donne les 4 Q-valeurs estimées : $Q(s, Left), Q(s, Down), Q(s, Right), Q(s, Up)$. L'agent choisit l'action avec la valeur la plus haute (ou explore).\n\nMême si FrozenLake est petit, cette approche montre comment le RL peut passer à l'échelle pour des problèmes plus complexes.",
+        "en": "How do we apply a neural network to a small 4x4 grid? Here is the typical architecture used in the lab:\n\n### 1. The Input\nWe use a **one-hot** encoding of the state (dimension 16). It's a vector with a 1 at the current cell's index and 0 elsewhere.\n\n### 2. The Network\nA simple network is enough:\n- An input layer (16)\n- Two hidden layers (e.g., 64 neurons each)\n- An output layer (4) corresponding to the 4 possible actions.\n\n### 3. The Output\nThe output gives the 4 estimated Q-values: $Q(s, Left), Q(s, Down), Q(s, Right), Q(s, Up)$. The agent picks the action with the highest value (or explores).\n\nEven though FrozenLake is small, this approach demonstrates how RL can scale to more complex problems."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "DQN est clairement excessif (overkill) pour FrozenLake avec seulement 16 états. Alors pourquoi l'enseigner sur ce problème ? Quel est l'intérêt pédagogique ?",
+        "en": "DQN is clearly overkill for FrozenLake with only 16 states. So why teach it on this problem? What is the pedagogical value?"
+      },
+      "ella_system_hint": "Pedagogical reasons: (1) Students already understand the environment from previous modules, so they can focus on what DQN ADDS (neural network, replay, target network) without learning a new environment. (2) They can COMPARE tabular and deep methods on the same problem to see what the network brings and what it costs. (3) FrozenLake is simple enough to debug and visualize — DQN on Atari would be a black box. (4) It builds intuition for WHY these components (replay, target net) exist before scaling to complex environments. If the student mentions 'same environment, focus on new concepts', that's excellent.",
+      "mode": "free"
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "Synthèse — Les 8 algorithmes",
+        "en": "Synthesis — All 8 Algorithms"
+      },
+      "content": {
+        "fr": "### Les trois grandes familles\n\n**Planification (modèle requis)** : Value Iteration, Policy Iteration — calculent exactement via les équations de Bellman.\n\n**Échantillonnage tabulaire (sans modèle)** : Monte Carlo, TD(0), SARSA, Q-Learning, Double Q-Learning — apprennent par interaction.\n\n**Approximation profonde (sans modèle)** : DQN — remplace la table par un réseau de neurones.\n\n### Tableau comparatif\n\n| Algorithme | Modèle | On/Off-policy | Tabulaire | Deep |\n|---|---|---|---|---|\n| Value Iteration | Oui | N/A | Oui | Non |\n| Policy Iteration | Oui | N/A | Oui | Non |\n| Monte Carlo | Non | On-policy | Oui | Non |\n| TD(0) | Non | On-policy (éval.) | Oui | Non |\n| SARSA | Non | On-policy | Oui | Non |\n| Q-Learning | Non | Off-policy | Oui | Non |\n| Double Q-Learning | Non | Off-policy | Oui | Non |\n| DQN | Non | Off-policy | Non | Oui |\n\n### Ce qu'il faut retenir\n\n- **Modèle connu** → VI ou PI (les plus efficaces, mais rares en pratique)\n- **Modèle inconnu, petit espace** → Q-Learning ou SARSA\n- **Surestimation un problème** → Double Q-Learning\n- **Grand espace d'états** → DQN (et ses successeurs : Double DQN, Dueling DQN, Rainbow...)\n- **Prudence nécessaire** → SARSA (tient compte de l'exploration)\n- **Compréhension du retour complet** → Monte Carlo",
+        "en": "### The Three Big Families\n\n**Planning (model required)**: Value Iteration, Policy Iteration — compute exactly via Bellman equations.\n\n**Tabular sampling (model-free)**: Monte Carlo, TD(0), SARSA, Q-Learning, Double Q-Learning — learn through interaction.\n\n**Deep approximation (model-free)**: DQN — replaces the table with a neural network.\n\n### Comparative Table\n\n| Algorithm | Model | On/Off-policy | Tabular | Deep |\n|---|---|---|---|---|\n| Value Iteration | Yes | N/A | Yes | No |\n| Policy Iteration | Yes | N/A | Yes | No |\n| Monte Carlo | No | On-policy | Yes | No |\n| TD(0) | No | On-policy (eval.) | Yes | No |\n| SARSA | No | On-policy | Yes | No |\n| Q-Learning | No | Off-policy | Yes | No |\n| Double Q-Learning | No | Off-policy | Yes | No |\n| DQN | No | Off-policy | No | Yes |\n\n### Key Takeaways\n\n- **Model known** → VI or PI (most efficient, but rare in practice)\n- **Model unknown, small space** → Q-Learning or SARSA\n- **Overestimation is a problem** → Double Q-Learning\n- **Large state space** → DQN (and successors: Double DQN, Dueling DQN, Rainbow...)\n- **Caution needed** → SARSA (accounts for exploration)\n- **Full return understanding** → Monte Carlo"
+      }
+    },
+    {
+      "id": "checkpoint_04",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Classe ces 8 algorithmes du plus simple conceptuellement au plus complexe, et justifie ton classement en une phrase pour chacun.",
+        "en": "Rank these 8 algorithms from simplest conceptually to most complex, and justify your ranking with one sentence for each."
+      },
+      "ella_system_hint": "A reasonable ranking (others are acceptable if justified): 1. Policy Evaluation (just apply Bellman equation repeatedly). 2. Value Iteration (PE + max instead of sum). 3. Policy Iteration (VI split into two alternating phases). 4. Monte Carlo (average returns, simple but needs full episodes). 5. TD(0) (MC + bootstrapping idea). 6. SARSA (TD control, uses actual next action). 7. Q-Learning (SARSA + max instead of actual action). 8. Double Q-Learning (Q-Learning + two tables for bias reduction). 9. DQN (Q-Learning + neural network + replay + target network). The student's ranking doesn't have to match exactly — what matters is that they can JUSTIFY each placement. If they put Monte Carlo as simplest, that's defensible too (simplest idea: just average returns).",
+      "mode": "free"
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Félicitations ! Tu as terminé le parcours théorique du cours Reinforcement Learning. Tu as les bases mathématiques, la taxonomie des algorithmes, et la vision du Deep RL. Le dernier lab t'attend pour mettre en œuvre DQN et faire une synthèse finale de tes connaissances. Bravo pour ta persévérance !",
+        "en": "Congratulations! You've completed the theoretical path of the Reinforcement Learning course. You have the mathematical foundations, the algorithm taxonomy, and the vision for Deep RL. The final lab awaits you to implement DQN and synthesize your knowledge. Bravo for your perseverance!"
+      },
+      "next_url": "/courses/reinforcement-learning/labs/deep_rl"
+    }
+  ]
+}

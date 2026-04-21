@@ -1,0 +1,144 @@
+{
+  "module_id": "rl_01_bellman",
+  "title": {
+    "fr": "Fondements — Les équations de Bellman",
+    "en": "Foundations — The Bellman Equations"
+  },
+  "description": {
+    "fr": "Découvrez le cadre mathématique du Reinforcement Learning : MDP, retour actualisé, et les deux équations de Bellman qui sont au cœur de tous les algorithmes.",
+    "en": "Discover the mathematical framework of Reinforcement Learning: MDPs, discounted returns, and the two Bellman equations at the heart of every algorithm."
+  },
+  "cells": [
+    {
+      "id": "intro_01",
+      "type": "content",
+      "title": {
+        "fr": "Le cadre : qu'est-ce qu'un MDP ?",
+        "en": "The Framework: What is an MDP?"
+      },
+      "content": {
+        "fr": "Tout le Reinforcement Learning repose sur un cadre mathématique appelé **Processus de Décision Markovien** (MDP). L'idée est simple : un agent interagit avec un environnement, étape par étape.\n\nÀ chaque instant $t$, on a :\n- $S_t$ — l'**état** dans lequel se trouve l'agent\n- $A_t$ — l'**action** qu'il choisit\n- $R_{t+1}$ — la **récompense** qu'il reçoit après avoir agi\n- $S_{t+1}$ — le **nouvel état** dans lequel il arrive\n\nL'agent suit une **politique** $\\pi(a|s)$ qui lui dit quelle action choisir dans chaque état. La dynamique de l'environnement est décrite par le **noyau de transition** :\n$$p(s', r | s, a) = \\mathbb{P}(S_{t+1}=s', R_{t+1}=r | S_t=s, A_t=a)$$\n\nLa **propriété de Markov** est cruciale : l'avenir ne dépend du passé qu'à travers l'état présent. Autrement dit, $S_t$ contient toute l'information nécessaire pour prédire ce qui va se passer ensuite.\n\n### 🎯 Le facteur d'actualisation $\\gamma$\n\nL'agent ne cherche pas juste la récompense immédiate — il veut maximiser les récompenses **sur le long terme**. Mais les récompenses futures valent moins que les récompenses immédiates. C'est le rôle du facteur d'actualisation $\\gamma \\in [0, 1)$ :\n- $\\gamma = 0$ → l'agent est **myope**, il ne regarde que la récompense immédiate\n- $\\gamma$ proche de 1 → l'agent est **prévoyant**, il accorde beaucoup d'importance au futur",
+        "en": "All of Reinforcement Learning rests on a mathematical framework called a **Markov Decision Process** (MDP). The idea is simple: an agent interacts with an environment, step by step.\n\nAt each time step $t$, we have:\n- $S_t$ — the **state** the agent is in\n- $A_t$ — the **action** it chooses\n- $R_{t+1}$ — the **reward** it receives after acting\n- $S_{t+1}$ — the **next state** it transitions to\n\nThe agent follows a **policy** $\\pi(a|s)$ that tells it which action to choose in each state. The environment dynamics are described by the **transition kernel**:\n$$p(s', r | s, a) = \\mathbb{P}(S_{t+1}=s', R_{t+1}=r | S_t=s, A_t=a)$$\n\nThe **Markov property** is crucial: the future depends on the past only through the present state. In other words, $S_t$ contains all the information needed to predict what happens next.\n\n### 🎯 The discount factor $\\gamma$\n\nThe agent doesn't just want immediate reward — it wants to maximize rewards **over time**. But future rewards are worth less than immediate ones. That's the role of the discount factor $\\gamma \\in [0, 1)$:\n- $\\gamma = 0$ → the agent is **myopic**, only looking at immediate reward\n- $\\gamma$ close to 1 → the agent is **far-sighted**, valuing the future heavily"
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Avant de continuer, explique-moi dans tes propres mots : pourquoi le facteur d'actualisation γ est-il nécessaire ? Que se passerait-il si γ = 1 dans une tâche qui ne se termine jamais ?",
+        "en": "Before we continue, explain in your own words: why is the discount factor γ necessary? What would happen if γ = 1 in a task that never ends?"
+      },
+      "ella_system_hint": "The student should explain that gamma prevents infinite sums when the task is infinite-horizon. If gamma=1 and the task never ends, the sum of rewards could be infinite and the value function undefined. Accept also if they mention that gamma controls the trade-off between short-term and long-term thinking. If they only say 'it makes future rewards smaller' without explaining WHY that matters, gently push for the deeper reason.",
+      "mode": "free"
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "Le retour actualisé G_t",
+        "en": "The Discounted Return G_t"
+      },
+      "content": {
+        "fr": "L'objectif de l'agent est de maximiser le **retour actualisé** :\n$$G_t = R_{t+1} + \\gamma R_{t+2} + \\gamma^2 R_{t+3} + \\cdots = \\sum_{k=0}^{\\infty} \\gamma^k R_{t+k+1}$$\n\nCette somme est bien définie quand $0 \\le \\gamma < 1$ (ou quand l'épisode se termine).\n\n### 🔑 La décomposition récursive\n\nVoici l'identité fondamentale qui est à la base de TOUTE la théorie du RL :\n$$G_t = R_{t+1} + \\gamma G_{t+1}$$\n\n**Pourquoi ?** En factorisant $\\gamma$ :\n$$G_t = R_{t+1} + \\gamma(R_{t+2} + \\gamma R_{t+3} + \\cdots) = R_{t+1} + \\gamma G_{t+1}$$\n\nCette décomposition dit que le retour total = **la récompense immédiate** + **$\\gamma$ fois le retour futur**. C'est simple mais puissant : elle transforme un problème de somme infinie en une relation entre deux instants consécutifs.",
+        "en": "The agent's objective is to maximize the **discounted return**:\n$$G_t = R_{t+1} + \\gamma R_{t+2} + \\gamma^2 R_{t+3} + \\cdots = \\sum_{k=0}^{\\infty} \\gamma^k R_{t+k+1}$$\n\nThis sum is well-defined when $0 \\le \\gamma < 1$ (or when the episode terminates).\n\n### 🔑 The Recursive Decomposition\n\nHere is the fundamental identity that underlies ALL of RL theory:\n$$G_t = R_{t+1} + \\gamma G_{t+1}$$\n\n**Why?** By factoring out $\\gamma$:\n$$G_t = R_{t+1} + \\gamma(R_{t+2} + \\gamma R_{t+3} + \\cdots) = R_{t+1} + \\gamma G_{t+1}$$\n\nThis decomposition says that the total return = **immediate reward** + **$\\gamma$ times the future return**. It's simple but powerful: it transforms an infinite sum problem into a relationship between two consecutive time steps."
+      }
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "La fonction de valeur d'état v_π",
+        "en": "The State-Value Function v_π"
+      },
+      "content": {
+        "fr": "### Définition\n\nPour tout état $s$, la **fonction de valeur d'état** sous la politique $\\pi$ est :\n$$v_\\pi(s) = \\mathbb{E}_\\pi[G_t | S_t = s]$$\n\nEn français : c'est le retour moyen que l'agent peut espérer en partant de l'état $s$ et en suivant la politique $\\pi$.\n\n### Dérivation de l'équation de Bellman pour $v_\\pi$\n\nOn part de la définition et on utilise la décomposition récursive $G_t = R_{t+1} + \\gamma G_{t+1}$ :\n$$v_\\pi(s) = \\mathbb{E}_\\pi[R_{t+1} + \\gamma G_{t+1} | S_t = s]$$\n\nPar **linéarité de l'espérance** :\n$$v_\\pi(s) = \\mathbb{E}_\\pi[R_{t+1} | S_t = s] + \\gamma \\mathbb{E}_\\pi[G_{t+1} | S_t = s]$$\n\nPar la **loi de l'espérance totale**, on introduit l'action $a$ et l'état suivant $s'$ :\n$$v_\\pi(s) = \\sum_a \\pi(a|s) \\sum_{s',r} p(s',r|s,a) \\Big[ r + \\gamma \\mathbb{E}_\\pi[G_{t+1} | S_{t+1}=s'] \\Big]$$\n\nPar la **propriété de Markov**, l'espérance du retour futur sachant $S_{t+1} = s'$ est exactement $v_\\pi(s')$ :\n$$\\mathbb{E}_\\pi[G_{t+1} | S_{t+1}=s'] = v_\\pi(s')$$\n\n### L'équation de Bellman\n\nEn combinant tout, on obtient :\n$$v_\\pi(s) = \\sum_a \\pi(a|s) \\sum_{s',r} p(s',r|s,a) \\big[ r + \\gamma v_\\pi(s') \\big]$$\n\nCette équation est **récursive** : la valeur de chaque état dépend de la valeur des états suivants. C'est cette structure qui permet de la résoudre itérativement.\n\n### Les 4 ingrédients de la dérivation\n1. La décomposition du retour : $G_t = R_{t+1} + \\gamma G_{t+1}$\n2. La linéarité de l'espérance conditionnelle\n3. La loi de l'espérance totale\n4. La propriété de Markov",
+        "en": "### Definition\n\nFor every state $s$, the **state-value function** under policy $\\pi$ is:\n$$v_\\pi(s) = \\mathbb{E}_\\pi[G_t | S_t = s]$$\n\nIn plain English: it's the average return the agent can expect starting from state $s$ and following policy $\\pi$.\n\n### Deriving the Bellman Equation for $v_\\pi$\n\nWe start from the definition and use the recursive decomposition $G_t = R_{t+1} + \\gamma G_{t+1}$:\n$$v_\\pi(s) = \\mathbb{E}_\\pi[R_{t+1} + \\gamma G_{t+1} | S_t = s]$$\n\nBy **linearity of expectation**:\n$$v_\\pi(s) = \\mathbb{E}_\\pi[R_{t+1} | S_t = s] + \\gamma \\mathbb{E}_\\pi[G_{t+1} | S_t = s]$$\n\nBy the **law of total expectation**, we introduce the action $a$ and next state $s'$:\n$$v_\\pi(s) = \\sum_a \\pi(a|s) \\sum_{s',r} p(s',r|s,a) \\Big[ r + \\gamma \\mathbb{E}_\\pi[G_{t+1} | S_{t+1}=s'] \\Big]$$\n\nBy the **Markov property**, the expected future return given $S_{t+1} = s'$ is exactly $v_\\pi(s')$:\n$$\\mathbb{E}_\\pi[G_{t+1} | S_{t+1}=s'] = v_\\pi(s')$$\n\n### The Bellman Equation\n\nCombining everything:\n$$v_\\pi(s) = \\sum_a \\pi(a|s) \\sum_{s',r} p(s',r|s,a) \\big[ r + \\gamma v_\\pi(s') \\big]$$\n\nThis equation is **recursive**: the value of each state depends on the value of successor states. This structure is what allows us to solve it iteratively.\n\n### The 4 Ingredients of the Derivation\n1. Return decomposition: $G_t = R_{t+1} + \\gamma G_{t+1}$\n2. Linearity of conditional expectation\n3. Law of total expectation\n4. The Markov property"
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "La dérivation de l'équation de Bellman utilise 4 ingrédients mathématiques. Peux-tu les nommer et expliquer le rôle de chacun ?",
+        "en": "The derivation of the Bellman equation uses 4 mathematical ingredients. Can you name them and explain the role of each?"
+      },
+      "ella_system_hint": "The student should name: (1) return decomposition G_t = R_{t+1} + gamma*G_{t+1}, (2) linearity of conditional expectation, (3) law of total expectation (to introduce the action and next state into the sum), (4) Markov property (to replace E[G_{t+1}|S_{t+1}=s'] by v_pi(s')). If they get 3 out of 4, praise them and hint at the missing one. The Markov property is the most commonly forgotten — if they miss it, ask: 'What allows us to say that the future only depends on the next state?'",
+      "mode": "free"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "La fonction état-action q_π",
+        "en": "The Action-Value Function q_π"
+      },
+      "content": {
+        "fr": "### Définition\n\nLa **fonction état-action** (aussi appelée Q-function) est définie par :\n$$q_\\pi(s, a) = \\mathbb{E}_\\pi[G_t | S_t = s, A_t = a]$$\n\nElle mesure le retour moyen quand on est dans l'état $s$, qu'on **impose** l'action $a$, puis qu'on suit la politique $\\pi$ ensuite.\n\n### Différence avec $v_\\pi$\n\n- $v_\\pi(s)$ moyenne sur **toutes les actions** selon $\\pi$\n- $q_\\pi(s, a)$ fixe une action spécifique $a$, puis suit $\\pi$\n\nLe lien entre les deux est direct :\n$$v_\\pi(s) = \\sum_a \\pi(a|s) \\cdot q_\\pi(s, a)$$\n\nLa valeur d'un état est la moyenne pondérée des valeurs état-action, pondérée par la politique.\n\n### Pourquoi $q_\\pi$ est-elle utile ?\n\nPour **améliorer** une politique, il suffit de comparer les $q_\\pi(s, a)$ pour différentes actions. Si $q_\\pi(s, a_1) > q_\\pi(s, a_2)$, alors l'action $a_1$ est meilleure dans l'état $s$ sous la politique courante. C'est cette idée qui fonde l'amélioration de politique.",
+        "en": "### Definition\n\nThe **action-value function** (also called Q-function) is defined as:\n$$q_\\pi(s, a) = \\mathbb{E}_\\pi[G_t | S_t = s, A_t = a]$$\n\nIt measures the average return when you're in state $s$, you **force** action $a$, then follow policy $\\pi$ afterwards.\n\n### Difference from $v_\\pi$\n\n- $v_\\pi(s)$ averages over **all actions** according to $\\pi$\n- $q_\\pi(s, a)$ fixes a specific action $a$, then follows $\\pi$\n\nThe link between them is direct:\n$$v_\\pi(s) = \\sum_a \\pi(a|s) \\cdot q_\\pi(s, a)$$\n\nThe value of a state is the weighted average of action-values, weighted by the policy.\n\n### Why is $q_\\pi$ useful?\n\nTo **improve** a policy, you just compare $q_\\pi(s, a)$ for different actions. If $q_\\pi(s, a_1) > q_\\pi(s, a_2)$, then action $a_1$ is better in state $s$ under the current policy. This idea is the foundation of policy improvement."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Quelle est la différence fondamentale entre v_π(s) et q_π(s, a) ? Et si la politique π est déterministe (elle choisit toujours la même action dans chaque état), que devient la relation entre les deux ?",
+        "en": "What is the fundamental difference between v_π(s) and q_π(s, a)? And if policy π is deterministic (always choosing the same action in each state), what does the relationship between them become?"
+      },
+      "ella_system_hint": "The student should explain that v_pi averages over actions while q_pi conditions on a specific action. For a deterministic policy pi(s) = a*, the relationship simplifies to v_pi(s) = q_pi(s, a*) because the sum collapses to a single term with probability 1. If they don't mention the deterministic case, guide them: 'What happens to the sum when pi assigns probability 1 to a single action?'",
+      "mode": "free"
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "L'équation de Bellman pour q_π",
+        "en": "The Bellman Equation for q_π"
+      },
+      "content": {
+        "fr": "### Dérivation\n\nLa dérivation suit la même logique que pour $v_\\pi$, mais on conditionne sur le couple $(S_t, A_t)$ au départ.\n\nOn part de :\n$$q_\\pi(s, a) = \\mathbb{E}_\\pi[R_{t+1} + \\gamma G_{t+1} | S_t = s, A_t = a]$$\n\nPar linéarité, puis en introduisant $(S_{t+1}, A_{t+1})$ via l'espérance totale :\n$$q_\\pi(s, a) = \\mathbb{E}_\\pi[R_{t+1} | S_t=s, A_t=a] + \\gamma \\sum_{s', a'} \\mathbb{P}_\\pi(s', a' | s, a) \\cdot q_\\pi(s', a')$$\n\nLa **propriété de Markov** permet de remplacer l'espérance conditionnelle du retour futur par $q_\\pi(s', a')$.\n\n### Factorisation de la loi jointe\n\nSous une politique stationnaire $\\pi$, la probabilité jointe se factorise :\n$$\\mathbb{P}_\\pi(s', a' | s, a) = p(s' | s, a) \\cdot \\pi(a' | s')$$\n\nL'état suivant dépend de la dynamique, l'action suivante dépend de la politique.\n\n### Forme finale\n\n$$q_\\pi(s, a) = \\sum_{s', r} p(s', r | s, a) \\left[ r + \\gamma \\sum_{a'} \\pi(a' | s') \\cdot q_\\pi(s', a') \\right]$$\n\nEt en utilisant le lien $v_\\pi(s') = \\sum_{a'} \\pi(a'|s') q_\\pi(s', a')$ :\n$$q_\\pi(s, a) = \\sum_{s', r} p(s', r | s, a) \\big[ r + \\gamma v_\\pi(s') \\big]$$\n\n### Remarque pédagogique\n\nLa différence avec la dérivation de $v_\\pi$ : ici on conditionne sur un **couple** $(S_t, A_t)$, donc la politique $\\pi$ n'intervient qu'à partir du temps $t+1$, pas au temps $t$.",
+        "en": "### Derivation\n\nThe derivation follows the same logic as for $v_\\pi$, but we bundle on the pair $(S_t, A_t)$ from the start.\n\nStarting from:\n$$q_\\pi(s, a) = \\mathbb{E}_\\pi[R_{t+1} + \\gamma G_{t+1} | S_t = s, A_t = a]$$\n\nBy linearity, then introducing $(S_{t+1}, A_{t+1})$ via the law of total expectation:\n$$q_\\pi(s, a) = \\mathbb{E}_\\pi[R_{t+1} | S_t=s, A_t=a] + \\gamma \\sum_{s', a'} \\mathbb{P}_\\pi(s', a' | s, a) \\cdot q_\\pi(s', a')$$\n\nThe **Markov property** lets us replace the conditional expectation of the future return by $q_\\pi(s', a')$.\n\n### Factoring the Joint Probability\n\nUnder a stationary policy $\\pi$, the joint probability factors as:\n$$\\mathbb{P}_\\pi(s', a' | s, a) = p(s' | s, a) \\cdot \\pi(a' | s')$$\n\nThe next state depends on the dynamics, the next action depends on the policy.\n\n### Final Form\n\n$$q_\\pi(s, a) = \\sum_{s', r} p(s', r | s, a) \\left[ r + \\gamma \\sum_{a'} \\pi(a' | s') \\cdot q_\\pi(s', a') \\right]$$\n\nAnd using the link $v_\\pi(s') = \\sum_{a'} \\pi(a'|s') q_\\pi(s', a')$:\n$$q_\\pi(s, a) = \\sum_{s', r} p(s', r | s, a) \\big[ r + \\gamma v_\\pi(s') \\big]$$\n\n### Pedagogical Note\n\nThe key difference from the $v_\\pi$ derivation: here we condition on a **pair** $(S_t, A_t)$, so the policy $\\pi$ only enters at time $t+1$, not at time $t$."
+      }
+    },
+    {
+      "id": "checkpoint_04",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Pourquoi la propriété de Markov est-elle indispensable pour arriver à l'équation de Bellman ? Que se passerait-il si l'environnement n'était PAS markovien ?",
+        "en": "Why is the Markov property essential to arrive at the Bellman equation? What would happen if the environment were NOT Markovian?"
+      },
+      "ella_system_hint": "The student should explain that the Markov property allows us to replace E[G_{t+1}|S_t,A_t,S_{t+1}] by E[G_{t+1}|S_{t+1}] = v_pi(s'). Without it, the future return would depend on the entire history, not just the current state, and we couldn't write the recursive equation v(s) = f(v(s')). If they mention 'the future would depend on the past', that's correct. If they give a vague answer, ask them to be specific about which step in the derivation would break.",
+      "mode": "free"
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "Résumé : le lien entre tout",
+        "en": "Summary: How Everything Connects"
+      },
+      "content": {
+        "fr": "### Les deux fonctions de valeur\n\n| Fonction | Définition | Conditionne sur |\n|----------|-----------|----------------|\n| $v_\\pi(s)$ | $\\mathbb{E}_\\pi[G_t \\| S_t = s]$ | L'état seul |\n| $q_\\pi(s, a)$ | $\\mathbb{E}_\\pi[G_t \\| S_t = s, A_t = a]$ | L'état ET l'action |\n\n### Le lien fondamental\n\n$$v_\\pi(s) = \\sum_a \\pi(a|s) \\cdot q_\\pi(s, a)$$\n\nEt dans l'autre sens :\n$$q_\\pi(s, a) = \\sum_{s', r} p(s', r|s, a) \\big[ r + \\gamma v_\\pi(s') \\big]$$\n\n### Pourquoi c'est important\n\nCes deux équations de Bellman sont la **fondation** de tous les algorithmes que nous verrons :\n- **Policy Evaluation** utilise l'équation de Bellman pour $v_\\pi$ directement\n- **Value Iteration** utilise la version optimale avec $\\max$ au lieu de la moyenne sur $\\pi$\n- **Q-Learning** apprend $q_*$ sans connaître le modèle\n- **Tous les algorithmes deep RL** sont des approximations de ces équations\n\nDans le prochain module, nous verrons comment **résoudre** ces équations pour trouver la politique optimale.",
+        "en": "### The Two Value Functions\n\n| Function | Definition | Conditions on |\n|----------|-----------|---------------|\n| $v_\\pi(s)$ | $\\mathbb{E}_\\pi[G_t \\| S_t = s]$ | State only |\n| $q_\\pi(s, a)$ | $\\mathbb{E}_\\pi[G_t \\| S_t = s, A_t = a]$ | State AND action |\n\n### The Fundamental Link\n\n$$v_\\pi(s) = \\sum_a \\pi(a|s) \\cdot q_\\pi(s, a)$$\n\nAnd in reverse:\n$$q_\\pi(s, a) = \\sum_{s', r} p(s', r|s, a) \\big[ r + \\gamma v_\\pi(s') \\big]$$\n\n### Why This Matters\n\nThese two Bellman equations are the **foundation** of every algorithm we'll see:\n- **Policy Evaluation** uses the Bellman equation for $v_\\pi$ directly\n- **Value Iteration** uses the optimal version with $\\max$ instead of averaging over $\\pi$\n- **Q-Learning** learns $q_*$ without knowing the model\n- **All deep RL algorithms** are approximations of these equations\n\nIn the next module, we'll see how to **solve** these equations to find the optimal policy."
+      }
+    },
+    {
+      "id": "checkpoint_05",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Petit exercice : si q_π(s, droite) = 0.8 et q_π(s, gauche) = 0.2, et la politique π choisit 50/50 entre droite et gauche, que vaut v_π(s) ? Et si π était gloutonne (100% sur la meilleure action) ?",
+        "en": "Quick exercise: if q_π(s, right) = 0.8 and q_π(s, left) = 0.2, and policy π chooses 50/50 between right and left, what is v_π(s)? And what if π were greedy (100% on the best action)?"
+      },
+      "ella_system_hint": "With 50/50 policy: v_pi(s) = 0.5 * 0.8 + 0.5 * 0.2 = 0.5. With greedy policy: v_pi(s) = 1.0 * 0.8 = 0.8. The key insight is that the greedy policy extracts more value because it always picks the better action. If the student gets the numbers right, ask them: 'What does this tell you about the difference between a random policy and a greedy policy?' If they struggle with the calculation, remind them of the formula v_pi(s) = sum_a pi(a|s) * q_pi(s,a).",
+      "mode": "free"
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Bravo ! Tu maîtrises maintenant les fondements mathématiques du RL : le cadre MDP, le retour actualisé, et les deux équations de Bellman. Ces équations sont récursives — dans le prochain lab, tu vas voir comment on les résout itérativement avec Policy Evaluation. Prêt à voir les maths prendre vie sur une grille ?",
+        "en": "Well done! You now understand the mathematical foundations of RL: the MDP framework, discounted returns, and both Bellman equations. These equations are recursive — in the next lab, you'll see how to solve them iteratively with Policy Evaluation. Ready to see the math come alive on a grid?"
+      },
+      "next_url": "/courses/reinforcement-learning/labs/policy_evaluation"
+    }
+  ]
+}

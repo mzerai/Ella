@@ -71,3 +71,9 @@
     @apply h-full rounded-full transition-all duration-500;
   }
 }
+
+/* Display math ($$...$$) gets comfortable spacing */
+.prose .katex-display {
+    margin: 1.5em 0;
+    font-size: 1.1em;
+}

@@ -1,0 +1,122 @@
+{
+  "module_id": "rl_02_planning",
+  "title": {
+    "fr": "Planification — Policy Iteration et Value Iteration",
+    "en": "Planning — Policy Iteration and Value Iteration"
+  },
+  "description": {
+    "fr": "Quand on connaît le modèle complet du MDP, on peut calculer la politique optimale. Découvrez les deux algorithmes fondamentaux de planification.",
+    "en": "When you know the full MDP model, you can compute the optimal policy. Discover the two fundamental planning algorithms."
+  },
+  "cells": [
+    {
+      "id": "intro_01",
+      "type": "content",
+      "title": {
+        "fr": "Les méthodes de planification",
+        "en": "Planning Methods"
+      },
+      "content": {
+        "fr": "Dans le module précédent, nous avons dérivé les équations de Bellman. Maintenant, la question est : **comment les résoudre ?**\n\nLes méthodes de planification supposent qu'on connaît le modèle complet du MDP — c'est-à-dire toutes les probabilités de transition $p(s', r | s, a)$. Dans FrozenLake, on a accès à ce modèle via `env.P[s][a]`.\n\n### Deux approches\n\n**Policy Iteration** : on alterne entre évaluer une politique (calculer $v_\\pi$) et l'améliorer (rendre la politique gloutonne par rapport à $v_\\pi$).\n\n**Value Iteration** : on cherche directement la fonction de valeur optimale $v_*$ en prenant le $\\max$ sur les actions à chaque itération.\n\nLes deux convergent vers la politique optimale, mais par des chemins différents.",
+        "en": "In the previous module, we derived the Bellman equations. Now the question is: **how do we solve them?**\n\nPlanning methods assume we know the full MDP model — that is, all transition probabilities $p(s', r | s, a)$. In FrozenLake, we access this model through `env.P[s][a]`.\n\n### Two Approaches\n\n**Policy Iteration**: alternate between evaluating a policy (computing $v_\\pi$) and improving it (making the policy greedy with respect to $v_\\pi$).\n\n**Value Iteration**: directly search for the optimal value function $v_*$ by taking the $\\max$ over actions at each iteration.\n\nBoth converge to the optimal policy, but by different paths."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "Policy Evaluation — Évaluer une politique fixée",
+        "en": "Policy Evaluation — Evaluating a Fixed Policy"
+      },
+      "content": {
+        "fr": "### Le problème\n\nÉtant donnée une politique fixée $\\pi$, on veut calculer $v_\\pi(s)$ pour tous les états.\n\n### L'algorithme itératif\n\nOn initialise $V(s) = 0$ pour tous les états, puis on applique l'équation de Bellman comme une **mise à jour** :\n$$V_{k+1}(s) = \\sum_a \\pi(a|s) \\sum_{s',r} p(s',r|s,a) \\big[ r + \\gamma V_k(s') \\big]$$\n\nÀ chaque itération, on met à jour **tous les états simultanément** (un \"sweep\").\n\n### Convergence\n\nOn s'arrête quand le changement maximal est petit :\n$$\\delta = \\max_s |V_{k+1}(s) - V_k(s)| < \\theta$$\n\nLe seuil $\\theta$ contrôle la précision :\n- $\\theta$ petit → plus d'itérations, plus précis\n- $\\theta$ grand → moins d'itérations, moins précis\n\n### Ce que Policy Evaluation n'est PAS\n- Ce n'est PAS basé sur l'échantillonnage — on utilise le modèle complet\n- Ce n'est PAS de l'amélioration de politique — on évalue une politique **fixe**\n- Ce n'est PAS Value Iteration — on utilise la moyenne sur $\\pi$, pas le $\\max$",
+        "en": "### The Problem\n\nGiven a fixed policy $\\pi$, we want to compute $v_\\pi(s)$ for all states.\n\n### The Iterative Algorithm\n\nInitialize $V(s) = 0$ for all states, then apply the Bellman equation as an **update rule**:\n$$V_{k+1}(s) = \\sum_a \\pi(a|s) \\sum_{s',r} p(s',r|s,a) \\big[ r + \\gamma V_k(s') \\big]$$\n\nAt each iteration, we update **all states simultaneously** (a \"sweep\").\n\n### Convergence\n\nWe stop when the maximum change is small:\n$$\\delta = \\max_s |V_{k+1}(s) - V_k(s)| < \\theta$$\n\nThe threshold $\\theta$ controls precision:\n- Small $\\theta$ → more iterations, more precise\n- Large $\\theta$ → fewer iterations, less precise\n\n### What Policy Evaluation is NOT\n- It is NOT sampling-based — we use the full model\n- It is NOT policy improvement — we evaluate a **fixed** policy\n- It is NOT Value Iteration — we average over $\\pi$, not $\\max$"
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Policy Evaluation met à jour TOUS les états à chaque itération. Pourquoi est-ce possible ici, alors que dans Q-Learning (que tu verras plus tard), on ne peut mettre à jour qu'un seul état à la fois ?",
+        "en": "Policy Evaluation updates ALL states at each iteration. Why is this possible here, while in Q-Learning (which you'll see later), you can only update one state at a time?"
+      },
+      "ella_system_hint": "The key is that Policy Evaluation has ACCESS TO THE FULL MODEL p(s',r|s,a). With the model, you can compute the expected value for any state without actually visiting it. Q-Learning is model-free — it can only update states it actually visits through interaction. If the student says 'because we know the transition probabilities', that's the right answer. Push them to articulate WHY knowing the model enables full sweeps.",
+      "mode": "free"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "Policy Improvement et Policy Iteration",
+        "en": "Policy Improvement and Policy Iteration"
+      },
+      "content": {
+        "fr": "### Policy Improvement\n\nUne fois qu'on a $v_\\pi$ et $q_\\pi$, on peut **améliorer** la politique en la rendant gloutonne :\n$$\\pi'(s) = \\arg\\max_a q_\\pi(s, a)$$\n\nPourquoi ça marche ? Parce que choisir l'action de plus grande Q-valeur est **garanti** de donner une politique au moins aussi bonne : $v_{\\pi'}(s) \\ge v_\\pi(s)$ pour tout $s$.\n\n### Policy Iteration\n\nOn alterne les deux phases :\n1. **Évaluation** : calculer $v_\\pi$ par itération (sweeps complets)\n2. **Amélioration** : $\\pi \\leftarrow \\text{greedy}(v_\\pi)$\n3. Répéter jusqu'à ce que la politique ne change plus\n\n### Propriétés remarquables\n\n- Converge en **très peu de steps d'amélioration** (souvent 3 à 6 pour FrozenLake)\n- Mais chaque step contient une **évaluation complète** qui peut nécessiter des dizaines d'itérations\n- Au début, la politique est mauvaise → l'évaluation est longue\n- À la fin, la politique est presque optimale → l'évaluation converge vite\n- **Une politique stable EST optimale** : si l'amélioration ne change rien, on a trouvé $\\pi_*$",
+        "en": "### Policy Improvement\n\nOnce we have $v_\\pi$ and $q_\\pi$, we can **improve** the policy by making it greedy:\n$$\\pi'(s) = \\arg\\max_a q_\\pi(s, a)$$\n\nWhy does this work? Because choosing the action with the highest Q-value is **guaranteed** to yield a policy at least as good: $v_{\\pi'}(s) \\ge v_\\pi(s)$ for all $s$.\n\n### Policy Iteration\n\nAlternate between two phases:\n1. **Evaluation**: compute $v_\\pi$ by iteration (full sweeps)\n2. **Improvement**: $\\pi \\leftarrow \\text{greedy}(v_\\pi)$\n3. Repeat until the policy stops changing\n\n### Remarkable Properties\n\n- Converges in **very few improvement steps** (often 3 to 6 for FrozenLake)\n- But each step contains a **full evaluation** that may need dozens of iterations\n- Early on, the policy is bad → evaluation is slow\n- Later, the policy is nearly optimal → evaluation converges fast\n- **A stable policy IS optimal**: if improvement changes nothing, we've found $\\pi_*$"
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Policy Iteration converge en très peu de steps d'amélioration (3-6), alors que chaque step contient une évaluation complète coûteuse. Pourquoi si peu de steps suffisent-ils ?",
+        "en": "Policy Iteration converges in very few improvement steps (3-6), even though each step contains a costly full evaluation. Why do so few steps suffice?"
+      },
+      "ella_system_hint": "The key insight is that each improvement step makes the policy strictly better (or leaves it unchanged if already optimal). The space of deterministic policies is finite (|A|^|S|), so the sequence of improving policies must terminate. For FrozenLake 4x4, there are only 4^16 possible policies, and each improvement step picks a better one. If the student mentions 'finite number of policies', that's excellent. If they focus on the evaluation cost instead, redirect: 'You're right that each step is expensive, but WHY does the improvement process converge so fast?'",
+      "mode": "free"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "Value Iteration — Trouver v* directement",
+        "en": "Value Iteration — Finding v* Directly"
+      },
+      "content": {
+        "fr": "### L'idée\n\nAu lieu d'évaluer et améliorer séparément, Value Iteration combine les deux en une seule mise à jour :\n$$V_{k+1}(s) = \\max_a \\sum_{s',r} p(s',r|s,a) \\big[ r + \\gamma V_k(s') \\big]$$\n\nC'est l'**équation d'optimalité de Bellman** utilisée comme règle de mise à jour.\n\n### La différence clé avec Policy Evaluation\n\n| | Policy Evaluation | Value Iteration |\n|---|---|---|\n| Mise à jour | $\\sum_a \\pi(a\\|s) \\cdot (\\ldots)$ | $\\max_a (\\ldots)$ |\n| Évalue quoi | Une politique fixée $\\pi$ | La politique optimale $\\pi_*$ |\n| Résultat | $v_\\pi$ | $v_*$ |\n\nPolicy Evaluation fait la **moyenne** pondérée par la politique. Value Iteration prend le **maximum** sur toutes les actions.\n\n### L'opérateur de Bellman optimal\n\nOn peut écrire la mise à jour comme l'application d'un opérateur $T$ :\n$$T[V](s) = \\max_a \\sum_{s',r} p(s',r|s,a) \\big[ r + \\gamma V(s') \\big]$$\n\nCet opérateur est une **contraction** avec facteur $\\gamma$ : à chaque application, les erreurs se réduisent d'au moins un facteur $\\gamma$. C'est ce qui **garantit** la convergence.\n\n### Extraction de la politique\n\nAfter convergence de $V_*$, on extrait la politique optimale :\n$$\\pi_*(s) = \\arg\\max_a \\sum_{s',r} p(s',r|s,a) \\big[ r + \\gamma V_*(s') \\big]$$\n\nLa politique est déterministe : exactement une action par état, avec probabilité 1.",
+        "en": "### The Idea\n\nInstead of evaluating and improving separately, Value Iteration combines both into a single update:\n$$V_{k+1}(s) = \\max_a \\sum_{s',r} p(s',r|s,a) \\big[ r + \\gamma V_k(s') \\big]$$\n\nThis is the **Bellman optimality equation** used as an update rule.\n\n### The Key Difference from Policy Evaluation\n\n| | Policy Evaluation | Value Iteration |\n|---|---|---|\n| Update | $\\sum_a \\pi(a\\|s) \\cdot (\\ldots)$ | $\\max_a (\\ldots)$ |\n| Evaluates | A fixed policy $\\pi$ | The optimal policy $\\pi_*$ |\n| Result | $v_\\pi$ | $v_*$ |\n\nPolicy Evaluation computes the **weighted average** over the policy. Value Iteration takes the **maximum** over all actions.\n\n### The Optimal Bellman Operator\n\nWe can write the update as applying an operator $T$:\n$$T[V](s) = \\max_a \\sum_{s',r} p(s',r|s,a) \\big[ r + \\gamma V(s') \\big]$$\n\nThis operator is a **contraction** with factor $\\gamma$: each application reduces errors by at least a factor of $\\gamma$. This **guarantees** convergence.\n\n### Policy Extraction\n\nAfter $V_*$ converges, we extract the optimal policy:\n$$\\pi_*(s) = \\arg\\max_a \\sum_{s',r} p(s',r|s,a) \\big[ r + \\gamma V_*(s') \\big]$$\n\nThe policy is deterministic: exactly one action per state, with probability 1."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Quelle est LA différence clé entre la mise à jour de Policy Evaluation et celle de Value Iteration ? Écris les deux formules et montre précisément où elles diffèrent.",
+        "en": "What is THE key difference between the Policy Evaluation update and the Value Iteration update? Write both formulas and show precisely where they differ."
+      },
+      "ella_system_hint": "PE: V(s) = sum_a pi(a|s) * sum p(s',r|s,a)[r + gamma*V(s')]. VI: V(s) = max_a sum p(s',r|s,a)[r + gamma*V(s')]. The only difference is sum_a pi(a|s) vs max_a. PE averages over the policy, VI takes the best action. If the student writes both formulas correctly and identifies the sum-vs-max difference, that's perfect. If they only describe it in words, ask them to write the actual formulas.",
+      "mode": "free"
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "PI vs VI — Comparaison et intuition",
+        "en": "PI vs VI — Comparison and Intuition"
+      },
+      "content": {
+        "fr": "### Quand utiliser quoi ?\n\n**Policy Iteration** est meilleur quand :\n- On veut voir l'évolution de la politique step par step\n- Le nombre d'actions est petit (FrozenLake : 4 actions)\n- On veut comprendre la séparation évaluation/amélioration\n\n**Value Iteration** est meilleur quand :\n- On veut un algorithme plus simple à implémenter\n- On veut converger avec moins de calculs au total\n- On n'a pas besoin de suivre les politiques intermédiaires\n\n### Sur FrozenLake\n\nLes deux trouvent la même politique optimale. La différence est dans le chemin :\n- **PI** : 3-6 steps d'amélioration, chaque step fait ~50-200 sweeps d'évaluation\n- **VI** : ~50-200 sweeps au total, sans distinction évaluation/amélioration\n\n### Le mode glissant change tout\n\n- **Non glissant** : les transitions sont déterministes, la politique optimale est un chemin direct vers le but\n- **Glissant** : les transitions sont stochastiques (1/3 droit, 1/3 à gauche, 1/3 à droite), la politique optimale doit contourner les trous en tenant compte de la glissade",
+        "en": "### When to Use What?\n\n**Policy Iteration** is better when:\n- You want to see the policy evolve step by step\n- The number of actions is small (FrozenLake: 4 actions)\n- You want to understand the evaluation/improvement separation\n\n**Value Iteration** is better when:\n- You want a simpler algorithm to implement\n- You want to converge with fewer total computations\n- You don't need to track intermediate policies\n\n### On FrozenLake\n\nBoth find the same optimal policy. The difference is in the path:\n- **PI**: 3-6 improvement steps, each step does ~50-200 evaluation sweeps\n- **VI**: ~50-200 total sweeps, without distinguishing evaluation from improvement\n\n### Slippery Mode Changes Everything\n\n- **Non-slippery**: transitions are deterministic, the optimal policy is a direct path to the goal\n- **Slippery**: transitions are stochastic (1/3 intended, 1/3 left, 1/3 right), the optimal policy must route around holes accounting for slippage"
+      }
+    },
+    {
+      "id": "checkpoint_04",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Value Iteration ne fait-elle pas aussi, implicitement, une forme d'amélioration de politique à chaque itération ? Explique ta réponse.",
+        "en": "Doesn't Value Iteration also implicitly perform a form of policy improvement at each iteration? Explain your answer."
+      },
+      "ella_system_hint": "Yes! Value Iteration can be seen as doing one sweep of policy evaluation followed by policy improvement at each step. The max operator implicitly improves the policy. In fact, VI is equivalent to PI with truncated evaluation (just 1 sweep instead of full convergence). This is a subtle but important insight. If the student says 'yes because the max picks the best action', praise them and deepen: 'So what's the actual difference between PI and VI then?' The answer: PI does FULL evaluation before each improvement, VI does just ONE sweep.",
+      "mode": "free"
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Excellent ! Tu comprends maintenant comment résoudre les équations de Bellman quand on a le modèle. Policy Iteration sépare évaluation et amélioration, Value Iteration les fusionne. Direction le lab où tu vas pouvoir manipuler les deux algorithmes sur FrozenLake et observer comment la politique converge visuellement !",
+        "en": "Excellent! You now understand how to solve the Bellman equations when you have the model. Policy Iteration separates evaluation and improvement, Value Iteration merges them. Head to the lab where you'll manipulate both algorithms on FrozenLake and watch the policy converge visually!"
+      },
+      "next_url": "/courses/reinforcement-learning/labs/planning"
+    }
+  ]
+}

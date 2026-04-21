@@ -208,6 +208,25 @@ export async function getModuleCells(moduleId: string): Promise<ModuleData> {
 }
 
 // ============================================
+// RL Modules API
+// ============================================
+
+export async function listRLModules(): Promise<{
+  modules: Array<{
+    module_id: string;
+    title: { fr: string; en: string };
+    description: { fr: string; en: string };
+    cell_count: number;
+  }>;
+}> {
+  return apiFetch("/api/labs/rl/modules");
+}
+
+export async function getRLModuleCells(moduleId: string): Promise<ModuleData> {
+  return apiFetch<ModuleData>(`/api/labs/rl/modules/${moduleId}`);
+}
+
+// ============================================
 // Health Check
 // ============================================
 

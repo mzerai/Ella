@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
-from app.routers import health, ella, pe_labs
+from app.routers import health, ella, pe_labs, rl_labs
 
 
 def create_app() -> FastAPI:
@@ -24,6 +24,7 @@ def create_app() -> FastAPI:
     app.include_router(health.router)
     app.include_router(ella.router, prefix="/api/ella", tags=["ELLA AI Tutor"])
     app.include_router(pe_labs.router, prefix="/api/labs/pe", tags=["PE Labs"])
+    app.include_router(rl_labs.router, prefix="/api/labs/rl", tags=["RL Labs"])
     return app
 
 

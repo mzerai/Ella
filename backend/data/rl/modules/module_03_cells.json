@@ -1,0 +1,122 @@
+{
+  "module_id": "rl_03_td_mc",
+  "title": {
+    "fr": "TD(0) et Monte Carlo — Apprendre sans modèle",
+    "en": "TD(0) and Monte Carlo — Learning Without a Model"
+  },
+  "description": {
+    "fr": "Que faire quand on n'a pas accès au modèle du MDP ? On apprend par l'expérience. Découvrez deux approches fondamentalement différentes : Monte Carlo et Temporal Difference.",
+    "en": "What do you do when you don't have access to the MDP model? You learn from experience. Discover two fundamentally different approaches: Monte Carlo and Temporal Difference."
+  },
+  "cells": [
+    {
+      "id": "intro_01",
+      "type": "content",
+      "title": {
+        "fr": "Quand le modèle est inconnu",
+        "en": "When the Model is Unknown"
+      },
+      "content": {
+        "fr": "Dans les modules précédents, Policy Evaluation et Value Iteration avaient besoin du modèle complet $p(s', r | s, a)$. En pratique, on ne le connaît pas toujours.\n\nDeux approches permettent d'**estimer $v_\\pi$ sans modèle** :\n\n**Monte Carlo** : on attend la fin de chaque épisode, on calcule le retour $G_t$ réellement observé, et on met à jour par moyenne.\n\n**TD(0)** : on met à jour **à chaque pas**, en utilisant une estimation du retour futur au lieu du retour complet.\n\nLes deux estiment la même chose — $v_\\pi(s)$ — mais par des chemins très différents.",
+        "en": "In the previous modules, Policy Evaluation and Value Iteration needed the full model $p(s', r | s, a)$. In practice, we don't always know it.\n\nTwo approaches allow us to **estimate $v_\\pi$ without a model**:\n\n**Monte Carlo**: wait until the end of each episode, compute the actually observed return $G_t$, and update by averaging.\n\n**TD(0)**: update **at every step**, using an estimate of the future return instead of the complete return.\n\nBoth estimate the same thing — $v_\\pi(s)$ — but by very different paths."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "Monte Carlo — Attendre la fin de l'épisode",
+        "en": "Monte Carlo — Waiting Until the End"
+      },
+      "content": {
+        "fr": "### L'idée\n\nPuisque $v_\\pi(s) = \\mathbb{E}_\\pi[G_t | S_t = s]$, on peut l'estimer par la **moyenne empirique** des retours observés après chaque visite de l'état $s$.\n\nPar la loi des grands nombres, si on observe assez de retours, leur moyenne converge vers l'espérance.\n\n### Mise à jour incrémentale\n\nPas besoin de stocker tous les retours. Si $V_n(s)$ est la moyenne des $n$ premiers retours et $G_{n+1}$ le nouveau retour :\n$$V_{n+1}(s) = V_n(s) + \\frac{1}{n+1}\\big(G_{n+1} - V_n(s)\\big)$$\n\nEn pratique, on utilise souvent un pas fixe $\\alpha$ :\n$$V(s) \\leftarrow V(s) + \\alpha \\big(G_t - V(s)\\big)$$\n\n### First-visit vs Every-visit\n\nDans la variante **first-visit**, on ne met à jour $V(s)$ qu'à la **première visite** de $s$ dans un épisode. Cela évite les corrélations entre plusieurs visites dans le même épisode.\n\n### Monte Carlo Control\n\nPour faire du **contrôle** (améliorer la politique), on estime $q_\\pi(s, a)$ au lieu de $v_\\pi(s)$, et on rend la politique $\\varepsilon$-gloutonne par rapport à $Q$. L'exploration est garantie par le choix aléatoire avec probabilité $\\varepsilon$.",
+        "en": "### The Idea\n\nSince $v_\\pi(s) = \\mathbb{E}_\\pi[G_t | S_t = s]$, we can estimate it by the **empirical average** of returns observed after each visit to state $s$.\n\nBy the law of large numbers, if we observe enough returns, their average converges to the expectation.\n\n### Incremental Update\n\nNo need to store all returns. If $V_n(s)$ is the average of the first $n$ returns and $G_{n+1}$ is the new return:\n$$V_{n+1}(s) = V_n(s) + \\frac{1}{n+1}\\big(G_{n+1} - V_n(s)\\big)$$\n\nIn practice, a fixed step size $\\alpha$ is often used:\n$$V(s) \\leftarrow V(s) + \\alpha \\big(G_t - V(s)\\big)$$\n\n### First-visit vs Every-visit\n\nIn the **first-visit** variant, we only update $V(s)$ at the **first visit** to $s$ in an episode. This avoids correlations between multiple visits within the same episode.\n\n### Monte Carlo Control\n\nFor **control** (improving the policy), we estimate $q_\\pi(s, a)$ instead of $v_\\pi(s)$, and make the policy $\\varepsilon$-greedy with respect to $Q$. Exploration is guaranteed by the random action choice with probability $\\varepsilon$."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Monte Carlo doit attendre la fin d'un épisode complet pour mettre à jour les estimations. Pourquoi cette contrainte ? Et quel problème cela pose-t-il pour des environnements à épisodes très longs ?",
+        "en": "Monte Carlo must wait until the end of a complete episode to update estimates. Why this constraint? And what problem does this create for environments with very long episodes?"
+      },
+      "ella_system_hint": "MC needs the full episode because G_t = R_{t+1} + gamma*R_{t+2} + ... + gamma^{T-t-1}*R_T requires knowing ALL future rewards until termination. For long episodes, this means: (1) slow learning — no updates until the episode ends, (2) high variance — G_t includes many random transitions, (3) impossible for continuing tasks that never terminate. If the student only mentions 'it needs the full return', push them on the practical consequences.",
+      "mode": "free"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "TD(0) — L'idée du bootstrapping",
+        "en": "TD(0) — The Bootstrapping Idea"
+      },
+      "content": {
+        "fr": "### Le problème de Monte Carlo\n\nMC attend la fin de l'épisode pour utiliser $G_t$. Et si on pouvait mettre à jour **à chaque pas** ?\n\n### L'approximation fondamentale\n\nOn sait que $v_\\pi(s) = \\mathbb{E}_\\pi[R_{t+1} + \\gamma G_{t+1} | S_t = s]$.\n\nMonte Carlo remplace $G_t$ par le retour complet observé. TD(0) fait quelque chose de plus audacieux : il remplace $G_{t+1}$ par **l'estimation courante** $V(S_{t+1})$ :\n\n$$\\text{Cible TD} = R_{t+1} + \\gamma V(S_{t+1})$$\n\nC'est le **bootstrapping** : on utilise une estimation pour en améliorer une autre.\n\n### L'erreur TD\n\n$$\\delta_t = R_{t+1} + \\gamma V(S_{t+1}) - V(S_t)$$\n\n- Si $\\delta_t > 0$ : la transition est **meilleure que prévu** → on augmente $V(S_t)$\n- Si $\\delta_t < 0$ : la transition est **pire que prévu** → on diminue $V(S_t)$\n\n### La mise à jour TD(0)\n\n$$V(S_t) \\leftarrow V(S_t) + \\alpha \\delta_t$$\n\nSoit explicitement :\n$$V(S_t) \\leftarrow V(S_t) + \\alpha \\big[ R_{t+1} + \\gamma V(S_{t+1}) - V(S_t) \\big]$$\n\nC'est une interpolation : $V_{\\text{new}} = (1 - \\alpha) V_{\\text{old}} + \\alpha \\cdot \\text{cible}$.",
+        "en": "### Monte Carlo's Problem\n\nMC waits until the episode ends to use $G_t$. What if we could update **at every step**?\n\n### The Fundamental Approximation\n\nWe know that $v_\\pi(s) = \\mathbb{E}_\\pi[R_{t+1} + \\gamma G_{t+1} | S_t = s]$.\n\nMonte Carlo replaces $G_t$ by the actually observed complete return. TD(0) does something bolder: it replaces $G_{t+1}$ by the **current estimate** $V(S_{t+1})$:\n\n$$\\text{TD Target} = R_{t+1} + \\gamma V(S_{t+1})$$\n\nThis is **bootstrapping**: using an estimate to improve another estimate.\n\n### The TD Error\n\n$$\\delta_t = R_{t+1} + \\gamma V(S_{t+1}) - V(S_t)$$\n\n- If $\\delta_t > 0$: the transition was **better than expected** → increase $V(S_t)$\n- If $\\delta_t < 0$: the transition was **worst than expected** → decrease $V(S_t)$\n\n### The TD(0) Update\n\n$$V(S_t) \\leftarrow V(S_t) + \\alpha \\delta_t$$\n\nExplicitly:\n$$V(S_t) \\leftarrow V(S_t) + \\alpha \\big[ R_{t+1} + \\gamma V(S_{t+1}) - V(S_t) \\big]$$\n\nIt's an interpolation: $V_{\\text{new}} = (1 - \\alpha) V_{\\text{old}} + \\alpha \\cdot \\text{target}$."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Le bootstrapping est à la fois un avantage et un risque. Explique pourquoi : quel avantage apporte-t-il par rapport à MC, et quel risque introduit-il ?",
+        "en": "Bootstrapping is both an advantage and a risk. Explain why: what advantage does it bring over MC, and what risk does it introduce?"
+      },
+      "ella_system_hint": "Advantage: you can update at every step (no need to wait for episode end), which means faster learning and ability to work with continuing tasks. Risk: the update depends on V(S_{t+1}) which is itself an ESTIMATE, not the true value. This introduces BIAS — the update might push V in the wrong direction if V(S_{t+1}) is inaccurate. MC uses the true return G_t (no bias) but high variance. TD has bias but lower variance. If the student mentions speed but not bias, ask: 'But what if V(S_{t+1}) is wrong?'",
+      "mode": "free"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "MC vs TD(0) — Les compromis",
+        "en": "MC vs TD(0) — The Trade-offs"
+      },
+      "content": {
+        "fr": "### Le compromis biais-variance\n\n| | Monte Carlo | TD(0) |\n|---|---|---|\n| Cible | $G_t$ (retour complet) | $R_{t+1} + \\gamma V(S_{t+1})$ |\n| Biais | **Non biaisé** | **Biaisé** (si $V$ est inexact) |\n| Variance | **Haute** (toute la trajectoire) | **Basse** (une seule transition) |\n| Mise à jour | Fin d'épisode | Chaque pas |\n| Tâches continues | Impossible | Possible |\n\n### Pourquoi MC est sans biais\n\n$G_t$ est un échantillon du vrai retour — sa moyenne converge vers $v_\\pi(s)$. Aucune approximation n'est faite.\n\n### Pourquoi TD est biaisé mais converge quand même\n\nLa cible TD utilise $V(S_{t+1})$ qui n'est qu'une estimation. Mais à mesure que $V$ s'améliore, le biais diminue. Sous certaines conditions (pas d'apprentissage décroissant, exploration suffisante), TD(0) converge aussi vers $v_\\pi$.\n\n### Pourquoi TD a moins de variance\n\n$G_t$ dépend de **toutes** les transitions futures d'un épisode — chacune ajoute du bruit. La cible TD ne dépend que d'**une seule transition**, donc beaucoup moins de bruit.",
+        "en": "### The Bias-Variance Trade-off\n\n| | Monte Carlo | TD(0) |\n|---|---|---|\n| Target | $G_t$ (complete return) | $R_{t+1} + \\gamma V(S_{t+1})$ |\n| Bias | **Unbiased** | **Biased** (if $V$ is inaccurate) |\n| Variance | **High** (entire trajectory) | **Low** (single transition) |\n| Update timing | End of episode | Every step |\n| Continuing tasks | Impossible | Possible |\n\n### Why MC is Unbiased\n\n$G_t$ is a sample of the true return — its average converges to $v_\\pi(s)$. No approximation is made.\n\n### Why TD is Biased but Still Converges\n\nThe TD target uses $V(S_{t+1})$ which is only an estimate. But as $V$ improves, the bias shrinks. Under certain conditions (decreasing learning rate, sufficient exploration), TD(0) also converges to $v_\\pi$.\n\n### Why TD Has Lower Variance\n\n$G_t$ depends on **all** future transitions in an episode — each one adds noise. The TD target depends on only **one transition**, so much less noise."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "MC est sans biais mais à haute variance. TD(0) a du biais mais moins de variance. Explique concrètement pourquoi G_t a plus de variance que la cible TD R_{t+1} + γV(S_{t+1}).",
+        "en": "MC is unbiased but high variance. TD(0) is biased but low variance. Explain concretely why G_t has more variance than the TD target R_{t+1} + γV(S_{t+1})."
+      },
+      "ella_system_hint": "G_t = R_{t+1} + gamma*R_{t+2} + gamma^2*R_{t+3} + ... depends on ALL future rewards — each R is a random variable, and their variances add up. The TD target R_{t+1} + gamma*V(S_{t+1}) depends on only ONE random reward R_{t+1} and ONE random next state S_{t+1}. V(S_{t+1}) is treated as approximately fixed. So: many random variables vs. one random variable = more variance vs. less variance. If the student gives a vague answer, ask: 'How many random variables does G_t depend on vs. the TD target?'",
+      "mode": "free"
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "Application à FrozenLake",
+        "en": "Application to FrozenLake"
+      },
+      "content": {
+        "fr": "### Comment ça fonctionne concrètement\n\nDans FrozenLake, un épisode est une suite $(s_0, a_0, r_1, s_1, a_1, r_2, \\ldots, s_T)$. La plupart des récompenses valent 0, sauf l'atteinte du but qui donne 1.\n\n### TD(0) sur FrozenLake\n\nOn fixe une politique $\\pi$ (par exemple, aléatoire). À chaque pas, on observe la transition $(S_t, A_t, R_{t+1}, S_{t+1})$ et on met à jour :\n$$V(S_t) \\leftarrow V(S_t) + \\alpha \\big[ R_{t+1} + \\gamma V(S_{t+1}) - V(S_t) \\big]$$\n\nAu fil des épisodes, $V$ converge vers $v_\\pi$.\n\n### MC sur FrozenLake\n\nOn génère un épisode complet, on calcule les retours $G_t$ en remontant de la fin vers le début, puis on met à jour $Q(s, a)$ pour chaque couple first-visit.\n\n### Mode glissant\n\nEn mode glissant, les transitions sont stochastiques. TD(0) converge plus vite car il met à jour à chaque pas. MC a besoin de beaucoup plus d'épisodes car chaque $G_t$ a une variance très élevée due aux multiples glissades.\n\n### La \"lecture visuelle\"\n\nSur la grille, les valeurs les plus élevées apparaissent près du but et les valeurs proches de 0 apparaissent près des trous. Le signal de récompense \"se propage\" progressivement du but vers les états éloignés.",
+        "en": "### How It Works Concretely\n\nIn FrozenLake, an episode is a sequence $(s_0, a_0, r_1, s_1, a_1, r_2, \\ldots, s_T)$. Most rewards are 0, except reaching the goal which gives 1.\n\n### TD(0) on FrozenLake\n\nWe fix a policy $\\pi$ (e.g., random). At each step, we observe the transition $(S_t, A_t, R_{t+1}, S_{t+1})$ and update:\n$$V(S_t) \\leftarrow V(S_t) + \\alpha \\big[ R_{t+1} + \\gamma V(S_{t+1}) - V(S_t) \\big]$$\n\nOver episodes, $V$ converges to $v_\\pi$.\n\n### MC on FrozenLake\n\nWe generate a complete episode, compute returns $G_t$ backwards from the end, then update $Q(s, a)$ for each first-visit pair.\n\n### Slippery Mode\n\nIn slippery mode, transitions are stochastic. TD(0) converges faster because it updates at every step. MC needs many more episodes because each $G_t$ has very high variance due to multiple slips.\n\n### The \"Visual Reading\"\n\nOn the grid, the highest values appear near the goal and values close to 0 appear near holes. The reward signal \"propagates\" progressively from the goal to distant states."
+      }
+    },
+    {
+      "id": "checkpoint_04",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Sur FrozenLake en mode glissant, TD(0) converge généralement plus vite que MC. Pourquoi le mode glissant amplifie-t-il l'avantage de TD ?",
+        "en": "On slippery FrozenLake, TD(0) generally converges faster than MC. Why does slippery mode amplify TD's advantage?"
+      },
+      "ella_system_hint": "Slippery mode makes transitions stochastic (1/3 intended, 1/3 left, 1/3 right). This increases the variance of G_t dramatically — each step adds randomness, and over a full episode, this compounds. MC uses G_t directly, so it suffers from this compounded variance. TD(0) only uses one transition at a time, so the extra randomness per step is manageable. The advantage is proportional to the stochasticity of the environment. If the student says 'more randomness = more variance in G_t', that's correct. Push for WHY TD is less affected.",
+      "mode": "free"
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Très bien ! Tu comprends maintenant les deux familles d'apprentissage model-free : Monte Carlo (retour complet, sans biais, haute variance) et TD(0) (bootstrap, biaisé, basse variance). Dans le lab, tu vas pouvoir comparer visuellement la convergence des deux méthodes sur FrozenLake. C'est parti !",
+        "en": "Great job! You now understand the two families of model-free learning: Monte Carlo (complete return, unbiased, high variance) and TD(0) (bootstrap, biased, low variance). In the lab, you'll visually compare how both methods converge on FrozenLake. Let's go!"
+      },
+      "next_url": "/courses/reinforcement-learning/labs/td_mc"
+    }
+  ]
+}

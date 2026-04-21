@@ -1,0 +1,144 @@
+{
+  "module_id": "rl_04_control",
+  "title": {
+    "fr": "Contrôle sans modèle — SARSA, Q-Learning, Double Q-Learning",
+    "en": "Model-Free Control — SARSA, Q-Learning, Double Q-Learning"
+  },
+  "description": {
+    "fr": "Comment trouver la politique optimale sans connaître le modèle ? Découvrez trois algorithmes de contrôle TD et leurs différences subtiles mais cruciales.",
+    "en": "How to find the optimal policy without knowing the model? Discover three TD control algorithms and their subtle but crucial differences."
+  },
+  "cells": [
+    {
+      "id": "intro_01",
+      "type": "content",
+      "title": {
+        "fr": "Du TD à l'évaluation au contrôle",
+        "en": "From TD Evaluation to Control"
+      },
+      "content": {
+        "fr": "TD(0) dans le module précédent **évaluait** une politique fixée. Maintenant, on veut **trouver** la meilleure politique — c'est le problème du **contrôle**.\n\nLes trois algorithmes de ce module utilisent l'erreur TD mais sur la **fonction état-action** $Q(s, a)$ au lieu de $V(s)$. Pourquoi ? Parce que pour améliorer une politique, il faut comparer les actions — et $Q$ nous donne exactement cette information.\n\nLa différence fondamentale entre les trois est dans la **cible** de la mise à jour :\n- **SARSA** : $R + \\gamma Q(S', A')$ — utilise l'action **réellement choisie**\n- **Q-Learning** : $R + \\gamma \\max_{a'} Q(S', a')$ — utilise la **meilleure action**\n- **Double Q-Learning** : sépare la sélection et l'évaluation pour réduire le biais",
+        "en": "TD(0) in the previous module **evaluated** a fixed policy. Now, we want to **find** the best policy — this is the **control** problem.\n\nAll three algorithms in this module use the TD error but on the **action-value function** $Q(s, a)$ instead of $V(s)$. Why? Because to improve a policy, you need to compare actions — and $Q$ gives us exactly that information.\n\nThe fundamental difference between the three is in the **target** of the update:\n- **SARSA**: $R + \\gamma Q(S', A')$ — uses the action **actually chosen**\n- **Q-Learning**: $R + \\gamma \\max_{a'} Q(S', a')$ — uses the **best action**\n- **Double Q-Learning**: separates selection and evaluation to reduce bias"
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "SARSA — Contrôle on-policy",
+        "en": "SARSA — On-Policy Control"
+      },
+      "content": {
+        "fr": "### L'équation de Bellman de départ\n\nPour $q_\\pi$ :\n$$q_\\pi(s, a) = \\mathbb{E}_\\pi\\big[R_{t+1} + \\gamma q_\\pi(S_{t+1}, A_{t+1}) | S_t=s, A_t=a\\big]$$\n\n### La mise à jour SARSA\n\nÀ partir d'une transition $(S_t, A_t, R_{t+1}, S_{t+1}, A_{t+1})$ — les 5 éléments qui donnent son nom à SARSA :\n$$Q(S_t, A_t) \\leftarrow Q(S_t, A_t) + \\alpha \\big[ R_{t+1} + \\gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t) \\big]$$\n\nL'erreur TD : $\\delta_t = R_{t+1} + \\gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)$\n\n### Pourquoi SARSA est on-policy\n\nLe terme clé est $Q(S_{t+1}, A_{t+1})$ : on utilise l'action $A_{t+1}$ **réellement choisie** par la politique courante ($\\varepsilon$-gloutonne). Donc SARSA apprend la valeur de la politique qu'il **suit réellement**, exploration comprise.\n\n### La boucle\n1. Choisir $A_t$ selon la politique $\\varepsilon$-gloutonne\n2. Observer $R_{t+1}, S_{t+1}$\n3. Choisir $A_{t+1}$ selon la même politique\n4. Mettre à jour $Q(S_t, A_t)$",
+        "en": "### The Starting Bellman Equation\n\nFor $q_\\pi$:\n$$q_\\pi(s, a) = \\mathbb{E}_\\pi\\big[R_{t+1} + \\gamma q_\\pi(S_{t+1}, A_{t+1}) | S_t=s, A_t=a\\big]$$\n\n### The SARSA Update\n\nFrom a transition $(S_t, A_t, R_{t+1}, S_{t+1}, A_{t+1})$ — the 5 elements that give SARSA its name:\n$$Q(S_t, A_t) \\leftarrow Q(S_t, A_t) + \\alpha \\big[ R_{t+1} + \\gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t) \\big]$$\n\nThe TD error: $\\delta_t = R_{t+1} + \\gamma Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)$\n\n### Why SARSA is On-Policy\n\nThe key term is $Q(S_{t+1}, A_{t+1})$: it uses the action $A_{t+1}$ **actually chosen** by the current policy ($\\varepsilon$-greedy). So SARSA learns the value of the policy it **actually follows**, including exploration.\n\n### The Loop\n1. Choose $A_t$ according to $\\varepsilon$-greedy policy\n2. Observe $R_{t+1}, S_{t+1}$\n3. Choose $A_{t+1}$ according to the same policy\n4. Update $Q(S_t, A_t)$"
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "SARSA utilise l'action A' réellement choisie dans sa mise à jour. Pourquoi dit-on que c'est on-policy ? Que signifie ce terme ?",
+        "en": "SARSA uses the actually chosen action A' in its update. Why is it called on-policy? What does this term mean?"
+      },
+      "ella_system_hint": "On-policy means the algorithm learns the value of the SAME policy it uses to generate data. SARSA's target uses Q(S',A') where A' is chosen by the epsilon-greedy policy — so if the policy explores randomly 10% of the time, SARSA learns the value INCLUDING those random explorations. This is different from Q-Learning which learns the value of the OPTIMAL policy regardless of what policy generates the data. If the student says 'it learns what it does', that's the right idea. If they confuse on-policy with 'using the current policy to explore', clarify that on-policy specifically means the VALUE being learned is that of the behavior policy.",
+      "mode": "free"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "Q-Learning — Contrôle off-policy",
+        "en": "Q-Learning — Off-Policy Control"
+      },
+      "content": {
+        "fr": "### L'équation d'optimalité de Bellman\n\nQ-Learning vise $q_*$ (la fonction état-action optimale) :\n$$q_*(s, a) = \\mathbb{E}\\big[R_{t+1} + \\gamma \\max_{a'} q_*(S_{t+1}, a') | S_t=s, A_t=a\\big]$$\n\n### La mise à jour Q-Learning\n\n$$Q(S_t, A_t) \\leftarrow Q(S_t, A_t) + \\alpha \\big[ R_{t+1} + \\gamma \\max_{a'} Q(S_{t+1}, a') - Q(S_t, A_t) \\big]$$\n\n### La différence clé avec SARSA\n\n| | SARSA | Q-Learning |\n|---|---|---|\n| Cible | $R + \\gamma Q(S', A')$ | $R + \\gamma \\max_{a'} Q(S', a')$ |\n| $A'$ vient de | La politique courante | **Aucune politique** — c'est un max |\n| Apprend | $q_\\pi$ (la politique suivie) | $q_*$ (la politique optimale) |\n| Type | On-policy | **Off-policy** |\n\n### Pourquoi off-policy\n\nQ-Learning utilise $\\max_{a'} Q(S', a')$ — il **ne regarde pas** quelle action a été réellement choisie. Il apprend la valeur de la politique **optimale** tout en explorant avec une politique $\\varepsilon$-gloutonne. C'est ça le off-policy : la politique de comportement (qui génère les données) est différente de la politique cible (celle dont on apprend la valeur).\n\n### Réécriture convexe\n\nLa mise à jour peut s'écrire comme une interpolation :\n$$Q_{\\text{new}} = (1 - \\alpha) Q_{\\text{old}} + \\alpha \\cdot \\text{cible}$$\n\nAvec $\\alpha = 0$, rien ne change. Avec $\\alpha = 1$, on remplace directement par la cible.",
+        "en": "### The Bellman Optimality Equation\n\nQ-Learning targets $q_*$ (the optimal action-value function):\n$$q_*(s, a) = \\mathbb{E}\\big[R_{t+1} + \\gamma \\max_{a'} q_*(S_{t+1}, a') | S_t=s, A_t=a\\big]$$\n\n### The Q-Learning Update\n\n$$Q(S_t, A_t) \\leftarrow Q(S_t, A_t) + \\alpha \\big[ R_{t+1} + \\gamma \\max_{a'} Q(S_{t+1}, a') - Q(S_t, A_t) \\big]$$\n\n### The Key Difference from SARSA\n\n| | SARSA | Q-Learning |\n|---|---|---|\n| Target | $R + \\gamma Q(S', A')$ | $R + \\gamma \\max_{a'} Q(S', a')$ |\n| $A'$ comes from | Current policy | **No policy** — it's a max |\n| Learns | $q_\\pi$ (policy being followed) | $q_*$ (optimal policy) |\n| Type | On-policy | **Off-policy** |\n\n### Why Off-Policy\n\nQ-Learning uses $\\max_{a'} Q(S', a')$ — it **doesn't look at** which action was actually chosen. It learns the value of the **optimal** policy while exploring with an $\\varepsilon$-greedy policy. That's off-policy: the behavior policy (generating data) differs from the target policy (whose value we learn).\n\n### Convex Rewriting\n\nThe update can be written as an interpolation:\n$$Q_{\\text{new}} = (1 - \\alpha) Q_{\\text{old}} + \\alpha \\cdot \\text{target}$$\n\nWith $\\alpha = 0$, nothing changes. With $\\alpha = 1$, we directly replace with the target."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Écris les deux cibles (SARSA et Q-Learning) côte à côte et explique la conséquence pratique de cette différence sur FrozenLake glissant.",
+        "en": "Write the two targets (SARSA and Q-Learning) side by side and explain the practical consequence of this difference on slippery FrozenLake."
+      },
+      "ella_system_hint": "SARSA target: R + gamma * Q(S', A') where A' is epsilon-greedy. Q-Learning target: R + gamma * max_a' Q(S', a'). Practical consequence on slippery FrozenLake: SARSA learns a more CAUTIOUS policy because its target includes the possibility of random exploration actions (which could lead to holes). Q-Learning learns a more AGGRESSIVE/OPTIMAL policy because its target always assumes the best action will be taken. On slippery FrozenLake, SARSA often avoids the edge near holes (because exploration could push it in), while Q-Learning goes near edges (assuming optimal moves). If the student writes the formulas correctly and mentions cautious vs aggressive, that's excellent.",
+      "mode": "free"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "SARSA vs Q-Learning sur FrozenLake",
+        "en": "SARSA vs Q-Learning on FrozenLake"
+      },
+      "content": {
+        "fr": "### Le comportement prudent de SARSA\n\nSur FrozenLake glissant, SARSA apprend une politique **prudente**. Pourquoi ? Parce que sa cible inclut l'action $A'$ réellement choisie — et avec probabilité $\\varepsilon$, cette action est **aléatoire**. SARSA \"sait\" qu'il va parfois faire des erreurs, et il en tient compte dans ses valeurs.\n\nRésultat : SARSA évite les chemins proches des trous, même s'ils sont plus courts.\n\n### Le comportement optimal de Q-Learning\n\nQ-Learning apprend la politique **optimale** (celle qui suppose des actions parfaites). Sa cible utilise $\\max$, pas l'action réelle. Donc Q-Learning peut recommander des chemins proches des trous — si l'action optimale les évite.\n\nMais attention : pendant l'**entraînement**, l'agent Q-Learning explore et tombe parfois dans les trous. Ses Q-valeurs reflètent la politique optimale, pas son comportement réel.\n\n### Conséquence pédagogique importante\n\nSur FrozenLake glissant :\n- **SARSA** obtient souvent un meilleur **taux de victoire pendant l'entraînement** (politique prudente)\n- **Q-Learning** obtient de meilleures **Q-valeurs finales** (politique optimale)\n\nC'est la différence entre \"bien se débrouiller en explorant\" (SARSA) et \"savoir ce qui est théoriquement optimal\" (Q-Learning).",
+        "en": "### SARSA's Cautious Behavior\n\nOn slippery FrozenLake, SARSA learns a **cautious** policy. Why? Because its target includes the action $A'$ actually chosen — and with probability $\\varepsilon$, that action is **random**. SARSA \"knows\" it will sometimes make mistakes, and accounts for this in its values.\n\nResult: SARSA avoids paths near holes, even if they're shorter.\n\n### Q-Learning's Optimal Behavior\n\nQ-Learning learns the **optimal** policy (one that assumes perfect actions). Its target uses $\\max$, not the actual action. So Q-Learning may recommend paths near holes — as long as the optimal action avoids them.\n\nBut beware: during **training**, the Q-Learning agent explores and sometimes falls into holes. Its Q-values reflect the optimal policy, not its actual behavior.\n\n### Key Pedagogical Consequence\n\nOn slippery FrozenLake:\n- **SARSA** often achieves a better **win rate during training** (cautious policy)\n- **Q-Learning** achieves better **final Q-values** (optimal policy)\n\nThis is the difference between \"performing well while exploring\" (SARSA) and \"knowing what's theoretically optimal\" (Q-Learning)."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Sur FrozenLake glissant, SARSA apprend une politique plus prudente que Q-Learning. Pourquoi ? Donne un exemple concret d'un état près d'un trou où les deux algorithmes agiraient différemment.",
+        "en": "On slippery FrozenLake, SARSA learns a more cautious policy than Q-Learning. Why? Give a concrete example of a state near a hole where the two algorithms would act differently."
+      },
+      "ella_system_hint": "Example: consider state 6 (just above the hole at state 7, right of hole at state 5). SARSA might learn to go DOWN or LEFT (away from holes) because its Q-values account for the fact that epsilon-greedy sometimes picks random actions that could push into holes. Q-Learning might learn to go RIGHT (toward the goal) because its max assumes the optimal action will be taken. If the surface is slippery, the agent could slip into the hole at state 7 while intending to go right. SARSA's Q-values for 'right' at state 6 would be lower because exploration could cause catastrophic outcomes.",
+      "mode": "free"
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "Le problème de surestimation de Q-Learning",
+        "en": "Q-Learning's Overestimation Problem"
+      },
+      "content": {
+        "fr": "### Le biais du maximum\n\nDans Q-Learning, la cible est $R + \\gamma \\max_{a'} Q(S', a')$. Le problème : le même tableau $Q$ sert à **sélectionner** la meilleure action ($\\arg\\max$) ET à **évaluer** sa qualité ($Q$ de cette action).\n\nQuand les estimations de $Q$ sont bruitées, le $\\max$ a tendance à **sélectionner une valeur trop haute**. C'est l'inégalité de Jensen :\n$$\\mathbb{E}\\big[\\max_i \\hat{q}_i\\big] \\ge \\max_i \\mathbb{E}[\\hat{q}_i]$$\n\nMême si chaque estimation est non biaisée individuellement, leur maximum est biaisé vers le haut.\n\n### Conséquence\n\nQ-Learning peut **surestimer** les Q-valeurs, surtout au début quand les estimations sont très bruitées. Cela peut ralentir la convergence ou mener à des politiques sous-optimales temporairement.",
+        "en": "### The Maximization Bias\n\nIn Q-Learning, the target is $R + \\gamma \\max_{a'} Q(S', a')$. The problem: the same $Q$ table serves both to **select** the best action ($\\arg\\max$) AND to **evaluate** its quality ($Q$ of that action).\n\nWhen $Q$ estimates are noisy, the $\\max$ tends to **select an overestimated value**. This is Jensen's inequality:\n$$\\mathbb{E}\\big[\\max_i \\hat{q}_i\\big] \\ge \\max_i \\mathbb{E}[\\hat{q}_i]$$\n\nEven if each estimate is individually unbiased, their maximum is biased upward.\n\n### Consequence\n\nQ-Learning can **overestimate** Q-values, especially early when estimates are very noisy. This can slow convergence or lead to temporarily suboptimal policies."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "Double Q-Learning — Séparer sélection et évaluation",
+        "en": "Double Q-Learning — Separating Selection and Evaluation"
+      },
+      "content": {
+        "fr": "### L'idée du double\n\nOn maintient **deux tableaux** $Q^A$ et $Q^B$. À chaque transition, on choisit aléatoirement lequel mettre à jour :\n\n**Si on met à jour $Q^A$** :\n1. Sélection : $a^* = \\arg\\max_{a'} Q^A(S', a')$ — choisir avec $Q^A$\n2. Évaluation : $Y = R + \\gamma Q^B(S', a^*)$ — évaluer avec $Q^B$\n3. Mise à jour : $Q^A(S, A) \\leftarrow Q^A(S, A) + \\alpha(Y - Q^A(S, A))$\n\n**Si on met à jour $Q^B$** : même chose mais en inversant les rôles.\n\n### Pourquoi ça marche\n\nLe bruit qui a poussé $Q^A$ à sélectionner l'action $a^*$ n'est **pas le même** bruit que dans $Q^B$ qui l'évalue. Le découplage réduit le biais d'optimisme.\n\n### Ce que \"double\" NE signifie PAS\n\n\"Double\" ne veut pas dire qu'on cherche deux politiques différentes. On maintient deux estimateurs du même $q_*$ pour mieux contrôler le biais. La politique finale est souvent dérivée de $Q^A + Q^B$ (ou leur moyenne).\n\n### Quand ça fait une différence\n\nL'effet est surtout visible quand il y a beaucoup d'actions ET beaucoup de bruit (début d'entraînement, environnement stochastique). Sur FrozenLake non glissant, la différence est souvent minime. Sur FrozenLake glissant, elle peut être significative.",
+        "en": "### The Double Idea\n\nWe maintain **two tables** $Q^A$ and $Q^B$. At each transition, we randomly choose which one to update:\n\n**If updating $Q^A$**:\n1. Selection: $a^* = \\arg\\max_{a'} Q^A(S', a')$ — choose with $Q^A$\n2. Evaluation: $Y = R + \\gamma Q^B(S', a^*)$ — evaluate with $Q^B$\n3. Update: $Q^A(S, A) \\leftarrow Q^A(S, A) + \\alpha(Y - Q^A(S, A))$\n\n**If updating $Q^B$**: same but with swapped roles.\n\n### Why It Works\n\nThe noise that led $Q^A$ to select action $a^*$ is **not the same** noise as in $Q^B$ which evaluates it. The decoupling reduces optimism bias.\n\n### What \"Double\" Does NOT Mean\n\n\"Double\" doesn't mean we seek two different policies. We maintain two estimators of the same $q_*$ to better control bias. The final policy is often derived from $Q^A + Q^B$ (or their average).\n\n### When It Makes a Difference\n\nThe effect is most visible when there are many actions AND lots of noise (early training, stochastic environment). On non-slippery FrozenLake, the difference is often minimal. On slippery FrozenLake, it can be significant."
+      }
+    },
+    {
+      "id": "checkpoint_04",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Double Q-Learning utilise deux tables Q^A et Q^B. Explique concrètement comment elles interagissent lors d'une mise à jour de Q^A : qui sélectionne l'action, qui l'évalue, et pourquoi cette séparation aide.",
+        "en": "Double Q-Learning uses two tables Q^A and Q^B. Explain concretely how they interact when updating Q^A: who selects the action, who evaluates it, and why this separation helps."
+      },
+      "ella_system_hint": "Q^A selects (argmax over Q^A), Q^B evaluates (Q^B at that action). This helps because: if Q^A(S',a3) is high due to noise (not because a3 is truly good), Q^A will select a3 — but Q^B(S',a3) is likely to have DIFFERENT noise, so it won't confirm the overestimate. Standard Q-Learning would both select AND evaluate with the same Q, so the same noise that caused the overselection also causes the overevaluation. If the student correctly identifies 'Q^A selects, Q^B evaluates, different noise breaks the coupling', that's perfect.",
+      "mode": "free"
+    },
+    {
+      "id": "checkpoint_05",
+      "type": "ella_checkpoint",
+      "question": {
+        "fr": "Dans quel cas Double Q-Learning fait une vraie différence par rapport à Q-Learning standard ? Et dans quel cas la différence est-elle négligeable ?",
+        "en": "In what case does Double Q-Learning make a real difference compared to standard Q-Learning? And when is the difference negligible?"
+      },
+      "ella_system_hint": "Big difference: (1) many actions to choose from (more chances for the max to be biased), (2) high noise/stochasticity (early training, slippery environment), (3) similar Q-values for multiple actions (the max picks one randomly). Negligible difference: (1) few actions, (2) deterministic environment, (3) Q-values have already converged (noise is low). On FrozenLake with 4 actions, the effect is moderate; in environments with hundreds of actions, Double Q-Learning is much more important. If the student mentions 'many actions + noise = big difference', that's correct.",
+      "mode": "free"
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Impressionnant ! Tu maîtrises maintenant les trois algorithmes de contrôle TD : SARSA (on-policy, prudent), Q-Learning (off-policy, optimal), et Double Q-Learning (off-policy, sans biais de surestimation). Cap sur le lab pour les mettre en compétition sur FrozenLake !",
+        "en": "Impressive! You now master the three TD control algorithms: SARSA (on-policy, cautious), Q-Learning (off-policy, optimal), and Double Q-Learning (off-policy, no overestimation bias). Head to the lab to put them in competition on FrozenLake!"
+      },
+      "next_url": "/courses/reinforcement-learning/labs/control"
+    }
+  ]
+}
