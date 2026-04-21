@@ -35,6 +35,15 @@
       }
     },
     {
+      "id": "diagram_6sections",
+      "type": "diagram",
+      "title": {
+        "fr": "Les 6 sections d'un system prompt",
+        "en": "The 6 sections of a system prompt"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 680 240\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"40\" y=\"30\" width=\"190\" height=\"50\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"0.5\"/><text x=\"135\" y=\"55\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#0C447C\">1. Identité</text><rect x=\"245\" y=\"30\" width=\"190\" height=\"50\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"0.5\"/><text x=\"340\" y=\"55\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#04342C\">2. Périmètre</text><rect x=\"450\" y=\"30\" width=\"190\" height=\"50\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\" stroke-width=\"0.5\"/><text x=\"545\" y=\"55\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#26215C\">3. Ton</text><rect x=\"40\" y=\"100\" width=\"190\" height=\"50\" rx=\"8\" fill=\"#FAEEDA\" stroke=\"#854F0B\" stroke-width=\"0.5\"/><text x=\"135\" y=\"125\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#412402\">4. Format</text><rect x=\"245\" y=\"100\" width=\"190\" height=\"50\" rx=\"8\" fill=\"#FCEBEB\" stroke=\"#A32D2D\" stroke-width=\"0.5\"/><text x=\"340\" y=\"125\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#501313\">5. Sécurité</text><rect x=\"450\" y=\"100\" width=\"190\" height=\"50\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"0.5\"/><text x=\"545\" y=\"125\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#4A1B0C\">6. Cas limites</text><rect x=\"100\" y=\"180\" width=\"480\" height=\"40\" rx=\"8\" fill=\"#F1EFE8\" stroke=\"#888780\" stroke-width=\"0.5\"/><text x=\"340\" y=\"200\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#2C2C2A\">System prompt complet = contrat comportemental</text><line x1=\"340\" y1=\"150\" x2=\"340\" y2=\"178\" stroke=\"#888780\" stroke-width=\"1\" stroke-dasharray=\"4 3\"/></svg>"
+    },
+    {
       "id": "checkpoint_02",
       "type": "ella_checkpoint",
       "question": {

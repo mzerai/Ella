@@ -187,7 +187,14 @@ export interface EllaGateCell {
   next_url: string;
 }
 
-export type NotebookCell = ContentCell | EllaCheckpointCell | EllaGateCell;
+export interface DiagramCell {
+  id: string;
+  type: "diagram";
+  title: { fr: string; en: string };
+  svg: string; // Raw SVG markup
+}
+
+export type NotebookCell = ContentCell | EllaCheckpointCell | EllaGateCell | DiagramCell;
 
 export interface ModuleData {
   module_id: string;

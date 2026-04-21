@@ -35,6 +35,15 @@
       }
     },
     {
+      "id": "diagram_4techniques",
+      "type": "diagram",
+      "title": {
+        "fr": "Les 4 techniques de structured output",
+        "en": "The 4 structured output techniques"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 680 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"40\" y=\"30\" width=\"140\" height=\"60\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"0.5\"/><text x=\"110\" y=\"52\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#0C447C\">1. Instruction</text><text x=\"110\" y=\"72\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#185FA5\">\"Retourne du JSON\"</text><rect x=\"195\" y=\"30\" width=\"140\" height=\"60\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"0.5\"/><text x=\"265\" y=\"52\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#04342C\">2. Schéma</text><text x=\"265\" y=\"72\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">Champs + types</text><rect x=\"350\" y=\"30\" width=\"140\" height=\"60\" rx=\"8\" fill=\"#FAEEDA\" stroke=\"#854F0B\" stroke-width=\"0.5\"/><text x=\"420\" y=\"52\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#412402\">3. Exemple</text><text x=\"420\" y=\"72\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#854F0B\">{\"name\": \"...\"}</text><rect x=\"505\" y=\"30\" width=\"140\" height=\"60\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\" stroke-width=\"0.5\"/><text x=\"575\" y=\"52\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#26215C\">4. System prompt</text><text x=\"575\" y=\"72\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#534AB7\">\"Tu es une API\"</text><rect x=\"140\" y=\"130\" width=\"400\" height=\"44\" rx=\"8\" fill=\"#F1EFE8\" stroke=\"#888780\" stroke-width=\"0.5\"/><text x=\"340\" y=\"152\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#2C2C2A\">Combinez les 4 pour un maximum de fiabilité</text><line x1=\"110\" y1=\"90\" x2=\"110\" y2=\"128\" stroke=\"#185FA5\" stroke-width=\"0.5\" stroke-dasharray=\"3 3\"/><line x1=\"265\" y1=\"90\" x2=\"265\" y2=\"128\" stroke=\"#0F6E56\" stroke-width=\"0.5\" stroke-dasharray=\"3 3\"/><line x1=\"420\" y1=\"90\" x2=\"420\" y2=\"128\" stroke=\"#854F0B\" stroke-width=\"0.5\" stroke-dasharray=\"3 3\"/><line x1=\"575\" y1=\"90\" x2=\"575\" y2=\"128\" stroke=\"#534AB7\" stroke-width=\"0.5\" stroke-dasharray=\"3 3\"/></svg>"
+    },
+    {
       "id": "checkpoint_02",
       "type": "ella_checkpoint",
       "question": {

@@ -414,6 +414,20 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                                 </a>
                             </div>
                         )}
+
+                        {/* DIAGRAM CELL */}
+                        {cell.type === "diagram" && (
+                            <div className="py-4 animate-fade-in">
+                                <h3 className="text-base font-bold text-ella-gray-900 mb-3 ml-2 flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-ella-primary/30"></div>
+                                    {cell.title[lang]}
+                                </h3>
+                                <div 
+                                    className="w-full overflow-hidden rounded-3xl border border-ella-gray-100 bg-white p-6 shadow-md shadow-ella-gray-400/5"
+                                    dangerouslySetInnerHTML={{ __html: cell.svg }}
+                                />
+                            </div>
+                        )}
                     </div>
                 );
             })}

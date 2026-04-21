@@ -22,7 +22,7 @@ function ModuleLessonContent() {
     const moduleId = params.moduleId as string;
     const [module, setModule] = useState<ModuleData | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [lang] = useState<"fr" | "en">("fr");
+    const [lang, setLang] = useState<"fr" | "en">("fr");
 
     useEffect(() => {
         getModuleCells(moduleId)
@@ -40,12 +40,35 @@ function ModuleLessonContent() {
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></path></svg>
                 </Link>
                 <div className="text-center">
-                    <p className="text-[10px] font-black text-ella-gray-400 uppercase tracking-widest mb-0.5">Leçon Interactive</p>
+                    <p className="text-[10px] font-black text-ella-gray-400 uppercase tracking-widest mb-0.5">
+                        {lang === "fr" ? "Leçon Interactive" : "Interactive Lesson"}
+                    </p>
                     <h2 className="text-base font-black text-ella-gray-900 leading-none">
                         {module?.title[lang] || MODULE_NAMES[moduleId] || moduleId}
                     </h2>
                 </div>
-                <div className="w-10"></div> {/* Spacer for symmetry */}
+                <div className="flex items-center gap-2">
+                    <button
+                        onClick={() => setLang("fr")}
+                        className={`px-3 py-1 text-[10px] rounded-full font-black transition-all ${
+                            lang === "fr"
+                                ? "bg-ella-accent text-white shadow-lg shadow-ella-accent/20"
+                                : "bg-ella-gray-100 text-ella-gray-400 hover:bg-ella-gray-200"
+                        }`}
+                    >
+                        FR
+                    </button>
+                    <button
+                        onClick={() => setLang("en")}
+                        className={`px-3 py-1 text-[10px] rounded-full font-black transition-all ${
+                            lang === "en"
+                                ? "bg-ella-accent text-white shadow-lg shadow-ella-accent/20"
+                                : "bg-ella-gray-100 text-ella-gray-400 hover:bg-ella-gray-200"
+                        }`}
+                    >
+                        EN
+                    </button>
+                </div>
             </div>
 
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
@@ -57,15 +80,18 @@ function ModuleLessonContent() {
                         </div>
                         <div className="flex-1">
                             <div className="mb-4">
-                                <span className="bg-ella-accent text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block shadow-lg shadow-ella-accent/20">C'est parti !</span>
+                                <span className="bg-ella-accent text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block shadow-lg shadow-ella-accent/20">
+                                    {lang === "fr" ? "C'est parti !" : "Let's go!"}
+                                </span>
                                 <h1 className="text-3xl font-black text-ella-gray-900 leading-tight">
                                     {module?.title[lang] || MODULE_NAMES[moduleId] || moduleId}
                                 </h1>
                             </div>
                             <p className="text-base font-bold text-ella-gray-600 leading-relaxed max-w-2xl">
-                                Bienvenue dans ce module interactif. Nous allons explorer ensemble les concepts clés du Prompt Engineering. 
-                                Lis attentivement chaque section. À chaque checkpoint, je serai là pour te poser une petite question ou te demander de pratiquer. 
-                                Tu ne pourras débloquer la suite qu'une fois que nous aurons validé l'étape ensemble. On y va ?
+                                {lang === "fr" 
+                                    ? "Bienvenue dans ce module interactif. Nous allons explorer ensemble les concepts clés du Prompt Engineering. Lis attentivement chaque section. À chaque checkpoint, je serai là pour te poser une petite question ou te demander de pratiquer. Tu ne pourras débloquer la suite qu'une fois que nous aurons validé l'étape ensemble. On y va ?"
+                                    : "Welcome to this interactive module. Together, we will explore the key concepts of Prompt Engineering. Read each section carefully. At each checkpoint, I'll be there to ask a question or give you a task. You can only unlock the next part once we've validated the step together. Shall we start?"
+                                }
                             </p>
                         </div>
                     </div>
@@ -75,7 +101,7 @@ function ModuleLessonContent() {
                 {error && (
                     <div className="bg-ella-accent/5 border border-ella-accent/20 text-ella-accent text-sm font-bold p-6 rounded-3xl mb-12 flex items-center gap-4 animate-shake">
                         <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-xl shadow-sm">⚠️</div>
-                        <p>Impossible de charger le module : {error}</p>
+                        <p>{lang === "fr" ? "Impossible de charger le module :" : "Failed to load module:"} {error}</p>
                     </div>
                 )}
 
@@ -88,7 +114,9 @@ function ModuleLessonContent() {
                                 <EllaAvatar size="sm" className="scale-75 opacity-50" />
                             </div>
                         </div>
-                        <p className="text-sm font-bold text-ella-gray-400 uppercase tracking-widest animate-pulse">Chargement de la leçon...</p>
+                        <p className="text-sm font-bold text-ella-gray-400 uppercase tracking-widest animate-pulse">
+                            {lang === "fr" ? "Chargement de la leçon..." : "Loading lesson..."}
+                        </p>
                     </div>
                 )}
 
