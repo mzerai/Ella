@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import EllaAvatar from "@/components/EllaAvatar";
 import ScoreBadge from "@/components/ScoreBadge";
+import ProfileModal from "@/components/ProfileModal";
 import {
   getPELabDetail,
   runPELab,
@@ -31,17 +32,33 @@ export default function LabPage() {
   const [lang] = useState<"fr" | "en">("fr");
   const isSystemPromptLab = labId === "04_system_prompts";
 
+  const [profile, setProfile] = useState<string | null>(null);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+
   // Load lab detail
   useEffect(() => {
+    const savedProfile = localStorage.getItem("ellaUserProfile");
+    setProfile(savedProfile);
+
     getPELabDetail(labId)
       .then((data) => {
         setLab(data);
+        
+        // Filter mission based on profile
         if (data.missions.length > 0) {
-          setSelectedMission(data.missions[0]);
+          const filtered = data.missions.find(m => m.audience?.toLowerCase() === savedProfile?.toLowerCase());
+          setSelectedMission(filtered || data.missions[0]);
         }
       })
       .catch((err) => setError(err.message));
   }, [labId]);
+
+  const handleProfileSelect = (newProfile: "engineering" | "business") => {
+    localStorage.setItem("ellaUserProfile", newProfile);
+    setProfile(newProfile);
+    setIsProfileModalOpen(false);
+    window.location.reload(); // Refresh to update mission
+  };
 
   // Run the lab
   const handleRun = async () => {
@@ -106,26 +123,22 @@ export default function LabPage() {
             </p>
           </div>
         </div>
-        
-        {/* Mission Pill Tabs */}
-        <div className="flex bg-ella-gray-100 p-1 rounded-full overflow-x-auto no-scrollbar">
-          {lab.missions.map((mission) => (
-            <button
-              key={mission.mission_id}
-              onClick={() => {
-                setSelectedMission(mission);
-                setResult(null);
-                setStudentPrompt("");
-                setSystemPrompt("");
-              }}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${selectedMission.mission_id === mission.mission_id
-                  ? "bg-white text-ella-primary shadow-sm"
-                  : "text-ella-gray-500 hover:text-ella-gray-700"
-                }`}
-            >
-              {mission.title[lang].split(':')[0]}
-            </button>
-          ))}
+
+        {/* Profile indicator instead of mission tabs */}
+        <div className="flex items-center gap-3">
+          <div className="flex flex-col items-end">
+            <span className="text-[10px] text-ella-gray-400 font-bold uppercase tracking-wider">Mission Contextuelle</span>
+            <span className="text-sm font-bold text-ella-primary">
+              Profil {profile === "engineering" ? "Ingénierie" : "Business"}
+            </span>
+          </div>
+          <button 
+            onClick={() => setIsProfileModalOpen(true)}
+            className="p-2 hover:bg-ella-gray-100 rounded-full transition-colors text-ella-gray-400 hover:text-ella-primary"
+            title="Changer de profil"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg>
+          </button>
         </div>
       </div>
 
@@ -354,6 +367,12 @@ export default function LabPage() {
           Oups ! {error}. Ella est un peu fatiguée, réessaie dans un instant.
         </div>
       )}
+
+      <ProfileModal 
+        isOpen={isProfileModalOpen} 
+        onClose={() => setIsProfileModalOpen(false)} 
+        onSelect={handleProfileSelect} 
+      />
     </div>
   );
 }

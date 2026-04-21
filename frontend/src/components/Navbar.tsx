@@ -1,14 +1,34 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import EllaAvatar from "./EllaAvatar";
+import ProfileModal from "./ProfileModal";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [profile, setProfile] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const savedProfile = localStorage.getItem("ellaUserProfile");
+    setProfile(savedProfile);
+  }, []);
+
+  const handleSelectProfile = (newProfile: "engineering" | "business") => {
+    localStorage.setItem("ellaUserProfile", newProfile);
+    setProfile(newProfile);
+    setIsModalOpen(false);
+    
+    // Refresh the page if we are on a lab to update missions
+    if (pathname.includes("/labs/")) {
+      window.location.reload();
+    }
+  };
 
   const navLinks = [
-    { href: "/courses", label: "Cours" },
+    { href: "/", label: "Cours" },
   ];
 
   return (
@@ -30,12 +50,12 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 sm:gap-6">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm font-bold transition-all py-1 ${pathname.startsWith(link.href)
+              className={`text-sm font-bold transition-all py-1 ${pathname === link.href || (link.href === "/" && pathname.startsWith("/courses"))
                   ? "text-ella-accent border-b-2 border-ella-accent"
                   : "text-ella-gray-500 hover:text-ella-accent"
                 }`}
@@ -43,6 +63,7 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          
           <Link
             href="/chat"
             className="flex items-center gap-2 bg-ella-accent hover:bg-ella-accent-dark text-white text-sm font-bold px-4 py-2 rounded-full transition-all active:scale-95 shadow-lg shadow-ella-accent/20"
@@ -52,6 +73,12 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
+
+      <ProfileModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onSelect={handleSelectProfile} 
+      />
     </nav>
   );
 }
