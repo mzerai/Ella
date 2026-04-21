@@ -8,8 +8,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import EllaAvatar from "@/components/EllaAvatar";
-import ScoreBadge from "@/components/ScoreBadge";
-import ProfileModal from "@/components/ProfileModal";
 import {
   getPELabDetail,
   runPELab,
@@ -17,10 +15,18 @@ import {
   type PEMission,
   type PELabRunResponse,
 } from "@/lib/api";
+import { useAuth } from "@/components/AuthProvider";
+import { createClient } from "@/lib/supabase";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import ProfileModal from "@/components/ProfileModal";
+import ScoreBadge from "@/components/ScoreBadge";
 
-export default function LabPage() {
+function LabContent() {
   const params = useParams();
   const labId = params.labId as string;
+
+  const { user } = useAuth();
+  const supabase = createClient();
 
   const [lab, setLab] = useState<PELabDetail | null>(null);
   const [selectedMission, setSelectedMission] = useState<PEMission | null>(null);
@@ -53,11 +59,40 @@ export default function LabPage() {
       .catch((err) => setError(err.message));
   }, [labId]);
 
-  const handleProfileSelect = (newProfile: "engineering" | "business") => {
+  const handleProfileSelect = async (newProfile: "engineering" | "business") => {
     localStorage.setItem("ellaUserProfile", newProfile);
+    
+    // Also save to Supabase profile
+    if (user) {
+      await supabase
+        .from("profiles")
+        .update({ profile_type: newProfile })
+        .eq("id", user.id);
+    }
+    
     setProfile(newProfile);
     setIsProfileModalOpen(false);
     window.location.reload(); // Refresh to update mission
+  };
+
+  const saveAttempt = async (resp: PELabRunResponse) => {
+    if (!user) return;
+    
+    try {
+      await supabase.from("lab_attempts").insert({
+        user_id: user.id,
+        lab_id: labId,
+        mission_id: selectedMission?.mission_id,
+        student_prompt: studentPrompt,
+        llm_output: resp.llm_output,
+        total_score: resp.evaluation.total_score,
+        max_score: resp.evaluation.max_score,
+        evaluation: resp.evaluation,
+        execution_time_ms: resp.execution_time_ms,
+      });
+    } catch (err) {
+      console.error("Error saving attempt:", err);
+    }
   };
 
   // Run the lab
@@ -76,6 +111,7 @@ export default function LabPage() {
         system_prompt: isSystemPromptLab ? systemPrompt : undefined,
       });
       setResult(response);
+      await saveAttempt(response);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Une erreur est survenue.");
     } finally {
@@ -374,5 +410,13 @@ export default function LabPage() {
         onSelect={handleProfileSelect} 
       />
     </div>
+  );
+}
+
+export default function LabPage() {
+  return (
+    <ProtectedRoute>
+      <LabContent />
+    </ProtectedRoute>
   );
 }

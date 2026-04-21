@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 // @ts-ignore
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { AuthProvider } from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
   title: "Ella — ESPRIT LearnLab Arena",
@@ -17,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <AuthProvider>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+        </AuthProvider>
       </body>
     </html>
   );

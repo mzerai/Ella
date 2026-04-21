@@ -6,8 +6,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import EllaAvatar from "@/components/EllaAvatar";
-import { sendChatMessage, type ChatMessage, type ChatResponse } from "@/lib/api";
-
+import { sendChatMessage, type ChatMessage } from "@/lib/api";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import ReactMarkdown from "react-markdown";
 
 interface DisplayMessage {
@@ -15,7 +15,7 @@ interface DisplayMessage {
   content: string;
 }
 
-export default function ChatPage() {
+function ChatContent() {
   const [messages, setMessages] = useState<DisplayMessage[]>([
     {
       role: "assistant",
@@ -96,7 +96,7 @@ export default function ChatPage() {
             key={i}
             className={`flex gap-3 animate-fade-in ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}
           >
-            <EllaAvatar size="sm" className={msg.role === "user" ? "bg-ella-gray-300" : ""} />
+            <EllaAvatar size="sm" className={msg.role === "user" ? "bg-ella-gray-300 shadow-inner" : ""} />
             <div
               className={`max-w-[85%] sm:max-w-[75%] ${msg.role === "assistant" ? "ella-bubble" : "user-bubble shadow-sm"}`}
             >
@@ -169,5 +169,13 @@ export default function ChatPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <ProtectedRoute>
+      <ChatContent />
+    </ProtectedRoute>
   );
 }

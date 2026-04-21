@@ -6,10 +6,9 @@
 
 import { useEffect, useState } from "react";
 import EllaAvatar from "@/components/EllaAvatar";
-import LabCard from "@/components/LabCard";
 import { listPELabs, type PELab } from "@/lib/api";
-
 import Link from "next/link";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 const modules = [
   {
@@ -59,7 +58,7 @@ const modules = [
   },
 ];
 
-export default function PromptEngineeringCourse() {
+function CourseContent() {
   const [labs, setLabs] = useState<PELab[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -75,7 +74,7 @@ export default function PromptEngineeringCourse() {
       <header className="bg-ella-primary text-white pt-10 pb-12 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center gap-2 mb-3">
-            <Link href="/courses" className="text-white/70 hover:text-white text-sm transition-colors">Cours</Link>
+            <Link href="/" className="text-white/70 hover:text-white text-sm transition-colors">Catalogues</Link>
             <span className="text-white/40 text-sm">/</span>
             <span className="text-white text-sm font-medium">Prompt Engineering</span>
           </div>
@@ -171,5 +170,13 @@ export default function PromptEngineeringCourse() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function PromptEngineeringCourse() {
+  return (
+    <ProtectedRoute>
+      <CourseContent />
+    </ProtectedRoute>
   );
 }
