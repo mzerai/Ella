@@ -9,6 +9,7 @@ import EllaAvatar from "@/components/EllaAvatar";
 import { listPELabs, type PELab } from "@/lib/api";
 import Link from "next/link";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { useAuth } from "@/components/AuthProvider";
 
 const modules = [
   {
@@ -59,9 +60,11 @@ const modules = [
 ];
 
 function CourseContent() {
+  const { user } = useAuth();
   const [labs, setLabs] = useState<PELab[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+  const isAdmin = user?.email === "mourad.zerai@gmail.com";
 
   useEffect(() => {
     // Register completion tracking
@@ -135,7 +138,7 @@ function CourseContent() {
                     >
                         Leçon
                     </Link>
-                    {completedLessons.includes(mod.lab_id) ? (
+                    {isAdmin || completedLessons.includes(mod.lab_id) ? (
                         <Link
                             href={`/courses/prompt-engineering/labs/${mod.lab_id}`}
                             className="btn-primary !text-xs !py-3 !px-5 !rounded-xl font-black shadow-lg shadow-ella-accent/10"
@@ -184,12 +187,12 @@ function CourseContent() {
               <div className="w-full h-3 bg-ella-gray-100 rounded-full overflow-hidden">
                 <div 
                     className="h-full bg-ella-primary transition-all duration-1000" 
-                    style={{ width: `${(completedLessons.length / modules.length) * 100}%` }}
+                    style={{ width: `${isAdmin ? 100 : (completedLessons.length / modules.length) * 100}%` }}
                 ></div>
               </div>
               <div className="mt-4 flex justify-between text-[10px] uppercase tracking-widest font-black text-ella-gray-400">
-                <span>{completedLessons.length}/{modules.length} Modules</span>
-                <span>{modules.length - completedLessons.length} restants</span>
+                <span>{isAdmin ? modules.length : completedLessons.length}/{modules.length} Modules</span>
+                <span>{isAdmin ? 0 : modules.length - completedLessons.length} restants</span>
               </div>
             </div>
 

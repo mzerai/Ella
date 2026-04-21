@@ -80,8 +80,11 @@ export default function Navbar() {
                 </Link>
 
                 <div className="relative group/user">
-                  <button className="w-10 h-10 rounded-full bg-ella-gray-100 border border-ella-gray-200 flex items-center justify-center text-ella-gray-700 font-black text-sm uppercase transition-all hover:border-ella-accent">
+                  <button className="w-10 h-10 rounded-full bg-ella-gray-100 border border-ella-gray-200 flex items-center justify-center text-ella-gray-700 font-black text-sm uppercase transition-all hover:border-ella-accent relative">
                     {user.user_metadata?.full_name?.charAt(0) || user.email?.charAt(0) || "?"}
+                    {user?.email === "mourad.zerai@gmail.com" && (
+                        <span className="absolute -top-1 -right-1 text-[8px] bg-ella-accent text-white px-1.5 py-0.5 rounded-full shadow-sm border border-white">Admin</span>
+                    )}
                   </button>
                   
                   <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover/user:opacity-100 group-hover/user:visible transition-all translate-y-2 group-hover/user:translate-y-0">

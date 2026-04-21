@@ -32,6 +32,12 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
 
     // On mount, auto-unlock consecutive content cells from the start
     useEffect(() => {
+        const isAdmin = user?.email === "mourad.zerai@gmail.com";
+        if (isAdmin) {
+            setUnlockedUpTo(cells.length - 1);
+            return;
+        }
+
         let autoUnlock = 0;
         for (let i = 0; i < cells.length; i++) {
             autoUnlock = i;
@@ -40,7 +46,7 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
             }
         }
         setUnlockedUpTo(autoUnlock);
-    }, [cells]);
+    }, [cells, user]);
 
     // Manual scroll helper
     const scrollToCell = (cellId: string, block: ScrollLogicalPosition = "start") => {
