@@ -61,6 +61,24 @@ const modules = [
 function CourseContent() {
   const [labs, setLabs] = useState<PELab[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Register completion tracking
+    const updateProgress = () => {
+        try {
+            const completed = JSON.parse(localStorage.getItem("ellaCompletedLessons") || "[]");
+            setCompletedLessons(completed);
+        } catch (e) {
+            console.error("Failed to load progress", e);
+        }
+    };
+    
+    updateProgress();
+    // Listen for changes (though mostly on same page here)
+    window.addEventListener('storage', updateProgress);
+    return () => window.removeEventListener('storage', updateProgress);
+  }, []);
 
   useEffect(() => {
     listPELabs()
@@ -117,12 +135,23 @@ function CourseContent() {
                     >
                         Leçon
                     </Link>
-                    <Link
-                        href={`/courses/prompt-engineering/labs/${mod.lab_id}`}
-                        className="btn-primary !text-xs !py-3 !px-5 !rounded-xl font-black shadow-lg shadow-ella-accent/10"
-                    >
-                        Lab
-                    </Link>
+                    {completedLessons.includes(mod.lab_id) ? (
+                        <Link
+                            href={`/courses/prompt-engineering/labs/${mod.lab_id}`}
+                            className="btn-primary !text-xs !py-3 !px-5 !rounded-xl font-black shadow-lg shadow-ella-accent/10"
+                        >
+                            Lab
+                        </Link>
+                    ) : (
+                        <button
+                            disabled
+                            className="btn-primary !text-xs !py-3 !px-5 !rounded-xl font-black opacity-30 grayscale cursor-not-allowed flex items-center gap-2"
+                            title="Complétez la leçon pour débloquer le Lab"
+                        >
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"></path></svg>
+                            Lab
+                        </button>
+                    )}
                 </div>
               </div>
             ))}
@@ -147,15 +176,20 @@ function CourseContent() {
               <div className="flex justify-between items-center mb-4">
                 <h4 className="font-black text-ella-gray-900 uppercase tracking-widest text-[10px]">Ma Progression</h4>
                 <div className="flex items-center gap-1.5">
-                    <span className="text-xs font-black text-ella-primary">20%</span>
+                    <span className="text-xs font-black text-ella-primary">
+                        {Math.round((completedLessons.length / modules.length) * 100)}%
+                    </span>
                 </div>
               </div>
               <div className="w-full h-3 bg-ella-gray-100 rounded-full overflow-hidden">
-                <div className="h-full bg-ella-primary transition-all duration-1000" style={{ width: '20%' }}></div>
+                <div 
+                    className="h-full bg-ella-primary transition-all duration-1000" 
+                    style={{ width: `${(completedLessons.length / modules.length) * 100}%` }}
+                ></div>
               </div>
               <div className="mt-4 flex justify-between text-[10px] uppercase tracking-widest font-black text-ella-gray-400">
-                <span>1/5 Modules</span>
-                <span>4 labs restants</span>
+                <span>{completedLessons.length}/{modules.length} Modules</span>
+                <span>{modules.length - completedLessons.length} restants</span>
               </div>
             </div>
 

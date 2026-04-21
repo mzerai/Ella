@@ -50,6 +50,17 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
         }, 100);
     };
 
+    const unlockAfterCheckpoint = (fromIndex: number) => {
+        let target = fromIndex + 1;
+        for (let i = fromIndex + 1; i < cells.length; i++) {
+            target = i;
+            if (cells[i].type === "ella_checkpoint" || cells[i].type === "ella_gate") {
+                break;
+            }
+        }
+        setUnlockedUpTo(Math.max(unlockedUpTo, target));
+    };
+
     const handleCheckpointSubmit = async (cellId: string, cellIndex: number, question: string, hint: string) => {
         const state = checkpointState[cellId] || { 
             response: "", feedback: "", loading: false, submitted: false, passed: false, attempts: 0 
@@ -115,19 +126,7 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
 
             // Only unlock if passed or attempts exhausted
             if (isFinallyUnlocked) {
-                let nextUnlock = cellIndex + 1;
-                for (let i = nextUnlock; i < cells.length; i++) {
-                    if (cells[i].type === "content" || cells[i].type === "ella_gate") {
-                        nextUnlock = i;
-                    } else if (cells[i].type === "ella_checkpoint") {
-                        nextUnlock = i;
-                        break;
-                    }
-                }
-                
-                if (cellIndex < cells.length - 1) {
-                    setUnlockedUpTo(Math.max(unlockedUpTo, nextUnlock));
-                }
+                unlockAfterCheckpoint(cellIndex);
             }
 
             // Scroll to the entire checkpoint card (question + response + feedback)
@@ -175,12 +174,40 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                                 <div className="prose prose-sm max-w-none text-ella-gray-700 leading-relaxed space-y-4">
                                     <ReactMarkdown
                                         components={{
-                                            h3: ({children}) => <h3 className="text-lg font-bold text-ella-gray-900 mt-8 mb-3">{children}</h3>,
-                                            blockquote: ({children}) => (
-                                                <blockquote className="border-l-4 border-ella-accent pl-6 my-6 bg-ella-accent/5 rounded-r-2xl py-4 pr-6 text-base italic text-ella-gray-800">
-                                                    {children}
-                                                </blockquote>
-                                            ),
+                                            h3: ({children}) => {
+                                                const text = String(children);
+                                                const emojiMatch = text.match(/^([\uD800-\uDBFF][\uDC00-\uDFFF]|\S)\s*/);
+                                                const emoji = emojiMatch ? emojiMatch[0] : "";
+                                                const rest = emojiMatch ? text.slice(emojiMatch[0].length) : text;
+                                                return (
+                                                    <h3 className="text-lg font-black text-ella-gray-900 mt-10 mb-4 flex items-center gap-3">
+                                                        {emoji && <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-ella-gray-100 text-base">{emoji}</span>}
+                                                        <span className="border-b-2 border-ella-primary/10 pb-1">{rest}</span>
+                                                    </h3>
+                                                );
+                                            },
+                                            blockquote: ({children}) => {
+                                                const content = String(children);
+                                                const isSuccess = content.includes("✅");
+                                                const isWarning = content.includes("❌");
+                                                
+                                                let bgColor = "bg-ella-accent/5";
+                                                let borderColor = "border-ella-accent";
+                                                
+                                                if (isSuccess) {
+                                                    bgColor = "bg-green-50/50";
+                                                    borderColor = "border-green-500";
+                                                } else if (isWarning) {
+                                                    bgColor = "bg-red-50/50";
+                                                    borderColor = "border-red-500";
+                                                }
+
+                                                return (
+                                                    <blockquote className={`border-l-4 ${borderColor} pl-6 my-8 ${bgColor} rounded-r-2xl py-5 pr-6 text-base italic text-ella-gray-800 shadow-sm ring-1 ring-black/5`}>
+                                                        {children}
+                                                    </blockquote>
+                                                );
+                                            },
                                             strong: ({children}) => <strong className="font-bold text-ella-gray-900">{children}</strong>,
                                             code: ({children}) => (
                                                 <code className="bg-ella-gray-100 text-ella-accent-dark px-1.5 py-0.5 rounded text-[13px] font-mono border border-ella-gray-200">
@@ -324,18 +351,12 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                                         <div className="flex justify-center pt-2">
                                             <button
                                                 onClick={() => {
-                                                    let nextUnlock = index + 1;
-                                                    for (let i = nextUnlock; i < cells.length; i++) {
-                                                        if (cells[i].type === "content" || cells[i].type === "ella_gate") {
-                                                            nextUnlock = i;
-                                                        } else {
-                                                            nextUnlock = i;
-                                                            break;
-                                                        }
+                                                    const nextIndex = index + 1;
+                                                    if (nextIndex < cells.length) {
+                                                        const nextCellId = cells[nextIndex].id;
+                                                        setUnlockedUpTo(Math.max(unlockedUpTo, nextIndex));
+                                                        scrollToCell(nextCellId);
                                                     }
-                                                    setUnlockedUpTo(Math.max(unlockedUpTo, nextUnlock));
-                                                    const nextCellId = cells[nextUnlock]?.id;
-                                                    if (nextCellId) scrollToCell(nextCellId);
                                                 }}
                                                 className="group flex flex-col items-center gap-2"
                                             >
@@ -362,6 +383,17 @@ export default function Notebook({ cells, moduleId, lang }: NotebookProps) {
                                 </p>
                                 <a
                                     href={cell.next_url}
+                                    onClick={() => {
+                                        // Save module completion to localStorage
+                                        try {
+                                            const completed = JSON.parse(localStorage.getItem("ellaCompletedLessons") || "[]");
+                                            if (!completed.includes(moduleId)) {
+                                                localStorage.setItem("ellaCompletedLessons", JSON.stringify([...completed, moduleId]));
+                                            }
+                                        } catch (e) {
+                                            console.error("Failed to save progress", e);
+                                        }
+                                    }}
                                     className="btn-primary !py-4 !px-12 !text-lg !font-black !rounded-2xl shadow-xl shadow-ella-accent/30 hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-3"
                                 >
                                     Passer au Lab →

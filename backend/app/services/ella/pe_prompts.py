@@ -25,7 +25,7 @@ You are grounded in these facts. Never contradict them.
 - Giving the LLM an instruction WITHOUT any examples of the expected output.
 - The most common and most demanding form of prompting.
 - Relies entirely on the quality of the instruction: clarity, specificity, constraints, output format.
-- The "4C" framework: Context, Command, Constraints, Output Format.
+- The "4C" framework: Context, Command, Constraints, Cadrage (Output Framing).
 
 **What Zero-Shot is NOT:**
 - It is NOT "just asking a question" — a good zero-shot prompt is carefully engineered.

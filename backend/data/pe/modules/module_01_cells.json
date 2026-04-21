@@ -114,8 +114,8 @@
       "id": "gate_final",
       "type": "ella_gate",
       "message": {
-        "fr": "Bravo, tu as terminé la leçon sur le Zero-Shot ! Tu maîtrises les 4C et tu sais éviter les pièges courants. Il est temps de mettre tout ça en pratique dans le lab. Rappelle-toi : Contexte, Consigne, Contraintes, Format. Allez, montre-moi ce que tu sais faire !",
-        "en": "Well done, you've completed the Zero-Shot lesson! You know the 4C's and how to avoid common traps. Time to put it all into practice in the lab. Remember: Context, Command, Constraints, Output Format. Let's see what you've got!"
+        "fr": "Bravo, tu as terminé la leçon sur le Zero-Shot ! Tu maîtrises les 4C et tu sais éviter les pièges courants. Il est temps de mettre tout ça en pratique dans le lab. Rappelle-toi : Contexte, Consigne, Contraintes, Cadrage du format de sortie. Allez, montre-moi ce que tu sais faire !",
+        "en": "Well done, you've completed the Zero-Shot lesson! You know the 4C's and how to avoid common traps. Time to put it all into practice in the lab. Remember: Context, Command, Constraints, Cadrage (Output Framing). Let's see what you've got!"
       },
       "next_url": "/courses/prompt-engineering/labs/01_zero_shot"
     }
