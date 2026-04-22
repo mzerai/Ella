@@ -133,13 +133,17 @@ export default function HomePage() {
   const handleCourseClick = (course: Course) => {
     if (!course.available) return;
 
-    const savedProfile = localStorage.getItem("ellaUserProfile");
-    if (!savedProfile) {
-      setPendingCourseLink(course.link);
-      setIsProfileModalOpen(true);
-    } else {
-      router.push(course.link);
+    // ProfileModal is only relevant for PE course (engineering vs business missions)
+    if (course.id === "pe") {
+      const savedProfile = localStorage.getItem("ellaUserProfile");
+      if (!savedProfile) {
+        setPendingCourseLink(course.link);
+        setIsProfileModalOpen(true);
+        return;
+      }
     }
+
+    router.push(course.link);
   };
 
   const handleProfileSelect = (profile: "engineering" | "business") => {

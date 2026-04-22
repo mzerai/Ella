@@ -96,6 +96,11 @@ export default function Navbar() {
                       <Link href="/dashboard" className="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-ella-gray-600 hover:bg-ella-gray-50 rounded-xl transition-all">
                         📊 Dashboard
                       </Link>
+                      {user?.email === "mourad.zerai@gmail.com" && (
+                        <Link href="/admin" className="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-ella-gray-600 hover:bg-ella-gray-50 rounded-xl transition-all">
+                          🛡️ Admin
+                        </Link>
+                      )}
                       <button 
                         onClick={() => signOut()}
                         className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-ella-accent hover:bg-ella-accent/5 rounded-xl transition-all text-left"
@@ -157,6 +162,15 @@ export default function Navbar() {
               >
                 📊 Dashboard
               </Link>
+              {user?.email === "mourad.zerai@gmail.com" && (
+                <Link
+                  href="/admin"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block px-4 py-2 text-base font-bold text-ella-gray-600 rounded-xl hover:bg-ella-gray-50"
+                >
+                  🛡️ Admin
+                </Link>
+              )}
               <button
                 onClick={() => {
                   signOut();

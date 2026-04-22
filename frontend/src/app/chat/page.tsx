@@ -1,13 +1,16 @@
 /**
  * Ella Chat page — free conversation with the AI tutor.
+ * Conversations are persisted in Supabase.
  */
 
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import EllaAvatar from "@/components/EllaAvatar";
 import { sendChatMessage, type ChatMessage } from "@/lib/api";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import { useAuth } from "@/components/AuthProvider";
+import { createClient } from "@/lib/supabase";
 import ReactMarkdown from "react-markdown";
 
 interface DisplayMessage {
@@ -15,16 +18,21 @@ interface DisplayMessage {
   content: string;
 }
 
+const GREETING: DisplayMessage = {
+  role: "assistant",
+  content:
+    "Salut ! Moi c'est Ella, ton assistante pédagogique. Je suis là pour t'accompagner dans tes cours sur la plateforme. Qu'est-ce que tu veux explorer aujourd'hui ?",
+};
+
 function ChatContent() {
-  const [messages, setMessages] = useState<DisplayMessage[]>([
-    {
-      role: "assistant",
-      content:
-        "Salut ! Moi c'est Ella, ton assistante pédagogique. Je suis là pour t'accompagner dans tes cours sur la plateforme. Qu'est-ce que tu veux explorer aujourd'hui ?",
-    },
-  ]);
+  const { user } = useAuth();
+  const supabase = createClient();
+  const [messages, setMessages] = useState<DisplayMessage[]>([GREETING]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [courseId, setCourseId] = useState<"pe" | "rl">("pe");
+  const [loadingConversation, setLoadingConversation] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll
@@ -32,17 +40,97 @@ function ChatContent() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Load most recent conversation on mount
+  useEffect(() => {
+    const loadConversation = async () => {
+      if (!user) {
+        setLoadingConversation(false);
+        return;
+      }
+
+      try {
+        const { data, error } = await supabase
+          .from("conversations")
+          .select("*")
+          .eq("user_id", user.id)
+          .order("updated_at", { ascending: false })
+          .limit(1)
+          .single();
+
+        if (data && !error && data.messages && data.messages.length > 0) {
+          setConversationId(data.id);
+          setCourseId(data.course_id || "pe");
+          setMessages([GREETING, ...data.messages]);
+        }
+      } catch {
+        // No previous conversation — that's fine
+      }
+      setLoadingConversation(false);
+    };
+
+    loadConversation();
+  }, [user]);
+
+  // Save conversation to Supabase
+  const saveConversation = useCallback(async (msgs: DisplayMessage[]) => {
+    if (!user) return;
+
+    // Only save messages after the greeting
+    const toSave = msgs.slice(1).map(m => ({
+      role: m.role,
+      content: m.content,
+    }));
+
+    if (toSave.length === 0) return;
+
+    try {
+      if (conversationId) {
+        await supabase
+          .from("conversations")
+          .update({
+            messages: toSave,
+            course_id: courseId,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("id", conversationId);
+      } else {
+        const { data } = await supabase
+          .from("conversations")
+          .insert({
+            user_id: user.id,
+            course_id: courseId,
+            messages: toSave,
+            updated_at: new Date().toISOString(),
+          })
+          .select("id")
+          .single();
+
+        if (data) {
+          setConversationId(data.id);
+        }
+      }
+    } catch (err) {
+      console.error("Error saving conversation:", err);
+    }
+  }, [user, conversationId, courseId, supabase]);
+
+  const handleNewConversation = () => {
+    setMessages([GREETING]);
+    setConversationId(null);
+  };
+
   const handleSend = async () => {
     if (!input.trim() || loading) return;
 
     const userMessage = input.trim();
     setInput("");
-    setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
+    const newMessages: DisplayMessage[] = [...messages, { role: "user", content: userMessage }];
+    setMessages(newMessages);
     setLoading(true);
 
     try {
       // Build conversation history (exclude the first Ella greeting)
-      const history: ChatMessage[] = messages
+      const history: ChatMessage[] = newMessages
         .slice(1)
         .map((m) => ({ role: m.role, content: m.content }));
 
@@ -53,28 +141,41 @@ function ChatContent() {
           page_title: "Chat libre",
           algorithm: "",
           lab_name: "",
-          extra: { course_id: "pe" },
+          extra: { course_id: courseId },
         },
         conversation_history: history,
       });
 
-      setMessages((prev) => [
-        ...prev,
+      const updatedMessages: DisplayMessage[] = [
+        ...newMessages,
         { role: "assistant", content: response.answer },
-      ]);
+      ];
+      setMessages(updatedMessages);
+
+      // Persist to Supabase
+      await saveConversation(updatedMessages);
     } catch (err) {
-      setMessages((prev) => [
-        ...prev,
+      const errorMessages: DisplayMessage[] = [
+        ...newMessages,
         {
           role: "assistant",
-          content:
-            "Oups, j'ai eu un souci technique. Réessaie dans un instant !",
+          content: "Oups, j'ai eu un souci technique. Réessaie dans un instant !",
         },
-      ]);
+      ];
+      setMessages(errorMessages);
     } finally {
       setLoading(false);
     }
   };
+
+  if (loadingConversation) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh]">
+        <div className="w-12 h-12 border-4 border-ella-gray-100 border-t-ella-accent rounded-full animate-spin mb-4" />
+        <p className="text-ella-gray-400 font-bold uppercase tracking-widest text-[10px]">Chargement de la conversation...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 flex flex-col h-[calc(100vh-3.5rem)]">
@@ -84,8 +185,25 @@ function ChatContent() {
           <EllaAvatar size="sm" />
           <span>Discuter avec Ella</span>
         </div>
-        <div className="flex gap-2">
-          <span className="px-2 py-0.5 bg-ella-primary-bg text-ella-primary text-[10px] rounded font-bold uppercase">Assistant IA</span>
+        <div className="flex items-center gap-3">
+          {/* Course selector */}
+          <select
+            value={courseId}
+            onChange={(e) => setCourseId(e.target.value as "pe" | "rl")}
+            className="text-xs font-bold bg-ella-gray-50 border border-ella-gray-200 rounded-lg px-3 py-1.5 text-ella-gray-600 focus:outline-none focus:border-ella-accent"
+          >
+            <option value="pe">Prompt Engineering</option>
+            <option value="rl">Reinforcement Learning</option>
+          </select>
+
+          {/* New conversation button */}
+          <button
+            onClick={handleNewConversation}
+            className="text-xs font-bold text-ella-gray-500 hover:text-ella-accent bg-ella-gray-50 hover:bg-ella-accent/5 border border-ella-gray-200 rounded-lg px-3 py-1.5 transition-all"
+            title="Nouvelle conversation"
+          >
+            + Nouveau
+          </button>
         </div>
       </div>
 

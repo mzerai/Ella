@@ -81,6 +81,7 @@ function LabContent() {
     try {
       await supabase.from("lab_attempts").insert({
         user_id: user.id,
+        course_id: "pe",
         lab_id: labId,
         mission_id: selectedMission?.mission_id,
         student_prompt: studentPrompt,

@@ -12,6 +12,7 @@ from app.services.ella.retriever import retrieve_context
 from app.services.ella.client import request_chat_completion
 from app.services.ella.formatter import parse_llm_response, format_for_ui
 from app.services.ella.analytics import log_interaction
+from app.services.ella.platform_knowledge import is_platform_question, PLATFORM_KNOWLEDGE
 
 
 def _detect_mode(query: str) -> str:
@@ -38,6 +39,10 @@ def generate_response(request: ConversationRequest) -> str:
         system_prompt = build_pe_system_prompt(request.context, retrieved_chunks)
     else:
         system_prompt = build_system_prompt(request.context, retrieved_chunks)
+
+    # Inject platform knowledge ONLY when the student asks about the platform
+    if is_platform_question(request.query):
+        system_prompt += "\n\n" + PLATFORM_KNOWLEDGE
 
     messages = [{"role": "system", "content": system_prompt}]
     messages.extend(request.history)
