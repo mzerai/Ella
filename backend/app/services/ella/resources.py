@@ -240,6 +240,151 @@ RESOURCE_CATALOG = {
             "description": "The definitive RL textbook. Free PDF by the authors."
         },
     ],
+    # ---- Prompt Engineering: General ----
+    "pe_general": [
+        {
+            "title": "Anthropic — Prompt Engineering Guide",
+            "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+            "type": "article",
+            "description": "Official Anthropic guide to prompt engineering with Claude — the most comprehensive and up-to-date resource."
+        },
+        {
+            "title": "OpenAI — Prompt Engineering Best Practices",
+            "url": "https://platform.openai.com/docs/guides/prompt-engineering",
+            "type": "article",
+            "description": "OpenAI's official guide covering tactics for getting better results from LLMs."
+        },
+        {
+            "title": "Lilian Weng — Prompt Engineering (survey)",
+            "url": "https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/",
+            "type": "article",
+            "description": "Comprehensive academic survey of prompt engineering techniques with research citations."
+        },
+        {
+            "title": "Prompt Engineering Guide (version française)",
+            "url": "https://www.promptingguide.ai/fr",
+            "type": "article",
+            "description": "Le guide de référence en prompt engineering, traduit en français. Couvre toutes les techniques."
+        },
+        {
+            "title": "🇫🇷 Formation Prompt Engineering complète (YouTube, FR)",
+            "url": "https://www.youtube.com/watch?v=hdkvjwGoBks",
+            "type": "video",
+            "description": "Formation complète en français sur le prompt engineering — de zéro à avancé."
+        },
+        {
+            "title": "🇫🇷 Les bases du prompt engineering (YouTube, FR)",
+            "url": "https://www.youtube.com/watch?v=SOIQCTjk5Dk",
+            "type": "video",
+            "description": "Cours vidéo en français expliquant les fondamentaux du prompt engineering."
+        },
+        {
+            "title": "Prompt Engineering Full Tutorial (freeCodeCamp, EN)",
+            "url": "https://www.youtube.com/watch?v=_ZvnD73m40o",
+            "type": "video",
+            "description": "Full free course on prompt engineering by freeCodeCamp — covers all major techniques with examples."
+        },
+    ],
+
+    # ---- Prompt Engineering: Zero-Shot & Few-Shot ----
+    "pe_zero_few_shot": [
+        {
+            "title": "Learn Prompting — Zero-Shot & Few-Shot",
+            "url": "https://learnprompting.org/docs/basics/few_shot",
+            "type": "tutorial",
+            "description": "Interactive tutorial explaining zero-shot and few-shot prompting with examples."
+        },
+        {
+            "title": "Google — Prompt Design Strategies (zero/few-shot)",
+            "url": "https://ai.google.dev/gemini-api/docs/prompting-strategies",
+            "type": "article",
+            "description": "Google's guide to prompt design including zero-shot and few-shot strategies."
+        },
+        {
+            "title": "🇫🇷 Prompt Engineering Guide FR — Conseils de conception",
+            "url": "https://www.promptingguide.ai/fr/introduction/tips",
+            "type": "article",
+            "description": "Conseils pratiques en français pour concevoir des prompts efficaces (zero-shot et few-shot)."
+        },
+        {
+            "title": "🇫🇷 Formation au Prompt Engineering en français (YouTube)",
+            "url": "https://www.youtube.com/watch?v=H89bSRvuY14",
+            "type": "video",
+            "description": "Guide complet du prompt engineering en français — ChatGPT, Claude, Gemini."
+        },
+    ],
+
+    # ---- Prompt Engineering: Chain of Thought ----
+    "pe_chain_of_thought": [
+        {
+            "title": "Wei et al. — Chain-of-Thought Prompting (original paper)",
+            "url": "https://arxiv.org/abs/2201.11903",
+            "type": "article",
+            "description": "The original research paper that introduced chain-of-thought prompting by Google Research."
+        },
+        {
+            "title": "Learn Prompting — Chain of Thought",
+            "url": "https://learnprompting.org/docs/intermediate/chain_of_thought",
+            "type": "tutorial",
+            "description": "Practical tutorial on chain-of-thought with examples and variations (zero-shot CoT, self-consistency)."
+        },
+        {
+            "title": "Chain of Thought Prompting Explained (YouTube, EN)",
+            "url": "https://www.youtube.com/watch?v=S9OJC76qZ8A",
+            "type": "video",
+            "description": "Clear explanation of chain-of-thought prompting with practical examples."
+        },
+        {
+            "title": "Everything about Chain of Thought prompting (PromptHub, EN)",
+            "url": "https://www.youtube.com/watch?v=C_gf9KNScIo",
+            "type": "video",
+            "description": "Complete guide to CoT prompting — templates and real-world examples."
+        },
+    ],
+
+    # ---- Prompt Engineering: System Prompts ----
+    "pe_system_prompts": [
+        {
+            "title": "Anthropic — System Prompts Guide",
+            "url": "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/system-prompts",
+            "type": "article",
+            "description": "Official guide on designing effective system prompts for Claude."
+        },
+        {
+            "title": "OpenAI Cookbook — System Message Examples",
+            "url": "https://cookbook.openai.com/articles/related_resources",
+            "type": "tutorial",
+            "description": "Collection of system prompt patterns and examples from OpenAI."
+        },
+        {
+            "title": "Google's Prompt Engineering Guide (includes system prompts)",
+            "url": "https://ai.google.dev/gemini-api/docs/prompting-strategies",
+            "type": "article",
+            "description": "Google's official guide covering prompt design strategies including system-level instructions."
+        },
+    ],
+
+    # ---- Prompt Engineering: Structured Output ----
+    "pe_structured_output": [
+        {
+            "title": "Anthropic — Structured Output (JSON mode)",
+            "url": "https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/increase-consistency",
+            "type": "article",
+            "description": "Guide on getting consistent JSON and structured data from Claude."
+        },
+        {
+            "title": "OpenAI — Structured Outputs Guide",
+            "url": "https://platform.openai.com/docs/guides/structured-outputs",
+            "type": "article",
+            "description": "OpenAI's official guide to getting reliable JSON output from GPT models."
+        },
+        {
+            "title": "🇫🇷 FindSkill.ai — Cours PE gratuit en français avec certificat",
+            "url": "https://findskill.ai/fr/blog/apprendre-prompt-engineering-guide-francais/",
+            "type": "tutorial",
+            "description": "6 cours gratuits en français couvrant le prompt engineering de A à Z, avec certificat."
+        },
+    ],
 }
 
 # Mapping: which sub-topics are relevant for each lab page
@@ -248,6 +393,18 @@ PAGE_RESOURCE_TOPICS = {
     "value_iteration_lab": ["value_iteration", "bellman_equations", "policy_evaluation", "convergence", "discount_factor", "frozenlake", "general_rl"],
     "policy_iteration_lab": ["policy_iteration", "policy_evaluation", "value_iteration", "bellman_equations", "convergence", "discount_factor", "frozenlake", "general_rl"],
     "q_learning_lab": ["q_learning", "td_learning", "exploration_exploitation", "on_off_policy", "discount_factor", "frozenlake", "general_rl"],
+    # Prompt Engineering labs
+    "01_zero_shot": ["pe_general", "pe_zero_few_shot"],
+    "02_few_shot": ["pe_general", "pe_zero_few_shot"],
+    "03_chain_of_thought": ["pe_general", "pe_chain_of_thought"],
+    "04_system_prompts": ["pe_general", "pe_system_prompts"],
+    "05_structured_output": ["pe_general", "pe_structured_output"],
+    # PE modules (lessons)
+    "module_01": ["pe_general", "pe_zero_few_shot"],
+    "module_02": ["pe_general", "pe_zero_few_shot"],
+    "module_03": ["pe_general", "pe_chain_of_thought"],
+    "module_04": ["pe_general", "pe_system_prompts"],
+    "module_05": ["pe_general", "pe_structured_output"],
 }
 
 
