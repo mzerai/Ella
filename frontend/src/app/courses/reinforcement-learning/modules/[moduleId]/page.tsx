@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import ProtectedRoute from "@/components/ProtectedRoute";
+
 import Notebook from "@/components/Notebook";
 import EllaAvatar from "@/components/EllaAvatar";
 import { getRLModuleCells, type ModuleData } from "@/lib/api";
@@ -136,8 +136,8 @@ function ModuleLessonContent() {
 
 export default function RLModulePage() {
     return (
-        <ProtectedRoute>
+        <>
             <ModuleLessonContent />
-        </ProtectedRoute>
+        </>
     );
 }

@@ -7,7 +7,7 @@
 import { useEffect, useState } from "react";
 import EllaAvatar from "@/components/EllaAvatar";
 import Link from "next/link";
-import ProtectedRoute from "@/components/ProtectedRoute";
+
 import { useAuth } from "@/components/AuthProvider";
 
 const modules = [
@@ -294,8 +294,8 @@ function CourseContent() {
 
 export default function ReinforcementLearningCourse() {
   return (
-    <ProtectedRoute>
+    <>
       <CourseContent />
-    </ProtectedRoute>
+    </>
   );
 }
