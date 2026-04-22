@@ -267,13 +267,13 @@ RESOURCE_CATALOG = {
             "description": "Le guide de référence en prompt engineering, traduit en français. Couvre toutes les techniques."
         },
         {
-            "title": "🇫🇷 Formation Prompt Engineering complète (YouTube, FR)",
+            "title": "Formation Prompt Engineering complète (YouTube, FR)",
             "url": "https://www.youtube.com/watch?v=hdkvjwGoBks",
             "type": "video",
             "description": "Formation complète en français sur le prompt engineering — de zéro à avancé."
         },
         {
-            "title": "🇫🇷 Les bases du prompt engineering (YouTube, FR)",
+            "title": "Les bases du prompt engineering (YouTube, FR)",
             "url": "https://www.youtube.com/watch?v=SOIQCTjk5Dk",
             "type": "video",
             "description": "Cours vidéo en français expliquant les fondamentaux du prompt engineering."
@@ -301,13 +301,13 @@ RESOURCE_CATALOG = {
             "description": "Google's guide to prompt design including zero-shot and few-shot strategies."
         },
         {
-            "title": "🇫🇷 Prompt Engineering Guide FR — Conseils de conception",
+            "title": "Prompt Engineering Guide FR — Conseils de conception",
             "url": "https://www.promptingguide.ai/fr/introduction/tips",
             "type": "article",
             "description": "Conseils pratiques en français pour concevoir des prompts efficaces (zero-shot et few-shot)."
         },
         {
-            "title": "🇫🇷 Formation au Prompt Engineering en français (YouTube)",
+            "title": "Formation au Prompt Engineering en français (YouTube)",
             "url": "https://www.youtube.com/watch?v=H89bSRvuY14",
             "type": "video",
             "description": "Guide complet du prompt engineering en français — ChatGPT, Claude, Gemini."
@@ -379,7 +379,7 @@ RESOURCE_CATALOG = {
             "description": "OpenAI's official guide to getting reliable JSON output from GPT models."
         },
         {
-            "title": "🇫🇷 FindSkill.ai — Cours PE gratuit en français avec certificat",
+            "title": "FindSkill.ai — Cours PE gratuit en français avec certificat",
             "url": "https://findskill.ai/fr/blog/apprendre-prompt-engineering-guide-francais/",
             "type": "tutorial",
             "description": "6 cours gratuits en français couvrant le prompt engineering de A à Z, avec certificat."

@@ -129,16 +129,16 @@ def format_for_ui(response: AssistantResponse) -> str:
     md = f"{response.answer}\n\n"
     
     if response.intuition:
-        md += f"💡 **Intuition**: {response.intuition}\n\n"
+        md += f"🔍 **Intuition**: {response.intuition}\n\n"
         
     if response.connection_to_page:
-        md += f"🔗 **Connection to Current Lab**: {response.connection_to_page}\n\n"
+        md += f"🎯 **Lien avec le lab**: {response.connection_to_page}\n\n"
         
     if response.misconception:
-        md += f"⚠️ **Common Misconception**: {response.misconception}\n\n"
+        md += f"⛔ **Attention**: {response.misconception}\n\n"
 
     if response.suggested_resources:
-        md += f"\n📚 **Go Further**:\n{response.suggested_resources}\n"
+        md += f"\n📌 **Pour aller plus loin**:\n{response.suggested_resources}\n"
         md += f"\n_Links are curated but may change over time — please verify availability._\n\n"
 
     for block in response.latex_blocks:
