@@ -8,6 +8,147 @@ import ScoreBadge from "@/components/ScoreBadge";
 import Link from "next/link";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+function CertificatesSection() {
+    const { user } = useAuth();
+    const supabase = createClient();
+    const [certificates, setCertificates] = useState<Array<{id: string; course_id: string; course_title: string; score: number; issued_at: string}>>([]);
+    const [eligibility, setEligibility] = useState<Record<string, any>>({});
+    const [loading, setLoading] = useState(true);
+    const [generating, setGenerating] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!user) return;
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) return;
+
+            const headers = { "Authorization": `Bearer ${session.access_token}`, "Content-Type": "application/json" };
+
+            try {
+                // Fetch existing certificates
+                const certsRes = await fetch(`${API_BASE_URL}/api/certificates/my-certificates`, { headers });
+                const certsData = await certsRes.json();
+                setCertificates(certsData.certificates || []);
+
+                // Check eligibility for each course
+                const elig: Record<string, any> = {};
+                for (const courseId of ["pe", "rl"]) {
+                    const res = await fetch(`${API_BASE_URL}/api/certificates/eligibility/${courseId}`, { headers });
+                    elig[courseId] = await res.json();
+                }
+                setEligibility(elig);
+            } catch (err) {
+                console.error("Error fetching certificates:", err);
+            }
+            setLoading(false);
+        };
+        fetchData();
+    }, [user]);
+
+    const handleGenerate = async (courseId: string) => {
+        setGenerating(courseId);
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) return;
+
+        try {
+            const res = await fetch(`${API_BASE_URL}/api/certificates/generate/${courseId}`, {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${session.access_token}` },
+            });
+            if (res.ok) {
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `ELLA_Certificate_${courseId}.pdf`;
+                a.click();
+                URL.revokeObjectURL(url);
+                // Refresh page to show the new certificate in the list
+                window.location.reload();
+            }
+        } catch (err) {
+            console.error("Error generating certificate:", err);
+        }
+        setGenerating(null);
+    };
+
+    const handleDownload = async (certId: string, courseId: string) => {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) return;
+
+        const res = await fetch(`${API_BASE_URL}/api/certificates/generate/${courseId}`, {
+            method: "POST",
+            headers: { "Authorization": `Bearer ${session.access_token}` },
+        });
+        if (res.ok) {
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `ELLA_Certificate_${courseId}.pdf`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    };
+
+    if (loading) return null;
+
+    const hasCerts = certificates.length > 0;
+    const hasEligible = Object.values(eligibility).some((e: any) => e.eligible && !certificates.find((c: any) => c.course_id === e.course_id));
+
+    if (!hasCerts && !hasEligible) return null;
+
+    return (
+        <div className="mb-8">
+            <h2 className="text-xl font-bold text-ella-gray-900 mb-4">Mes certificats</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Existing certificates */}
+                {certificates.map(cert => (
+                    <div key={cert.id} className="bg-white border border-ella-gray-200 rounded-2xl p-6 shadow-sm">
+                        <div className="flex justify-between items-start mb-3">
+                            <div>
+                                <p className="text-[10px] font-black text-ella-gray-400 uppercase tracking-widest mb-1">Certificat obtenu</p>
+                                <p className="font-bold text-ella-gray-900">{cert.course_title}</p>
+                            </div>
+                            <span className="text-sm font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">{cert.score}/10</span>
+                        </div>
+                        <p className="text-xs text-ella-gray-400 mb-4">Délivré le {new Date(cert.issued_at).toLocaleDateString("fr-FR")}</p>
+                        <button
+                            onClick={() => handleDownload(cert.id, cert.course_id)}
+                            className="w-full text-sm font-bold text-ella-accent border border-ella-accent/20 hover:bg-ella-accent/5 rounded-xl py-2.5 transition-all"
+                        >
+                            Télécharger le PDF
+                        </button>
+                    </div>
+                ))}
+
+                {/* Eligible but not yet generated */}
+                {Object.entries(eligibility).map(([courseId, elig]: [string, any]) => {
+                    if (!elig.eligible || certificates.find(c => c.course_id === courseId)) return null;
+                    return (
+                        <div key={courseId} className="bg-white border-2 border-dashed border-ella-accent/30 rounded-2xl p-6">
+                            <p className="text-[10px] font-black text-ella-accent uppercase tracking-widest mb-1">Certificat disponible !</p>
+                            <p className="font-bold text-ella-gray-900 mb-1">{courseId === "pe" ? "Prompt Engineering & Outils IA" : "Reinforcement Learning"}</p>
+                            <p className="text-xs text-ella-gray-400 mb-4">Score moyen : {elig.average}/10</p>
+                            <button
+                                onClick={() => handleGenerate(courseId)}
+                                disabled={generating === courseId}
+                                className="w-full btn-primary !py-2.5 !rounded-xl !text-sm flex items-center justify-center gap-2 disabled:opacity-50"
+                            >
+                                {generating === courseId ? (
+                                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                ) : "Générer mon certificat"}
+                            </button>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+}
+
 interface LabAttempt {
     id: string;
     lab_id: string;
@@ -190,6 +331,8 @@ function DashboardContent() {
                     </div>
                 </div>
             </header>
+
+            <CertificatesSection />
 
             {/* Stats Overview */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
