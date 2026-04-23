@@ -110,24 +110,27 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
             // Fallback heuristic if tags are missing
             if (!passed && !retry) {
                 const lower = result.answer.toLowerCase();
-                const positiveSignals = [
-                    "bien joué", "bravo", "excellent", "bonne réponse", "tu as compris",
-                    "tu as bien compris", "correct", "bonne voie", "tu maîtrises",
-                    "c'est exact", "parfait", "bonne compréhension", "bon travail",
-                    "très bien", "bonne analyse", "tu as raison", "bonne intuition",
-                    "tu as identifié", "belle amélioration", "c'est ça", "exactement",
-                    "tu as su", "bonne reformulation", "bien vu", "bon réflexe",
-                    "ta réponse montre une bonne", "tu as ajouté", "tu as bien",
-                    "well done", "good job", "you got it", "correct", "excellent",
-                    "good understanding", "you understood", "nice work", "that's right",
-                    "good analysis", "you identified", "great improvement"
+                // Negative signals — only block if clearly telling student to retry
+                const negativeSignals = [
+                    "pas tout à fait", "pas correct", "incorrect", "réessaie",
+                    "essaie encore", "pas encore", "manque", "oublié", "erreur",
+                    "not quite", "try again", "incorrect", "missing", "wrong",
+                    "not correct", "needs improvement", "reconsider",
                 ];
-                passed = positiveSignals.some(signal => lower.includes(signal));
+                const isNegative = negativeSignals.some(signal => lower.includes(signal));
+                // Default to PASSED unless clearly negative — be generous
+                passed = !isNegative;
             }
 
-            const cleanFeedback = result.answer
+            let cleanFeedback = result.answer
                 .replace("[CHECKPOINT_PASSED]", "")
                 .replace("[CHECKPOINT_RETRY]", "")
+                .trim();
+            
+            // Remove "Lien avec le lab" section from checkpoint feedback (we're in a lesson, not a lab)
+            cleanFeedback = cleanFeedback
+                .replace(/🎯\s*\*\*Lien avec le lab\*\*.*?(\n\n|\n(?=🔍|⛔|📌)|$)/gs, "")
+                .replace(/🔗\s*\*\*Connection to Current Lab\*\*.*?(\n\n|\n(?=💡|⚠️|📚)|$)/gs, "")
                 .trim();
 
             const isFinallyUnlocked = passed || currentAttempts >= 3;

@@ -208,7 +208,7 @@ def _generate_certificate_pdf(
     logo_y = height - 3.5 * cm
     # ESPRIT logo (left of center)
     if os.path.exists(esprit_logo_path):
-        c.drawImage(esprit_logo_path, width / 2 - 4.5 * cm, logo_y, width=3.5 * cm, height=1.2 * cm, preserveAspectRatio=True, mask='auto')
+        c.drawImage(esprit_logo_path, width / 2 - 5.5 * cm, logo_y, width=4.5 * cm, height=1.6 * cm, preserveAspectRatio=True, mask='auto')
     else:
         c.setFont("Helvetica-Bold", 14)
         c.setFillColor(primary)
@@ -222,6 +222,27 @@ def _generate_certificate_pdf(
     # LearnLab logo (right of center)
     if os.path.exists(learnlab_logo_path):
         c.drawImage(learnlab_logo_path, width / 2 + 1 * cm, logo_y, width=3.5 * cm, height=1.2 * cm, preserveAspectRatio=True, mask='auto')
+        
+        # "ESPRIT LearnLab Arena - ELLA" branding with red initials
+        brand_x = width / 2 + 1 * cm + 4 * cm  # position after learnlab logo
+        brand_y = logo_y + 0.4 * cm
+        
+        c.setFont("Helvetica-Bold", 8)
+        brand_parts = [
+            ("E", "#e94560"), ("SPRIT ", "#1a1a2e"),
+            ("L", "#e94560"), ("earn", "#1a1a2e"),
+            ("L", "#e94560"), ("ab ", "#1a1a2e"),
+            ("A", "#e94560"), ("rena", "#1a1a2e"),
+        ]
+        cursor_x = brand_x
+        for text_part, color in brand_parts:
+            c.setFillColor(HexColor(color))
+            c.drawString(cursor_x, brand_y, text_part)
+            cursor_x += c.stringWidth(text_part, "Helvetica-Bold", 8)
+        
+        # " - ELLA" in red
+        c.setFillColor(HexColor("#e94560"))
+        c.drawString(cursor_x, brand_y, " - ELLA")
     else:
         c.setFont("Helvetica-Bold", 9)
         c.setFillColor(primary)
@@ -240,8 +261,8 @@ def _generate_certificate_pdf(
     c.line(width / 2 - line_w / 2, line_y, width / 2 + line_w / 2, line_y)
 
     # ── Title ──
-    title_y = line_y - 1.0 * cm
-    c.setFont("Helvetica-Bold", 22)
+    title_y = line_y - 1.5 * cm
+    c.setFont("Helvetica-Bold", 32)
     c.setFillColor(primary)
     c.drawCentredString(width / 2, title_y, "CERTIFICAT DE COMPÉTENCES")
     
@@ -250,36 +271,36 @@ def _generate_certificate_pdf(
     c.drawCentredString(width / 2, title_y - 0.55 * cm, "Certificate of competency")
 
     # ── Body ──
-    body_y = title_y - 1.5 * cm
-    c.setFont("Helvetica", 10)
+    body_y = title_y - 1.7 * cm
+    c.setFont("Helvetica", 12)
     c.setFillColor(text_mid)
     c.drawCentredString(width / 2, body_y, "Ce certificat atteste que")
 
     # Student name
-    c.setFont("Helvetica-Bold", 22)
+    c.setFont("Helvetica-Bold", 30)
     c.setFillColor(primary)
     c.drawCentredString(width / 2, body_y - 1.0 * cm, student_name)
 
     # Gold line under name
     c.setStrokeColor(gold)
     c.setLineWidth(0.5)
-    name_line_y = body_y - 1.3 * cm
+    name_line_y = body_y - 1.4 * cm
     c.line(width / 2 - 3 * cm, name_line_y, width / 2 + 3 * cm, name_line_y)
 
     # "a validé avec succès..."
     c.setFont("Helvetica", 10)
     c.setFillColor(text_mid)
-    c.drawCentredString(width / 2, name_line_y - 0.6 * cm, "a validé avec succès le parcours")
+    c.drawCentredString(width / 2, name_line_y - 0.4 * cm, "a validé avec succès le parcours")
 
     # Course title
-    c.setFont("Helvetica-Bold", 14)
+    c.setFont("Helvetica-Bold", 22)
     c.setFillColor(primary)
-    c.drawCentredString(width / 2, name_line_y - 1.2 * cm, f"« {course_title} »")
+    c.drawCentredString(width / 2, name_line_y - 1.3 * cm, f"« {course_title} »")
 
     # Duration + score
-    c.setFont("Helvetica", 9)
+    c.setFont("Helvetica", 11)
     c.setFillColor(text_light)
-    c.drawCentredString(width / 2, name_line_y - 1.7 * cm, f"Durée : {duration} — Score moyen : {score} / 10")
+    c.drawCentredString(width / 2, name_line_y - 2.1 * cm, f"Durée : {duration} — Score moyen : {score} / 10")
 
     # ── Bottom row: Competencies (left) | QR (center) | Signature (right) ──
     bottom_y = 2.8 * cm
