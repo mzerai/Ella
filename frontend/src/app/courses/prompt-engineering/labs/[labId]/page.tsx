@@ -7,6 +7,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import EllaAvatar from "@/components/EllaAvatar";
 import {
   getPELabDetail,
@@ -20,6 +21,14 @@ import { createClient } from "@/lib/supabase";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import ProfileModal from "@/components/ProfileModal";
 import ScoreBadge from "@/components/ScoreBadge";
+
+const NEXT_LESSONS: Record<string, { id: string, title: { fr: string, en: string } } | null> = {
+  "01_zero_shot": { id: "02_few_shot", title: { fr: "Few-Shot Prompting", en: "Few-Shot Prompting" } },
+  "02_few_shot": { id: "03_chain_of_thought", title: { fr: "Chain-of-Thought", en: "Chain-of-Thought" } },
+  "03_chain_of_thought": { id: "04_system_prompts", title: { fr: "System Prompts", en: "System Prompts" } },
+  "04_system_prompts": { id: "05_structured_output", title: { fr: "Structured Output", en: "Structured Output" } },
+  "05_structured_output": null // Fin du cours
+};
 
 function LabContent() {
   const params = useParams();
@@ -445,9 +454,47 @@ function LabContent() {
                   </div>
                 </div>
               </div>
+
+              {/* Next Lesson Button */}
+              {result.evaluation.total_score >= result.evaluation.max_score * 0.5 && (
+                <div className="flex justify-center pt-8 pb-4">
+                  {NEXT_LESSONS[labId] ? (
+                    <Link 
+                      href={`/courses/prompt-engineering/modules/${NEXT_LESSONS[labId]?.id}`}
+                      className="group flex flex-col items-center gap-2"
+                    >
+                      <span className="text-[10px] font-black text-ella-gray-400 uppercase tracking-widest group-hover:text-ella-primary transition-colors">
+                        {lang === "fr" ? "Leçon suivante" : "Next Lesson"}
+                      </span>
+                      <div className="px-6 py-4 rounded-2xl bg-ella-primary/10 flex items-center gap-4 text-ella-primary group-hover:bg-ella-primary group-hover:text-white transition-all shadow-lg hover:shadow-ella-primary/30">
+                        <span className="font-bold">{NEXT_LESSONS[labId]?.title[lang]}</span>
+                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></path></svg>
+                        </div>
+                      </div>
+                    </Link>
+                  ) : (
+                    <Link 
+                      href="/dashboard"
+                      className="group flex flex-col items-center gap-2"
+                    >
+                      <span className="text-[10px] font-black text-ella-gray-400 uppercase tracking-widest group-hover:text-ella-primary transition-colors">
+                        {lang === "fr" ? "Cours terminé" : "Course Completed"}
+                      </span>
+                      <div className="px-6 py-4 rounded-2xl bg-ella-success/10 flex items-center gap-4 text-ella-success group-hover:bg-ella-success group-hover:text-white transition-all shadow-lg hover:shadow-ella-success/30">
+                        <span className="font-bold">{lang === "fr" ? "Retour au tableau de bord" : "Back to dashboard"}</span>
+                        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg>
+                        </div>
+                      </div>
+                    </Link>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>
+
       </div>
 
       {/* Error state */}
