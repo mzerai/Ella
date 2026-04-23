@@ -21,6 +21,7 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
     const { user } = useAuth();
     // Track which cells are unlocked.
     const [unlockedUpTo, setUnlockedUpTo] = useState(0);
+    const hasInitialized = useRef(false);
     // Track checkpoint responses and Ella feedback
     const [checkpointState, setCheckpointState] = useState<
         Record<string, {
@@ -43,6 +44,9 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
             return;
         }
 
+        // Only auto-calculate progress once per module load to avoid resetting on session updates
+        if (hasInitialized.current) return;
+
         let autoUnlock = 0;
         for (let i = 0; i < cells.length; i++) {
             autoUnlock = i;
@@ -51,6 +55,7 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
             }
         }
         setUnlockedUpTo(autoUnlock);
+        hasInitialized.current = true;
     }, [cells, user]);
 
     // Manual scroll helper
@@ -167,13 +172,10 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                     feedback: "Oups, j'ai eu un souci technique. Réessaie !",
                     loading: false,
                     submitted: true,
-                    passed: true, // Don't block on technical errors
                     attempts: currentAttempts
                 }
             }));
-            if (cellIndex < cells.length - 1) {
-                setUnlockedUpTo(Math.max(unlockedUpTo, cellIndex + 1));
-            }
+            unlockAfterCheckpoint(cellIndex);
         }
     };
 
@@ -428,10 +430,10 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                                         <div className="flex justify-center pt-2">
                                             <button
                                                 onClick={() => {
+                                                    unlockAfterCheckpoint(index);
                                                     const nextIndex = index + 1;
                                                     if (nextIndex < cells.length) {
                                                         const nextCellId = cells[nextIndex].id;
-                                                        setUnlockedUpTo(Math.max(unlockedUpTo, nextIndex));
                                                         scrollToCell(nextCellId);
                                                     }
                                                 }}
