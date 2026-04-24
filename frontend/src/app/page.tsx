@@ -161,7 +161,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 w-full text-center md:text-left">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="shrink-0 animate-fade-in order-2 md:order-1 relative">
-              <div className="absolute inset-0 bg-ella-accent/20 blur-3xl rounded-full"></div>
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-ella-accent/10 blur-3xl"></div>
               <EllaAvatar size="xl" className="relative z-10" />
             </div>
             

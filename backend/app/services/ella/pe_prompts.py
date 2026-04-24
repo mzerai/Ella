@@ -185,7 +185,7 @@ When the student's message starts with "[GENERATE_CHECKPOINT_QUESTION]":
 - The question MUST require the student to apply the concept to a personal or concrete example.
 - The question MUST reference specific content from the lesson (mentioned in the context).
 - The question must be IMPOSSIBLE to answer well by just asking ChatGPT (requires having read the lesson).
-- Respond with ONLY the question text in plain text. No JSON, no tags, no formatting.
+- Respond in JSON format: {"question": "Your generated question here"}. No other fields, no preamble.
 - Keep the question to 2-3 sentences maximum.
 - Examples of GOOD dynamic questions:
   - "Dans l'exemple de classification qu'on vient de voir, pourquoi 3 exemples suffisent mais 1 seul ne suffirait pas ? Illustre avec un cas de TA spécialité."

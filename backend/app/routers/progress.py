@@ -22,11 +22,11 @@ class CheckpointSaveRequest(BaseModel):
     course_id: str
     module_id: str
     checkpoint_id: str
-    dynamic_question: str = ""
-    student_response: str = ""
-    ella_feedback: str = ""
-    passed: bool = False
-    attempts: int = 0
+    dynamic_question: Optional[str] = None
+    student_response: Optional[str] = None
+    ella_feedback: Optional[str] = None
+    passed: Optional[bool] = None
+    attempts: Optional[int] = None
 
 
 class CheckpointProgressItem(BaseModel):
@@ -101,27 +101,50 @@ async def save_checkpoint_progress(
     request: CheckpointSaveRequest,
     authorization: Optional[str] = Header(None),
 ):
-    """Upsert checkpoint progress for the authenticated user.
-
-    Called at two moments:
-    1. After generating a dynamic question (to freeze it)
-    2. After student submits and receives feedback (to persist the result)
-    """
+    """Surgically merge checkpoint progress for the authenticated user to prevent data loss."""
     user = await _verify_user(authorization)
     supabase = _get_supabase_admin()
 
+    # 1. Fetch existing state
+    existing_row = None
+    try:
+        result = supabase.table("lesson_checkpoints_progress") \
+            .select("*") \
+            .eq("user_id", str(user.id)) \
+            .eq("course_id", request.course_id) \
+            .eq("module_id", request.module_id) \
+            .eq("checkpoint_id", request.checkpoint_id) \
+            .execute()
+        if result.data:
+            existing_row = result.data[0]
+    except Exception as e:
+        logger.warning("Could not fetch existing row for merge: %s", e)
+
+    # 2. Build the final row by merging
     row = {
         "user_id": str(user.id),
         "course_id": request.course_id,
         "module_id": request.module_id,
         "checkpoint_id": request.checkpoint_id,
-        "dynamic_question": request.dynamic_question,
-        "student_response": request.student_response,
-        "ella_feedback": request.ella_feedback,
-        "passed": request.passed,
-        "attempts": request.attempts,
+        "dynamic_question": (existing_row.get("dynamic_question") if existing_row else ""),
+        "student_response": (existing_row.get("student_response") if existing_row else ""),
+        "ella_feedback": (existing_row.get("ella_feedback") if existing_row else ""),
+        "passed": (existing_row.get("passed") if existing_row else False),
+        "attempts": (existing_row.get("attempts") if existing_row else 0),
         "updated_at": datetime.now(timezone.utc).isoformat(),
     }
+
+    # Only overwrite if provided
+    if request.dynamic_question is not None:
+        row["dynamic_question"] = request.dynamic_question
+    if request.student_response is not None:
+        row["student_response"] = request.student_response
+    if request.ella_feedback is not None:
+        row["ella_feedback"] = request.ella_feedback
+    if request.passed is not None:
+        row["passed"] = request.passed
+    if request.attempts is not None:
+        row["attempts"] = request.attempts
 
     try:
         supabase.table("lesson_checkpoints_progress") \

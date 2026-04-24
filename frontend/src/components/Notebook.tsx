@@ -305,12 +305,12 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
     };
 
     const generateCheckpointQuestion = async (cellId: string, config: any) => {
-        if (dynamicQuestions[cellId] || generatingQuestion[cellId]) return;
+        if (isHydrating || dynamicQuestions[cellId] || generatingQuestion[cellId]) return;
         setGeneratingQuestion(prev => ({ ...prev, [cellId]: true }));
 
         try {
             const result = await sendChatMessage({
-                message: `[GENERATE_CHECKPOINT_QUESTION]\n\nTopic: ${config.topic}\nSection context: ${config.section_context}\nQuestion type: ${config.question_type}\nDifficulty: ${config.difficulty}\nLanguage: ${lang === "fr" ? "French" : "English"}\n\n${config.anti_gpt_instructions || ""}\n\nGenerate ONE checkpoint question. The question must:\n- Reference specific content from the lesson section described above\n- Ask the student to apply the concept to a personal or concrete example\n- Be impossible to answer correctly by just asking ChatGPT (requires lesson context)\n- Be concise (2-3 sentences max)\n\nRespond with ONLY the question text, nothing else. No JSON, no tags, no preamble.`,
+                message: `[GENERATE_CHECKPOINT_QUESTION]\n\nTopic: ${config.topic}\nSection context: ${config.section_context}\nQuestion type: ${config.question_type}\nDifficulty: ${config.difficulty}\nLanguage: ${lang === "fr" ? "French" : "English"}\n\n${config.anti_gpt_instructions || ""}\n\nGenerate ONE checkpoint question. The question must:\n- Reference specific content from the lesson section described above\n- Ask the student to apply the concept to a personal or concrete example\n- Be impossible to answer correctly by just asking ChatGPT (requires lesson context)\n- Be concise (2-3 sentences max)\n\nRespond in JSON format: {"question": "Your generated question here"}. No other fields.`,
                 context: {
                     page_id: moduleId,
                     page_title: `Module ${moduleId}`,
@@ -321,7 +321,13 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                 conversation_history: []
             });
 
-            const newQ = result.answer;
+            let newQ = result.answer;
+            // If the answer is JSON with a question field, extract it (required for LLM compatibility)
+            try {
+                const parsed = JSON.parse(newQ);
+                if (parsed.question) newQ = parsed.question;
+            } catch { /* not JSON, use as-is */ }
+
             setDynamicQuestions(prev => ({ ...prev, [cellId]: newQ }));
             saveCheckpointProgress({
                 course_id: courseId,
