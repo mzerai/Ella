@@ -8,6 +8,25 @@ import { useAuth } from "@/components/AuthProvider";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
+
+// Anti-copy styles injected via useEffect
+const ANTI_COPY_STYLES = `
+.ella-protected-content .prose,
+.ella-protected-content [id^="feedback-"] {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.ella-protected-content textarea,
+.ella-protected-content input {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+`;
+
 import remarkGfm from "remark-gfm";
 
 interface NotebookProps {
@@ -21,6 +40,11 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
     const { user } = useAuth();
     // Track which cells are unlocked.
     const [unlockedUpTo, setUnlockedUpTo] = useState(0);
+
+    // Dynamic checkpoint questions
+    const [dynamicQuestions, setDynamicQuestions] = useState<Record<string, string>>({});
+    const [generatingQuestion, setGeneratingQuestion] = useState<Record<string, boolean>>({});
+
     const hasInitialized = useRef(false);
     // Track checkpoint responses and Ella feedback
     const [checkpointState, setCheckpointState] = useState<
@@ -57,6 +81,29 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
         setUnlockedUpTo(autoUnlock);
         hasInitialized.current = true;
     }, [cells, user]);
+
+    // Inject anti-copy styles and block copy/paste on protected content
+    useEffect(() => {
+        const style = document.createElement("style");
+        style.textContent = ANTI_COPY_STYLES;
+        document.head.appendChild(style);
+
+        const handleCopy = (e: ClipboardEvent) => {
+            const target = e.target as HTMLElement;
+            // Allow copy inside textareas (student's own input)
+            if (target.tagName === "TEXTAREA" || target.tagName === "INPUT") return;
+            // Block copy on lesson content and ELLA feedback
+            if (target.closest?.(".ella-protected-content")) {
+                e.preventDefault();
+            }
+        };
+
+        document.addEventListener("copy", handleCopy);
+        return () => {
+            document.removeEventListener("copy", handleCopy);
+            style.remove();
+        };
+    }, []);
 
     // Manual scroll helper
     const scrollToCell = (cellId: string, block: ScrollLogicalPosition = "start") => {
@@ -179,10 +226,45 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
         }
     };
 
+    const generateCheckpointQuestion = async (cellId: string, config: any) => {
+        if (dynamicQuestions[cellId] || generatingQuestion[cellId]) return;
+        setGeneratingQuestion(prev => ({ ...prev, [cellId]: true }));
+
+        try {
+            const result = await sendChatMessage({
+                message: `[GENERATE_CHECKPOINT_QUESTION]\n\nTopic: ${config.topic}\nSection context: ${config.section_context}\nQuestion type: ${config.question_type}\nDifficulty: ${config.difficulty}\nLanguage: ${lang === "fr" ? "French" : "English"}\n\n${config.anti_gpt_instructions || ""}\n\nGenerate ONE checkpoint question. The question must:\n- Reference specific content from the lesson section described above\n- Ask the student to apply the concept to a personal or concrete example\n- Be impossible to answer correctly by just asking ChatGPT (requires lesson context)\n- Be concise (2-3 sentences max)\n\nRespond with ONLY the question text, nothing else. No JSON, no tags, no preamble.`,
+                context: {
+                    page_id: moduleId,
+                    page_title: `Module ${moduleId}`,
+                    algorithm: "",
+                    lab_name: `Generate question for ${cellId}`,
+                    extra: { course_id: courseId, generate_question: true }
+                },
+                conversation_history: []
+            });
+
+            setDynamicQuestions(prev => ({ ...prev, [cellId]: result.answer }));
+        } catch (err) {
+            // Fallback: use a generic question
+            setDynamicQuestions(prev => ({
+                ...prev,
+                [cellId]: lang === "fr"
+                    ? "Explique le concept qu'on vient de voir avec un exemple concret tiré de ton domaine d'études ou de travail."
+                    : "Explain the concept we just covered using a concrete example from your field of study or work."
+            }));
+        }
+        setGeneratingQuestion(prev => ({ ...prev, [cellId]: false }));
+    };
+
     return (
-        <div className="max-w-3xl mx-auto space-y-10 pb-20">
+        <div className="max-w-3xl mx-auto space-y-10 pb-20 ella-protected-content">
             {cells.map((cell, index) => {
                 const isLocked = index > unlockedUpTo;
+
+                // Generate dynamic question when checkpoint becomes visible
+                if (!isLocked && cell.type === "ella_checkpoint" && cell.checkpoint_config && !dynamicQuestions[cell.id]) {
+                    generateCheckpointQuestion(cell.id, cell.checkpoint_config);
+                }
 
                 return (
                     <div
@@ -318,7 +400,10 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                                             <p className="text-sm font-black text-ella-gray-900">Ella te demande...</p>
                                         </div>
                                         <p className="text-base font-bold text-ella-gray-700 leading-relaxed">
-                                            {cell.question[lang]}
+                                            {cell.checkpoint_config
+                                                ? (dynamicQuestions[cell.id] || (lang === "fr" ? "Ella prépare ta question..." : "Ella is preparing your question..."))
+                                                : cell.question[lang]
+                                            }
                                         </p>
                                     </div>
                                 </div>
@@ -378,7 +463,31 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                                                 onKeyDown={(e) => {
                                                     if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
                                                         e.preventDefault();
-                                                        handleCheckpointSubmit(cell.id, index, cell.question[lang], cell.ella_system_hint);
+                                                        handleCheckpointSubmit(
+                                                            cell.id,
+                                                            index,
+                                                            cell.checkpoint_config ? (dynamicQuestions[cell.id] || "") : cell.question[lang],
+                                                            cell.checkpoint_config?.hint || cell.ella_system_hint
+                                                        );
+                                                    }
+                                                }}
+                                                onPaste={(e) => {
+                                                    const pastedText = e.clipboardData.getData("text").trim();
+                                                    const previousFeedback = (checkpointState[cell.id]?.feedback || "").trim();
+                                                    // Detect if student is pasting ELLA's previous feedback
+                                                    if (previousFeedback && pastedText.length > 30) {
+                                                        // Check similarity: if >60% of pasted text appears in feedback
+                                                        const feedbackWords = new Set(previousFeedback.toLowerCase().split(/\s+/));
+                                                        const pastedWords = pastedText.toLowerCase().split(/\s+/);
+                                                        const overlap = pastedWords.filter(w => feedbackWords.has(w)).length;
+                                                        const similarity = overlap / pastedWords.length;
+                                                        if (similarity > 0.6) {
+                                                            e.preventDefault();
+                                                            alert(lang === "fr"
+                                                                ? "Tu ne peux pas copier-coller le feedback d'Ella. Reformule avec tes propres mots !"
+                                                                : "You can't paste Ella's feedback. Use your own words!");
+                                                            return;
+                                                        }
                                                     }
                                                 }}
                                                 onChange={(e) => setCheckpointState(prev => ({
@@ -400,12 +509,13 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                                                     onClick={() => handleCheckpointSubmit(
                                                         cell.id,
                                                         index,
-                                                        cell.question[lang],
-                                                        cell.ella_system_hint
+                                                        cell.checkpoint_config ? (dynamicQuestions[cell.id] || "") : cell.question[lang],
+                                                        cell.checkpoint_config?.hint || cell.ella_system_hint
                                                     )}
                                                     disabled={
                                                         checkpointState[cell.id]?.loading ||
-                                                        !checkpointState[cell.id]?.response?.trim()
+                                                        !checkpointState[cell.id]?.response?.trim() ||
+                                                        (cell.checkpoint_config && !dynamicQuestions[cell.id])
                                                     }
                                                     className="btn-primary !px-8 flex items-center gap-2 shadow-lg shadow-ella-accent/20"
                                                 >

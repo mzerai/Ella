@@ -178,6 +178,14 @@ export interface EllaCheckpointCell {
   question: { fr: string; en: string };
   ella_system_hint: string;
   mode: "free" | "rewrite" | "quiz";
+  checkpoint_config?: {
+      topic: string;
+      section_context: string;
+      question_type: string;
+      difficulty: string;
+      hint: string;
+      anti_gpt_instructions?: string;
+  };
 }
 
 export interface EllaGateCell {

@@ -46,12 +46,14 @@
     {
       "id": "checkpoint_02",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Écris un prompt few-shot complet pour classifier des emails en 3 catégories : URGENT, NORMAL, INFO. Inclus une instruction, 3 exemples (un par catégorie), et une requête. Utilise exactement le même format pour chaque exemple.",
-        "en": "Write a complete few-shot prompt to classify emails into 3 categories: URGENT, NORMAL, INFO. Include an instruction, 3 examples (one per category), and a query. Use exactly the same format for each example."
-      },
-      "ella_system_hint": "Check for: 1) Clear instruction at the start, 2) Exactly 3 examples with consistent format, 3) A query in the same format. Common mistakes: inconsistent separators between examples, mixing formats (one uses 'Category:' another uses '→'), forgetting the query at the end. Praise format consistency. If examples are too obvious, suggest edge cases.",
-      "mode": "rewrite"
+      "checkpoint_config": {
+          "topic": "few-shot prompting — writing a complete prompt",
+          "section_context": "The student just learned the anatomy of a few-shot prompt: instruction + examples (2-5) + query. They saw a sentiment classification example with 3 examples (positive/negative/neutral). They learned the importance of format consistency across examples.",
+          "question_type": "apply_to_personal_context",
+          "difficulty": "intermediate",
+          "hint": "The student should produce a few-shot prompt with: 1) Clear instruction, 2) At least 2-3 examples with consistent format, 3) A final query. Evaluate format consistency and example quality. Do NOT check if the domain is 'correct' — any domain is fine as long as the structure is right.",
+          "anti_gpt_instructions": "The question MUST ask the student to create a few-shot prompt for a domain from THEIR studies or professional life. The question should reference the anatomy diagram they just saw. Do not ask a generic 'write a few-shot prompt' question."
+      }
     },
     {
       "id": "content_03",
