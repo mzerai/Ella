@@ -18,12 +18,14 @@
     {
       "id": "checkpoint_01",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Imagine que tu dois classifier des tickets support en 3 catégories : BUG, FEATURE, QUESTION. Pourquoi le zero-shot pourrait-il être insuffisant ici ? Dans quel cas précis des exemples aideraient ?",
-        "en": "Imagine you need to classify support tickets into 3 categories: BUG, FEATURE, QUESTION. Why might zero-shot be insufficient here? In what specific case would examples help?"
-      },
-      "ella_system_hint": "The student should mention that edge cases are ambiguous — a ticket saying 'the button doesn't work as I expected' could be a BUG or a FEATURE request. Examples would show the model where the boundary is. Praise if they mention ambiguity or edge cases.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Zero-shot limitations vs. Few-shot benefits",
+          "section_context": "The student learned that zero-shot is insufficient when describing custom taxonomy or complex formats. Few-shot helps by providing concrete examples (2-5).",
+          "question_type": "apply_to_personal_context",
+          "difficulty": "beginner",
+          "hint": "The student should explain that zero-shot fails when categories are ambiguous or custom. They need to provide a situation from their own field where examples would clarify things.",
+          "anti_gpt_instructions": "The question MUST ask the student to provide an example from THEIR OWN field of study or work where zero-shot would fail but few-shot would succeed."
+      }
     },
     {
       "id": "content_02",
@@ -67,12 +69,14 @@
     {
       "id": "checkpoint_03",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Voici des exemples pour un classificateur de sentiment :\n\nExemple 1 : \"J'adore ce produit !\" → POSITIF\nExemple 2 : \"C'est horrible.\" → NÉGATIF\nExemple 3 : \"Bien.\" → POSITIF\n\nCes exemples violent au moins 2 des 5 règles d'or. Lesquelles ? Propose de meilleurs exemples.",
-        "en": "Here are examples for a sentiment classifier:\n\nExample 1: \"I love this product!\" → POSITIVE\nExample 2: \"This is horrible.\" → NEGATIVE\nExample 3: \"Good.\" → POSITIVE\n\nThese examples violate at least 2 of the 5 golden rules. Which ones? Suggest better examples."
-      },
-      "ella_system_hint": "Violations: Rule 2 (all obvious cases, no edge cases — 'Bien/Good' is arguably neutral not positive), Rule 3 (no diversity, very short texts). Missing: a NEUTRAL example. Better examples would include an ambiguous review like 'Correct but nothing special' as NEUTRAL, a mixed review, and varied domains. Praise if they identify Rule 2 and suggest edge case examples.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "The 5 Golden Rules of Examples",
+          "section_context": "The student learned the 5 rules: format consistency, covering edge cases, diversity, correct number (2-5), and ordering. They need to identify violations.",
+          "question_type": "analyze_flawed_examples",
+          "difficulty": "intermediate",
+          "hint": "The student should point out lacking edge cases or missing diversity, or format inconsistency if present. They must also propose better examples.",
+          "anti_gpt_instructions": "Provide 3 flawed examples for a random, unusual domain (like classifying alien species, evaluating magic spells, etc.) and ask the student which of the 5 golden rules they violate. The student must propose better examples."
+      }
     },
     {
       "id": "content_04",
@@ -86,12 +90,14 @@
     {
       "id": "checkpoint_04",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Écris un prompt few-shot qui convertit des descriptions de produits en JSON. Le JSON doit avoir : name (string), price (number), in_stock (boolean). Donne 2 exemples puis une requête pour : \"Casque Bluetooth Sony, 89€, disponible\".",
-        "en": "Write a few-shot prompt that converts product descriptions to JSON. The JSON must have: name (string), price (number), in_stock (boolean). Give 2 examples then a query for: \"Sony Bluetooth headphones, €89, available\"."
-      },
-      "ella_system_hint": "Check: 1) price must be a NUMBER (89, not '89€'), 2) in_stock must be BOOLEAN (true, not 'available'), 3) format consistent across both examples. Common mistake: price as string with currency symbol. If they get the types right, praise them — that's the key skill. If types are wrong, explain why json.loads() would fail.",
-      "mode": "rewrite"
+      "checkpoint_config": {
+          "topic": "Few-Shot for Complex Formats (JSON matching)",
+          "section_context": "The student learned that few-shot is great for format transformations: text to JSON, text to SQL. Format consistency is crucial here.",
+          "question_type": "apply_to_personal_context",
+          "difficulty": "advanced",
+          "hint": "The student should write a prompt that includes explicit examples of the JSON schema requested. Check if they maintain exact types (number for price, bool for availability).",
+          "anti_gpt_instructions": "Ask the student to write a few-shot prompt that converts a description relevant to THEIR studies (like an IT asset, a medical record, or a marketing persona) into a JSON object with at least 3 fields of different types (string, number, boolean). They must provide 2 examples."
+      }
     },
     {
       "id": "content_05",
@@ -105,12 +111,14 @@
     {
       "id": "checkpoint_05",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Dernière question avant le lab : quand faut-il passer du zero-shot au few-shot ? Donne-moi 3 situations concrètes où tu ajouterais des exemples à un prompt.",
-        "en": "Last question before the lab: when should you switch from zero-shot to few-shot? Give me 3 concrete situations where you'd add examples to a prompt."
-      },
-      "ella_system_hint": "Good answers: 1) When the model doesn't understand a custom format/taxonomy, 2) When it confuses similar categories, 3) When you need a very specific output format (JSON with exact fields). Bad answer: 'always use few-shot' — no, zero-shot is fine for common tasks. Praise specificity. The student is ready for the lab if they can articulate when examples add value.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Few-Shot Traps and Best Practices",
+          "section_context": "The student learned about 5 traps: biased examples, inconsistent format, too similar examples, too many (>5), and incorrect examples.",
+          "question_type": "synthesis",
+          "difficulty": "advanced",
+          "hint": "The student should articulate scenarios where formatting breaks down or model gets confused by biased/incorrect data.",
+          "anti_gpt_instructions": "Ask the student to invent a scenario where using few-shot prompting actually makes the LLM perform WORSE than zero-shot. Have them explain which trap they fell into to cause this."
+      }
     },
     {
       "id": "gate_final",
