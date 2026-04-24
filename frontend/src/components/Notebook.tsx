@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import EllaAvatar from "./EllaAvatar";
-import { sendChatMessage, type NotebookCell } from "@/lib/api";
+import { sendChatMessage, fetchLessonProgress, saveCheckpointProgress, type NotebookCell } from "@/lib/api";
 import { useAuth } from "@/components/AuthProvider";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -44,6 +44,7 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
     // Dynamic checkpoint questions
     const [dynamicQuestions, setDynamicQuestions] = useState<Record<string, string>>({});
     const [generatingQuestion, setGeneratingQuestion] = useState<Record<string, boolean>>({});
+    const [isHydrating, setIsHydrating] = useState(true);
 
     const hasInitialized = useRef(false);
     // Track checkpoint responses and Ella feedback
@@ -60,27 +61,92 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
 
     const cellRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-    // On mount, auto-unlock consecutive content cells from the start
+    // On mount, hydrate progress from backend and then auto-unlock cells
     useEffect(() => {
-        const isAdmin = user?.email === "mourad.zerai@gmail.com";
-        if (isAdmin) {
-            setUnlockedUpTo(cells.length - 1);
-            return;
-        }
-
-        // Only auto-calculate progress once per module load to avoid resetting on session updates
         if (hasInitialized.current) return;
+        if (user === undefined) return; // Wait for AuthProvider session
 
-        let autoUnlock = 0;
-        for (let i = 0; i < cells.length; i++) {
-            autoUnlock = i;
-            if (cells[i].type === "ella_checkpoint") {
-                break; // Stop AFTER the first checkpoint (include it)
+        const initProgress = async () => {
+            const isAdmin = user?.email === "mourad.zerai@gmail.com";
+
+            try {
+                if (user) {
+                    const { checkpoints } = await fetchLessonProgress(courseId, moduleId);
+                    
+                    if (checkpoints && checkpoints.length > 0) {
+                        const newDynQ: Record<string, string> = {};
+                        const newState: any = {};
+                        let lastPassedIdx = -1;
+
+                        checkpoints.forEach(cp => {
+                            if (cp.dynamic_question) {
+                                newDynQ[cp.checkpoint_id] = cp.dynamic_question;
+                            }
+                            if (cp.student_response || cp.ella_feedback || cp.attempts > 0) {
+                                newState[cp.checkpoint_id] = {
+                                    response: cp.student_response || "",
+                                    feedback: cp.ella_feedback || "",
+                                    passed: cp.passed || false,
+                                    attempts: cp.attempts || 0,
+                                    loading: false,
+                                    submitted: !!cp.ella_feedback || cp.attempts > 0
+                                };
+                            }
+
+                            const idx = cells.findIndex((c) => c.id === cp.checkpoint_id);
+                            if (idx > lastPassedIdx && (cp.passed || cp.attempts >= 3)) {
+                                lastPassedIdx = idx;
+                            }
+                        });
+
+                        setDynamicQuestions(prev => ({ ...prev, ...newDynQ }));
+                        setCheckpointState(prev => ({ ...prev, ...newState }));
+
+                        let autoUnlock = 0;
+                        if (isAdmin) {
+                            autoUnlock = cells.length - 1;
+                        } else if (lastPassedIdx >= 0) {
+                            for (let i = lastPassedIdx + 1; i < cells.length; i++) {
+                                autoUnlock = i;
+                                if (cells[i].type === "ella_checkpoint" || cells[i].type === "ella_gate") break;
+                            }
+                        } else {
+                            for (let i = 0; i < cells.length; i++) {
+                                autoUnlock = i;
+                                if (cells[i].type === "ella_checkpoint") break;
+                            }
+                        }
+
+                        setUnlockedUpTo(autoUnlock);
+                        setIsHydrating(false);
+                        hasInitialized.current = true;
+                        return;
+                    }
+                }
+            } catch (err) {
+                console.error("Hydration error:", err);
             }
+
+            // Fallback logic: brand new module or fail
+            let autoUnlock = 0;
+            if (isAdmin) {
+                autoUnlock = cells.length - 1;
+            } else {
+                for (let i = 0; i < cells.length; i++) {
+                    autoUnlock = i;
+                    if (cells[i].type === "ella_checkpoint") break;
+                }
+            }
+            setUnlockedUpTo(autoUnlock);
+            
+            setIsHydrating(false);
+            hasInitialized.current = true;
+        };
+
+        if (cells && cells.length > 0) {
+            initProgress();
         }
-        setUnlockedUpTo(autoUnlock);
-        hasInitialized.current = true;
-    }, [cells, user]);
+    }, [cells, user, courseId, moduleId]);
 
     // Inject anti-copy styles and block copy/paste on protected content
     useEffect(() => {
@@ -204,6 +270,18 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                 unlockAfterCheckpoint(cellIndex);
             }
 
+            // Save state to backend
+            saveCheckpointProgress({
+                course_id: courseId,
+                module_id: moduleId,
+                checkpoint_id: cellId,
+                dynamic_question: dynamicQuestions[cellId] || question,
+                student_response: state.response,
+                ella_feedback: cleanFeedback,
+                passed: passed,
+                attempts: currentAttempts
+            });
+
             // Scroll to the entire checkpoint card (question + response + feedback)
             setTimeout(() => {
                 const checkpointEl = cellRefs.current[cellId];
@@ -243,18 +321,54 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                 conversation_history: []
             });
 
-            setDynamicQuestions(prev => ({ ...prev, [cellId]: result.answer }));
+            const newQ = result.answer;
+            setDynamicQuestions(prev => ({ ...prev, [cellId]: newQ }));
+            saveCheckpointProgress({
+                course_id: courseId,
+                module_id: moduleId,
+                checkpoint_id: cellId,
+                dynamic_question: newQ
+            });
         } catch (err) {
             // Fallback: use a generic question
-            setDynamicQuestions(prev => ({
-                ...prev,
-                [cellId]: lang === "fr"
-                    ? "Explique le concept qu'on vient de voir avec un exemple concret tiré de ton domaine d'études ou de travail."
-                    : "Explain the concept we just covered using a concrete example from your field of study or work."
-            }));
+            const fallbackQ = lang === "fr"
+                ? "Explique le concept qu'on vient de voir avec un exemple concret tiré de ton domaine d'études ou de travail."
+                : "Explain the concept we just covered using a concrete example from your field of study or work.";
+            setDynamicQuestions(prev => ({ ...prev, [cellId]: fallbackQ }));
+            saveCheckpointProgress({
+                course_id: courseId,
+                module_id: moduleId,
+                checkpoint_id: cellId,
+                dynamic_question: fallbackQ
+            });
         }
         setGeneratingQuestion(prev => ({ ...prev, [cellId]: false }));
     };
+
+    if (isHydrating) {
+        return (
+            <div className="max-w-3xl mx-auto space-y-10 pb-20 mt-10">
+                <div className="animate-pulse space-y-10">
+                    <div className="h-8 bg-slate-200 rounded-md w-3/4"></div>
+                    <div className="space-y-4">
+                        <div className="h-4 bg-slate-200 rounded w-full"></div>
+                        <div className="h-4 bg-slate-200 rounded w-5/6"></div>
+                        <div className="h-4 bg-slate-200 rounded w-full"></div>
+                    </div>
+                    <div className="border border-slate-200 bg-white rounded-xl shadow-sm p-6 mt-12 object-fill">
+                        <div className="flex items-center space-x-3 mb-6">
+                            <div className="h-10 w-10 bg-slate-200 rounded-full"></div>
+                            <div className="h-6 bg-slate-200 rounded w-1/3"></div>
+                        </div>
+                        <div className="h-24 bg-slate-50 rounded border border-slate-200 mb-4"></div>
+                    </div>
+                    <div className="flex justify-end pr-4">
+                      <div className="h-8 bg-slate-200 rounded-md w-32"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="max-w-3xl mx-auto space-y-10 pb-20 ella-protected-content">
@@ -262,8 +376,10 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                 const isLocked = index > unlockedUpTo;
 
                 // Generate dynamic question when checkpoint becomes visible
-                if (!isLocked && cell.type === "ella_checkpoint" && cell.checkpoint_config && !dynamicQuestions[cell.id]) {
-                    generateCheckpointQuestion(cell.id, cell.checkpoint_config);
+                if (!isLocked && cell.type === "ella_checkpoint" && !dynamicQuestions[cell.id]) {
+                    // Type assertion to ensure checkpoint_config exists, as we've migrated all static checkpoints
+                    const config = cell.checkpoint_config as NonNullable<typeof cell.checkpoint_config>;
+                    generateCheckpointQuestion(cell.id, config);
                 }
 
                 return (
@@ -400,10 +516,7 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                                             <p className="text-sm font-black text-ella-gray-900">Ella te demande...</p>
                                         </div>
                                         <p className="text-base font-bold text-ella-gray-700 leading-relaxed">
-                                            {cell.checkpoint_config
-                                                ? (dynamicQuestions[cell.id] || (lang === "fr" ? "Ella prépare ta question..." : "Ella is preparing your question..."))
-                                                : cell.question[lang]
-                                            }
+                                            {dynamicQuestions[cell.id] || (lang === "fr" ? "Ella prépare ta question..." : "Ella is preparing your question...")}
                                         </p>
                                     </div>
                                 </div>
@@ -466,8 +579,8 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                                                         handleCheckpointSubmit(
                                                             cell.id,
                                                             index,
-                                                            cell.checkpoint_config ? (dynamicQuestions[cell.id] || "") : cell.question[lang],
-                                                            cell.checkpoint_config?.hint || cell.ella_system_hint
+                                                            dynamicQuestions[cell.id] || "",
+                                                            cell.checkpoint_config?.hint || "Veuillez évaluer cette réponse de l'étudiant."
                                                         );
                                                     }
                                                 }}
@@ -509,8 +622,8 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                                                     onClick={() => handleCheckpointSubmit(
                                                         cell.id,
                                                         index,
-                                                        cell.checkpoint_config ? (dynamicQuestions[cell.id] || "") : cell.question[lang],
-                                                        cell.checkpoint_config?.hint || cell.ella_system_hint
+                                                        dynamicQuestions[cell.id] || "",
+                                                        cell.checkpoint_config?.hint || "Veuillez évaluer cette réponse de l'étudiant."
                                                     )}
                                                     disabled={
                                                         checkpointState[cell.id]?.loading ||

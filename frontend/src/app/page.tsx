@@ -160,8 +160,9 @@ export default function HomePage() {
       <section className="bg-gradient-to-br from-ella-dark to-ella-primary-dark pt-12 pb-10 relative overflow-hidden flex items-center min-h-[35vh] md:min-h-[40vh]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 w-full text-center md:text-left">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            <div className="shrink-0 animate-fade-in order-2 md:order-1">
-              <EllaAvatar size="lg" className="scale-110 md:scale-125" />
+            <div className="shrink-0 animate-fade-in order-2 md:order-1 relative">
+              <div className="absolute inset-0 bg-ella-accent/20 blur-3xl rounded-full"></div>
+              <EllaAvatar size="xl" className="relative z-10" />
             </div>
             
             <div className="flex-1 order-1 md:order-2">
@@ -268,7 +269,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="bg-white border border-ella-gray-200 rounded-[2rem] p-6 md:p-10 text-center md:text-left flex flex-col md:flex-row items-center gap-6 md:gap-10 shadow-xl shadow-ella-gray-900/5">
             <div className="shrink-0">
-              <EllaAvatar size="lg" className="ring-8 ring-ella-primary/5" />
+              <EllaAvatar size="xl" className="ring-8 ring-ella-primary/5 shadow-2xl" />
             </div>
             <div className="flex-1">
               <p className="text-xl md:text-2xl font-medium leading-relaxed italic mb-8 text-ella-gray-700">

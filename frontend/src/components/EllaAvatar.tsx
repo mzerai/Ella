@@ -1,16 +1,19 @@
+import Image from "next/image";
+
 /**
- * Ella's avatar — the warm "E" circle used throughout the UI.
+ * Ella's avatar — using the custom Avatar-Ella.png image.
  */
 
 interface EllaAvatarProps {
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
   className?: string;
 }
 
 const sizes = {
-  sm: "w-8 h-8 text-sm",
+  sm: "w-8 h-8",
   md: "w-10 h-10 text-lg",
   lg: "w-14 h-14 text-2xl",
+  xl: "w-32 h-32 md:w-48 md:h-48",
 };
 
 export default function EllaAvatar({
@@ -19,14 +22,16 @@ export default function EllaAvatar({
 }: EllaAvatarProps) {
   return (
     <div
-      className={`rounded-full flex items-center justify-center text-white font-semibold shrink-0 ${sizes[size]} ${className}`}
-      style={{
-        background: "linear-gradient(135deg, #E94560, #FF6B6B)",
-      }}
+      className={`rounded-full overflow-hidden flex items-center justify-center shrink-0 ${sizes[size]} ${className} border-2 border-white/20 shadow-xl shadow-black/10 bg-white/5 backdrop-blur-sm transition-transform duration-500 hover:scale-105`}
     >
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[60%] h-[60%]">
-        <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="currentColor"/>
-      </svg>
+      <Image
+        src="/assets/Avatar-Ella.png"
+        alt="Ella"
+        width={200}
+        height={200}
+        className="w-full h-full object-cover"
+        priority={size === "xl"}
+      />
     </div>
   );
 }

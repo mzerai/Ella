@@ -36,12 +36,14 @@
     {
       "id": "checkpoint_01",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Pourquoi DQN utilise-t-il un 'Target Network' séparé au lieu de simplement mettre à jour le réseau principal à chaque étape ?",
-        "en": "Why does DQN use a separate 'Target Network' instead of just updating the main network at every step?"
-      },
-      "ella_system_hint": "The goal is stability. If the same network is used for both prediction and target, the target moves every time we update, which can lead to oscillations or divergence. The target network provides a stable learning signal for a fixed period. If the student mentioned 'stability' or 'moving target', they are on the right track.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "The Role of Target Networks",
+          "section_context": "The student learned that DQN uses a secondary Target Network to fix the Q-learning target temporarily, preventing the 'chasing a moving target' instability.",
+          "question_type": "synthesis",
+          "difficulty": "intermediate",
+          "hint": "Check that the student identifies the feedback loop / instability caused by updating the same network used to calculate the target, and how pausing the target weights fixes this.",
+          "anti_gpt_instructions": "Give the student a silly analogy: 'Imagine a dog chasing its own tail versus a dog chasing a stick thrown in the yard.' Ask them to explain exactly how standard Q-learning with a neural network resembles the first dog, and how the Target Network transforms it into the second dog."
+      }
     },
     {
       "id": "content_03",
@@ -58,12 +60,14 @@
     {
       "id": "checkpoint_02",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Quels sont les deux problèmes majeurs que l'Experience Replay tente de résoudre pour permettre aux réseaux de neurones d'apprendre efficacement en RL ?",
-        "en": "What are the two major problems that Experience Replay tries to solve to allow neural networks to learn effectively in RL?"
-      },
-      "ella_system_hint": "They should mention (1) Temporal correlations between consecutive states (breaking long-term trajectories) and (2) Sample efficiency (reusing experiences). If they also mention stability or making data look more i.i.d. (independent and identically distributed), that's excellent.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Experience Replay Mechanisms",
+          "section_context": "The student learned Experience Replay solves two issues: breaking strong temporal correlations between consecutive frames, and improving data efficiency by reusing transitions.",
+          "question_type": "synthesis",
+          "difficulty": "advanced",
+          "hint": "Verify the student mentions both 'breaking temporal correlation' (or i.i.d. assumption) and 'data/sample efficiency' (reusing experience).",
+          "anti_gpt_instructions": "Ask the student to pretend they are teaching a self-driving car to drive. If they don't use Experience Replay, what catastrophic failure might happen when the car drives on a straight highway for 3 hours, and why does drawing random memories from the past week prevent this?"
+      }
     },
     {
       "id": "content_04",
@@ -80,12 +84,14 @@
     {
       "id": "checkpoint_03",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "DQN est clairement excessif (overkill) pour FrozenLake avec seulement 16 états. Alors pourquoi l'enseigner sur ce problème ? Quel est l'intérêt pédagogique ?",
-        "en": "DQN is clearly overkill for FrozenLake with only 16 states. So why teach it on this problem? What is the pedagogical value?"
-      },
-      "ella_system_hint": "Pedagogical reasons: (1) Students already understand the environment from previous modules, so they can focus on what DQN ADDS (neural network, replay, target network) without learning a new environment. (2) They can COMPARE tabular and deep methods on the same problem to see what the network brings and what it costs. (3) FrozenLake is simple enough to debug and visualize — DQN on Atari would be a black box. (4) It builds intuition for WHY these components (replay, target net) exist before scaling to complex environments. If the student mentions 'same environment, focus on new concepts', that's excellent.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Pedagogical Value of DQN on FrozenLake",
+          "section_context": "The student considered why we apply deep learning to a trivial 16-state grid instead of Atari.",
+          "question_type": "synthesis",
+          "difficulty": "intermediate",
+          "hint": "Ensure the student realizes this isolates the complexity: the environment is known and solved, so any failure is purely due to the neural network hyper-parameters, allowing safe experimentation before scaling up.",
+          "anti_gpt_instructions": "Ask the student: 'If I want to teach you how to use a brand new powerful microscope, should I first give you an unknown alien soil sample, or a slide of an onion cell you've seen before?' Map this analogy to the reasons for using FrozenLake to teach DQN."
+      }
     },
     {
       "id": "content_05",
@@ -102,12 +108,14 @@
     {
       "id": "checkpoint_04",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Classe ces 8 algorithmes du plus simple conceptuellement au plus complexe, et justifie ton classement en une phrase pour chacun.",
-        "en": "Rank these 8 algorithms from simplest conceptually to most complex, and justify your ranking with one sentence for each."
-      },
-      "ella_system_hint": "A reasonable ranking (others are acceptable if justified): 1. Policy Evaluation (just apply Bellman equation repeatedly). 2. Value Iteration (PE + max instead of sum). 3. Policy Iteration (VI split into two alternating phases). 4. Monte Carlo (average returns, simple but needs full episodes). 5. TD(0) (MC + bootstrapping idea). 6. SARSA (TD control, uses actual next action). 7. Q-Learning (SARSA + max instead of actual action). 8. Double Q-Learning (Q-Learning + two tables for bias reduction). 9. DQN (Q-Learning + neural network + replay + target network). The student's ranking doesn't have to match exactly — what matters is that they can JUSTIFY each placement. If they put Monte Carlo as simplest, that's defensible too (simplest idea: just average returns).",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Algorithmic Taxonomy",
+          "section_context": "The student must synthesize all 8 algorithms covered in the curriculum: Policy Eval, Value/Policy Iteration, MC, TD(0), SARSA, Q-learning, Double Q-learning, DQN.",
+          "question_type": "synthesis",
+          "difficulty": "mastery",
+          "hint": "The exact order doesn't matter as much as the logical justification. They must name several algorithms and explain their transition (e.g. adding bootstrap, adding control, adding a neural net).",
+          "anti_gpt_instructions": "Present the student with an evolutionary tree. Start with 'Monte Carlo'. Ask them to branch out to the other algorithms based on adding specific features (e.g. 'What if we bootstrap?', 'What if we don't have the model?'). They must mention at least 4 algorithms and map their relationship in this evolutionary tree."
+      }
     },
     {
       "id": "gate_final",

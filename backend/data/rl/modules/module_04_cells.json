@@ -36,12 +36,14 @@
     {
       "id": "checkpoint_01",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "SARSA utilise l'action A' réellement choisie dans sa mise à jour. Pourquoi dit-on que c'est on-policy ? Que signifie ce terme ?",
-        "en": "SARSA uses the actually chosen action A' in its update. Why is it called on-policy? What does this term mean?"
-      },
-      "ella_system_hint": "On-policy means the algorithm learns the value of the SAME policy it uses to generate data. SARSA's target uses Q(S',A') where A' is chosen by the epsilon-greedy policy — so if the policy explores randomly 10% of the time, SARSA learns the value INCLUDING those random explorations. This is different from Q-Learning which learns the value of the OPTIMAL policy regardless of what policy generates the data. If the student says 'it learns what it does', that's the right idea. If they confuse on-policy with 'using the current policy to explore', clarify that on-policy specifically means the VALUE being learned is that of the behavior policy.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "On-Policy vs Off-Policy",
+          "section_context": "The student learned that SARSA is 'on-policy' because its update target uses the action A' actually chosen by the behavior policy, whereas Q-learning uses an idealized max action.",
+          "question_type": "synthesis",
+          "difficulty": "intermediate",
+          "hint": "Check that the student defines 'on-policy' as learning the value of the policy currently driving the agent's behavior (including its random exploratory mistakes).",
+          "anti_gpt_instructions": "Give the student a real-life analogy: 'Learning to ride a bike by observing a professional vs trying it yourself and falling.' Ask them to map the 'on-policy' concept to this analogy and explain why SARSA's target formula reflects 'falling'."
+      }
     },
     {
       "id": "content_03",
@@ -58,12 +60,14 @@
     {
       "id": "checkpoint_02",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Écris les deux cibles (SARSA et Q-Learning) côte à côte et explique la conséquence pratique de cette différence sur FrozenLake glissant.",
-        "en": "Write the two targets (SARSA and Q-Learning) side by side and explain the practical consequence of this difference on slippery FrozenLake."
-      },
-      "ella_system_hint": "SARSA target: R + gamma * Q(S', A') where A' is epsilon-greedy. Q-Learning target: R + gamma * max_a' Q(S', a'). Practical consequence on slippery FrozenLake: SARSA learns a more CAUTIOUS policy because its target includes the possibility of random exploration actions (which could lead to holes). Q-Learning learns a more AGGRESSIVE/OPTIMAL policy because its target always assumes the best action will be taken. On slippery FrozenLake, SARSA often avoids the edge near holes (because exploration could push it in), while Q-Learning goes near edges (assuming optimal moves). If the student writes the formulas correctly and mentions cautious vs aggressive, that's excellent.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "SARSA vs Q-Learning Targets",
+          "section_context": "The student learned that SARSA takes Q(S', A') while Q-Learning takes max_a' Q(S', a'). On slippery FrozenLake, this makes SARSA cautious and Q-Learning aggressively optimal.",
+          "question_type": "analytical_comparison",
+          "difficulty": "advanced",
+          "hint": "Ensure the student correctly writes the algorithmic targets. The practical consequence should highlight how SARSA penalizes states near holes because epsilon-greedy might force a random jump into the hole.",
+          "anti_gpt_instructions": "Ask the student to explicitly write down both the formal mathematical target for SARSA and the target for Q-Learning. Then ask them to explain which of the two would be safer to use to train an expensive physical robot avoiding a cliff, and why."
+      }
     },
     {
       "id": "content_04",
@@ -80,12 +84,14 @@
     {
       "id": "checkpoint_03",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Sur FrozenLake glissant, SARSA apprend une politique plus prudente que Q-Learning. Pourquoi ? Donne un exemple concret d'un état près d'un trou où les deux algorithmes agiraient différemment.",
-        "en": "On slippery FrozenLake, SARSA learns a more cautious policy than Q-Learning. Why? Give a concrete example of a state near a hole where the two algorithms would act differently."
-      },
-      "ella_system_hint": "Example: consider state 6 (just above the hole at state 7, right of hole at state 5). SARSA might learn to go DOWN or LEFT (away from holes) because its Q-values account for the fact that epsilon-greedy sometimes picks random actions that could push into holes. Q-Learning might learn to go RIGHT (toward the goal) because its max assumes the optimal action will be taken. If the surface is slippery, the agent could slip into the hole at state 7 while intending to go right. SARSA's Q-values for 'right' at state 6 would be lower because exploration could cause catastrophic outcomes.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Concrete Behavior on Gridworld",
+          "section_context": "The student learned SARSA steers clear of danger because of exploration noise, whereas Q-Learning hugs the holes because it assumes perfect future action.",
+          "question_type": "scenario_analysis",
+          "difficulty": "advanced",
+          "hint": "The student must describe a grid situation (e.g. state adjacent to a hole) where SARSA actively chooses to move away from the hole while Q-Learning chooses to skirt the edge to reach the goal faster.",
+          "anti_gpt_instructions": "Ask the student to invent a simple 3x3 grid where the top row is safe, the middle row has a hole, and the bottom row is the goal. Ask them to trace exactly what action SARSA would learn to take from the safe row vs what action Q-Learning would learn."
+      }
     },
     {
       "id": "content_05",
@@ -114,22 +120,26 @@
     {
       "id": "checkpoint_04",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Double Q-Learning utilise deux tables Q^A et Q^B. Explique concrètement comment elles interagissent lors d'une mise à jour de Q^A : qui sélectionne l'action, qui l'évalue, et pourquoi cette séparation aide.",
-        "en": "Double Q-Learning uses two tables Q^A and Q^B. Explain concretely how they interact when updating Q^A: who selects the action, who evaluates it, and why this separation helps."
-      },
-      "ella_system_hint": "Q^A selects (argmax over Q^A), Q^B evaluates (Q^B at that action). This helps because: if Q^A(S',a3) is high due to noise (not because a3 is truly good), Q^A will select a3 — but Q^B(S',a3) is likely to have DIFFERENT noise, so it won't confirm the overestimate. Standard Q-Learning would both select AND evaluate with the same Q, so the same noise that caused the overselection also causes the overevaluation. If the student correctly identifies 'Q^A selects, Q^B evaluates, different noise breaks the coupling', that's perfect.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Double Q-Learning Mechanics",
+          "section_context": "The student learned that Double Q-learning prevents maximization bias by using Q^A to select an action and an independent Q^B to evaluate it.",
+          "question_type": "synthesis",
+          "difficulty": "advanced",
+          "hint": "Check that the student correctly distinguishes the 'selection' phase (argmax on one table) from the 'evaluation' phase (using the other table) and explains how this decorrelates the noise.",
+          "anti_gpt_instructions": "Give the student an analogy about two appraisers evaluating a house. One chooses which house to buy, the other sets the price based on their own independent estimate. Ask them to map this exactly to Q^A and Q^B to explain the prevention of maximization bias."
+      }
     },
     {
       "id": "checkpoint_05",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Dans quel cas Double Q-Learning fait une vraie différence par rapport à Q-Learning standard ? Et dans quel cas la différence est-elle négligeable ?",
-        "en": "In what case does Double Q-Learning make a real difference compared to standard Q-Learning? And when is the difference negligible?"
-      },
-      "ella_system_hint": "Big difference: (1) many actions to choose from (more chances for the max to be biased), (2) high noise/stochasticity (early training, slippery environment), (3) similar Q-values for multiple actions (the max picks one randomly). Negligible difference: (1) few actions, (2) deterministic environment, (3) Q-values have already converged (noise is low). On FrozenLake with 4 actions, the effect is moderate; in environments with hundreds of actions, Double Q-Learning is much more important. If the student mentions 'many actions + noise = big difference', that's correct.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "When to Use Double Q-Learning",
+          "section_context": "The student learned Double Q-learning is only significantly beneficial when there are many actions, high stochasticity/noise, or early in training when estimates are uncertain.",
+          "question_type": "synthesis",
+          "difficulty": "intermediate",
+          "hint": "Verify the student realizes that in deterministic environments with few actions, standard Q-Learning is fine, but highly stochastic or high-action-space environments need Double Q-Learning.",
+          "anti_gpt_instructions": "Ask the student to contrast two games: Tic-Tac-Toe and a chaotic 100-player battle royale with randomized loot. Ask them where Double Q-Learning would provide a massive improvement over standard Q-Learning and where the difference would be completely negligible, and why."
+      }
     },
     {
       "id": "gate_final",

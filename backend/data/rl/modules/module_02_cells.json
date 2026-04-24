@@ -36,12 +36,14 @@
     {
       "id": "checkpoint_01",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Policy Evaluation met à jour TOUS les états à chaque itération. Pourquoi est-ce possible ici, alors que dans Q-Learning (que tu verras plus tard), on ne peut mettre à jour qu'un seul état à la fois ?",
-        "en": "Policy Evaluation updates ALL states at each iteration. Why is this possible here, while in Q-Learning (which you'll see later), you can only update one state at a time?"
-      },
-      "ella_system_hint": "The key is that Policy Evaluation has ACCESS TO THE FULL MODEL p(s',r|s,a). With the model, you can compute the expected value for any state without actually visiting it. Q-Learning is model-free — it can only update states it actually visits through interaction. If the student says 'because we know the transition probabilities', that's the right answer. Push them to articulate WHY knowing the model enables full sweeps.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Model-Based Updating",
+          "section_context": "The student learned that Policy Evaluation sweeps across all states simultaneously because it has access to the full model (transition probabilities).",
+          "question_type": "synthesis",
+          "difficulty": "intermediate",
+          "hint": "Check that the student identifies 'access to the full mathematical model / transition probabilities' as the reason we can update without taking physical actions.",
+          "anti_gpt_instructions": "Ask the student to imagine playing a brand new video game they've never seen, vs solving a Sudoku puzzle where the rules are fully known. How does this analogy explain why Policy Evaluation can update 'all states at once' compared to an algorithm that must learn by trial and error?"
+      }
     },
     {
       "id": "content_03",
@@ -58,12 +60,14 @@
     {
       "id": "checkpoint_02",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Policy Iteration converge en très peu de steps d'amélioration (3-6), alors que chaque step contient une évaluation complète coûteuse. Pourquoi si peu de steps suffisent-ils ?",
-        "en": "Policy Iteration converges in very few improvement steps (3-6), even though each step contains a costly full evaluation. Why do so few steps suffice?"
-      },
-      "ella_system_hint": "The key insight is that each improvement step makes the policy strictly better (or leaves it unchanged if already optimal). The space of deterministic policies is finite (|A|^|S|), so the sequence of improving policies must terminate. For FrozenLake 4x4, there are only 4^16 possible policies, and each improvement step picks a better one. If the student mentions 'finite number of policies', that's excellent. If they focus on the evaluation cost instead, redirect: 'You're right that each step is expensive, but WHY does the improvement process converge so fast?'",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Policy Iteration Convergence",
+          "section_context": "The student learned that Policy Iteration converges in very few steps (3-6) because each step makes the policy strictly better in a finite policy space.",
+          "question_type": "synthesis",
+          "difficulty": "advanced",
+          "hint": "Verify they mention that the number of deterministic policies is finite, and each step strictly improves the policy (or stops), leading to rapid convergence in the outer loop.",
+          "anti_gpt_instructions": "Give the student a theoretical maze with 10 states and 4 actions. Ask them exactly how many deterministic policies exist in total. Then ask them to explain mathematically why Policy Iteration bounds the number of improvement steps by that number."
+      }
     },
     {
       "id": "content_04",
@@ -80,12 +84,14 @@
     {
       "id": "checkpoint_03",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Quelle est LA différence clé entre la mise à jour de Policy Evaluation et celle de Value Iteration ? Écris les deux formules et montre précisément où elles diffèrent.",
-        "en": "What is THE key difference between the Policy Evaluation update and the Value Iteration update? Write both formulas and show precisely where they differ."
-      },
-      "ella_system_hint": "PE: V(s) = sum_a pi(a|s) * sum p(s',r|s,a)[r + gamma*V(s')]. VI: V(s) = max_a sum p(s',r|s,a)[r + gamma*V(s')]. The only difference is sum_a pi(a|s) vs max_a. PE averages over the policy, VI takes the best action. If the student writes both formulas correctly and identifies the sum-vs-max difference, that's perfect. If they only describe it in words, ask them to write the actual formulas.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Value Iteration vs Policy Evaluation",
+          "section_context": "The student learned the mathematical difference: Policy Evaluation averages over the current policy, while Value Iteration takes the max over all actions.",
+          "question_type": "analyze_flawed_examples",
+          "difficulty": "advanced",
+          "hint": "Ensure the student correctly writes the 'sum' for PE and the 'max' for VI, identifying the exact mathematical separation between evaluating a policy vs finding the optimal one.",
+          "anti_gpt_instructions": "Present the student with a flawed equation that mixes both max and sum incorrectly. Ask them to write the correct Policy Evaluation update equation and the correct Value Iteration update equation, highlighting exactly where they differ."
+      }
     },
     {
       "id": "content_05",
@@ -102,12 +108,14 @@
     {
       "id": "checkpoint_04",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Value Iteration ne fait-elle pas aussi, implicitement, une forme d'amélioration de politique à chaque itération ? Explique ta réponse.",
-        "en": "Doesn't Value Iteration also implicitly perform a form of policy improvement at each iteration? Explain your answer."
-      },
-      "ella_system_hint": "Yes! Value Iteration can be seen as doing one sweep of policy evaluation followed by policy improvement at each step. The max operator implicitly improves the policy. In fact, VI is equivalent to PI with truncated evaluation (just 1 sweep instead of full convergence). This is a subtle but important insight. If the student says 'yes because the max picks the best action', praise them and deepen: 'So what's the actual difference between PI and VI then?' The answer: PI does FULL evaluation before each improvement, VI does just ONE sweep.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Implicit Policy Improvement in VI",
+          "section_context": "The student learned that Value Iteration is essentially Policy Iteration but with evaluation truncated to a single sweep, implicitly improving the policy via the max operator.",
+          "question_type": "synthesis",
+          "difficulty": "advanced",
+          "hint": "Check that the student realizes the max operator in VI fundamentally acts as an immediate policy improvement step.",
+          "anti_gpt_instructions": "Ask the student to defend the following controversial statement: 'Value Iteration is basically just Policy Iteration for impatient people who don't want to finish their math.' They must explain how VI truncates the evaluation step."
+      }
     },
     {
       "id": "gate_final",

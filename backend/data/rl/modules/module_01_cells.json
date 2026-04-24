@@ -24,12 +24,14 @@
     {
       "id": "checkpoint_01",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Avant de continuer, explique-moi dans tes propres mots : pourquoi le facteur d'actualisation γ est-il nécessaire ? Que se passerait-il si γ = 1 dans une tâche qui ne se termine jamais ?",
-        "en": "Before we continue, explain in your own words: why is the discount factor γ necessary? What would happen if γ = 1 in a task that never ends?"
-      },
-      "ella_system_hint": "The student should explain that gamma prevents infinite sums when the task is infinite-horizon. If gamma=1 and the task never ends, the sum of rewards could be infinite and the value function undefined. Accept also if they mention that gamma controls the trade-off between short-term and long-term thinking. If they only say 'it makes future rewards smaller' without explaining WHY that matters, gently push for the deeper reason.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "The Discount Factor (Gamma)",
+          "section_context": "The student learned that gamma discounts future rewards, preventing infinite sums and controlling how far-sighted the agent is.",
+          "question_type": "synthesis",
+          "difficulty": "intermediate",
+          "hint": "Check that the student explains that without gamma, we'd have infinite sums. Gamma controls the balance between short-term vs long-term focus.",
+          "anti_gpt_instructions": "Ask the student to imagine a hyper-specific game (e.g., an agent investing in a volatile stock market). If the agent uses gamma = 0, what exact behavior would it exhibit? What if gamma = 0.99? Ask them to explain why gamma=1 would break the math entirely if the stock market runs forever."
+      }
     },
     {
       "id": "content_02",
@@ -58,12 +60,14 @@
     {
       "id": "checkpoint_02",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "La dérivation de l'équation de Bellman utilise 4 ingrédients mathématiques. Peux-tu les nommer et expliquer le rôle de chacun ?",
-        "en": "The derivation of the Bellman equation uses 4 mathematical ingredients. Can you name them and explain the role of each?"
-      },
-      "ella_system_hint": "The student should name: (1) return decomposition G_t = R_{t+1} + gamma*G_{t+1}, (2) linearity of conditional expectation, (3) law of total expectation (to introduce the action and next state into the sum), (4) Markov property (to replace E[G_{t+1}|S_{t+1}=s'] by v_pi(s')). If they get 3 out of 4, praise them and hint at the missing one. The Markov property is the most commonly forgotten — if they miss it, ask: 'What allows us to say that the future only depends on the next state?'",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Bellman Derivation Ingredients",
+          "section_context": "The student learned the 4 mathematical ingredients to derive the Bellman equation: return decomposition, linearity of expectation, law of total expectation, and the Markov property.",
+          "question_type": "synthesis",
+          "difficulty": "advanced",
+          "hint": "The student must explicitly identify at least 3 of the 4 principles (Return Decomp, Linearity, Total Expectation, Markov Property) and explain what they *do* in the derivation.",
+          "anti_gpt_instructions": "Present the student with a 'summary' of the Bellman derivation that intentionally omits the 'Law of Total Expectation' and the 'Markov Property'. Ask the student to identify exactly what mathematical steps were skipped and explain why they are critical."
+      }
     },
     {
       "id": "content_04",
@@ -80,12 +84,14 @@
     {
       "id": "checkpoint_03",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Quelle est la différence fondamentale entre v_π(s) et q_π(s, a) ? Et si la politique π est déterministe (elle choisit toujours la même action dans chaque état), que devient la relation entre les deux ?",
-        "en": "What is the fundamental difference between v_π(s) and q_π(s, a)? And if policy π is deterministic (always choosing the same action in each state), what does the relationship between them become?"
-      },
-      "ella_system_hint": "The student should explain that v_pi averages over actions while q_pi conditions on a specific action. For a deterministic policy pi(s) = a*, the relationship simplifies to v_pi(s) = q_pi(s, a*) because the sum collapses to a single term with probability 1. If they don't mention the deterministic case, guide them: 'What happens to the sum when pi assigns probability 1 to a single action?'",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "State Value vs Action Value",
+          "section_context": "The student learned that V(s) averages over all actions, whereas Q(s,a) fixes a specific action before following the policy.",
+          "question_type": "synthesis",
+          "difficulty": "intermediate",
+          "hint": "Check that the student correctly identifies that V(s) is an expectation over the policy's action distribution, while Q(s,a) measures a single committed action.",
+          "anti_gpt_instructions": "Give the student a specific analogy: 'Imagine V(s) is the average score of a tennis player over a season. What would Q(s,a) represent in this analogy, specifically if action *a* is choosing to serve aggressively on every first point? How do the two relate if the player decides to *always* serve aggressively?'"
+      }
     },
     {
       "id": "content_05",
@@ -102,12 +108,14 @@
     {
       "id": "checkpoint_04",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Pourquoi la propriété de Markov est-elle indispensable pour arriver à l'équation de Bellman ? Que se passerait-il si l'environnement n'était PAS markovien ?",
-        "en": "Why is the Markov property essential to arrive at the Bellman equation? What would happen if the environment were NOT Markovian?"
-      },
-      "ella_system_hint": "The student should explain that the Markov property allows us to replace E[G_{t+1}|S_t,A_t,S_{t+1}] by E[G_{t+1}|S_{t+1}] = v_pi(s'). Without it, the future return would depend on the entire history, not just the current state, and we couldn't write the recursive equation v(s) = f(v(s')). If they mention 'the future would depend on the past', that's correct. If they give a vague answer, ask them to be specific about which step in the derivation would break.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "The Markov Property in Bellman",
+          "section_context": "The student learned that the Markov property lets us substitute the expectation of future returns given the next state with the value of that state.",
+          "question_type": "synthesis",
+          "difficulty": "advanced",
+          "hint": "Verify they understand that without the Markov property, V(s') wouldn't encapsulate the full future value, because the history would still matter.",
+          "anti_gpt_instructions": "Ask the student to explain the Markov property by inventing a simple board game where the Markov property is explicitly VIOLATED (e.g., your next move depends on the last 3 cards drawn). Ask them to explain mathematically why we cannot write v(s) = f(v(s')) for this game."
+      }
     },
     {
       "id": "content_06",
@@ -124,12 +132,14 @@
     {
       "id": "checkpoint_05",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Petit exercice : si q_π(s, droite) = 0.8 et q_π(s, gauche) = 0.2, et la politique π choisit 50/50 entre droite et gauche, que vaut v_π(s) ? Et si π était gloutonne (100% sur la meilleure action) ?",
-        "en": "Quick exercise: if q_π(s, right) = 0.8 and q_π(s, left) = 0.2, and policy π chooses 50/50 between right and left, what is v_π(s)? And what if π were greedy (100% on the best action)?"
-      },
-      "ella_system_hint": "With 50/50 policy: v_pi(s) = 0.5 * 0.8 + 0.5 * 0.2 = 0.5. With greedy policy: v_pi(s) = 1.0 * 0.8 = 0.8. The key insight is that the greedy policy extracts more value because it always picks the better action. If the student gets the numbers right, ask them: 'What does this tell you about the difference between a random policy and a greedy policy?' If they struggle with the calculation, remind them of the formula v_pi(s) = sum_a pi(a|s) * q_pi(s,a).",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Calculating V(s) from Q(s,a)",
+          "section_context": "The student must manually calculate V(s) given Q values and a policy distribution (random vs greedy).",
+          "question_type": "solve_problem",
+          "difficulty": "advanced",
+          "hint": "Verify the calculation: V(s) = sum(pi * q). A 50/50 split yields the average. A greedy policy yields the max Q. The student must show the math.",
+          "anti_gpt_instructions": "Invent a scenario with 3 actions (e.g. 3 doors to open). Give them pseudo-random Q-values (like 0.1, 0.9, -0.5). Ask them to calculate V(s) if the policy is 33/33/33, and then calculate V(s) if the policy is epsilon-greedy with epsilon=0.1. They MUST show their calculation steps."
+      }
     },
     {
       "id": "gate_final",

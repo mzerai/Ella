@@ -246,3 +246,93 @@ export async function healthCheck(): Promise<{
 }> {
   return apiFetch("/health");
 }
+
+// ============================================
+// Checkpoint Progress API (authenticated)
+// ============================================
+
+import { createClient } from "@/lib/supabase";
+
+export interface CheckpointProgressItem {
+  checkpoint_id: string;
+  dynamic_question: string;
+  student_response: string;
+  ella_feedback: string;
+  passed: boolean;
+  attempts: number;
+}
+
+export interface CheckpointSavePayload {
+  course_id: string;
+  module_id: string;
+  checkpoint_id: string;
+  dynamic_question?: string;
+  student_response?: string;
+  ella_feedback?: string;
+  passed?: boolean;
+  attempts?: number;
+}
+
+/**
+ * Authenticated fetch — injects Supabase JWT.
+ * Degrades gracefully: returns fallback if user is not logged in.
+ */
+async function authFetch<T>(
+  endpoint: string,
+  options?: RequestInit,
+  fallback?: T
+): Promise<T> {
+  const supabase = createClient();
+  const { data: { session } } = await supabase.auth.getSession();
+  const token = session?.access_token;
+
+  if (!token) {
+    // Not logged in — return empty fallback, no crash
+    return (fallback ?? {}) as T;
+  }
+
+  const url = `${API_BASE_URL}${endpoint}`;
+  const response = await fetch(url, {
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+      ...options?.headers,
+    },
+    ...options,
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(
+      errorData.detail || `API error: ${response.status} ${response.statusText}`
+    );
+  }
+
+  return response.json();
+}
+
+export async function fetchLessonProgress(
+  courseId: string,
+  moduleId: string
+): Promise<{ checkpoints: CheckpointProgressItem[] }> {
+  return authFetch<{ checkpoints: CheckpointProgressItem[] }>(
+    `/api/progress/checkpoints/${courseId}/${moduleId}`,
+    undefined,
+    { checkpoints: [] }
+  );
+}
+
+export async function saveCheckpointProgress(
+  data: CheckpointSavePayload
+): Promise<void> {
+  try {
+    await authFetch("/api/progress/checkpoints", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  } catch (err) {
+    // Fire-and-forget: don't block the UI if save fails
+    console.warn("Failed to save checkpoint progress:", err);
+  }
+}

@@ -36,12 +36,14 @@
     {
       "id": "checkpoint_01",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Monte Carlo doit attendre la fin d'un épisode complet pour mettre à jour les estimations. Pourquoi cette contrainte ? Et quel problème cela pose-t-il pour des environnements à épisodes très longs ?",
-        "en": "Monte Carlo must wait until the end of a complete episode to update estimates. Why this constraint? And what problem does this create for environments with very long episodes?"
-      },
-      "ella_system_hint": "MC needs the full episode because G_t = R_{t+1} + gamma*R_{t+2} + ... + gamma^{T-t-1}*R_T requires knowing ALL future rewards until termination. For long episodes, this means: (1) slow learning — no updates until the episode ends, (2) high variance — G_t includes many random transitions, (3) impossible for continuing tasks that never terminate. If the student only mentions 'it needs the full return', push them on the practical consequences.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Monte Carlo's End-of-Episode Constraint",
+          "section_context": "The student learned that Monte Carlo must wait until an episode fully finishes to observe the actual total return (G_t) before it can update.",
+          "question_type": "apply_to_personal_context",
+          "difficulty": "intermediate",
+          "hint": "Ensure the student identifies the delay in receiving feedback, and mathematically how G_t is constructed (requiring the end).",
+          "anti_gpt_instructions": "Ask the student to imagine trying to learn how to play a 4-hour game of Monopoly using pure Monte Carlo. What exact moment does the agent learn anything, and why would this make learning incredibly slow or impossible if the game dragged on forever?"
+      }
     },
     {
       "id": "content_03",
@@ -58,12 +60,14 @@
     {
       "id": "checkpoint_02",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Le bootstrapping est à la fois un avantage et un risque. Explique pourquoi : quel avantage apporte-t-il par rapport à MC, et quel risque introduit-il ?",
-        "en": "Bootstrapping is both an advantage and a risk. Explain why: what advantage does it bring over MC, and what risk does it introduce?"
-      },
-      "ella_system_hint": "Advantage: you can update at every step (no need to wait for episode end), which means faster learning and ability to work with continuing tasks. Risk: the update depends on V(S_{t+1}) which is itself an ESTIMATE, not the true value. This introduces BIAS — the update might push V in the wrong direction if V(S_{t+1}) is inaccurate. MC uses the true return G_t (no bias) but high variance. TD has bias but lower variance. If the student mentions speed but not bias, ask: 'But what if V(S_{t+1}) is wrong?'",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "The Concept of Bootstrapping",
+          "section_context": "The student learned that TD(0) 'bootstraps' by using its own current estimate V(s') to update V(s), trading off potential bias for the ability to update immediately.",
+          "question_type": "synthesis",
+          "difficulty": "advanced",
+          "hint": "Check that the student correctly identifies both the speed/availability advantage of bootstrapping, and the bias/inaccuracy risk of using a guess to update a guess.",
+          "anti_gpt_instructions": "Give the student a real-life analogy: 'Predicting your final exam score based on your midterm score, instead of waiting for the end of the year.' Ask them to explain how this analogy maps to TD(0) bootstrapping. What is the fundamental risk of doing this?"
+      }
     },
     {
       "id": "content_04",
@@ -80,12 +84,14 @@
     {
       "id": "checkpoint_03",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "MC est sans biais mais à haute variance. TD(0) a du biais mais moins de variance. Explique concrètement pourquoi G_t a plus de variance que la cible TD R_{t+1} + γV(S_{t+1}).",
-        "en": "MC is unbiased but high variance. TD(0) is biased but low variance. Explain concretely why G_t has more variance than the TD target R_{t+1} + γV(S_{t+1})."
-      },
-      "ella_system_hint": "G_t = R_{t+1} + gamma*R_{t+2} + gamma^2*R_{t+3} + ... depends on ALL future rewards — each R is a random variable, and their variances add up. The TD target R_{t+1} + gamma*V(S_{t+1}) depends on only ONE random reward R_{t+1} and ONE random next state S_{t+1}. V(S_{t+1}) is treated as approximately fixed. So: many random variables vs. one random variable = more variance vs. less variance. If the student gives a vague answer, ask: 'How many random variables does G_t depend on vs. the TD target?'",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Variance: TD vs MC",
+          "section_context": "The student learned that MC has high variance because it sums up many random rewards across a full trajectory, while TD(0) has low variance because it only relies on one step of randomness.",
+          "question_type": "analyze_flawed_examples",
+          "difficulty": "advanced",
+          "hint": "Verify the student understands that variance is additive across random variables. G_t is a sum of many random steps, whereas the TD target truncates the randomness to a single transition.",
+          "anti_gpt_instructions": "Present the student with a flawed statement: 'TD(0) has MORE variance than Monte Carlo because it guesses the future, and guesses are very random.' Ask the student to correct this statement using mathematical terms relating to the composition of G_t versus the TD target."
+      }
     },
     {
       "id": "content_05",
@@ -102,12 +108,14 @@
     {
       "id": "checkpoint_04",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Sur FrozenLake en mode glissant, TD(0) converge généralement plus vite que MC. Pourquoi le mode glissant amplifie-t-il l'avantage de TD ?",
-        "en": "On slippery FrozenLake, TD(0) generally converges faster than MC. Why does slippery mode amplify TD's advantage?"
-      },
-      "ella_system_hint": "Slippery mode makes transitions stochastic (1/3 intended, 1/3 left, 1/3 right). This increases the variance of G_t dramatically — each step adds randomness, and over a full episode, this compounds. MC uses G_t directly, so it suffers from this compounded variance. TD(0) only uses one transition at a time, so the extra randomness per step is manageable. The advantage is proportional to the stochasticity of the environment. If the student says 'more randomness = more variance in G_t', that's correct. Push for WHY TD is less affected.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Slippery Mode Impact on Variance",
+          "section_context": "The student learned that in highly stochastic environments, the variance of MC compounded over the episode becomes extremely problematic compared to the single-step variance of TD(0).",
+          "question_type": "synthesis",
+          "difficulty": "intermediate",
+          "hint": "Check that the student identifies that slipping adds massive randomness to the trajectory length and sequence, exploding the variance of G_t.",
+          "anti_gpt_instructions": "Ask the student to imagine playing FrozenLake on a grid made of perfect ice (slippery = False) vs a grid made of pure soap (slippery = True, high slipping probability). Why exactly does the soap grid make Monte Carlo learning almost impossible to stabilize compared to TD(0)?"
+      }
     },
     {
       "id": "gate_final",

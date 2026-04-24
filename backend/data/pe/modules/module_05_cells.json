@@ -18,12 +18,14 @@
     {
       "id": "checkpoint_01",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Donne-moi un exemple concret de ton domaine (engineering ou business) où tu aurais besoin que le LLM retourne du JSON au lieu de texte libre. Décris les champs que le JSON devrait contenir.",
-        "en": "Give me a concrete example from your domain (engineering or business) where you'd need the LLM to return JSON instead of free text. Describe the fields the JSON should contain."
-      },
-      "ella_system_hint": "Engineering examples: bug report parsing (severity, component, description), code review results (file, line, issue, fix_suggestion), API log analysis. Business examples: customer feedback classification (sentiment, topic, urgency), invoice extraction (vendor, amount, date, currency). Praise specificity. If they give field names AND types, that's advanced thinking.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "The Need for Structured Output",
+          "section_context": "The student learned that free text cannot be parsed by programs, and structured output (JSON, CSV) is required to build reliable software pipelines.",
+          "question_type": "apply_to_personal_context",
+          "difficulty": "beginner",
+          "hint": "Check that the student invents a scenario where data must be extracted or generated, and lists at least 3 concrete, specific fields their application would need.",
+          "anti_gpt_instructions": "Ask the student to invent a completely new software application idea (e.g. an AI that summarizes long podcasts into flashcards). Then ask them to define exactly why that app needs JSON returns from the LLM, and to list the specific fields it would request."
+      }
     },
     {
       "id": "content_02",
@@ -46,12 +48,14 @@
     {
       "id": "checkpoint_02",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Écris un prompt qui combine les 4 techniques pour extraire des informations d'une description de produit. Le JSON doit contenir : name (string), price (number), currency (string, enum: EUR/USD/TND), features (array of strings). Utilise un schéma ET un exemple.",
-        "en": "Write a prompt combining all 4 techniques to extract info from a product description. The JSON must contain: name (string), price (number), currency (string, enum: EUR/USD/TND), features (array of strings). Use both a schema AND an example."
-      },
-      "ella_system_hint": "A perfect answer combines: 1) 'Respond only in valid JSON' (technique 1), 2) field definitions with types (technique 2), 3) a concrete example JSON (technique 3), 4) optionally a system prompt framing (technique 4). Key checks: price must be number not string, currency must be enum, features must be array. If they include 'directly parsable by json.loads()' or 'no text outside JSON', that's excellent.",
-      "mode": "rewrite"
+      "checkpoint_config": {
+          "topic": "The 4 Techniques for JSON Formatting",
+          "section_context": "The student learned 4 techniques: Direct instruction, Explicit Schema, Concrete Example, and Dedicated System Prompt.",
+          "question_type": "synthesis",
+          "difficulty": "advanced",
+          "hint": "Make sure the student's prompt uses Direct instruction (e.g., 'Respond only in valid JSON'), Explicit schema (types defined), and a Concrete Example in JSON format.",
+          "anti_gpt_instructions": "Based on the software application they just invented in the previous question, ask them to write the actual prompt to the LLM to generate the JSON. They must combine at least 3 of the 4 techniques (instruction, schema, example)."
+      }
     },
     {
       "id": "content_03",
@@ -65,12 +69,14 @@
     {
       "id": "checkpoint_03",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Voici un prompt : \"Extrais les infos du produit en JSON.\" \n\nCe prompt va provoquer au moins 3 des 5 erreurs courantes. Lesquelles ? Réécris-le pour les prévenir toutes.",
-        "en": "Here's a prompt: \"Extract product info as JSON.\"\n\nThis prompt will trigger at least 3 of the 5 common errors. Which ones? Rewrite it to prevent all of them."
-      },
-      "ella_system_hint": "This prompt risks: Error 1 (text before JSON — no 'only JSON' instruction), Error 2 (backticks — no 'no markdown' instruction), Error 3 (wrong types — no schema), Error 4 (missing fields — no null instruction), Error 5 (extra fields — no field restriction). A good rewrite specifies all fields with types, adds 'only JSON, no markdown, no extra text', defines null handling, and restricts to listed fields. Praise comprehensive rewrites.",
-      "mode": "rewrite"
+      "checkpoint_config": {
+          "topic": "JSON Failure Modes",
+          "section_context": "The student learned about 5 common errors: Text before/after, Markdown backticks, Incorrect types, Missing fields, and Invented fields.",
+          "question_type": "analyze_flawed_examples",
+          "difficulty": "intermediate",
+          "hint": "Ensure the student identifies failure modes like 'adding text before the JSON' or 'using markdown backticks' and introduces explicit prompt constraints to prevent them.",
+          "anti_gpt_instructions": "Provide a terrible, naive prompt like 'Make me a JSON about dogs'. Ask the student to identify 3 specific technical failures (from the 5 errors) the LLM might make, and then rewrite the prompt to prevent them."
+      }
     },
     {
       "id": "content_04",
@@ -84,12 +90,14 @@
     {
       "id": "checkpoint_04",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Écris un prompt qui génère exactement 5 lignes de CSV pour un dataset de classification de sentiment. Colonnes : text, sentiment, confidence. Les sentiments doivent être variés (positif, négatif, neutre). Le confidence doit être un nombre entre 0 et 1.",
-        "en": "Write a prompt that generates exactly 5 rows of CSV for a sentiment classification dataset. Columns: text, sentiment, confidence. Sentiments must be varied (positive, negative, neutral). Confidence must be a number between 0 and 1."
-      },
-      "ella_system_hint": "Check: 1) Explicit column names, 2) Exact row count (5), 3) Sentiment values constrained to positive/negative/neutral, 4) Confidence as decimal 0-1, 5) 'No text outside CSV'. Common mistake: not specifying header row, not constraining sentiment values, confidence as percentage instead of decimal. Praise if they add 'include header row' and 'comma separator'.",
-      "mode": "rewrite"
+      "checkpoint_config": {
+          "topic": "Beyond JSON (CSV)",
+          "section_context": "The student learned about using CSV for generating datasets and markdown tables for report readability.",
+          "question_type": "apply_to_personal_context",
+          "difficulty": "advanced",
+          "hint": "Check that the student includes explicit column names, strict row count, and a strict rule forbidding text outside the CSV.",
+          "anti_gpt_instructions": "Ask the student to write a prompt that generates a mock CSV dataset (exactly 5 columns, exactly 4 rows) for a fictional 'Superhero rating' platform. It must prevent any conversational filler."
+      }
     },
     {
       "id": "gate_final",

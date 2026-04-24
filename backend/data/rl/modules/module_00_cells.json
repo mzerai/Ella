@@ -24,12 +24,14 @@
     {
       "id": "checkpoint_01",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Quelle est la différence fondamentale entre l'apprentissage supervisé et le Reinforcement Learning ? Pourquoi ne peut-on pas simplement utiliser du supervisé pour entraîner un agent RL ?",
-        "en": "What is the fundamental difference between supervised learning and Reinforcement Learning? Why can't we simply use supervised learning to train an RL agent?"
-      },
-      "ella_system_hint": "The key differences: (1) In supervised learning, you have the correct answer for each input. In RL, you only get a reward signal that may be delayed — you don't know what the 'right' action was. (2) In supervised learning, samples are independent. In RL, the agent's actions affect future states — there's a feedback loop. (3) In RL, the agent must explore to discover good strategies — in supervised learning, the training data is given. If the student mentions the credit assignment problem (which action caused the reward?), praise them. If they only say 'no labels', push deeper: 'But what about the rewards? Aren't those a form of label?'",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Supervised Learning vs RL",
+          "section_context": "The student learned that supervised learning has direct labels (the correct answer), while RL only has delayed rewards (feedback) and requires exploration through trial and error.",
+          "question_type": "apply_to_personal_context",
+          "difficulty": "beginner",
+          "hint": "Check that the student identifies the lack of an 'optimal dataset' beforehand, the need to explore interactions, and the concept of delayed reward.",
+          "anti_gpt_instructions": "Give the student a brand new scenario (e.g. teaching a drone to balance in a wind tunnel) and ask them to explain exactly why supervised learning would fail here, and why it must be framed as a Reinforcement Learning problem."
+      }
     },
     {
       "id": "content_02",
@@ -58,12 +60,14 @@
     {
       "id": "checkpoint_02",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Choisis un des breakthroughs ci-dessus (AlphaGo, AlphaZero, DQN, RLHF, robotique, ou véhicules autonomes) et explique en quoi le RL était indispensable — pourquoi le supervised learning seul n'aurait pas suffi pour ce cas précis.",
-        "en": "Choose one of the breakthroughs above (AlphaGo, AlphaZero, DQN, RLHF, robotics, or autonomous vehicles) and explain why RL was essential — why supervised learning alone wouldn't have been enough for that specific case."
-      },
-      "ella_system_hint": "Good answers by breakthrough: AlphaGo/AlphaZero — no dataset of 'optimal moves' exists (Go is too complex), self-play generates its own training data. DQN — no human labeling possible for every frame of every game; the reward signal (score) is the only feedback. RLHF — human preferences are relative (A is better than B), not absolute labels; RL optimizes for a learned reward model. Robotics — sim-to-real requires adaptation; supervised learning would need manual annotation of every correct movement. Autonomous vehicles — driving involves sequential decisions where actions affect future states. Accept any well-reasoned answer. If the student gives a superficial answer, push: 'What specifically about this problem makes supervised learning insufficient?'",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "Real World RL Breakthroughs",
+          "section_context": "The student learned about DQN, AlphaGo, AlphaZero, Robotics, Autonomous Vehicles, and RLHF in LLMs.",
+          "question_type": "synthesis",
+          "difficulty": "intermediate",
+          "hint": "Ensure the student demonstrates understanding of why RL was *necessary* (no massive dataset of perfect human plays, or the need to learn from interaction/preferences) over supervised learning.",
+          "anti_gpt_instructions": "Ask the student to pick ONE of the breakthroughs discussed (AlphaGo, DQN, RLHF, etc.) and explain what the 'reward' actually was in that specific case, and how the system explored to find a better strategy."
+      }
     },
     {
       "id": "content_04",
@@ -80,12 +84,14 @@
     {
       "id": "checkpoint_03",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Classe les algorithmes suivants selon les 4 axes de la taxonomie : Q-Learning, Policy Iteration, PPO, DQN. Pour chacun, indique s'il est model-based ou free, value-based ou policy-based, on-policy ou off-policy, tabulaire ou approximation.",
-        "en": "Classify the following algorithms along the 4 taxonomy axes: Q-Learning, Policy Iteration, PPO, DQN. For each, indicate if it's model-based or free, value-based or policy-based, on-policy or off-policy, tabular or approximation."
-      },
-      "ella_system_hint": "Q-Learning: model-free, value-based, off-policy, tabular. Policy Iteration: model-based, value-based (uses V and Q), N/A for on/off-policy (it's planning, not learning), tabular. PPO: model-free, actor-critic (both policy and value), on-policy, function approximation. DQN: model-free, value-based, off-policy, function approximation (neural network). Common mistakes: students may say Policy Iteration is off-policy (it's neither — it uses the model directly), or that PPO is value-based (it has a value critic but optimizes the POLICY). If the student gets 3 out of 4 algorithms right, that's great.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "RL Algorithm Taxonomy",
+          "section_context": "The student learned axes: Model-Based vs Model-Free, Value/Policy/Actor-Critic, On-Policy vs Off-Policy, Tabular vs Function Approximation.",
+          "question_type": "synthesis",
+          "difficulty": "advanced",
+          "hint": "Check that the student correctly classifies the given hypothetical algorithm across all 4 axes.",
+          "anti_gpt_instructions": "Invent a fictional RL algorithm (e.g., 'NeuroPath-Q') that learns a Q-value table by interacting directly with the world using a neural network and reusing old memories. Ask the student to classify this algorithm across the 4 taxonomy axes based on its description."
+      }
     },
     {
       "id": "content_05",
@@ -102,12 +108,14 @@
     {
       "id": "checkpoint_04",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Dernière question avant de commencer : dans la taxonomie des algorithmes RL, où se situe FrozenLake comme environnement ? Est-ce un problème avec modèle connu ou inconnu ? Discret ou continu ? Épisodique ou continu ? Et pourquoi est-ce un bon choix pour apprendre le RL ?",
-        "en": "Last question before we start: in the RL taxonomy, where does FrozenLake sit as an environment? Is it a known or unknown model problem? Discrete or continuous? Episodic or continuing? And why is it a good choice for learning RL?"
-      },
-      "ella_system_hint": "FrozenLake: (1) The model CAN be known (env.P gives all transitions) but we can also CHOOSE to ignore it and learn model-free — this is what makes it great for teaching both approaches. (2) Discrete states (16) and discrete actions (4). (3) Episodic — each episode ends when the agent reaches the goal or falls in a hole. (4) Good for learning because: small enough to visualize completely, supports both model-based and model-free, the slippery mode introduces stochasticity, and all 8 algorithms can be demonstrated on it. If the student mentions that FrozenLake bridges model-based and model-free, that's excellent insight.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "FrozenLake Environment Classification",
+          "section_context": "The student learned that the course will use FrozenLake, a 4x4 grid maze, to teach both model-based and model-free tabular RL.",
+          "question_type": "synthesis",
+          "difficulty": "beginner",
+          "hint": "Ensure the student identifies FrozenLake as: Discrete states/actions, Episodic, and capable of being tackled both with known or unknown models. It's a great baseline because it fits entirely in a small table.",
+          "anti_gpt_instructions": "Ask the student: If you were to map the FrozenLake environment to the taxonomy vocabulary you just learned, what words would you use to describe the environment itself (Discrete/Continuous? Episodic/Continuing?) and why is it the perfect 'hello world' for RL?"
+      }
     },
     {
       "id": "gate_final",

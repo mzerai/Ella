@@ -18,12 +18,14 @@
     {
       "id": "checkpoint_01",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Résous le problème du magasin (120€, -25%, +10% taxe) toi-même, étape par étape. Puis explique pourquoi un LLM sans CoT pourrait se tromper — quel raccourci prendrait-il ?",
-        "en": "Solve the store problem (€120, -25%, +10% tax) yourself, step by step. Then explain why an LLM without CoT might get it wrong — what shortcut would it take?"
-      },
-      "ella_system_hint": "Correct: 120 × 0.75 = 90, then 90 × 1.10 = 99€. Common LLM mistake: applying 25%-10%=15% discount → 120 × 0.85 = 102€ (wrong — tax on reduced price, not on original). Praise if they get 99€. If they get 102€, explain the error gently — it proves the point about shortcuts!",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "LLM Shortcuts and Math",
+          "section_context": "The student learned that LLMs fail complex math problems because they try to jump straight to the answer without intermediate steps, just like humans doing mental math.",
+          "question_type": "synthesis",
+          "difficulty": "intermediate",
+          "hint": "Ensure the student calculates the final price step by step (e.g. 120 -> minus discount -> plus tax). They must also explain that passing over steps is the core issue for LLMs.",
+          "anti_gpt_instructions": "Give the student a new, similar math problem (e.g., buying 3 items with a bulk discount and shipping fee) and ask them to solve it step-by-step AND explain why an LLM would fail if asked for just the final answer."
+      }
     },
     {
       "id": "content_02",
@@ -46,12 +48,14 @@
     {
       "id": "checkpoint_02",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Écris un prompt de Niveau 2 (étapes imposées) pour résoudre ce problème : \"Une entreprise a 150 employés. 60% sont en CDI, les autres en CDD. Les CDI coûtent 45 000€/an, les CDD 30 000€/an. Quel est le budget salarial total ?\" Impose au moins 4 étapes.",
-        "en": "Write a Level 2 prompt (imposed steps) to solve this: \"A company has 150 employees. 60% are permanent, the rest are temporary. Permanent employees cost €45,000/year, temporary €30,000/year. What's the total salary budget?\" Impose at least 4 steps."
-      },
-      "ella_system_hint": "Good steps: 1) Calculate permanent count (150 × 0.60 = 90), 2) Calculate temporary count (150 - 90 = 60), 3) Calculate permanent cost (90 × 45000), 4) Calculate temporary cost (60 × 30000), 5) Sum total, 6) Verify. Answer: 4,050,000 + 1,800,000 = 5,850,000€. Praise if they include a verification step. If they forget step 2 (calculating temp count), point it out.",
-      "mode": "rewrite"
+      "checkpoint_config": {
+          "topic": "Level 2 CoT: Imposed Steps",
+          "section_context": "The student learned that Level 2 CoT involves explicitly defining the stages (1. 2. 3. 4.) an LLM must follow to arrive at a solution.",
+          "question_type": "apply_to_personal_context",
+          "difficulty": "advanced",
+          "hint": "Check that the student provides a prompt containing explicit, numbered instructions (at least 3 steps) and ends with a validation or final answer step.",
+          "anti_gpt_instructions": "Invent a complex logic or math puzzle (e.g. regarding scheduling shifts or calculating a tech project's budget). Ask the student to write a Level 2 CoT prompt to solve it, imposing exactly 4 steps."
+      }
     },
     {
       "id": "content_03",
@@ -65,12 +69,14 @@
     {
       "id": "checkpoint_03",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Choisis un domaine qui t'intéresse (code, business, science, droit...) et écris un prompt CoT Niveau 2 pour une tâche d'analyse dans ce domaine. Impose au moins 4 étapes de raisonnement + une étape de vérification.",
-        "en": "Choose a domain you're interested in (code, business, science, law...) and write a Level 2 CoT prompt for an analysis task in that domain. Impose at least 4 reasoning steps + a verification step."
-      },
-      "ella_system_hint": "The student should apply CoT to a non-math domain. Key: steps should be logical and sequential, ending with verification. Praise creativity in domain choice. If the steps are too vague ('analyze', 'evaluate'), push them to be specific. A verification step is essential — if missing, insist.",
-      "mode": "rewrite"
+      "checkpoint_config": {
+          "topic": "CoT Beyond Math",
+          "section_context": "The student learned CoT is useful for code analysis, business decisions, and critical evaluations by structuring thoughts.",
+          "question_type": "apply_to_personal_context",
+          "difficulty": "advanced",
+          "hint": "Verify the prompt dictates explicit logical steps (Level 2), belongs to a non-math domain, and includes a verification step.",
+          "anti_gpt_instructions": "Ask the student to pick a specific scenario from their own studies or hobbies (e.g., debugging code or diagnosing a car issue). They must write a Level 2 CoT prompt that imposes at least 3 analytical steps and 1 verification step."
+      }
     },
     {
       "id": "content_04",
@@ -84,12 +90,14 @@
     {
       "id": "checkpoint_04",
       "type": "ella_checkpoint",
-      "question": {
-        "fr": "Quand faut-il utiliser le CoT et quand faut-il l'éviter ? Donne 2 situations où le CoT est indispensable et 2 où il est inutile.",
-        "en": "When should you use CoT and when should you avoid it? Give 2 situations where CoT is essential and 2 where it's unnecessary."
-      },
-      "ella_system_hint": "Essential: multi-step calculations, complex analysis with multiple factors, code debugging, comparing options. Unnecessary: translation, simple classification, reformulation, factual questions. If the student says 'always use CoT', correct them — it wastes tokens on simple tasks. Praise nuanced answers.",
-      "mode": "free"
+      "checkpoint_config": {
+          "topic": "When to Avoid CoT",
+          "section_context": "The student learned about traps of CoT, specifically Trap 1: using it on simple tasks like translation, where it's useless and wastes tokens.",
+          "question_type": "synthesis",
+          "difficulty": "intermediate",
+          "hint": "Check that they understand CoT is for complex reasoning. Using it for simple factual recall or basic translation is inefficient.",
+          "anti_gpt_instructions": "Ask the student to describe one scenario where forcing an LLM to think step-by-step is an absolute waste of time and explain why."
+      }
     },
     {
       "id": "gate_final",
