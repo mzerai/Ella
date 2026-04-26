@@ -236,6 +236,52 @@ export async function getRLModuleCells(moduleId: string): Promise<ModuleData> {
 }
 
 // ============================================
+// RL Labs Execution API
+// ============================================
+
+export interface RLLabRunRequest {
+  algorithm: string;
+  gamma: number;
+  theta: number;
+  max_iterations: number;
+  is_slippery: boolean;
+  map_name: string;
+  policy_mode: string;
+  manual_policy?: Record<number, number>;
+}
+
+export interface RLLabPIStep {
+  V: number[];
+  Q: number[][];
+  policy: number[][];
+  eval_iters: number;
+}
+
+export interface RLLabRunResponse {
+  algorithm: string;
+  grid: string[][];
+  grid_size: number;
+  V: number[];
+  Q: number[][];
+  policy: number[][];
+  iterations: number;
+  final_delta: number;
+  goal_reachable: boolean;
+  v_history: number[][];
+  delta_history: number[];
+  pi_steps: RLLabPIStep[] | null;
+}
+
+export async function runRLLab(
+  request: RLLabRunRequest
+): Promise<RLLabRunResponse> {
+  return apiFetch<RLLabRunResponse>("/api/labs/rl/run", {
+    method: "POST",
+    body: JSON.stringify(request),
+  });
+}
+
+// ============================================
 // Health Check
 // ============================================
 

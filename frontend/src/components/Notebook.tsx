@@ -207,7 +207,7 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
 
         try {
             // Append strict evaluation instructions
-            const evaluationInstruction = `\n\nIMPORTANT: Termine ta réponse par EXACTEMENT l'une de ces deux lignes (et rien d'autre sur cette ligne):\n[CHECKPOINT_PASSED]\n[CHECKPOINT_RETRY]\n\nUtilise [CHECKPOINT_PASSED] uniquement si l'étudiant montre une compréhension réelle et correcte du concept. Utilise [CHECKPOINT_RETRY] si la réponse est hors-sujet, trop vague, incorrecte ou montre une incompréhension fondamentale. Sois encourageante mais honnête.`;
+            const evaluationInstruction = `\n\nIMPORTANT: Termine ta réponse par EXACTEMENT l'une de ces deux lignes (et rien d'autre sur cette ligne):\n[CHECKPOINT_PASSED]\n[CHECKPOINT_RETRY]\n\nRègles d'évaluation :\n- [CHECKPOINT_PASSED] uniquement si l'étudiant montre une compréhension réelle et correcte du concept dans sa réponse.\n- [CHECKPOINT_RETRY] dans TOUS les autres cas : réponse hors-sujet, trop vague, incorrecte, incompréhension, ou si l'étudiant demande des indices/aide au lieu de répondre.\n- Si l'étudiant demande de l'aide, des indices ou dit qu'il ne comprend pas : donne-lui un indice pédagogique qui le guide vers la bonne réponse SANS la révéler, puis termine par [CHECKPOINT_RETRY].\n- Ne génère JAMAIS de question ambiguë ou piège. La question doit avoir une réponse claire et vérifiable.\n- Sois encourageante mais honnête. Ne valide jamais une non-réponse.\n- Tu dois TOUJOURS terminer par l'un des deux tags, sans exception.`;
 
             // Send to Ella with the system hint as context
             const result = await sendChatMessage({
@@ -225,19 +225,22 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
             let passed = result.answer.includes("[CHECKPOINT_PASSED]");
             const retry = result.answer.includes("[CHECKPOINT_RETRY]");
 
-            // Fallback heuristic if tags are missing
+            // Fallback: bidirectional heuristic if no tag found
             if (!passed && !retry) {
                 const lower = result.answer.toLowerCase();
-                // Negative signals — only block if clearly telling student to retry
+                const positiveSignals = [
+                    "très bien", "bravo", "excellent", "tu as compris", "bonne réponse",
+                    "correct", "bien compris", "great", "well done", "you understood",
+                    "good answer", "correct answer", "nicely done",
+                ];
                 const negativeSignals = [
                     "pas tout à fait", "pas correct", "incorrect", "réessaie",
-                    "essaie encore", "pas encore", "manque", "oublié", "erreur",
-                    "not quite", "try again", "incorrect", "missing", "wrong",
-                    "not correct", "needs improvement", "reconsider",
+                    "essaie encore", "pas encore", "try again", "not quite",
+                    "wrong", "rethink", "reconsider", "reformule", "indice", "hint",
                 ];
-                const isNegative = negativeSignals.some(signal => lower.includes(signal));
-                // Default to PASSED unless clearly negative — be generous
-                passed = !isNegative;
+                const hasPositive = positiveSignals.some(s => lower.includes(s));
+                const hasNegative = negativeSignals.some(s => lower.includes(s));
+                passed = hasPositive && !hasNegative;
             }
 
             let cleanFeedback = result.answer
@@ -309,24 +312,48 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
         setGeneratingQuestion(prev => ({ ...prev, [cellId]: true }));
 
         try {
-            const result = await sendChatMessage({
-                message: `[GENERATE_CHECKPOINT_QUESTION]\n\nTopic: ${config.topic}\nSection context: ${config.section_context}\nQuestion type: ${config.question_type}\nDifficulty: ${config.difficulty}\nLanguage: ${lang === "fr" ? "French" : "English"}\n\n${config.anti_gpt_instructions || ""}\n\nGenerate ONE checkpoint question. The question must:\n- Reference specific content from the lesson section described above\n- Ask the student to apply the concept to a personal or concrete example\n- Be impossible to answer correctly by just asking ChatGPT (requires lesson context)\n- Be concise (2-3 sentences max)\n\nRespond in JSON format: {"answer": "Your generated question here"}. No other fields.`,
-                context: {
-                    page_id: moduleId,
-                    page_title: `Module ${moduleId}`,
-                    algorithm: "",
-                    lab_name: `Generate question for ${cellId}`,
-                    extra: { course_id: courseId, generate_question: true }
-                },
-                conversation_history: []
-            });
+            let newQ = "";
+            for (let attempt = 0; attempt < 3; attempt++) {
+                if (attempt > 0) {
+                    await new Promise(r => setTimeout(r, 1000));
+                }
+                try {
+                    const result = await sendChatMessage({
+                        message: `[GENERATE_CHECKPOINT_QUESTION]\n\nTopic: ${config.topic}\nSection context: ${config.section_context}\nQuestion type: ${config.question_type}\nDifficulty: ${config.difficulty}\nLanguage: ${lang === "fr" ? "French" : "English"}\n\n${config.anti_gpt_instructions || ""}\n\nGenerate ONE checkpoint question. The question must:\n- Reference specific content from the lesson section described above\n- Ask the student to apply the concept to a personal or concrete example\n- Be impossible to answer correctly by just asking ChatGPT (requires lesson context)\n- Be concise (2-3 sentences max)\n\nRespond in JSON format: {"answer": "Your generated question here"}. No other fields.`,
+                        context: {
+                            page_id: moduleId,
+                            page_title: `Module ${moduleId}`,
+                            algorithm: "",
+                            lab_name: `Generate question for ${cellId}`,
+                            extra: { course_id: courseId, generate_question: true }
+                        },
+                        conversation_history: []
+                    });
 
-            let newQ = result.answer;
-            // If the answer is JSON with a question field, extract it (required for LLM compatibility)
-            try {
-                const parsed = JSON.parse(newQ);
-                if (parsed.question) newQ = parsed.question; else if (parsed.answer) newQ = parsed.answer;
-            } catch { /* not JSON, use as-is */ }
+                    if (result.answer) {
+                        newQ = result.answer;
+
+                        // Detect backend error responses disguised as answers
+                        if (!newQ || newQ.trim() === "" || newQ.toLowerCase().includes("an error occurred") || newQ.toLowerCase().includes("api error") || newQ.toLowerCase().startsWith("{\"error\"")) {
+                            throw new Error("Backend returned error response: " + newQ);
+                        }
+
+                        // If the answer is JSON with a question field, extract it (required for LLM compatibility)
+                        try {
+                            const parsed = JSON.parse(newQ);
+                            if (parsed.answer) newQ = parsed.answer; else if (parsed.question) newQ = parsed.question;
+                        } catch { /* not JSON, use as-is */ }
+                        break;
+                    }
+                } catch (retryErr) {
+                    console.error(`generateCheckpointQuestion attempt ${attempt + 1}/3 failed:`, retryErr, "cellId:", cellId);
+                    if (attempt === 2) throw retryErr;
+                }
+            }
+
+            if (!newQ) {
+                throw new Error("All 3 attempts returned empty answer");
+            }
 
             setDynamicQuestions(prev => ({ ...prev, [cellId]: newQ }));
             saveCheckpointProgress({
@@ -336,6 +363,7 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                 dynamic_question: newQ
             });
         } catch (err) {
+            console.error("generateCheckpointQuestion failed:", err);
             // Fallback: use a generic question
             const fallbackQ = lang === "fr"
                 ? "Explique le concept qu'on vient de voir avec un exemple concret tiré de ton domaine d'études ou de travail."

@@ -4,6 +4,8 @@ import json
 import logging
 import os
 from fastapi import APIRouter, HTTPException
+from app.services.labs.rl.models import RLLabRunRequest, RLLabRunResponse
+from app.services.labs.rl.executor import run_rl_lab
 
 logger = logging.getLogger(__name__)
 
@@ -82,3 +84,19 @@ async def get_rl_module_cells(module_id: str):
     except Exception as e:
         logger.error("Error reading module file %s: %s", filename, e)
         raise HTTPException(status_code=500, detail="Failed to load module content.")
+
+
+# ============================================
+# RL Lab Execution
+# ============================================
+
+@router.post("/run", response_model=RLLabRunResponse)
+async def run_rl_algorithm(request: RLLabRunRequest):
+    """Run an RL planning algorithm on FrozenLake and return full results."""
+    try:
+        return run_rl_lab(request)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error("RL lab execution error: %s", e)
+        raise HTTPException(status_code=500, detail=f"Lab execution failed: {str(e)}")
