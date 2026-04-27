@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Notebook from "@/components/Notebook";
 import EllaAvatar from "@/components/EllaAvatar";
+import { useAuth } from "@/components/AuthProvider";
 import { getModuleCells, type ModuleData } from "@/lib/api";
 import Link from "next/link";
 
@@ -19,6 +20,7 @@ const MODULE_NAMES: Record<string, string> = {
 function ModuleLessonContent() {
     const params = useParams();
     const router = useRouter();
+    const { firstName } = useAuth();
     const moduleId = params.moduleId as string;
     const [module, setModule] = useState<ModuleData | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -88,9 +90,9 @@ function ModuleLessonContent() {
                                 </h1>
                             </div>
                             <p className="text-base font-bold text-ella-gray-600 leading-relaxed max-w-2xl">
-                                {lang === "fr" 
-                                    ? "Bienvenue dans ce module interactif. Nous allons explorer ensemble les concepts clés du Prompt Engineering. Lis attentivement chaque section. À chaque checkpoint, je serai là pour te poser une petite question ou te demander de pratiquer. Tu ne pourras débloquer la suite qu'une fois que nous aurons validé l'étape ensemble. On y va ?"
-                                    : "Welcome to this interactive module. Together, we will explore the key concepts of Prompt Engineering. Read each section carefully. At each checkpoint, I'll be there to ask a question or give you a task. You can only unlock the next part once we've validated the step together. Shall we start?"
+                                {lang === "fr"
+                                    ? <>Bienvenue dans ce module interactif{firstName ? <>, <span className="font-bold text-ella-accent">{firstName}</span></> : null} ! Nous allons explorer ensemble les concepts clés du Prompt Engineering. Lis attentivement chaque section. À chaque checkpoint, je serai là pour te poser une petite question ou te demander de pratiquer. Tu ne pourras débloquer la suite qu&#39;une fois que nous aurons validé l&#39;étape ensemble. On y va ?</>
+                                    : <>Welcome to this interactive module{firstName ? <>, <span className="font-bold text-ella-accent">{firstName}</span></> : null}! Together, we will explore the key concepts of Prompt Engineering. Read each section carefully. At each checkpoint, I&#39;ll be there to ask a question or give you a task. You can only unlock the next part once we&#39;ve validated the step together. Shall we start?</>
                                 }
                             </p>
                         </div>

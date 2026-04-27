@@ -29,11 +29,11 @@ def is_configured() -> bool:
     api_key = settings.tokenfactory_api_key
     return bool(base_url and api_key)
 
-def request_chat_completion(messages: List[Dict[str, str]]) -> str:
+def request_chat_completion(messages: List[Dict[str, str]], force_json: bool = True) -> str:
     """Synchronously requests a completion from the LLM based on environment variables."""
     if not openai:
         return json.dumps({"error": "openai library missing"})
-    
+
     if not is_configured():
         return json.dumps({"error": "Assistant is not configured via environment variables."})
 
@@ -42,15 +42,18 @@ def request_chat_completion(messages: List[Dict[str, str]]) -> str:
 
     client = _get_client()
 
+    kwargs = {
+        "model": model,
+        "messages": messages,
+        "timeout": timeout_val,
+    }
+    if force_json:
+        kwargs["response_format"] = {"type": "json_object"}
+
     max_retries = 2
     for attempt in range(max_retries + 1):
         try:
-            response = client.chat.completions.create(
-                model=model,
-                messages=messages,
-                response_format={"type": "json_object"},
-                timeout=timeout_val
-            )
+            response = client.chat.completions.create(**kwargs)
             return response.choices[0].message.content or "{}"
         except (openai.APITimeoutError, openai.RateLimitError, openai.APIConnectionError) as e:
             if attempt < max_retries:

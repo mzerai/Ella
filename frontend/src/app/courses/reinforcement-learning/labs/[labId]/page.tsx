@@ -276,7 +276,7 @@ function LabContent() {
   const missions = LAB_MISSIONS[labId] || [];
   const isTrainMode = lab?.mode === "train";
 
-  const { user } = useAuth();
+  const { user, firstName } = useAuth();
   const [lang, setLang] = useState<"fr" | "en">("fr");
 
   // Controls — model-free labs start with sub-optimal defaults so students experiment
@@ -568,7 +568,7 @@ function LabContent() {
           <EllaAvatar size="sm" className="shrink-0 mt-0.5" />
           <div>
             <h2 className="text-xs font-black text-ella-primary uppercase tracking-widest mb-1">{lang === "fr" ? "Le mot d'Ella" : "Ella says"}</h2>
-            <p className="text-sm text-ella-gray-700 leading-relaxed font-medium italic">&quot;{lab.description[lang]}&quot;</p>
+            <p className="text-sm text-ella-gray-700 leading-relaxed font-medium italic">&quot;{lab.description[lang]} {lang === "fr" ? <>À toi de jouer{firstName ? <>, <span className="font-bold text-ella-accent not-italic">{firstName}</span></> : null} !</> : <>Your turn{firstName ? <>, <span className="font-bold text-ella-accent not-italic">{firstName}</span></> : null}!</>}&quot;</p>
           </div>
         </div>
 
@@ -881,6 +881,7 @@ function LabContent() {
         alpha={isTrainMode ? alpha : undefined}
         result={anyResult}
         lang={lang}
+        studentFirstName={firstName}
       />
     </div>
   );

@@ -6,8 +6,9 @@ import { User } from "@supabase/supabase-js";
 
 interface AuthContextType {
     user: User | null;
+    firstName: string | null;
     loading: boolean;
-    signUp: (email: string, password: string, fullName: string) => Promise<{ error: string | null }>;
+    signUp: (email: string, password: string, fullName: string) => Promise<{ error: string | null; hasSession: boolean }>;
     signIn: (email: string, password: string) => Promise<{ error: string | null }>;
     signOut: () => Promise<void>;
 }
@@ -37,14 +38,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }, []);
 
     const signUp = async (email: string, password: string, fullName: string) => {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
             email,
             password,
             options: {
                 data: { full_name: fullName },
             },
         });
-        return { error: error?.message ?? null };
+        return { error: error?.message ?? null, hasSession: !!data?.session };
     };
 
     const signIn = async (email: string, password: string) => {
@@ -60,8 +61,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
     };
 
+    const firstName = user?.user_metadata?.full_name?.split(" ")[0] || null;
+
     return (
-        <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut }}>
+        <AuthContext.Provider value={{ user, firstName, loading, signUp, signIn, signOut }}>
             {children}
         </AuthContext.Provider>
     );

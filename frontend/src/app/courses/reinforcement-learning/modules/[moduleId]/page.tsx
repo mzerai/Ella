@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 
 import Notebook from "@/components/Notebook";
 import EllaAvatar from "@/components/EllaAvatar";
+import { useAuth } from "@/components/AuthProvider";
 import { getRLModuleCells, type ModuleData } from "@/lib/api";
 import Link from "next/link";
 
@@ -19,6 +20,7 @@ const MODULE_NAMES: Record<string, string> = {
 
 function ModuleLessonContent() {
     const params = useParams();
+    const { firstName } = useAuth();
     const moduleId = params.moduleId as string;
     const [module, setModule] = useState<ModuleData | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -89,8 +91,8 @@ function ModuleLessonContent() {
                             </div>
                             <p className="text-base font-bold text-ella-gray-600 leading-relaxed max-w-2xl">
                                 {lang === "fr"
-                                    ? "Bienvenue dans ce module de Reinforcement Learning. Lis attentivement chaque section. À chaque checkpoint, je te poserai une question pour vérifier ta compréhension. Tu ne pourras débloquer la suite qu'une fois que nous aurons validé l'étape ensemble. On y va ?"
-                                    : "Welcome to this Reinforcement Learning module. Read each section carefully. At each checkpoint, I'll ask you a question to verify your understanding. You can only unlock the next part once we've validated the step together. Shall we start?"
+                                    ? <>Bienvenue dans ce module de Reinforcement Learning{firstName ? <>, <span className="font-bold text-ella-accent">{firstName}</span></> : null} ! Lis attentivement chaque section. À chaque checkpoint, je te poserai une question pour vérifier ta compréhension. Tu ne pourras débloquer la suite qu&#39;une fois que nous aurons validé l&#39;étape ensemble. On y va ?</>
+                                    : <>Welcome to this Reinforcement Learning module{firstName ? <>, <span className="font-bold text-ella-accent">{firstName}</span></> : null}! Read each section carefully. At each checkpoint, I&#39;ll ask you a question to verify your understanding. You can only unlock the next part once we&#39;ve validated the step together. Shall we start?</>
                                 }
                             </p>
                         </div>

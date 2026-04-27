@@ -37,7 +37,7 @@ interface NotebookProps {
 }
 
 export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: NotebookProps) {
-    const { user } = useAuth();
+    const { user, firstName } = useAuth();
     // Track which cells are unlocked.
     const [unlockedUpTo, setUnlockedUpTo] = useState(0);
 
@@ -217,7 +217,7 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                     page_title: `Module ${moduleId}`,
                     algorithm: "",
                     lab_name: `Checkpoint ${cellId}`,
-                    extra: { course_id: courseId, checkpoint_mode: true }
+                    extra: { course_id: courseId, checkpoint_mode: true, ...(firstName ? { student_first_name: firstName } : {}) }
                 },
                 conversation_history: []
             });
@@ -325,7 +325,7 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                             page_title: `Module ${moduleId}`,
                             algorithm: "",
                             lab_name: `Generate question for ${cellId}`,
-                            extra: { course_id: courseId, generate_question: true }
+                            extra: { course_id: courseId, generate_question: true, ...(firstName ? { student_first_name: firstName } : {}) }
                         },
                         conversation_history: []
                     });

@@ -35,7 +35,7 @@ function LabContent() {
   const params = useParams();
   const labId = params.labId as string;
 
-  const { user } = useAuth();
+  const { user, firstName } = useAuth();
   const supabase = createClient();
 
   const [lab, setLab] = useState<PELabDetail | null>(null);
@@ -166,7 +166,8 @@ function LabContent() {
               {lab.title[lang]}
             </h1>
             <p className="text-xs text-ella-gray-500">
-              {lab.concept?.[lang] || lab.description[lang]}
+              {lab.concept?.[lang] || lab.description[lang]}{" "}
+              {lang === "fr" ? <>À toi de jouer{firstName ? <>, <span className="font-bold text-ella-accent">{firstName}</span></> : null} !</> : <>Your turn{firstName ? <>, <span className="font-bold text-ella-accent">{firstName}</span></> : null}!</>}
             </p>
           </div>
         </div>
@@ -519,6 +520,7 @@ function LabContent() {
         gamma={0}
         result={null}
         lang={lang}
+        studentFirstName={firstName}
       />
     </div>
   );

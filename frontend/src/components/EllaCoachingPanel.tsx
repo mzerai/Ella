@@ -20,6 +20,7 @@ interface EllaCoachingPanelProps {
   alpha?: number;
   result: RLLabRunResponse | RLLabTrainResponse | null;
   lang: "fr" | "en";
+  studentFirstName?: string | null;
 }
 
 // Simple regex patterns to detect prompt injection attempts
@@ -54,6 +55,7 @@ export default function EllaCoachingPanel({
   alpha,
   result,
   lang,
+  studentFirstName,
 }: EllaCoachingPanelProps) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -91,7 +93,7 @@ export default function EllaCoachingPanel({
           ? (result as RLLabRunResponse).goal_reachable
           : false,
       },
-      extra: { course_id: "rl" },
+      extra: { course_id: "rl", ...(studentFirstName ? { student_first_name: studentFirstName } : {}) },
     };
   };
 

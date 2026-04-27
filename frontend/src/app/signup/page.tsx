@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import Link from "next/link";
 
@@ -12,6 +13,7 @@ export default function SignupPage() {
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
     const { signUp } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -23,8 +25,8 @@ export default function SignupPage() {
         }
         setIsLoading(true);
         try {
-            const { error } = await signUp(email, password, fullName);
-            if (error) { setError(error); } else { setSuccess(true); }
+            const { error, hasSession } = await signUp(email, password, fullName);
+            if (error) { setError(error); } else if (hasSession) { router.push("/courses"); } else { setSuccess(true); }
         } catch (err) {
             setError("Une erreur est survenue.");
         } finally {

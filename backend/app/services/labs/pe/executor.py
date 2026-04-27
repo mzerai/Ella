@@ -62,7 +62,7 @@ def _execute_student_prompt(
     # For PE labs, we usually want text, but TokenFactory might return JSON if configured globally.
     # However, the user request says TokenFactory supports JSON response format.
     # We use request_chat_completion from app.services.ella.client.
-    raw_response = request_chat_completion(messages)
+    raw_response = request_chat_completion(messages, force_json=False)
 
     # Try to parse and extract text if it's JSON-formatted by the tutor engine's client logic
     try:
