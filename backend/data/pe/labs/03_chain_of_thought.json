@@ -60,6 +60,106 @@
         {"fr": "Demandez d'abord 'que fait ce code ?' avant 'quel est le bug ?'", "en": "First ask 'what does this code do?' before 'what is the bug?'"},
         {"fr": "Demandez de vérifier les cas limites (tableau vide, valeurs négatives)", "en": "Ask to check edge cases (empty array, negative values)"}
       ]
+    },
+    {
+      "mission_id": "differential_diagnosis",
+      "title": {"fr": "Le Raisonnement Clinique", "en": "The Clinical Reasoning"},
+      "audience": "health",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous êtes interne dans un service de médecine générale. Un patient présente des symptômes ambigus qui pourraient correspondre à plusieurs pathologies. Le médecin référent vous demande de soumettre le cas à un LLM pour obtenir un diagnostic différentiel structuré.\n\nVotre tâche : Rédigez un prompt qui force le LLM à raisonner étape par étape en :\n1. Listant chaque symptôme et son interprétation clinique\n2. Proposant les hypothèses diagnostiques par ordre de probabilité\n3. Justifiant chaque hypothèse par les symptômes concordants ET discordants\n4. Suggérant les examens complémentaires pour trancher\n\nSans CoT, le LLM risque de sauter directement à un diagnostic unique sans peser les alternatives.",
+        "en": "You are a resident in a general medicine department. A patient presents ambiguous symptoms that could correspond to several conditions. The attending physician asks you to submit the case to an LLM for a structured differential diagnosis.\n\nYour task: Write a prompt that forces the LLM to reason step by step by:\n1. Listing each symptom and its clinical interpretation\n2. Proposing diagnostic hypotheses in order of probability\n3. Justifying each hypothesis with concordant AND discordant symptoms\n4. Suggesting complementary exams to decide\n\nWithout CoT, the LLM risks jumping straight to a single diagnosis without weighing alternatives."
+      },
+      "input_text": {
+        "fr": "Patient : Femme, 42 ans. Motif de consultation : fatigue persistante depuis 3 mois.\n\nSymptômes rapportés :\n- Fatigue intense dès le réveil, non améliorée par le repos\n- Prise de poids de 4 kg en 2 mois sans changement alimentaire\n- Peau sèche, cheveux cassants\n- Douleurs articulaires diffuses, surtout le matin\n- Sensation de froid permanent, même en été\n- Épisodes de brouillard mental et difficultés de concentration\n- Constipation récente\n\nAntécédents : Antécédent familial de maladie auto-immune (mère : lupus). Pas de traitement en cours.\n\nBiologie récente : NFS normale, VS légèrement élevée (22 mm/h).",
+        "en": "Patient: Female, 42 years old. Chief complaint: persistent fatigue for 3 months.\n\nReported symptoms:\n- Intense fatigue upon waking, not improved by rest\n- Weight gain of 4 kg in 2 months with no dietary changes\n- Dry skin, brittle hair\n- Diffuse joint pain, especially in the morning\n- Constant feeling of cold, even in summer\n- Episodes of brain fog and difficulty concentrating\n- Recent constipation\n\nHistory: Family history of autoimmune disease (mother: lupus). No current treatment.\n\nRecent labs: CBC normal, ESR slightly elevated (22 mm/h)."
+      },
+      "expected_behavior": "The LLM should analyze each symptom individually, then build hypotheses: hypothyroidism (most likely — matches nearly all symptoms), autoimmune thyroiditis/Hashimoto's (family history + symptoms), fibromyalgia (fatigue + joint pain but less fitting for weight gain/cold intolerance), early connective tissue disease (family history + elevated ESR). Each hypothesis justified with concordant/discordant symptoms. Recommend TSH, free T4, anti-TPO antibodies, ANA as next steps.",
+      "learning_objectives": [
+        {"fr": "Appliquer le CoT à un raisonnement diagnostique structuré", "en": "Apply CoT to structured diagnostic reasoning"},
+        {"fr": "Forcer l'évaluation de multiples hypothèses avant de conclure", "en": "Force evaluation of multiple hypotheses before concluding"},
+        {"fr": "Exiger la distinction entre symptômes concordants et discordants", "en": "Require distinction between concordant and discordant symptoms"}
+      ],
+      "hints": [
+        {"fr": "Demandez au LLM de lister chaque symptôme avant de proposer un diagnostic", "en": "Ask the LLM to list each symptom before proposing a diagnosis"},
+        {"fr": "Imposez un format : 'Hypothèse 1 : ... Arguments pour : ... Arguments contre : ...'", "en": "Impose a format: 'Hypothesis 1: ... Arguments for: ... Arguments against: ...'"},
+        {"fr": "Demandez un classement par probabilité décroissante avec justification", "en": "Ask for ranking by decreasing probability with justification"}
+      ]
+    },
+    {
+      "mission_id": "portfolio_analysis",
+      "title": {"fr": "L'Analyse de Portefeuille", "en": "The Portfolio Analysis"},
+      "audience": "finance",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Un client de votre cabinet de gestion de patrimoine souhaite comprendre si son portefeuille d'investissement est bien diversifié et adapté à son profil de risque.\n\nVotre tâche : Rédigez un prompt qui force le LLM à décomposer son analyse en étapes logiques :\n1. Analyser la composition actuelle (répartition par classe d'actifs)\n2. Évaluer la diversification (corrélations, concentration géographique)\n3. Mesurer l'adéquation au profil de risque\n4. Formuler des recommandations argumentées\n\nSans CoT, le LLM donnera des recommandations génériques sans analyser les données du portefeuille.",
+        "en": "A client of your wealth management firm wants to understand if their investment portfolio is well-diversified and suited to their risk profile.\n\nYour task: Write a prompt that forces the LLM to decompose its analysis into logical steps:\n1. Analyze current composition (allocation by asset class)\n2. Evaluate diversification (correlations, geographic concentration)\n3. Measure adequacy to risk profile\n4. Formulate reasoned recommendations\n\nWithout CoT, the LLM will give generic recommendations without analyzing the portfolio data."
+      },
+      "input_text": {
+        "fr": "Profil client : Homme, 55 ans, horizon d'investissement 10 ans, profil modéré (tolérance au risque moyenne), objectif : préparer la retraite.\n\nPortefeuille actuel (250 000 €) :\n- Actions technologiques US (NVIDIA, Apple, Microsoft) : 45% — 112 500 €\n- ETF S&P 500 : 20% — 50 000 €\n- Obligations d'État françaises (OAT 10 ans) : 10% — 25 000 €\n- Fonds immobilier (SCPI Épargne Pierre) : 15% — 37 500 €\n- Livret A : 5% — 12 500 €\n- Crypto (Bitcoin) : 5% — 12 500 €\n\nPerformance 12 mois : +18% global, mais -12% sur le mois de mars (correction tech).",
+        "en": "Client profile: Male, 55 years old, 10-year investment horizon, moderate profile (medium risk tolerance), objective: retirement preparation.\n\nCurrent portfolio (€250,000):\n- US tech stocks (NVIDIA, Apple, Microsoft): 45% — €112,500\n- S&P 500 ETF: 20% — €50,000\n- French government bonds (OAT 10y): 10% — €25,000\n- Real estate fund (SCPI Épargne Pierre): 15% — €37,500\n- Savings account (Livret A): 5% — €12,500\n- Crypto (Bitcoin): 5% — €12,500\n\n12-month performance: +18% overall, but -12% in March (tech correction)."
+      },
+      "expected_behavior": "The LLM should: 1) Break down allocation by class (65% equities, 10% bonds, 15% real estate, 5% cash, 5% crypto), 2) Identify over-concentration in US tech (45% + 20% S&P500 overlap = ~60% correlated to US tech), geographic bias (80%+ US), low bond allocation for moderate profile, 3) Flag mismatch: 55yo moderate profile shouldn't have 5% crypto and 65% equities, 4) Recommend rebalancing with specific targets.",
+      "learning_objectives": [
+        {"fr": "Structurer une analyse financière en étapes logiques", "en": "Structure a financial analysis in logical steps"},
+        {"fr": "Utiliser le CoT pour révéler les biais de concentration cachés", "en": "Use CoT to reveal hidden concentration biases"},
+        {"fr": "Forcer une recommandation argumentée plutôt qu'un avis générique", "en": "Force a reasoned recommendation rather than a generic opinion"}
+      ],
+      "hints": [
+        {"fr": "Demandez au LLM de calculer la répartition réelle par classe d'actifs", "en": "Ask the LLM to calculate the actual allocation by asset class"},
+        {"fr": "Imposez l'analyse des corrélations entre les lignes du portefeuille", "en": "Impose analysis of correlations between portfolio lines"},
+        {"fr": "Demandez de comparer le profil de risque théorique vs. la volatilité réelle", "en": "Ask to compare theoretical risk profile vs. actual volatility"}
+      ]
+    },
+    {
+      "mission_id": "funnel_diagnosis",
+      "title": {"fr": "Le Diagnostic de Funnel", "en": "The Funnel Diagnosis"},
+      "audience": "marketing",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous êtes growth manager dans une startup SaaS B2B. Le CEO vous demande pourquoi le taux de conversion global a chuté le mois dernier. Vous avez les métriques du funnel d'acquisition.\n\nVotre tâche : Rédigez un prompt qui force le LLM à analyser le funnel étape par étape :\n1. Calculer le taux de conversion à chaque étape\n2. Identifier l'étape qui a le plus dégradé\n3. Formuler des hypothèses causales pour cette dégradation\n4. Proposer des actions correctives priorisées\n\nSans CoT, le LLM risque de proposer des solutions génériques sans identifier le goulot d'étranglement réel.",
+        "en": "You are a growth manager at a B2B SaaS startup. The CEO asks you why the overall conversion rate dropped last month. You have the acquisition funnel metrics.\n\nYour task: Write a prompt that forces the LLM to analyze the funnel step by step:\n1. Calculate the conversion rate at each stage\n2. Identify which stage degraded the most\n3. Formulate causal hypotheses for this degradation\n4. Propose prioritized corrective actions\n\nWithout CoT, the LLM risks proposing generic solutions without identifying the real bottleneck."
+      },
+      "input_text": {
+        "fr": "Funnel d'acquisition — Mois précédent vs. Mois en cours :\n\n| Étape              | Mois précédent | Mois en cours |\n|--------------------|----------------|---------------|\n| Visiteurs site     | 50 000         | 52 000        |\n| Inscrits freemium  | 5 000 (10%)    | 4 680 (9%)    |\n| Activation (1 action clé) | 2 500 (50%)    | 1 170 (25%)   |\n| Conversion payant  | 500 (20%)      | 234 (20%)     |\n| Rétention M+1      | 400 (80%)      | 187 (80%)     |\n\nContexte : Nouveau processus d'onboarding déployé il y a 3 semaines. Pas de changement sur les campagnes d'acquisition ni sur le pricing.",
+        "en": "Acquisition funnel — Previous month vs. Current month:\n\n| Stage              | Previous month | Current month |\n|--------------------|----------------|---------------|\n| Site visitors      | 50,000         | 52,000        |\n| Freemium signups   | 5,000 (10%)    | 4,680 (9%)    |\n| Activation (1 key action) | 2,500 (50%)    | 1,170 (25%)   |\n| Paid conversion    | 500 (20%)      | 234 (20%)     |\n| Retention M+1      | 400 (80%)      | 187 (80%)     |\n\nContext: New onboarding process deployed 3 weeks ago. No changes to acquisition campaigns or pricing."
+      },
+      "expected_behavior": "The LLM should: 1) Calculate each stage's conversion rate and compare month-over-month, 2) Identify the activation stage as the critical drop (50% → 25%, halved), 3) Correlate with the new onboarding process deployed 3 weeks ago as primary hypothesis, 4) Note downstream stages (paid conversion 20%, retention 80%) held steady — proving the bottleneck is specifically activation, 5) Recommend A/B testing old vs. new onboarding, analyzing drop-off point within onboarding.",
+      "learning_objectives": [
+        {"fr": "Appliquer le CoT à l'analyse de données marketing", "en": "Apply CoT to marketing data analysis"},
+        {"fr": "Identifier un goulot d'étranglement par analyse séquentielle", "en": "Identify a bottleneck through sequential analysis"},
+        {"fr": "Corréler une dégradation avec un changement récent", "en": "Correlate a degradation with a recent change"}
+      ],
+      "hints": [
+        {"fr": "Demandez au LLM de calculer le delta de conversion à chaque étape", "en": "Ask the LLM to calculate the conversion delta at each stage"},
+        {"fr": "Imposez la comparaison mois-sur-mois avant toute conclusion", "en": "Impose month-over-month comparison before any conclusion"},
+        {"fr": "Demandez de croiser la dégradation avec les changements récents listés", "en": "Ask to cross-reference the degradation with the listed recent changes"}
+      ]
+    },
+    {
+      "mission_id": "rhetoric_analysis",
+      "title": {"fr": "Le Décrypteur Rhétorique", "en": "The Rhetoric Decrypter"},
+      "audience": "humanities",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous êtes chercheur en sciences politiques et vous analysez un extrait de discours politique pour un article académique. Vous voulez que le LLM décortique les procédés rhétoriques utilisés.\n\nVotre tâche : Rédigez un prompt qui force le LLM à analyser le discours étape par étape :\n1. Identifier la thèse centrale et l'objectif persuasif\n2. Repérer chaque procédé rhétorique (anaphore, métaphore, appel à l'émotion, etc.)\n3. Expliquer l'effet visé de chaque procédé sur l'auditoire\n4. Évaluer la force globale de l'argumentation\n\nSans CoT, le LLM donnera une analyse superficielle sans déconstruire la stratégie rhétorique.",
+        "en": "You are a political science researcher analyzing an excerpt from a political speech for an academic paper. You want the LLM to dissect the rhetorical devices used.\n\nYour task: Write a prompt that forces the LLM to analyze the speech step by step:\n1. Identify the central thesis and persuasive objective\n2. Spot each rhetorical device (anaphora, metaphor, emotional appeal, etc.)\n3. Explain the intended effect of each device on the audience\n4. Evaluate the overall strength of the argumentation\n\nWithout CoT, the LLM will give a superficial analysis without deconstructing the rhetorical strategy."
+      },
+      "input_text": {
+        "fr": "Extrait de discours (fictif) :\n\n« Citoyens, citoyennes,\n\nOn nous dit que le changement est impossible. On nous dit que nos ambitions sont trop grandes. On nous dit d'attendre, encore et toujours d'attendre.\n\nMais je vous le dis aujourd'hui : l'attente est terminée.\n\nNotre jeunesse ne peut plus attendre un emploi qui ne vient pas. Nos enseignants ne peuvent plus attendre des moyens qui n'arrivent pas. Nos hôpitaux ne peuvent plus attendre des lits qui manquent depuis dix ans.\n\nLe vrai courage, ce n'est pas de promettre la lune. Le vrai courage, c'est de regarder la réalité en face et de dire : nous allons agir, ensemble, maintenant. Pas demain. Pas après les prochaines élections. Maintenant.\n\nCar nous sommes le pays de Bourguiba et de Carthage, le pays qui a toujours su se relever. Et nous nous relèverons encore. »",
+        "en": "Speech excerpt (fictional):\n\n'Citizens,\n\nWe are told that change is impossible. We are told that our ambitions are too great. We are told to wait, always to wait.\n\nBut I tell you today: the waiting is over.\n\nOur youth can no longer wait for jobs that never come. Our teachers can no longer wait for resources that never arrive. Our hospitals can no longer wait for beds that have been missing for ten years.\n\nTrue courage is not promising the moon. True courage is facing reality and saying: we will act, together, now. Not tomorrow. Not after the next elections. Now.\n\nFor we are the country of Bourguiba and Carthage, the country that has always known how to rise. And we will rise again.'"
+      },
+      "expected_behavior": "The LLM should identify: 1) Thesis: urgency of immediate action, breaking with inaction. 2) Rhetorical devices: triple anaphora ('On nous dit'), enumeration with amplification (youth/teachers/hospitals), antithesis ('not promising the moon' vs 'facing reality'), epiphora/repetition ('maintenant'), historical appeal (Bourguiba, Carthage), inclusive 'nous'. 3) Effect analysis: anaphora creates rhythm and frustration, enumeration builds cumulative evidence, historical references evoke national pride. 4) Overall assessment of persuasive strategy.",
+      "learning_objectives": [
+        {"fr": "Décomposer l'analyse rhétorique en couches successives", "en": "Decompose rhetorical analysis into successive layers"},
+        {"fr": "Utiliser le CoT pour ne pas manquer de procédés subtils", "en": "Use CoT to avoid missing subtle devices"},
+        {"fr": "Distinguer identification d'un procédé et analyse de son effet", "en": "Distinguish identifying a device from analyzing its effect"}
+      ],
+      "hints": [
+        {"fr": "Demandez au LLM de numéroter chaque procédé trouvé avec la citation exacte", "en": "Ask the LLM to number each device found with the exact quote"},
+        {"fr": "Imposez deux étapes : d'abord identifier, ensuite analyser l'effet", "en": "Impose two steps: first identify, then analyze the effect"},
+        {"fr": "Demandez une conclusion sur la stratégie rhétorique d'ensemble", "en": "Ask for a conclusion on the overall rhetorical strategy"}
+      ]
     }
   ]
 }

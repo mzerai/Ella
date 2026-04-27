@@ -20,7 +20,7 @@ import {
 import { useAuth } from "@/components/AuthProvider";
 import { createClient } from "@/lib/supabase";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import ProfileModal from "@/components/ProfileModal";
+import ProfileModal, { type ProfileType } from "@/components/ProfileModal";
 import ScoreBadge from "@/components/ScoreBadge";
 
 const NEXT_LESSONS: Record<string, { id: string, title: { fr: string, en: string } } | null> = {
@@ -69,7 +69,7 @@ function LabContent() {
       .catch((err) => setError(err.message));
   }, [labId]);
 
-  const handleProfileSelect = async (newProfile: "engineering" | "business") => {
+  const handleProfileSelect = async (newProfile: ProfileType) => {
     localStorage.setItem("ellaUserProfile", newProfile);
     
     // Also save to Supabase profile
@@ -201,10 +201,7 @@ function LabContent() {
               {lang === "fr" ? "Mission Contextuelle" : "Contextual Mission"}
             </span>
             <span className="text-sm font-bold text-ella-primary">
-              {profile === "engineering" 
-                ? (lang === "fr" ? "Profil Ingénierie" : "Engineering Profile")
-                : (lang === "fr" ? "Profil Business" : "Business Profile")
-              }
+              {{ engineering: { fr: "Profil Ingénierie", en: "Engineering Profile" }, business: { fr: "Profil Business", en: "Business Profile" }, health: { fr: "Profil Santé", en: "Health Profile" }, finance: { fr: "Profil Finance", en: "Finance Profile" }, marketing: { fr: "Profil Marketing", en: "Marketing Profile" }, humanities: { fr: "Profil Sciences Humaines", en: "Humanities Profile" } }[profile || "engineering"]?.[lang] ?? (lang === "fr" ? "Profil Ingénierie" : "Engineering Profile")}
             </span>
           </div>
           <button 

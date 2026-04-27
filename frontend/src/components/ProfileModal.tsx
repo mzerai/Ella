@@ -3,11 +3,64 @@
 import { useEffect, useState } from "react";
 import EllaAvatar from "./EllaAvatar";
 
+export type ProfileType = "engineering" | "business" | "health" | "finance" | "marketing" | "humanities";
+
 interface ProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelect: (profile: "engineering" | "business") => void;
+  onSelect: (profile: ProfileType) => void;
 }
+
+const PROFILES: Array<{
+  id: ProfileType;
+  icon: string;
+  title: string;
+  subtitle: string;
+  description: string;
+}> = [
+  {
+    id: "engineering",
+    icon: "</>",
+    title: "Ingénierie",
+    subtitle: "DATA, DEV & SYSTÈMES",
+    description: "Missions orientées technique, déploiement et architecture.",
+  },
+  {
+    id: "business",
+    icon: "💼",
+    title: "Business & Management",
+    subtitle: "STRATÉGIE & OPÉRATIONS",
+    description: "Missions orientées décisionnelle, marketing et produit.",
+  },
+  {
+    id: "health",
+    icon: "🏥",
+    title: "Santé & Biotech",
+    subtitle: "MÉDICAL & RECHERCHE",
+    description: "Missions orientées santé publique, données cliniques et recherche biomédicale.",
+  },
+  {
+    id: "finance",
+    icon: "📈",
+    title: "Finance & Fintech",
+    subtitle: "BANQUE & INVESTISSEMENT",
+    description: "Missions orientées analyse financière, gestion de risques et marchés.",
+  },
+  {
+    id: "marketing",
+    icon: "📣",
+    title: "Marketing & Communication",
+    subtitle: "CONTENU & STRATÉGIE DIGITALE",
+    description: "Missions orientées copywriting, campagnes digitales et analytics.",
+  },
+  {
+    id: "humanities",
+    icon: "📚",
+    title: "Sciences Humaines & Éducation",
+    subtitle: "PÉDAGOGIE & RECHERCHE",
+    description: "Missions orientées enseignement, analyse de textes et sciences sociales.",
+  },
+];
 
 export default function ProfileModal({ isOpen, onClose, onSelect }: ProfileModalProps) {
   const [isMounted, setIsMounted] = useState(false);
@@ -21,13 +74,13 @@ export default function ProfileModal({ isOpen, onClose, onSelect }: ProfileModal
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
       {/* Overlay */}
-      <div 
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" 
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in"
         onClick={onClose}
       />
-      
+
       {/* Modal Card */}
-      <div className="relative bg-white w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border border-ella-gray-100 animate-slide-up">
+      <div className="relative bg-white w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl border border-ella-gray-100 animate-slide-up">
         <div className="p-8 md:p-10">
           <div className="flex flex-col items-center text-center mb-10">
             <div className="w-16 h-16 bg-ella-accent/5 rounded-full flex items-center justify-center mb-6">
@@ -39,53 +92,27 @@ export default function ProfileModal({ isOpen, onClose, onSelect }: ProfileModal
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-            <button
-              onClick={() => onSelect("engineering")}
-              className="group bg-white hover:border-ella-accent border border-ella-gray-200 rounded-2xl p-6 transition-all text-left flex items-start gap-4 active:scale-[0.98] shadow-sm hover:shadow-md"
-            >
-              <div className="w-12 h-12 bg-ella-gray-50 group-hover:bg-ella-accent/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-all">
-                {"</>"}
-              </div>
-              <div>
-                <h3 className="font-bold text-ella-gray-900 mb-1 group-hover:text-ella-accent transition-colors">Ingénierie</h3>
-                <p className="text-[10px] text-ella-gray-400 leading-relaxed uppercase tracking-widest font-black mb-1">DATA, DEV & SYSTÈMES</p>
-                <p className="text-sm text-ella-gray-600 leading-relaxed">
-                  Missions orientées technique, déploiement et architecture.
-                </p>
-              </div>
-            </button>
-
-            <button
-              onClick={() => onSelect("business")}
-              className="group bg-white hover:border-ella-accent border border-ella-gray-200 rounded-2xl p-6 transition-all text-left flex items-start gap-4 active:scale-[0.98] shadow-sm hover:shadow-md"
-            >
-              <div className="w-12 h-12 bg-ella-gray-50 group-hover:bg-ella-accent/10 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-all">
-                💼
-              </div>
-              <div>
-                <h3 className="font-bold text-ella-gray-900 mb-1 group-hover:text-ella-accent transition-colors">Business & Management</h3>
-                <p className="text-[10px] text-ella-gray-400 leading-relaxed uppercase tracking-widest font-black mb-1">STRATÉGIE & OPÉRATIONS</p>
-                <p className="text-sm text-ella-gray-600 leading-relaxed">
-                  Missions orientées décisionnelle, marketing et produit.
-                </p>
-              </div>
-            </button>
-          </div>
-
-          <div className="p-6 bg-ella-gray-50 rounded-2xl border border-ella-gray-100">
-            <p className="text-[10px] font-black text-ella-gray-400 uppercase tracking-[0.2em] mb-4 text-center">Bientôt disponibles</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {["Santé 🏥", "Finance 📈", "Marketing 📣", "S. Humaines 📚"].map((p) => (
-                <div key={p} className="text-center p-2 rounded-lg bg-white border border-ella-gray-200 text-[10px] text-ella-gray-400 font-bold">
-                  {p}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+            {PROFILES.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => onSelect(p.id)}
+                className="group bg-white hover:border-ella-accent border border-ella-gray-200 rounded-2xl p-5 transition-all text-left flex flex-col gap-3 active:scale-[0.98] shadow-sm hover:shadow-md"
+              >
+                <div className="w-10 h-10 bg-ella-gray-50 group-hover:bg-ella-accent/10 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition-all">
+                  {p.icon}
                 </div>
-              ))}
-            </div>
+                <div>
+                  <h3 className="font-bold text-sm text-ella-gray-900 mb-0.5 group-hover:text-ella-accent transition-colors leading-tight">{p.title}</h3>
+                  <p className="text-[9px] text-ella-gray-400 leading-relaxed uppercase tracking-widest font-black mb-1">{p.subtitle}</p>
+                  <p className="text-xs text-ella-gray-600 leading-relaxed">{p.description}</p>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
 
-        <button 
+        <button
           onClick={onClose}
           className="absolute top-6 right-6 text-ella-gray-300 hover:text-ella-accent transition-colors p-2"
         >

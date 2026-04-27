@@ -60,6 +60,106 @@
         {"fr": "Variez les produits dans vos exemples (pas que de l'électronique)", "en": "Vary the products in your examples (not just electronics)"},
         {"fr": "Les types doivent être cohérents : price toujours un number, jamais un string", "en": "Types must be consistent: price always a number, never a string"}
       ]
+    },
+    {
+      "mission_id": "symptom_triage",
+      "title": {"fr": "Le Trieur de Symptômes", "en": "The Symptom Triage"},
+      "audience": "health",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous développez un chatbot de pré-triage pour une clinique. Le LLM doit classifier des descriptions de symptômes en 3 niveaux d'urgence : 🔴 Urgence (consultation immédiate), 🟡 Consultation sous 48h, 🟢 Auto-soin (conseils simples).\n\nVotre tâche : Rédigez un prompt avec exactement 3 exemples (un par niveau) puis demandez au LLM de classifier les cas ci-dessous.\n\nAttention : La précision du triage est critique — un mauvais classement peut retarder une prise en charge urgente. Vos exemples doivent couvrir des cas limites.",
+        "en": "You are developing a pre-triage chatbot for a clinic. The LLM must classify symptom descriptions into 3 urgency levels: 🔴 Emergency (immediate consultation), 🟡 Consultation within 48h, 🟢 Self-care (simple advice).\n\nYour task: Write a prompt with exactly 3 examples (one per level) then ask the LLM to classify the cases below.\n\nNote: Triage accuracy is critical — a misclassification can delay urgent care. Your examples must cover borderline cases."
+      },
+      "input_text": {
+        "fr": "Cas à classifier :\n\n1. Homme, 45 ans : douleur thoracique intense apparue il y a 30 minutes, irradiant vers le bras gauche, avec sueurs froides et essoufflement.\n\n2. Femme, 32 ans : maux de tête récurrents depuis 2 semaines, surtout le matin au réveil, avec une légère vision floue occasionnelle. Pas de fièvre.\n\n3. Enfant, 8 ans : rhume depuis 3 jours, nez qui coule, légère toux sans fièvre, bon appétit et humeur normale.\n\n4. Femme, 67 ans : chute dans l'escalier il y a 2 heures, douleur au poignet droit avec gonflement visible, peut bouger les doigts mais avec douleur.\n\n5. Homme, 28 ans : éruption cutanée sur les avant-bras depuis hier, petites plaques rouges qui démangent, pas de fièvre ni d'autre symptôme.",
+        "en": "Cases to classify:\n\n1. Male, 45: intense chest pain started 30 minutes ago, radiating to left arm, with cold sweats and shortness of breath.\n\n2. Female, 32: recurring headaches for 2 weeks, mainly in the morning upon waking, with occasional slight blurred vision. No fever.\n\n3. Child, 8: cold for 3 days, runny nose, slight cough without fever, good appetite and normal mood.\n\n4. Female, 67: fall on stairs 2 hours ago, right wrist pain with visible swelling, can move fingers but with pain.\n\n5. Male, 28: skin rash on forearms since yesterday, small itchy red patches, no fever or other symptoms."
+      },
+      "expected_behavior": "Case 1: 🔴 Emergency (cardiac symptoms). Case 2: 🟡 48h consultation (persistent headaches + vision changes need investigation). Case 3: 🟢 Self-care (typical cold). Case 4: 🟡 48h consultation (possible fracture, not life-threatening). Case 5: 🟢 Self-care (mild rash, no systemic symptoms). Good few-shot examples will help handle the ambiguous cases (2 and 4).",
+      "learning_objectives": [
+        {"fr": "Choisir des exemples qui couvrent les cas limites médicaux", "en": "Choose examples covering borderline medical cases"},
+        {"fr": "Maintenir un format cohérent pour un triage fiable", "en": "Maintain consistent format for reliable triage"},
+        {"fr": "Comprendre l'impact des exemples sur la précision critique", "en": "Understand the impact of examples on critical accuracy"}
+      ],
+      "hints": [
+        {"fr": "Choisissez un exemple 🟡 qui est à la frontière du 🔴 — ça aide le LLM sur les cas ambigus", "en": "Choose a 🟡 example that borders on 🔴 — it helps the LLM on ambiguous cases"},
+        {"fr": "Incluez le raisonnement dans chaque exemple : 'Symptômes X + Y → Niveau Z parce que...'", "en": "Include reasoning in each example: 'Symptoms X + Y → Level Z because...'"},
+        {"fr": "Précisez que le LLM ne doit JAMAIS donner de diagnostic, uniquement un niveau de triage", "en": "Specify that the LLM must NEVER give a diagnosis, only a triage level"}
+      ]
+    },
+    {
+      "mission_id": "transaction_classifier",
+      "title": {"fr": "Le Catégoriseur de Transactions", "en": "The Transaction Classifier"},
+      "audience": "finance",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous êtes data engineer dans une fintech de gestion de patrimoine. Le product owner veut automatiser la catégorisation des transactions bancaires des clients en 5 catégories : INVESTISSEMENT, DÉPENSE_COURANTE, REVENU, TRANSFERT, FRAUDE_POTENTIELLE.\n\nVotre tâche : Rédigez un prompt avec 3 exemples catégorisés puis demandez au LLM de classifier les transactions ci-dessous.\n\nAttention : Les transactions ambiguës sont fréquentes — un virement de 50 000€ peut être un investissement ou une fraude. Vos exemples doivent guider le LLM sur ces cas limites.",
+        "en": "You are a data engineer at a wealth management fintech. The product owner wants to automate client bank transaction categorization into 5 categories: INVESTMENT, REGULAR_EXPENSE, INCOME, TRANSFER, POTENTIAL_FRAUD.\n\nYour task: Write a prompt with 3 categorized examples then ask the LLM to classify the transactions below.\n\nNote: Ambiguous transactions are common — a €50,000 wire can be an investment or fraud. Your examples must guide the LLM on these edge cases."
+      },
+      "input_text": {
+        "fr": "Transactions à classifier :\n\n1. 15/03 — Virement sortant de 25 000€ vers \"Amundi ETF World\" — libellé : \"Souscription PEA mensuelle\"\n\n2. 15/03 — Prélèvement de 89,90€ par \"Netflix Premium\" — récurrent mensuel depuis 18 mois\n\n3. 16/03 — Virement entrant de 4 850€ depuis \"ACME Corp\" — libellé : \"Salaire mars 2025\"\n\n4. 16/03 — Virement sortant de 48 000€ vers un compte en Lituanie — libellé : \"Investment opportunity\" — première transaction vers ce bénéficiaire, effectuée à 03h42\n\n5. 17/03 — Virement de 1 200€ vers \"Marie Dupont\" — libellé : \"Remboursement vacances\"",
+        "en": "Transactions to classify:\n\n1. 03/15 — Outgoing wire of €25,000 to \"Amundi ETF World\" — label: \"Monthly PEA subscription\"\n\n2. 03/15 — Direct debit of €89.90 by \"Netflix Premium\" — recurring monthly for 18 months\n\n3. 03/16 — Incoming wire of €4,850 from \"ACME Corp\" — label: \"March 2025 salary\"\n\n4. 03/16 — Outgoing wire of €48,000 to a Lithuanian account — label: \"Investment opportunity\" — first transaction to this beneficiary, executed at 03:42 AM\n\n5. 03/17 — Wire of €1,200 to \"Marie Dupont\" — label: \"Vacation reimbursement\""
+      },
+      "expected_behavior": "1: INVESTMENT (known fund, regular pattern). 2: REGULAR_EXPENSE (recurring subscription). 3: INCOME (salary). 4: POTENTIAL_FRAUD (large amount, unknown foreign beneficiary, unusual time, suspicious label). 5: TRANSFER (person-to-person reimbursement). The fraud case is the critical edge case.",
+      "learning_objectives": [
+        {"fr": "Construire des exemples qui couvrent les cas de fraude", "en": "Build examples covering fraud cases"},
+        {"fr": "Inclure des signaux contextuels (montant, horaire, historique)", "en": "Include contextual signals (amount, time, history)"},
+        {"fr": "Assurer la cohérence du format de classification", "en": "Ensure classification format consistency"}
+      ],
+      "hints": [
+        {"fr": "Incluez dans vos exemples les signaux qui distinguent un investissement légitime d'une fraude", "en": "Include in your examples the signals that distinguish a legitimate investment from fraud"},
+        {"fr": "Montrez un exemple où le montant est élevé MAIS légitime (pour éviter le biais 'gros montant = fraude')", "en": "Show an example where the amount is high BUT legitimate (to avoid 'large amount = fraud' bias)"},
+        {"fr": "Précisez les signaux d'alerte : horaire inhabituel, premier bénéficiaire, pays à risque", "en": "Specify alert signals: unusual time, first-time beneficiary, high-risk country"}
+      ]
+    },
+    {
+      "mission_id": "tone_adapter",
+      "title": {"fr": "L'Adaptateur de Ton", "en": "The Tone Adapter"},
+      "audience": "marketing",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous gérez la communication d'une marque de luxe (horlogerie haut de gamme). Vous devez rédiger un prompt few-shot qui reformule des messages de service client dans le ton premium de la marque : élégant, rassurant, jamais familier, toujours personnalisé.\n\nVotre tâche : Rédigez un prompt avec 3 exemples de reformulation (message original → version marque de luxe) puis demandez au LLM de reformuler les messages ci-dessous.\n\nAttention : Le ton fait la marque. Un seul mot familier peut briser l'image premium.",
+        "en": "You manage communications for a luxury brand (high-end watchmaking). You must write a few-shot prompt that reformulates customer service messages in the brand's premium tone: elegant, reassuring, never casual, always personalized.\n\nYour task: Write a prompt with 3 reformulation examples (original message → luxury brand version) then ask the LLM to reformulate the messages below.\n\nNote: Tone IS the brand. A single casual word can break the premium image."
+      },
+      "input_text": {
+        "fr": "Messages à reformuler dans le ton de la marque :\n\n1. \"Salut, votre colis est en route, vous le recevrez dans 3-5 jours ouvrés.\"\n\n2. \"Désolé pour le retard de livraison. On a un souci avec notre transporteur. On fait le max pour régler ça vite.\"\n\n3. \"Votre montre est prête après réparation. Vous pouvez venir la chercher quand vous voulez en boutique.\"\n\n4. \"Merci pour votre achat ! N'hésitez pas à nous contacter si vous avez des questions.\"\n\n5. \"On peut pas faire de remboursement après 30 jours, c'est dans nos CGV. Mais on peut vous proposer un avoir.\"",
+        "en": "Messages to reformulate in the brand's tone:\n\n1. \"Hi, your package is on its way, you'll get it in 3-5 business days.\"\n\n2. \"Sorry for the delivery delay. We have an issue with our carrier. We're doing our best to fix it quickly.\"\n\n3. \"Your watch is ready after repair. You can come pick it up whenever you want at the store.\"\n\n4. \"Thanks for your purchase! Don't hesitate to contact us if you have any questions.\"\n\n5. \"We can't do a refund after 30 days, it's in our terms. But we can offer you store credit.\""
+      },
+      "expected_behavior": "Each message should be transformed into luxury brand language: formal address (vous/Madame/Monsieur), elevated vocabulary, personalized touch, empathy without casualness. The refusal (message 5) should be reframed positively.",
+      "learning_objectives": [
+        {"fr": "Construire des exemples de transformation de ton cohérents", "en": "Build consistent tone transformation examples"},
+        {"fr": "Maintenir un registre de langue précis via le few-shot", "en": "Maintain a precise language register through few-shot"},
+        {"fr": "Gérer les messages négatifs (refus) dans un ton premium", "en": "Handle negative messages (refusals) in a premium tone"}
+      ],
+      "hints": [
+        {"fr": "Incluez un exemple de reformulation de refus — c'est le cas le plus difficile", "en": "Include an example of refusal reformulation — it's the hardest case"},
+        {"fr": "Vos exemples doivent montrer : vouvoiement, vocabulaire soutenu, formules de courtoisie", "en": "Your examples should show: formal address, elevated vocabulary, courtesy phrases"},
+        {"fr": "Variez les types de messages dans vos exemples (bonne nouvelle, excuse, information)", "en": "Vary message types in your examples (good news, apology, information)"}
+      ]
+    },
+    {
+      "mission_id": "argument_classifier",
+      "title": {"fr": "Le Classifieur d'Arguments", "en": "The Argument Classifier"},
+      "audience": "humanities",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous êtes enseignant en méthodologie de recherche. Vous construisez un outil d'aide à l'analyse argumentative qui classifie les arguments par type : LOGIQUE (déductif/inductif), EMPIRIQUE (données, statistiques), D'AUTORITÉ (expert, institution), ÉMOTIONNEL (appel aux sentiments, rhétorique).\n\nVotre tâche : Rédigez un prompt avec 3 exemples classifiés puis demandez au LLM de classifier les arguments ci-dessous.\n\nAttention : Un même argument peut contenir plusieurs types. Vos exemples doivent aider le LLM à identifier le type dominant.",
+        "en": "You are a research methodology instructor. You are building an argumentative analysis tool that classifies arguments by type: LOGICAL (deductive/inductive), EMPIRICAL (data, statistics), AUTHORITY (expert, institution), EMOTIONAL (appeal to feelings, rhetoric).\n\nYour task: Write a prompt with 3 classified examples then ask the LLM to classify the arguments below.\n\nNote: A single argument can contain multiple types. Your examples must help the LLM identify the dominant type."
+      },
+      "input_text": {
+        "fr": "Arguments à classifier :\n\n1. \"Selon l'OMS, 4,2 millions de décès par an sont attribuables à la pollution de l'air extérieur. Ce chiffre a augmenté de 18% en une décennie. Il est donc impératif de renforcer les normes d'émission.\"\n\n2. \"Si tous les citoyens ont le droit à l'éducation, et si l'éducation numérique fait partie de l'éducation moderne, alors tous les citoyens ont le droit d'accès aux outils numériques.\"\n\n3. \"Pensez à vos enfants. Pensez au monde que nous leur laissons. Chaque jour d'inaction sur le climat est un jour volé à leur avenir. Nous n'avons pas le droit moral de détourner le regard.\"\n\n4. \"Le prix Nobel d'économie Joseph Stiglitz affirme que l'austérité budgétaire en période de récession aggrave la crise plutôt que de la résoudre.\"\n\n5. \"Les pays qui ont investi plus de 2% de leur PIB dans la R&D entre 2010 et 2020 ont connu une croissance moyenne de 3,4%, contre 1,8% pour les autres. La corrélation est statistiquement significative (p < 0.01).\"",
+        "en": "Arguments to classify:\n\n1. \"According to the WHO, 4.2 million deaths per year are attributable to outdoor air pollution. This figure has increased by 18% over a decade. It is therefore imperative to strengthen emission standards.\"\n\n2. \"If all citizens have the right to education, and if digital education is part of modern education, then all citizens have the right to access digital tools.\"\n\n3. \"Think of your children. Think of the world we are leaving them. Every day of inaction on climate is a day stolen from their future. We have no moral right to look away.\"\n\n4. \"Nobel Prize-winning economist Joseph Stiglitz states that fiscal austerity during recession worsens the crisis rather than resolving it.\"\n\n5. \"Countries that invested over 2% of their GDP in R&D between 2010 and 2020 experienced average growth of 3.4%, compared to 1.8% for others. The correlation is statistically significant (p < 0.01).\""
+      },
+      "expected_behavior": "1: EMPIRICAL (WHO data + statistics). 2: LOGICAL (syllogism/deductive). 3: EMOTIONAL (appeal to feelings, moral obligation). 4: AUTHORITY (Nobel laureate citation). 5: EMPIRICAL (statistical data with p-value). Good examples should help the LLM distinguish 1 (empirical with conclusion) from 5 (purely empirical).",
+      "learning_objectives": [
+        {"fr": "Construire des exemples qui distinguent des catégories proches", "en": "Build examples that distinguish similar categories"},
+        {"fr": "Gérer les arguments hybrides via des exemples pertinents", "en": "Handle hybrid arguments through relevant examples"},
+        {"fr": "Comprendre l'impact de la qualité des exemples sur la classification", "en": "Understand the impact of example quality on classification"}
+      ],
+      "hints": [
+        {"fr": "Incluez un exemple d'argument hybride (ex: empirique + émotionnel) pour montrer comment trancher", "en": "Include a hybrid argument example (e.g., empirical + emotional) to show how to decide"},
+        {"fr": "Définissez brièvement chaque catégorie avant les exemples", "en": "Briefly define each category before the examples"},
+        {"fr": "Demandez au LLM de justifier sa classification en une phrase", "en": "Ask the LLM to justify its classification in one sentence"}
+      ]
     }
   ]
 }

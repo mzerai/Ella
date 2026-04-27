@@ -60,6 +60,106 @@
         {"fr": "Donnez les valeurs exactes possibles pour label : 'positive' ou 'negative'", "en": "Give the exact possible values for label: 'positive' or 'negative'"},
         {"fr": "Précisez 'exactement 5 lignes de données + 1 ligne de header'", "en": "Specify 'exactly 5 data rows + 1 header row'"}
       ]
+    },
+    {
+      "mission_id": "prescription_parser",
+      "title": {"fr": "Le Parseur d'Ordonnance", "en": "The Prescription Parser"},
+      "audience": "health",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous développez un système de numérisation d'ordonnances pour une pharmacie. Le LLM reçoit le texte d'une ordonnance scannée (OCR) et doit extraire les informations dans un JSON structuré.\n\nVotre tâche : Rédigez un prompt qui extrait de l'ordonnance ci-dessous :\n- Les médicaments (nom, dosage, posologie, durée)\n- Le médecin prescripteur (nom, spécialité)\n- Le patient (nom, date de naissance si présente)\n- Les instructions spéciales\n\nLe résultat doit être un JSON valide suivant un schéma précis que vous définirez.\n\nObjectif : Spécifier un schéma de sortie adapté au domaine médical avec des contraintes de validation strictes.",
+        "en": "You are developing a prescription digitization system for a pharmacy. The LLM receives the text from a scanned prescription (OCR) and must extract information into structured JSON.\n\nYour task: Write a prompt that extracts from the prescription below:\n- Medications (name, dosage, posology, duration)\n- Prescribing doctor (name, specialty)\n- Patient (name, date of birth if present)\n- Special instructions\n\nThe result must be valid JSON following a precise schema you will define.\n\nObjective: Specify an output schema adapted to the medical domain with strict validation constraints."
+      },
+      "input_text": {
+        "fr": "Dr. Sami BEN AHMED\nMédecin Généraliste — CNOM 12847\nClinique El Manar, Tunis\n\nOrdonnance du 15/03/2026\nPatient : Mme Fatma HAJRI, née le 08/11/1978\n\n1) AMOXICILLINE 1g — 1 comprimé matin et soir pendant 7 jours\n   ⚠ Prendre pendant les repas\n\n2) IBUPROFÈNE 400mg — 1 comprimé 3 fois/jour si douleur (max 5 jours)\n   ⚠ Ne pas prendre à jeun\n\n3) GAVISCON suspension buvable — 1 sachet après chaque repas pendant 14 jours\n\nContrôle à prévoir dans 10 jours.\nEn cas de réaction allergique (éruption, gonflement), consulter en urgence.",
+        "en": "Dr. Sami BEN AHMED\nGeneral Practitioner — Medical License 12847\nEl Manar Clinic, Tunis\n\nPrescription dated 03/15/2026\nPatient: Mrs. Fatma HAJRI, born 11/08/1978\n\n1) AMOXICILLIN 1g — 1 tablet morning and evening for 7 days\n   ⚠ Take with meals\n\n2) IBUPROFEN 400mg — 1 tablet 3 times/day if pain (max 5 days)\n   ⚠ Do not take on empty stomach\n\n3) GAVISCON oral suspension — 1 sachet after each meal for 14 days\n\nFollow-up in 10 days.\nIn case of allergic reaction (rash, swelling), seek emergency care."
+      },
+      "expected_behavior": "Valid JSON with: doctor object (name, specialty, license, clinic), patient object (name, birth_date in ISO format), medications array with 3 entries each having name, dosage, posology, duration, route, and special_instructions. Global instructions field for follow-up and allergic reaction warning. All fields properly typed (dates as ISO strings, numbers as numbers).",
+      "learning_objectives": [
+        {"fr": "Concevoir un schéma JSON adapté à un domaine spécialisé", "en": "Design a JSON schema adapted to a specialized domain"},
+        {"fr": "Extraire des données semi-structurées d'un texte OCR", "en": "Extract semi-structured data from OCR text"},
+        {"fr": "Gérer les informations conditionnelles ('si douleur', 'max 5 jours')", "en": "Handle conditional information ('if pain', 'max 5 days')"}
+      ],
+      "hints": [
+        {"fr": "Montrez un exemple de la structure JSON attendue pour un médicament", "en": "Show an example of the expected JSON structure for one medication"},
+        {"fr": "Précisez le format des dates (ISO 8601 : YYYY-MM-DD)", "en": "Specify the date format (ISO 8601: YYYY-MM-DD)"},
+        {"fr": "Distinguez posologie fixe ('matin et soir') et conditionnelle ('si douleur')", "en": "Distinguish fixed posology ('morning and evening') from conditional ('if pain')"}
+      ]
+    },
+    {
+      "mission_id": "kpi_extractor",
+      "title": {"fr": "L'Extracteur de KPIs", "en": "The KPI Extractor"},
+      "audience": "finance",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous construisez un pipeline de veille financière automatisé. Le LLM reçoit un extrait de rapport trimestriel et doit extraire les indicateurs clés de performance en JSON structuré.\n\nVotre tâche : Rédigez un prompt qui extrait du rapport ci-dessous :\n- Les KPIs financiers (nom, valeur, unité, variation, période)\n- Les objectifs mentionnés (cible, horizon)\n- Le sentiment global de la direction\n\nLe JSON doit être directement ingérable par un dashboard de visualisation.\n\nObjectif : Structurer des données financières hétérogènes en un format uniforme et parsable.",
+        "en": "You are building an automated financial intelligence pipeline. The LLM receives an excerpt from a quarterly report and must extract key performance indicators as structured JSON.\n\nYour task: Write a prompt that extracts from the report below:\n- Financial KPIs (name, value, unit, change, period)\n- Mentioned objectives (target, horizon)\n- Overall management sentiment\n\nThe JSON must be directly ingestible by a visualization dashboard.\n\nObjective: Structure heterogeneous financial data into a uniform, parsable format."
+      },
+      "input_text": {
+        "fr": "Rapport trimestriel T1 2026 — TechMed Solutions SA\n\nFaits marquants du trimestre :\n\nLe chiffre d'affaires consolidé atteint 12,8 M€ au T1 2026, en hausse de 23% par rapport au T1 2025 (10,4 M€). La marge brute s'établit à 68%, en amélioration de 3 points par rapport à l'exercice précédent. L'EBITDA ressort à 2,1 M€ (16,4% du CA), contre 1,2 M€ un an plus tôt.\n\nLe taux de rétention client reste élevé à 94%, stable par rapport au trimestre précédent. Le nombre d'abonnés SaaS actifs est passé de 1 850 à 2 340, soit une croissance de 26%. Le revenu récurrent annuel (ARR) atteint désormais 48,5 M€.\n\nLes charges de R&D représentent 22% du CA (2,8 M€), avec un focus sur le module d'IA diagnostique dont le lancement est prévu au T3 2026.\n\nObjectif annuel : la direction confirme sa guidance de 55 M€ de CA pour l'exercice 2026 et vise une marge EBITDA de 18% en sortie d'année. Le recrutement de 45 ingénieurs supplémentaires est prévu d'ici septembre 2026.",
+        "en": "Quarterly Report Q1 2026 — TechMed Solutions SA\n\nQuarter highlights:\n\nConsolidated revenue reached €12.8M in Q1 2026, up 23% from Q1 2025 (€10.4M). Gross margin stands at 68%, a 3-point improvement from the previous year. EBITDA came in at €2.1M (16.4% of revenue), vs. €1.2M a year earlier.\n\nClient retention rate remains high at 94%, stable from the previous quarter. Active SaaS subscribers grew from 1,850 to 2,340, a 26% increase. Annual recurring revenue (ARR) now reaches €48.5M.\n\nR&D expenses represent 22% of revenue (€2.8M), focused on the AI diagnostic module scheduled for launch in Q3 2026.\n\nAnnual target: management confirms its guidance of €55M revenue for FY 2026 and aims for 18% EBITDA margin by year-end. Hiring of 45 additional engineers is planned by September 2026."
+      },
+      "expected_behavior": "Valid JSON with: kpis array containing each metric (revenue: 12.8M€, +23%; gross_margin: 68%, +3pp; EBITDA: 2.1M€, 16.4%; retention: 94%; SaaS subscribers: 2340, +26%; ARR: 48.5M€; R&D: 2.8M€, 22%). Objectives array (revenue target 55M€ FY2026, EBITDA margin 18% year-end, hiring 45 engineers by Sept 2026, AI module launch Q3 2026). Sentiment: positive/optimistic. All values properly typed with units.",
+      "learning_objectives": [
+        {"fr": "Normaliser des données financières hétérogènes en JSON uniforme", "en": "Normalize heterogeneous financial data into uniform JSON"},
+        {"fr": "Distinguer KPIs actuels, variations et objectifs futurs", "en": "Distinguish current KPIs, changes, and future objectives"},
+        {"fr": "Spécifier les types et unités pour un parsing automatique", "en": "Specify types and units for automatic parsing"}
+      ],
+      "hints": [
+        {"fr": "Définissez un schéma KPI avec : name, value, unit, change_pct, period", "en": "Define a KPI schema with: name, value, unit, change_pct, period"},
+        {"fr": "Séparez les KPIs des objectifs dans des tableaux distincts", "en": "Separate KPIs from objectives in distinct arrays"},
+        {"fr": "Précisez que les valeurs numériques doivent être des nombres, pas des strings", "en": "Specify that numeric values must be numbers, not strings"}
+      ]
+    },
+    {
+      "mission_id": "campaign_planner",
+      "title": {"fr": "Le Planificateur de Campagne", "en": "The Campaign Planner"},
+      "audience": "marketing",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous êtes responsable marketing et vous voulez utiliser un LLM pour transformer un brief marketing en un plan de campagne structuré et actionnable au format JSON.\n\nVotre tâche : Rédigez un prompt qui transforme le brief ci-dessous en un JSON contenant :\n- Les informations de la campagne (nom, objectif, budget, dates)\n- Les canaux de diffusion avec budget alloué par canal\n- Le calendrier des actions clés\n- Les KPIs de suivi avec cibles chiffrées\n\nLe JSON doit être directement importable dans un outil de gestion de projet.\n\nObjectif : Transformer un texte narratif en structure de données actionnables.",
+        "en": "You are a marketing manager who wants to use an LLM to transform a marketing brief into a structured, actionable campaign plan in JSON format.\n\nYour task: Write a prompt that transforms the brief below into a JSON containing:\n- Campaign information (name, objective, budget, dates)\n- Distribution channels with allocated budget per channel\n- Key action timeline\n- Tracking KPIs with quantified targets\n\nThe JSON must be directly importable into a project management tool.\n\nObjective: Transform narrative text into actionable data structures."
+      },
+      "input_text": {
+        "fr": "Brief campagne — Lancement NaturaSkin Sérum Éclat\n\nContexte : NaturaSkin lance son nouveau sérum anti-taches le 15 mai 2026. Budget total : 35 000€. Cible : femmes 25-45 ans, urbaines, sensibles aux cosmétiques naturels. La campagne doit durer 6 semaines (15 mai au 25 juin).\n\nStratégie souhaitée :\n- Pré-lancement (2 semaines) : teasing sur Instagram et TikTok avec 3 micro-influenceuses beauté (budget influenceuses : 8 000€)\n- Lancement (semaine 3) : campagne Meta Ads (Instagram + Facebook) avec vidéo 15s et carrousel avant/après. Budget ads : 15 000€\n- Post-lancement (3 semaines) : UGC challenge sur TikTok (#MonÉclatNatura), relai newsletter base clients existants (45 000 contacts), retargeting site web\n- Budget restant (12 000€) : création contenu, shooting photo, community management\n\nObjectifs : 500 ventes en 6 semaines, 10 000 visites sur la page produit, taux d'engagement Instagram > 4%.",
+        "en": "Campaign brief — NaturaSkin Glow Serum Launch\n\nContext: NaturaSkin is launching its new anti-dark spot serum on May 15, 2026. Total budget: €35,000. Target: women 25-45, urban, interested in natural cosmetics. Campaign runs 6 weeks (May 15 to June 25).\n\nDesired strategy:\n- Pre-launch (2 weeks): teasing on Instagram and TikTok with 3 beauty micro-influencers (influencer budget: €8,000)\n- Launch (week 3): Meta Ads campaign (Instagram + Facebook) with 15s video and before/after carousel. Ads budget: €15,000\n- Post-launch (3 weeks): UGC challenge on TikTok (#MyGlowNatura), newsletter relay to existing client base (45,000 contacts), website retargeting\n- Remaining budget (€12,000): content creation, photo shoot, community management\n\nGoals: 500 sales in 6 weeks, 10,000 visits to product page, Instagram engagement rate > 4%."
+      },
+      "expected_behavior": "Valid JSON with: campaign object (name, objective, budget: 35000, currency: EUR, start_date, end_date), channels array (each with name, budget, percentage), timeline array (each phase with name, start/end dates, actions array), kpis array (each with name, target_value, unit, measurement_method). Budget should sum to 35000. Dates should be ISO format.",
+      "learning_objectives": [
+        {"fr": "Transformer un brief narratif en structure de données", "en": "Transform a narrative brief into data structure"},
+        {"fr": "Spécifier des contraintes de validation (somme budgets = total)", "en": "Specify validation constraints (budget sum = total)"},
+        {"fr": "Structurer un calendrier d'actions en JSON temporel", "en": "Structure an action timeline in temporal JSON"}
+      ],
+      "hints": [
+        {"fr": "Demandez que la somme des budgets par canal égale le budget total", "en": "Ask that the sum of channel budgets equals the total budget"},
+        {"fr": "Imposez le format ISO pour les dates (YYYY-MM-DD)", "en": "Impose ISO format for dates (YYYY-MM-DD)"},
+        {"fr": "Montrez un exemple de structure KPI : {name, target, unit, method}", "en": "Show an example KPI structure: {name, target, unit, method}"}
+      ]
+    },
+    {
+      "mission_id": "bibliography_extractor",
+      "title": {"fr": "Le Bibliographe", "en": "The Bibliographer"},
+      "audience": "humanities",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Vous êtes doctorant en sciences sociales et vous construisez un outil pour extraire automatiquement les références bibliographiques citées dans un paragraphe académique.\n\nVotre tâche : Rédigez un prompt qui extrait du texte ci-dessous toutes les références et les structure en JSON :\n- Chaque référence avec : auteur(s), année, titre probable, type (livre/article/rapport)\n- Le contexte de citation (pourquoi l'auteur est cité)\n- Le style de citation détecté (APA, Chicago, etc.)\n\nLe JSON doit être convertible en fichier BibTeX ou en entrée Zotero.\n\nObjectif : Extraire et structurer des références à partir de texte académique libre.",
+        "en": "You are a PhD student in social sciences building a tool to automatically extract bibliographic references from academic paragraphs.\n\nYour task: Write a prompt that extracts from the text below all references and structures them as JSON:\n- Each reference with: author(s), year, probable title, type (book/article/report)\n- Citation context (why the author is cited)\n- Detected citation style (APA, Chicago, etc.)\n\nThe JSON must be convertible to a BibTeX file or Zotero entry.\n\nObjective: Extract and structure references from free academic text."
+      },
+      "input_text": {
+        "fr": "La question de la fracture numérique dans les pays du Maghreb a fait l'objet d'analyses approfondies. Selon Hargittai (2002), l'inégalité d'accès ne se limite pas à la connectivité mais englobe les compétences d'usage, un constat confirmé par les travaux de Warschauer (2004) sur la littératie numérique. Dans le contexte tunisien spécifiquement, Ben Hassine et Matoussi (2019) ont montré que le fossé numérique se creuse entre les régions côtières et l'intérieur du pays, avec un taux de pénétration Internet de 78% à Tunis contre 34% à Kasserine. Cette analyse rejoint les conclusions du rapport de la Banque Mondiale (2021, « Digital Economy for Tunisia ») qui recommande un investissement public ciblé dans les infrastructures des gouvernorats de l'ouest. Plus récemment, Khelifi et al. (2023) ont proposé un indice composite de maturité numérique intégrant l'accès, les usages et les compétences, testé sur un échantillon de 2 400 ménages dans six gouvernorats tunisiens. Leurs résultats confirment la thèse de DiMaggio et Hargittai (2001) selon laquelle la 'deuxième fracture numérique' — celle des compétences — est plus déterminante que la première.",
+        "en": "The question of the digital divide in Maghreb countries has been extensively analyzed. According to Hargittai (2002), access inequality is not limited to connectivity but encompasses usage skills, a finding confirmed by Warschauer's (2004) work on digital literacy. In the Tunisian context specifically, Ben Hassine and Matoussi (2019) showed that the digital gap is widening between coastal and inland regions, with internet penetration at 78% in Tunis versus 34% in Kasserine. This analysis aligns with the World Bank report (2021, 'Digital Economy for Tunisia') recommending targeted public investment in western governorates' infrastructure. More recently, Khelifi et al. (2023) proposed a composite digital maturity index integrating access, usage, and skills, tested on a sample of 2,400 households in six Tunisian governorates. Their results confirm DiMaggio and Hargittai's (2001) thesis that the 'second digital divide' — that of skills — is more determinant than the first."
+      },
+      "expected_behavior": "Valid JSON with: references array containing 5 entries: Hargittai (2002), Warschauer (2004), Ben Hassine & Matoussi (2019), World Bank (2021), Khelifi et al. (2023), DiMaggio & Hargittai (2001). Each with authors array, year (number), probable_title, type (article/book/report), and citation_context. Detected style: APA-like (author, year). Should note that exact titles are inferred since only author-date citations are given.",
+      "learning_objectives": [
+        {"fr": "Extraire des références de formats de citation variés", "en": "Extract references from varied citation formats"},
+        {"fr": "Structurer des métadonnées bibliographiques en JSON", "en": "Structure bibliographic metadata as JSON"},
+        {"fr": "Gérer l'incertitude (titres non mentionnés) avec des champs de confiance", "en": "Handle uncertainty (unmentioned titles) with confidence fields"}
+      ],
+      "hints": [
+        {"fr": "Demandez au LLM d'indiquer un champ 'confidence' pour les titres qu'il infère", "en": "Ask the LLM to include a 'confidence' field for titles it infers"},
+        {"fr": "Distinguez les types : livre, article de revue, rapport institutionnel", "en": "Distinguish types: book, journal article, institutional report"},
+        {"fr": "Demandez le format BibTeX-compatible : clé unique par référence (ex: hargittai2002)", "en": "Ask for BibTeX-compatible format: unique key per reference (e.g., hargittai2002)"}
+      ]
     }
   ]
 }

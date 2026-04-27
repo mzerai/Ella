@@ -60,6 +60,106 @@
         {"fr": "Précisez que la sortie doit être UN SEUL MOT", "en": "Specify that the output should be ONE WORD only"},
         {"fr": "Pensez aux cas ambigus : un bug peut aussi être formulé comme une plainte", "en": "Think about ambiguous cases: a bug can also sound like a complaint"}
       ]
+    },
+    {
+      "mission_id": "clinical_summary",
+      "title": {"fr": "Le Résumé Clinique", "en": "The Clinical Summary"},
+      "audience": "health",
+      "difficulty": "beginner",
+      "instructions": {
+        "fr": "Vous êtes data analyst dans un hôpital universitaire. Le chef du service oncologie vous demande de résumer un article scientifique sur l'utilisation de l'IA en imagerie médicale pour sa prochaine réunion de service.\n\nVotre tâche : Rédigez UN SEUL prompt zero-shot qui demande au LLM de résumer l'article ci-dessous en un résumé structuré adapté à des médecins spécialistes. Le résumé doit mettre en avant les résultats cliniques, les limites et les implications pratiques.\n\nAttention : Les médecins veulent des chiffres précis et des conclusions actionnables, pas de la vulgarisation.",
+        "en": "You are a data analyst at a university hospital. The head of oncology asks you to summarize a scientific article on AI in medical imaging for the next department meeting.\n\nYour task: Write ONE zero-shot prompt asking the LLM to summarize the article below into a structured summary suitable for specialist physicians. The summary should highlight clinical outcomes, limitations, and practical implications.\n\nNote: Physicians want precise figures and actionable conclusions, not popularized science."
+      },
+      "input_text": {
+        "fr": "Une étude multi-centrique menée dans 12 hôpitaux européens entre 2022 et 2024 a évalué les performances d'un modèle d'intelligence artificielle (DeepLung-3) pour la détection précoce des nodules pulmonaires sur scanner thoracique low-dose. L'étude a porté sur 15 400 patients à haut risque (fumeurs de plus de 20 paquets-années). Le modèle a atteint une sensibilité de 94,2% contre 87,1% pour les radiologues seniors, avec une spécificité de 88,7% contre 91,3%. Le taux de faux positifs du modèle était de 11,3%, entraînant des examens complémentaires inutiles pour 1 740 patients. Le temps moyen d'analyse par scanner est passé de 12 minutes (radiologue) à 4,3 secondes (IA + validation humaine en 2 minutes). Les auteurs soulignent que le modèle a été entraîné majoritairement sur des populations caucasiennes, soulevant des questions de biais ethnique. Le cadre réglementaire CE-MDR exige une validation clinique par pays avant déploiement. Le coût d'implémentation est estimé à 340 000€ par établissement, amortissable en 18 mois selon les projections.",
+        "en": "A multi-center study conducted across 12 European hospitals between 2022 and 2024 evaluated the performance of an AI model (DeepLung-3) for early detection of pulmonary nodules on low-dose chest CT scans. The study included 15,400 high-risk patients (smokers with over 20 pack-years). The model achieved 94.2% sensitivity versus 87.1% for senior radiologists, with 88.7% specificity versus 91.3%. The model's false positive rate was 11.3%, leading to unnecessary follow-up examinations for 1,740 patients. Average analysis time per scan dropped from 12 minutes (radiologist) to 4.3 seconds (AI + 2-minute human validation). The authors note the model was primarily trained on Caucasian populations, raising ethnic bias concerns. The CE-MDR regulatory framework requires country-specific clinical validation before deployment. Implementation cost is estimated at €340,000 per facility, with an 18-month payback period according to projections."
+      },
+      "expected_behavior": "The LLM should produce a structured clinical summary with sections for methodology, key results (sensitivity/specificity with numbers), limitations (bias, false positives), and practical implications (cost, regulatory path). Written for specialist physicians, not laypeople.",
+      "learning_objectives": [
+        {"fr": "Formuler un objectif clair pour un public expert", "en": "Formulate a clear objective for an expert audience"},
+        {"fr": "Spécifier un format structuré adapté au contexte médical", "en": "Specify a structured format suitable for clinical context"},
+        {"fr": "Contraindre le LLM à inclure les chiffres clés", "en": "Constrain the LLM to include key figures"}
+      ],
+      "hints": [
+        {"fr": "Précisez que le public cible est des médecins spécialistes, pas le grand public", "en": "Specify that the target audience is specialist physicians, not the general public"},
+        {"fr": "Demandez des sections : Méthodologie, Résultats, Limites, Implications", "en": "Ask for sections: Methodology, Results, Limitations, Implications"},
+        {"fr": "Exigez que les chiffres clés (sensibilité, spécificité, coûts) soient conservés", "en": "Require that key figures (sensitivity, specificity, costs) be preserved"}
+      ]
+    },
+    {
+      "mission_id": "market_brief",
+      "title": {"fr": "Le Brief Marchés", "en": "The Market Brief"},
+      "audience": "finance",
+      "difficulty": "beginner",
+      "instructions": {
+        "fr": "Vous êtes analyste junior dans une banque d'investissement. Le directeur de la gestion d'actifs veut un résumé de la situation réglementaire des stablecoins en Europe pour le comité d'investissement de vendredi.\n\nVotre tâche : Rédigez UN SEUL prompt zero-shot qui demande au LLM de produire un brief synthétique à partir de l'article ci-dessous. Le brief doit être adapté à des investisseurs institutionnels — factuel, chiffré, avec les implications pour les portefeuilles.\n\nAttention : Le comité attend un document structuré, pas un résumé narratif. Chaque point doit être actionnable.",
+        "en": "You are a junior analyst at an investment bank. The head of asset management wants a summary of the regulatory situation for stablecoins in Europe for Friday's investment committee.\n\nYour task: Write ONE zero-shot prompt asking the LLM to produce a concise brief from the article below. The brief must be suited for institutional investors — factual, with figures, and portfolio implications.\n\nNote: The committee expects a structured document, not a narrative summary. Every point should be actionable."
+      },
+      "input_text": {
+        "fr": "Le règlement MiCA (Markets in Crypto-Assets), entré en vigueur en juin 2024 dans l'Union européenne, impose de nouvelles obligations aux émetteurs de stablecoins. Les stablecoins adossés à une monnaie (e-money tokens) doivent désormais maintenir des réserves à 100% en dépôts bancaires ou actifs liquides de haute qualité, auditées trimestriellement. Tether (USDT), leader mondial avec 110 milliards de dollars de capitalisation, n'a pas encore obtenu sa licence MiCA et risque un retrait des plateformes européennes d'ici Q1 2025. Circle (USDC) a obtenu sa licence en juillet 2024 et se positionne comme l'alternative conforme. La BCE a exprimé des préoccupations sur le risque systémique des stablecoins dépassant 200 milliards en circulation globale. Les banques centrales nationales (Banque de France, Bundesbank) recommandent de limiter l'exposition des fonds UCITS aux crypto-actifs à 5% maximum. Les analystes de Morgan Stanley estiment que MiCA pourrait réduire la liquidité des marchés crypto européens de 15-20% à court terme, mais renforcer la confiance institutionnelle à moyen terme.",
+        "en": "The MiCA regulation (Markets in Crypto-Assets), effective June 2024 in the European Union, imposes new obligations on stablecoin issuers. Fiat-backed stablecoins (e-money tokens) must now maintain 100% reserves in bank deposits or high-quality liquid assets, audited quarterly. Tether (USDT), the global leader with $110 billion market cap, has not yet obtained its MiCA license and risks delisting from European platforms by Q1 2025. Circle (USDC) obtained its license in July 2024 and positions itself as the compliant alternative. The ECB has expressed concerns about systemic risk from stablecoins exceeding $200 billion in global circulation. National central banks (Banque de France, Bundesbank) recommend capping UCITS fund exposure to crypto-assets at 5% maximum. Morgan Stanley analysts estimate MiCA could reduce European crypto market liquidity by 15-20% short-term but strengthen institutional confidence medium-term."
+      },
+      "expected_behavior": "A structured investment brief with sections covering regulatory overview, key players impact (Tether vs Circle), risk assessment, and portfolio implications. Written for institutional investors with precise figures.",
+      "learning_objectives": [
+        {"fr": "Adapter le registre au public financier institutionnel", "en": "Adapt the register to an institutional finance audience"},
+        {"fr": "Structurer un brief d'investissement actionnable", "en": "Structure an actionable investment brief"},
+        {"fr": "Contraindre le format de sortie (sections, bullet points)", "en": "Constrain output format (sections, bullet points)"}
+      ],
+      "hints": [
+        {"fr": "Précisez que le brief est pour un comité d'investissement, pas pour le grand public", "en": "Specify the brief is for an investment committee, not the general public"},
+        {"fr": "Demandez des sections : Contexte réglementaire, Impact, Risques, Recommandations", "en": "Ask for sections: Regulatory context, Impact, Risks, Recommendations"},
+        {"fr": "Imposez un format concis : max 200 mots, bullet points", "en": "Impose a concise format: max 200 words, bullet points"}
+      ]
+    },
+    {
+      "mission_id": "creative_brief",
+      "title": {"fr": "Le Brief Créatif", "en": "The Creative Brief"},
+      "audience": "marketing",
+      "difficulty": "beginner",
+      "instructions": {
+        "fr": "Vous êtes chef de produit dans une startup healthtech. Le CMO vous demande de préparer un brief créatif pour l'agence qui va concevoir la campagne de lancement de votre application de téléconsultation.\n\nVotre tâche : Rédigez UN SEUL prompt zero-shot qui demande au LLM de produire un brief créatif structuré à partir des informations ci-dessous. Le brief doit être directement exploitable par une agence de communication.\n\nAttention : Un brief créatif a un format précis. Ne laissez pas le LLM écrire un texte libre — imposez la structure.",
+        "en": "You are a product manager at a healthtech startup. The CMO asks you to prepare a creative brief for the agency that will design the launch campaign for your telemedicine app.\n\nYour task: Write ONE zero-shot prompt asking the LLM to produce a structured creative brief from the information below. The brief must be directly usable by a communications agency.\n\nNote: A creative brief has a specific format. Don't let the LLM write free-form text — impose the structure."
+      },
+      "input_text": {
+        "fr": "Produit : MediConnect, application de téléconsultation médicale avec module IA de pré-diagnostic symptomatique. L'IA pose des questions ciblées avant la consultation pour préparer le dossier du médecin. Disponible sur iOS et Android. Abonnement mensuel à 29,90€/mois (individuel) ou 79,90€/mois (famille jusqu'à 5 personnes). Accès à un réseau de 2 400 médecins généralistes et spécialistes, consultations en moins de 15 minutes. Cible principale : cadres urbains 30-50 ans, CSP+, sensibles à l'optimisation du temps et à la qualité de vie. Positionnement : premium, confiance médicale, rapidité. Différenciateurs : IA de pré-diagnostic (unique sur le marché français), garantie de consultation en moins de 15 min, partenariats avec les mutuelles d'entreprise (remboursement à 100%). Budget campagne de lancement : 180 000€ sur 3 mois. Canaux prioritaires : Instagram, LinkedIn, podcasts santé/bien-être. Contraintes : respecter le cadre légal de la publicité médicale (interdiction de promesses thérapeutiques).",
+        "en": "Product: MediConnect, a telemedicine app with an AI-powered symptomatic pre-diagnosis module. The AI asks targeted questions before the consultation to prepare the doctor's file. Available on iOS and Android. Monthly subscription at €29.90/month (individual) or €79.90/month (family up to 5 people). Access to a network of 2,400 GPs and specialists, consultations in under 15 minutes. Primary target: urban professionals aged 30-50, high-income, time-conscious and quality-of-life oriented. Positioning: premium, medical trust, speed. Differentiators: AI pre-diagnosis (unique in the French market), guaranteed consultation under 15 min, partnerships with corporate health insurers (100% reimbursement). Launch campaign budget: €180,000 over 3 months. Priority channels: Instagram, LinkedIn, health/wellness podcasts. Constraints: comply with medical advertising regulations (no therapeutic promises)."
+      },
+      "expected_behavior": "A structured creative brief with: product overview, target audience persona, key message, tone of voice, channels with budget allocation, KPIs, legal constraints. Professional agency-ready format.",
+      "learning_objectives": [
+        {"fr": "Structurer un brief créatif professionnel", "en": "Structure a professional creative brief"},
+        {"fr": "Imposer un format métier au LLM", "en": "Impose a professional format on the LLM"},
+        {"fr": "Inclure les contraintes légales dans les instructions", "en": "Include legal constraints in the instructions"}
+      ],
+      "hints": [
+        {"fr": "Imposez les sections d'un vrai brief créatif : Contexte, Cible, Message clé, Ton, Canaux, KPIs", "en": "Impose real creative brief sections: Context, Target, Key message, Tone, Channels, KPIs"},
+        {"fr": "Précisez que le brief doit être exploitable par une agence sans informations supplémentaires", "en": "Specify the brief must be usable by an agency without additional information"},
+        {"fr": "Mentionnez les contraintes légales (publicité médicale)", "en": "Mention legal constraints (medical advertising)"}
+      ]
+    },
+    {
+      "mission_id": "text_analysis",
+      "title": {"fr": "L'Analyse de Texte", "en": "The Text Analysis"},
+      "audience": "humanities",
+      "difficulty": "beginner",
+      "instructions": {
+        "fr": "Vous êtes chercheur en sciences sociales et préparez un article sur l'éthique de l'IA. Vous devez analyser un extrait de texte philosophique pour en extraire les arguments principaux et les confronter aux débats actuels.\n\nVotre tâche : Rédigez UN SEUL prompt zero-shot qui demande au LLM d'analyser l'extrait ci-dessous en identifiant : les thèses défendues, les arguments utilisés, les présupposés implicites, et les liens avec les débats contemporains sur l'IA.\n\nAttention : Le LLM doit analyser, pas résumer. Imposez une grille d'analyse précise.",
+        "en": "You are a social sciences researcher preparing a paper on AI ethics. You need to analyze a philosophical text excerpt to extract the main arguments and confront them with current debates.\n\nYour task: Write ONE zero-shot prompt asking the LLM to analyze the excerpt below by identifying: the defended theses, the arguments used, the implicit presuppositions, and connections to contemporary AI debates.\n\nNote: The LLM must analyze, not summarize. Impose a precise analytical framework."
+      },
+      "input_text": {
+        "fr": "La question de la responsabilité morale des systèmes autonomes ne peut se résoudre par une simple extension des catégories juridiques existantes. Un véhicule autonome qui prend une décision ayant des conséquences mortelles n'agit pas au sens philosophique du terme — il exécute un algorithme optimisé selon des paramètres définis par ses concepteurs. Pourtant, la chaîne causale entre la décision d'un ingénieur et l'accident sur la route est si longue et si complexe qu'aucun individu ne peut raisonnablement être tenu pour seul responsable. Le biais algorithmique aggrave ce problème : lorsqu'un système de recrutement discrimine systématiquement certains profils, la responsabilité se dilue entre les données d'entraînement (reflet de discriminations passées), les choix architecturaux du modèle, et l'absence de supervision humaine. Certains philosophes proposent le concept de 'responsabilité distribuée', où fabricants, déployeurs et régulateurs partagent une obligation morale proportionnelle à leur pouvoir d'intervention. D'autres, comme Floridi, défendent l'idée d'une 'agentivité artificielle' — non pas une conscience morale, mais un statut d'agent causal qui justifie l'imposition de contraintes éthiques au système lui-même.",
+        "en": "The question of moral responsibility for autonomous systems cannot be resolved by simply extending existing legal categories. An autonomous vehicle that makes a decision with fatal consequences does not 'act' in the philosophical sense — it executes an algorithm optimized according to parameters defined by its designers. Yet the causal chain between an engineer's decision and the road accident is so long and complex that no individual can reasonably be held solely responsible. Algorithmic bias compounds this problem: when a recruitment system systematically discriminates against certain profiles, responsibility is diluted across training data (reflecting past discriminations), model architectural choices, and lack of human oversight. Some philosophers propose the concept of 'distributed responsibility', where manufacturers, deployers, and regulators share a moral obligation proportional to their power of intervention. Others, like Floridi, defend the idea of 'artificial agency' — not a moral conscience, but a status as causal agent that justifies imposing ethical constraints on the system itself."
+      },
+      "expected_behavior": "A structured philosophical analysis identifying: main theses (distributed responsibility, artificial agency), argument types (logical, by authority), implicit presuppositions (intentionality required for moral responsibility), and links to current AI governance debates (EU AI Act, algorithmic auditing).",
+      "learning_objectives": [
+        {"fr": "Imposer une grille d'analyse au LLM", "en": "Impose an analytical framework on the LLM"},
+        {"fr": "Distinguer analyse et résumé dans les instructions", "en": "Distinguish analysis from summary in instructions"},
+        {"fr": "Spécifier le niveau de profondeur attendu", "en": "Specify the expected depth of analysis"}
+      ],
+      "hints": [
+        {"fr": "Structurez votre demande : 1) Thèses, 2) Arguments, 3) Présupposés, 4) Liens contemporains", "en": "Structure your request: 1) Theses, 2) Arguments, 3) Presuppositions, 4) Contemporary links"},
+        {"fr": "Précisez 'analyse, ne résume pas' pour éviter un simple résumé", "en": "Specify 'analyze, do not summarize' to avoid a simple summary"},
+        {"fr": "Demandez d'identifier les présupposés implicites, pas seulement les arguments explicites", "en": "Ask to identify implicit presuppositions, not just explicit arguments"}
+      ]
     }
   ]
 }
