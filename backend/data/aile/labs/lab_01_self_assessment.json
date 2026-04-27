@@ -1,0 +1,168 @@
+{
+    "lab_id": "01_self_assessment",
+    "title": {
+        "fr": "Auto-diagnostic IA rapide",
+        "en": "Quick AI Self-Assessment"
+    },
+    "description": {
+        "fr": "5 questions pour évaluer où vous en êtes avec l'IA. ELLA analyse vos réponses et vous donne un premier feedback stratégique.",
+        "en": "5 questions to assess where you stand with AI. ELLA analyzes your answers and gives you initial strategic feedback."
+    },
+    "concept": {
+        "fr": "Avant de définir une stratégie IA, vous devez savoir d'où vous partez. Ce diagnostic rapide couvre 5 dimensions : initiatives existantes, données, compétences, gouvernance et culture. ELLA vous donnera un premier positionnement sur le Gartner AI Maturity Model.",
+        "en": "Before defining an AI strategy, you need to know where you stand. This quick diagnostic covers 5 dimensions: existing initiatives, data, skills, governance and culture. ELLA will give you an initial positioning on the Gartner AI Maturity Model."
+    },
+    "rubric_id": "self_assessment",
+    "missions": [
+        {
+            "mission_id": "assessment_finance",
+            "title": {
+                "fr": "Diagnostic IA — Finance & Banque",
+                "en": "AI Diagnostic — Finance & Banking"
+            },
+            "audience": "finance",
+            "difficulty": "beginner",
+            "instructions": {
+                "fr": "Répondez aux 5 questions suivantes en vous basant sur la réalité de votre organisation dans le secteur financier. Soyez honnête — ce diagnostic est pour vous, pas pour ELLA.\n\n1. **Initiatives IA existantes** : Votre organisation a-t-elle des projets IA en cours ? Si oui, lesquels ? Si non, des discussions sont-elles en cours ?\n\n2. **État des données** : Vos données clients et transactionnelles sont-elles centralisées, de bonne qualité, et accessibles pour l'analyse ? Ou sont-elles dispersées dans des systèmes hétérogènes ?\n\n3. **Compétences** : Avez-vous des profils data science ou IA en interne ? Combien ? Sont-ils rattachés à l'IT ou aux métiers ?\n\n4. **Gouvernance** : Avez-vous une politique d'utilisation des données et/ou de l'IA ? Un comité de revue ? Des règles de conformité spécifiques (BCT, RGPD) ?\n\n5. **Culture** : Vos équipes métier (conseillers, analystes risques, back-office) sont-elles ouvertes à l'IA ou résistantes ? Le management intermédiaire soutient-il les initiatives digitales ?\n\nRédigez vos réponses en un texte structuré (5 paragraphes, un par question). ELLA analysera vos réponses et vous positionnera sur le Gartner AI Maturity Model.",
+                "en": "Answer the following 5 questions based on the reality of your organization in the financial sector. Be honest — this diagnostic is for you, not for ELLA.\n\n1. **Existing AI initiatives**: Does your organization have AI projects underway? If yes, which ones? If no, are discussions happening?\n\n2. **Data state**: Is your customer and transactional data centralized, high quality, and accessible for analysis? Or is it scattered across heterogeneous systems?\n\n3. **Skills**: Do you have data science or AI profiles internally? How many? Are they attached to IT or to business units?\n\n4. **Governance**: Do you have a data and/or AI usage policy? A review committee? Specific compliance rules (BCT, GDPR)?\n\n5. **Culture**: Are your business teams (advisors, risk analysts, back-office) open to AI or resistant? Does middle management support digital initiatives?\n\nWrite your answers as structured text (5 paragraphs, one per question). ELLA will analyze your answers and position you on the Gartner AI Maturity Model."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive provides honest, detailed answers covering all 5 dimensions. ELLA should assess the maturity level (1-5 on Gartner scale) for each dimension and provide an overall assessment with specific recommendations for the financial sector.",
+            "learning_objectives": [
+                {"fr": "Évaluer honnêtement sa maturité IA", "en": "Honestly assess one's AI maturity"},
+                {"fr": "Identifier ses forces et lacunes", "en": "Identify strengths and gaps"},
+                {"fr": "Se positionner sur le Gartner AI Maturity Model", "en": "Position oneself on the Gartner AI Maturity Model"}
+            ],
+            "hints": [
+                {"fr": "Soyez précis : 'on a un projet de chatbot en PoC' est mieux que 'on explore l'IA'", "en": "Be specific: 'we have a chatbot PoC project' is better than 'we're exploring AI'"},
+                {"fr": "Pour les données : décrivez les systèmes sources (core banking, CRM, etc.)", "en": "For data: describe source systems (core banking, CRM, etc.)"},
+                {"fr": "Pour la culture : donnez un exemple concret de réaction face à l'IA", "en": "For culture: give a concrete example of reaction to AI"}
+            ]
+        },
+        {
+            "mission_id": "assessment_health",
+            "title": {
+                "fr": "Diagnostic IA — Santé & Pharma",
+                "en": "AI Diagnostic — Health & Pharma"
+            },
+            "audience": "health",
+            "difficulty": "beginner",
+            "instructions": {
+                "fr": "Répondez aux 5 questions suivantes en vous basant sur la réalité de votre organisation dans le secteur santé.\n\n1. **Initiatives IA existantes** : Votre établissement utilise-t-il l'IA ? (imagerie médicale, triage, dossiers patients, prédiction de flux, etc.) Si non, des discussions sont-elles en cours ?\n\n2. **État des données** : Vos données patients sont-elles numérisées et exploitables ? Le dossier patient informatisé est-il déployé ? Les données sont-elles structurées ou essentiellement sous forme de texte libre ?\n\n3. **Compétences** : Avez-vous des profils data/IA ? Des partenariats avec des universités ou startups IA santé ?\n\n4. **Gouvernance** : Comment gérez-vous les données de santé ? Avez-vous des protocoles pour l'utilisation de l'IA dans les décisions cliniques ?\n\n5. **Culture** : Le corps médical est-il ouvert à l'IA ou méfiant ? Les soignants voient-ils l'IA comme un outil d'aide ou une menace ?\n\nRédigez vos réponses en un texte structuré. ELLA vous positionnera sur le Gartner AI Maturity Model avec des recommandations adaptées au secteur santé.",
+                "en": "Answer the following 5 questions based on the reality of your organization in the health sector.\n\n1. **Existing AI initiatives**: Does your institution use AI? (medical imaging, triage, patient records, flow prediction, etc.) If not, are discussions happening?\n\n2. **Data state**: Is your patient data digitized and exploitable? Is the electronic health record deployed? Is data structured or mostly free text?\n\n3. **Skills**: Do you have data/AI profiles? Partnerships with universities or health AI startups?\n\n4. **Governance**: How do you manage health data? Do you have protocols for using AI in clinical decisions?\n\n5. **Culture**: Is the medical staff open to AI or skeptical? Do caregivers see AI as a helpful tool or a threat?\n\nWrite your answers as structured text. ELLA will position you on the Gartner AI Maturity Model with recommendations adapted to the health sector."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive provides honest, detailed answers covering all 5 dimensions in a healthcare context. ELLA should assess maturity and provide sector-specific recommendations addressing data sensitivity, clinical validation, and medical staff adoption.",
+            "learning_objectives": [
+                {"fr": "Évaluer la maturité IA dans un contexte santé", "en": "Assess AI maturity in a healthcare context"},
+                {"fr": "Identifier les contraintes spécifiques au secteur santé", "en": "Identify health sector-specific constraints"},
+                {"fr": "Comprendre le rôle des données de santé dans la maturité IA", "en": "Understand the role of health data in AI maturity"}
+            ],
+            "hints": [
+                {"fr": "Précisez le type de dossier patient : papier, DPI partiel, DPI complet", "en": "Specify the type of patient record: paper, partial EHR, full EHR"},
+                {"fr": "Pour l'IA en imagerie : précisez si c'est un projet ou en routine clinique", "en": "For imaging AI: specify if it's a project or in clinical routine"},
+                {"fr": "Pour la culture : distinguez médecins, soignants, et administratifs", "en": "For culture: distinguish doctors, caregivers, and administrative staff"}
+            ]
+        },
+        {
+            "mission_id": "assessment_engineering",
+            "title": {
+                "fr": "Diagnostic IA — Industrie & Technologie",
+                "en": "AI Diagnostic — Industry & Technology"
+            },
+            "audience": "engineering",
+            "difficulty": "beginner",
+            "instructions": {
+                "fr": "Répondez aux 5 questions suivantes en vous basant sur la réalité de votre organisation industrielle ou technologique.\n\n1. **Initiatives IA existantes** : Utilisez-vous l'IA dans vos opérations ? (maintenance prédictive, contrôle qualité, optimisation de production, R&D, etc.)\n\n2. **État des données** : Vos machines et capteurs génèrent-ils des données exploitables ? Sont-elles collectées, stockées, et accessibles ? Avez-vous un historique suffisant ?\n\n3. **Compétences** : Avez-vous des profils data/IA ? Des ingénieurs capables de travailler à l'interface entre l'IA et vos systèmes industriels (SCADA, MES, ERP) ?\n\n4. **Gouvernance** : Comment gérez-vous les données industrielles ? Avez-vous des normes de qualité pour les données capteurs ? Des protocoles de sécurité pour les systèmes connectés ?\n\n5. **Culture** : Les opérateurs et techniciens sont-ils formés au digital ? Le management de production est-il ouvert aux outils IA ?\n\nRédigez vos réponses en un texte structuré. ELLA vous positionnera sur le Gartner AI Maturity Model.",
+                "en": "Answer the following 5 questions based on the reality of your industrial or technology organization.\n\n1. **Existing AI initiatives**: Do you use AI in your operations? (predictive maintenance, quality control, production optimization, R&D, etc.)\n\n2. **Data state**: Do your machines and sensors generate exploitable data? Is it collected, stored, and accessible? Do you have sufficient history?\n\n3. **Skills**: Do you have data/AI profiles? Engineers capable of working at the interface between AI and your industrial systems (SCADA, MES, ERP)?\n\n4. **Governance**: How do you manage industrial data? Do you have quality standards for sensor data? Security protocols for connected systems?\n\n5. **Culture**: Are operators and technicians trained in digital? Is production management open to AI tools?\n\nWrite your answers as structured text. ELLA will position you on the Gartner AI Maturity Model."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive provides detailed answers about their industrial context. ELLA should assess maturity considering IoT readiness, OT/IT convergence, and manufacturing-specific challenges.",
+            "learning_objectives": [
+                {"fr": "Évaluer la maturité IA dans un contexte industriel", "en": "Assess AI maturity in an industrial context"},
+                {"fr": "Identifier les enjeux données des systèmes industriels", "en": "Identify data challenges in industrial systems"},
+                {"fr": "Comprendre la convergence IT/OT pour l'IA", "en": "Understand IT/OT convergence for AI"}
+            ],
+            "hints": [
+                {"fr": "Précisez vos systèmes industriels : SCADA, MES, ERP, capteurs IoT", "en": "Specify your industrial systems: SCADA, MES, ERP, IoT sensors"},
+                {"fr": "Pour la maintenance : prédictive, préventive, ou curative ?", "en": "For maintenance: predictive, preventive, or reactive?"},
+                {"fr": "Pour les données : temps réel vs historique, structurées vs non-structurées", "en": "For data: real-time vs historical, structured vs unstructured"}
+            ]
+        },
+        {
+            "mission_id": "assessment_business",
+            "title": {
+                "fr": "Diagnostic IA — Direction Générale",
+                "en": "AI Diagnostic — General Management"
+            },
+            "audience": "business",
+            "difficulty": "beginner",
+            "instructions": {
+                "fr": "Répondez aux 5 questions suivantes en vous basant sur la réalité de votre organisation.\n\n1. **Initiatives IA existantes** : Votre entreprise a-t-elle des projets IA en cours ou prévus ? Dans quels départements ? À quel stade (exploration, PoC, production) ?\n\n2. **État des données** : Vos données business (clients, ventes, opérations) sont-elles centralisées dans un outil unique ou dispersées ? Quelle est votre confiance dans la qualité de ces données ?\n\n3. **Compétences** : Qui gère les projets data/IA ? L'IT ? Un département dédié ? Un prestataire externe ? Avez-vous un CDO ou un responsable data ?\n\n4. **Gouvernance** : Le CODIR discute-t-il régulièrement de l'IA ? Existe-t-il une politique d'utilisation de l'IA ou des données ? Un budget dédié ?\n\n5. **Culture** : Comment vos équipes réagissent-elles quand on parle d'IA ? Enthousiasme ? Méfiance ? Indifférence ? Le management intermédiaire est-il un accélérateur ou un frein ?\n\nRédigez vos réponses en un texte structuré. ELLA vous positionnera sur le Gartner AI Maturity Model.",
+                "en": "Answer the following 5 questions based on the reality of your organization.\n\n1. **Existing AI initiatives**: Does your company have AI projects underway or planned? In which departments? At what stage (exploration, PoC, production)?\n\n2. **Data state**: Is your business data (customers, sales, operations) centralized in a single tool or scattered? How confident are you in the quality of this data?\n\n3. **Skills**: Who manages data/AI projects? IT? A dedicated department? An external provider? Do you have a CDO or data manager?\n\n4. **Governance**: Does the board regularly discuss AI? Is there an AI or data usage policy? A dedicated budget?\n\n5. **Culture**: How do your teams react when AI is mentioned? Enthusiasm? Distrust? Indifference? Is middle management an accelerator or a brake?\n\nWrite your answers as structured text. ELLA will position you on the Gartner AI Maturity Model."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive provides a candid assessment of their organization's AI readiness from a general management perspective. ELLA should identify the biggest gap and recommend the first concrete action.",
+            "learning_objectives": [
+                {"fr": "Évaluer sa maturité IA organisationnelle", "en": "Assess organizational AI maturity"},
+                {"fr": "Identifier le maillon faible de sa chaîne IA", "en": "Identify the weakest link in one's AI chain"},
+                {"fr": "Définir une première action concrète", "en": "Define a first concrete action"}
+            ],
+            "hints": [
+                {"fr": "Soyez spécifique sur les outils : CRM, ERP, Excel, BI ?", "en": "Be specific about tools: CRM, ERP, Excel, BI?"},
+                {"fr": "Pour le CODIR : combien de fois l'IA a-t-elle été discutée cette année ?", "en": "For the board: how many times was AI discussed this year?"},
+                {"fr": "Pour la culture : citez un épisode concret récent", "en": "For culture: cite a specific recent episode"}
+            ]
+        },
+        {
+            "mission_id": "assessment_marketing",
+            "title": {
+                "fr": "Diagnostic IA — Marketing & Commercial",
+                "en": "AI Diagnostic — Marketing & Commercial"
+            },
+            "audience": "marketing",
+            "difficulty": "beginner",
+            "instructions": {
+                "fr": "Répondez aux 5 questions suivantes en vous basant sur la réalité de votre organisation dans le domaine marketing et commercial.\n\n1. **Initiatives IA existantes** : Utilisez-vous l'IA dans votre marketing ? (personnalisation, segmentation, automatisation email, chatbot, recommandation produit, analyse sentiment, etc.)\n\n2. **État des données** : Vos données clients sont-elles unifiées (CDP, CRM) ? Avez-vous une vue 360° du client ? Les données web, CRM, et transactionnelles sont-elles connectées ?\n\n3. **Compétences** : Avez-vous des profils data marketing ? Des growth hackers qui utilisent l'IA ? Des outils martech avec des composantes IA ?\n\n4. **Gouvernance** : Comment gérez-vous le consentement (RGPD, cookies) ? Avez-vous des règles pour l'utilisation de l'IA générative dans la création de contenu ?\n\n5. **Culture** : Les équipes marketing expérimentent-elles spontanément avec l'IA (ChatGPT, Midjourney, etc.) ? Le directeur marketing voit-il l'IA comme une priorité stratégique ?\n\nRédigez vos réponses en un texte structuré. ELLA vous positionnera sur le Gartner AI Maturity Model.",
+                "en": "Answer the following 5 questions based on the reality of your organization in the marketing and commercial domain.\n\n1. **Existing AI initiatives**: Do you use AI in your marketing? (personalization, segmentation, email automation, chatbot, product recommendation, sentiment analysis, etc.)\n\n2. **Data state**: Is your customer data unified (CDP, CRM)? Do you have a 360° customer view? Are web, CRM, and transactional data connected?\n\n3. **Skills**: Do you have data marketing profiles? Growth hackers using AI? Martech tools with AI components?\n\n4. **Governance**: How do you manage consent (GDPR, cookies)? Do you have rules for using generative AI in content creation?\n\n5. **Culture**: Do marketing teams spontaneously experiment with AI (ChatGPT, Midjourney, etc.)? Does the CMO see AI as a strategic priority?\n\nWrite your answers as structured text. ELLA will position you on the Gartner AI Maturity Model."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive provides details about their martech stack and marketing AI usage. ELLA should assess maturity considering customer data unification, personalization capabilities, and content generation readiness.",
+            "learning_objectives": [
+                {"fr": "Évaluer la maturité IA marketing", "en": "Assess marketing AI maturity"},
+                {"fr": "Identifier les quick wins IA en marketing", "en": "Identify marketing AI quick wins"},
+                {"fr": "Comprendre l'importance de la donnée client unifiée", "en": "Understand the importance of unified customer data"}
+            ],
+            "hints": [
+                {"fr": "Listez vos outils martech actuels et leur composante IA", "en": "List your current martech tools and their AI component"},
+                {"fr": "Pour la personnalisation : par segments ? par individu ? en temps réel ?", "en": "For personalization: by segments? by individual? in real time?"},
+                {"fr": "Pour le contenu IA : usage officiel ou usage 'shadow' par les équipes ?", "en": "For AI content: official use or 'shadow' use by teams?"}
+            ]
+        },
+        {
+            "mission_id": "assessment_humanities",
+            "title": {
+                "fr": "Diagnostic IA — Services & Éducation",
+                "en": "AI Diagnostic — Services & Education"
+            },
+            "audience": "humanities",
+            "difficulty": "beginner",
+            "instructions": {
+                "fr": "Répondez aux 5 questions suivantes en vous basant sur la réalité de votre organisation dans le secteur des services ou de l'éducation.\n\n1. **Initiatives IA existantes** : Votre organisation utilise-t-elle l'IA ? (automatisation administrative, analyse de données, personnalisation de parcours, chatbot, aide à la décision, etc.)\n\n2. **État des données** : Vos données (étudiants, clients, bénéficiaires) sont-elles numérisées et exploitables ? Quels systèmes d'information utilisez-vous ?\n\n3. **Compétences** : Avez-vous des profils techniques capables de piloter des projets IA ? Des partenariats avec des acteurs technologiques ?\n\n4. **Gouvernance** : Comment gérez-vous les données personnelles de vos étudiants/clients/bénéficiaires ? Avez-vous des règles éthiques pour l'usage de l'IA ?\n\n5. **Culture** : Vos collaborateurs utilisent-ils déjà l'IA générative (ChatGPT, etc.) ? Y a-t-il un débat interne sur l'IA dans votre secteur ?\n\nRédigez vos réponses en un texte structuré. ELLA vous positionnera sur le Gartner AI Maturity Model.",
+                "en": "Answer the following 5 questions based on the reality of your organization in the services or education sector.\n\n1. **Existing AI initiatives**: Does your organization use AI? (administrative automation, data analysis, personalized pathways, chatbot, decision support, etc.)\n\n2. **Data state**: Is your data (students, clients, beneficiaries) digitized and exploitable? What information systems do you use?\n\n3. **Skills**: Do you have technical profiles capable of leading AI projects? Partnerships with technology players?\n\n4. **Governance**: How do you manage personal data of your students/clients/beneficiaries? Do you have ethical rules for AI use?\n\n5. **Culture**: Do your staff already use generative AI (ChatGPT, etc.)? Is there an internal debate about AI in your sector?\n\nWrite your answers as structured text. ELLA will position you on the Gartner AI Maturity Model."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive provides details about their services/education context. ELLA should assess maturity considering the human-centric nature of the sector and the ethical implications of AI in education/services.",
+            "learning_objectives": [
+                {"fr": "Évaluer la maturité IA dans un contexte de services", "en": "Assess AI maturity in a services context"},
+                {"fr": "Identifier les opportunités IA dans l'éducation et les services", "en": "Identify AI opportunities in education and services"},
+                {"fr": "Comprendre les enjeux éthiques IA spécifiques au secteur", "en": "Understand sector-specific AI ethical issues"}
+            ],
+            "hints": [
+                {"fr": "Précisez vos SI : Moodle, ERP, CRM, outils maison ?", "en": "Specify your IS: Moodle, ERP, CRM, in-house tools?"},
+                {"fr": "Pour l'IA générative : usage par les étudiants/clients vs par le staff", "en": "For generative AI: use by students/clients vs by staff"},
+                {"fr": "Pour l'éthique : la question des biais dans l'évaluation ou la sélection", "en": "For ethics: the question of bias in evaluation or selection"}
+            ]
+        }
+    ]
+}

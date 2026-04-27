@@ -34,7 +34,7 @@ function CertificatesSection() {
 
                 // Check eligibility for each course
                 const elig: Record<string, any> = {};
-                for (const courseId of ["pe", "rl"]) {
+                for (const courseId of ["pe", "rl", "aile"]) {
                     const res = await fetch(`${API_BASE_URL}/api/certificates/eligibility/${courseId}`, { headers });
                     elig[courseId] = await res.json();
                 }
@@ -130,7 +130,7 @@ function CertificatesSection() {
                     return (
                         <div key={courseId} className="bg-white border-2 border-dashed border-ella-accent/30 rounded-2xl p-6">
                             <p className="text-[10px] font-black text-ella-accent uppercase tracking-widest mb-1">Certificat disponible !</p>
-                            <p className="font-bold text-ella-gray-900 mb-1">{courseId === "pe" ? "Prompt Engineering & Outils IA" : "Reinforcement Learning"}</p>
+                            <p className="font-bold text-ella-gray-900 mb-1">{courseId === "pe" ? "Prompt Engineering & Outils IA" : courseId === "rl" ? "Reinforcement Learning" : "Executive AI Leadership"}</p>
                             <p className="text-xs text-ella-gray-400 mb-4">Score moyen : {elig.average}/10</p>
                             <button
                                 onClick={() => handleGenerate(courseId)}
@@ -186,19 +186,31 @@ const RL_MODULE_TITLES: { [key: string]: string } = {
     "rl_05_deep_rl": "Vers le Deep RL",
 };
 
+const AILE_MODULE_TITLES: { [key: string]: string } = {
+    "aile_00_wakeup": "Le Wake-Up Call",
+    "aile_01_demystify": "IA Demystifiee pour Dirigeants",
+    "aile_02_strategy": "Strategie IA",
+    "aile_03_governance": "Gouvernance & Risques",
+    "aile_04_roi": "ROI & Business Cases",
+    "aile_05_roadmap": "Roadmap Transformation",
+};
+
 function detectCourse(labId: string, courseId?: string): string {
     if (courseId) return courseId;
     if (labId.startsWith("rl_")) return "rl";
+    if (labId.startsWith("aile_")) return "aile";
     return "pe";
 }
 
 function getLabTitle(labId: string, courseId: string): string {
     if (courseId === "rl") return RL_MODULE_TITLES[labId] || labId;
+    if (courseId === "aile") return AILE_MODULE_TITLES[labId] || labId;
     return PE_LAB_TITLES[labId] || labId;
 }
 
 function getLabLink(labId: string, courseId: string): string {
     if (courseId === "rl") return `/courses/reinforcement-learning/modules/${labId}`;
+    if (courseId === "aile") return `/courses/ai-leadership/modules/${labId}`;
     return `/courses/prompt-engineering/labs/${labId}`;
 }
 
@@ -255,6 +267,7 @@ function DashboardContent() {
     const supabase = createClient();
     const [peStats, setPeStats] = useState<LabStats[]>([]);
     const [rlStats, setRlStats] = useState<LabStats[]>([]);
+    const [aileStats, setAileStats] = useState<LabStats[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -275,10 +288,11 @@ function DashboardContent() {
 
             const pe: { [key: string]: LabStats } = {};
             const rl: { [key: string]: LabStats } = {};
+            const aile: { [key: string]: LabStats } = {};
 
             for (const attempt of (attempts as LabAttempt[])) {
                 const courseId = detectCourse(attempt.lab_id, attempt.course_id);
-                const bucket = courseId === "rl" ? rl : pe;
+                const bucket = courseId === "rl" ? rl : courseId === "aile" ? aile : pe;
 
                 if (!bucket[attempt.lab_id]) {
                     bucket[attempt.lab_id] = {
@@ -300,13 +314,14 @@ function DashboardContent() {
 
             setPeStats(Object.values(pe));
             setRlStats(Object.values(rl));
+            setAileStats(Object.values(aile));
             setLoading(false);
         };
 
         fetchProgress();
     }, [user]);
 
-    const allStats = [...peStats, ...rlStats];
+    const allStats = [...peStats, ...rlStats, ...aileStats];
     const totalAttempts = allStats.reduce((acc, curr) => acc + curr.attempts, 0);
     const avgScore = allStats.length > 0
         ? Math.round(allStats.reduce((acc, curr) => acc + (curr.bestScore / curr.maxScore) * 10, 0) / allStats.length)
@@ -339,7 +354,7 @@ function DashboardContent() {
                 <div className="bg-white border border-ella-gray-200 rounded-2xl p-6 shadow-sm">
                     <p className="text-[10px] font-black text-ella-gray-400 uppercase tracking-widest mb-1">Cours actifs</p>
                     <p className="text-2xl font-black text-ella-primary">
-                        {(peStats.length > 0 ? 1 : 0) + (rlStats.length > 0 ? 1 : 0)}
+                        {(peStats.length > 0 ? 1 : 0) + (rlStats.length > 0 ? 1 : 0) + (aileStats.length > 0 ? 1 : 0)}
                     </p>
                 </div>
                 <div className="bg-white border border-ella-gray-200 rounded-2xl p-6 shadow-sm">
@@ -390,6 +405,12 @@ function DashboardContent() {
                         icon="🧠"
                         stats={rlStats}
                         accentColor="border-b-emerald-200"
+                    />
+                    <CourseSection
+                        title="Executive AI Leadership"
+                        icon="🎯"
+                        stats={aileStats}
+                        accentColor="border-b-amber-200"
                     />
                 </>
             )}

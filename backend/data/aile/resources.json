@@ -1,0 +1,283 @@
+{
+    "course_id": "aile",
+    "title": "Ressources recommandees — AI Leadership for Executives",
+    "description": "Bibliographie curatee pour le programme AILE. Chaque ressource est taguee par module et par type pour faciliter le filtrage.",
+    "last_updated": "2026-04-27",
+    "resources": [
+        {
+            "id": "mckinsey_ai_2025",
+            "title": "The State of AI: How organizations are rewiring to capture value",
+            "author": "McKinsey & Company",
+            "year": 2025,
+            "type": "report",
+            "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+            "modules": ["aile_00_wakeup", "aile_02_strategy"],
+            "description_fr": "Enquete annuelle McKinsey sur l'adoption de l'IA : taux d'adoption, defis de mise a l'echelle, ecarts entre leaders et retardataires.",
+            "description_en": "Annual McKinsey survey on AI adoption: adoption rates, scaling challenges, gaps between leaders and laggards."
+        },
+        {
+            "id": "bcg_ai_radar_2025",
+            "title": "AI Radar 2025",
+            "author": "Boston Consulting Group (BCG)",
+            "year": 2025,
+            "type": "report",
+            "url": "https://www.bcg.com/publications/2025/ai-radar",
+            "modules": ["aile_00_wakeup", "aile_02_strategy", "aile_04_roi"],
+            "description_fr": "Enquete BCG aupres de 1 803 dirigeants : 75% classent l'IA dans leur top 3 des priorites, mais seulement 25% en tirent une valeur significative.",
+            "description_en": "BCG survey of 1,803 executives: 75% rank AI in their top 3 priorities, but only 25% derive significant value."
+        },
+        {
+            "id": "bcg_build_future_2025",
+            "title": "Build for the Future: Cracking the Code on AI Value at Scale",
+            "author": "Boston Consulting Group (BCG)",
+            "year": 2025,
+            "type": "report",
+            "url": "https://www.bcg.com/publications/2025/build-for-the-future",
+            "modules": ["aile_02_strategy", "aile_04_roi", "aile_05_roadmap"],
+            "description_fr": "Etude BCG sur 1 250 entreprises : le framework 10-20-70 (10% algorithmes, 20% technologie, 70% donnees et processus). Seulement 5% des entreprises obtiennent une valeur IA a l'echelle.",
+            "description_en": "BCG study of 1,250 companies: the 10-20-70 framework (10% algorithms, 20% technology, 70% data and processes). Only 5% achieve AI value at scale."
+        },
+        {
+            "id": "nist_ai_rmf",
+            "title": "AI Risk Management Framework (AI RMF 1.0)",
+            "author": "National Institute of Standards and Technology (NIST)",
+            "year": 2023,
+            "type": "framework",
+            "url": "https://www.nist.gov/artificial-intelligence/ai-risk-management-framework",
+            "modules": ["aile_03_governance"],
+            "description_fr": "Cadre de reference pour la gestion des risques IA : 4 fonctions (Govern, Map, Measure, Manage). Standard non-contraignant mais largement adopte.",
+            "description_en": "Reference framework for AI risk management: 4 functions (Govern, Map, Measure, Manage). Non-binding but widely adopted standard."
+        },
+        {
+            "id": "iso_42001",
+            "title": "ISO/IEC 42001:2023 — Artificial Intelligence Management System",
+            "author": "International Organization for Standardization (ISO)",
+            "year": 2023,
+            "type": "framework",
+            "url": "https://www.iso.org/standard/81230.html",
+            "modules": ["aile_03_governance"],
+            "description_fr": "Premiere norme internationale pour un systeme de management de l'IA. Structure certifiable, approche par les risques.",
+            "description_en": "First international standard for an AI management system. Certifiable structure, risk-based approach."
+        },
+        {
+            "id": "eu_ai_act",
+            "title": "EU AI Act (Reglement europeen sur l'intelligence artificielle)",
+            "author": "European Parliament & Council",
+            "year": 2024,
+            "type": "framework",
+            "url": "https://artificialintelligenceact.eu/",
+            "modules": ["aile_03_governance"],
+            "description_fr": "Premiere reglementation contraignante sur l'IA au monde. Classification par niveaux de risque (inacceptable, haut, limite, minimal). Applicable 2025-2026.",
+            "description_en": "World's first binding AI regulation. Risk-level classification (unacceptable, high, limited, minimal). Applicable 2025-2026."
+        },
+        {
+            "id": "oecd_ai_principles",
+            "title": "OECD AI Principles",
+            "author": "Organisation for Economic Co-operation and Development (OECD)",
+            "year": 2019,
+            "type": "framework",
+            "url": "https://oecd.ai/en/ai-principles",
+            "modules": ["aile_03_governance"],
+            "description_fr": "Principes adoptes par 46 pays : croissance inclusive, valeurs humaines, transparence, robustesse, responsabilite.",
+            "description_en": "Principles adopted by 46 countries: inclusive growth, human values, transparency, robustness, accountability."
+        },
+        {
+            "id": "unesco_ai_recommendation",
+            "title": "Recommendation on the Ethics of Artificial Intelligence",
+            "author": "UNESCO",
+            "year": 2021,
+            "type": "framework",
+            "url": "https://unesdoc.unesco.org/ark:/48223/pf0000381137",
+            "modules": ["aile_03_governance"],
+            "description_fr": "Premier instrument normatif mondial sur l'ethique de l'IA. 193 Etats membres. Particulierement pertinent pour les pays en developpement.",
+            "description_en": "First global normative instrument on AI ethics. 193 member states. Particularly relevant for developing countries."
+        },
+        {
+            "id": "gartner_maturity_model",
+            "title": "Gartner AI Maturity Model",
+            "author": "Gartner",
+            "year": 2024,
+            "type": "framework",
+            "url": "https://www.gartner.com/en/articles/the-4-trends-that-prevail-on-the-gartner-hype-cycle-for-ai-2024",
+            "modules": ["aile_05_roadmap"],
+            "description_fr": "Modele de maturite IA en 5 niveaux (Awareness, Active, Operational, Systemic, Transformational). Cadre de reference pour l'auto-evaluation strategique.",
+            "description_en": "5-level AI maturity model (Awareness, Active, Operational, Systemic, Transformational). Reference framework for strategic self-assessment."
+        },
+        {
+            "id": "mikalef_gupta_2021",
+            "title": "Artificial Intelligence Capability: Conceptualization, measurement calibration, and empirical study",
+            "author": "Mikalef, P. & Gupta, M.",
+            "year": 2021,
+            "type": "academic",
+            "url": "https://doi.org/10.1016/j.im.2021.103524",
+            "modules": ["aile_05_roadmap", "aile_02_strategy"],
+            "description_fr": "Article de reference sur la capacite IA organisationnelle : combinaison de ressources tangibles (infrastructure), intangibles (donnees, algorithmes) et humaines (competences, culture).",
+            "description_en": "Reference paper on organizational AI capability: combination of tangible (infrastructure), intangible (data, algorithms), and human (skills, culture) resources."
+        },
+        {
+            "id": "ng_ai_for_everyone",
+            "title": "AI for Everyone",
+            "author": "Andrew Ng (DeepLearning.AI / Coursera)",
+            "year": 2024,
+            "type": "course",
+            "url": "https://www.coursera.org/learn/ai-for-everyone",
+            "modules": ["aile_01_demystify"],
+            "description_fr": "Cours non-technique de 6 heures sur l'IA pour dirigeants. Excellent complement au Module 01 d'AILE.",
+            "description_en": "6-hour non-technical AI course for executives. Excellent complement to AILE Module 01."
+        },
+        {
+            "id": "hbr_ai_strategy",
+            "title": "Competing in the Age of AI",
+            "author": "Iansiti, M. & Lakhani, K.R. (Harvard Business Review Press)",
+            "year": 2020,
+            "type": "academic",
+            "url": "https://www.hbs.edu/faculty/Pages/item.aspx?num=57446",
+            "modules": ["aile_00_wakeup", "aile_02_strategy"],
+            "description_fr": "Comment l'IA restructure les modeles d'affaires. Operating model de l'entreprise AI-native vs traditionnelle.",
+            "description_en": "How AI restructures business models. Operating model of AI-native vs traditional companies."
+        },
+        {
+            "id": "mckinsey_ai_strategy_canvas",
+            "title": "An executive primer on AI strategy",
+            "author": "McKinsey & Company",
+            "year": 2024,
+            "type": "report",
+            "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/an-executive-primer-on-artificial-intelligence",
+            "modules": ["aile_02_strategy", "aile_04_roi"],
+            "description_fr": "Guide synthetique McKinsey pour construire une strategie IA : identification des use cases, evaluation du ROI, gouvernance.",
+            "description_en": "McKinsey executive guide for building an AI strategy: use case identification, ROI evaluation, governance."
+        },
+        {
+            "id": "nist_genai_profile",
+            "title": "NIST Generative AI Profile",
+            "author": "NIST",
+            "year": 2024,
+            "type": "framework",
+            "url": "https://airc.nist.gov/Docs/1",
+            "modules": ["aile_01_demystify", "aile_03_governance"],
+            "description_fr": "Complément du NIST AI RMF pour les risques spécifiques à l'IA générative : hallucinations, biais, sécurité, usage abusif.",
+            "description_en": "Complement to NIST AI RMF for GenAI-specific risks: hallucinations, bias, security, misuse."
+        },
+        {
+            "id": "google_pair",
+            "title": "People + AI Guidebook",
+            "author": "Google PAIR",
+            "year": 2023,
+            "type": "framework",
+            "url": "https://pair.withgoogle.com/guidebook",
+            "modules": ["aile_01_demystify", "aile_05_roadmap"],
+            "description_fr": "Guide pratique pour concevoir des produits IA centrés utilisateur. Utile pour l'adoption et la confiance.",
+            "description_en": "Practical guide for designing human-centered AI products. Useful for adoption and trust."
+        },
+        {
+            "id": "microsoft_rai",
+            "title": "Microsoft Responsible AI Standard v2",
+            "author": "Microsoft",
+            "year": 2022,
+            "type": "framework",
+            "url": "https://www.microsoft.com/en-us/ai/responsible-ai",
+            "modules": ["aile_03_governance"],
+            "description_fr": "Exemple concret d'opérationnalisation des principes d'IA responsable dans une grande entreprise.",
+            "description_en": "Concrete example of operationalizing Responsible AI principles in a large enterprise."
+        },
+        {
+            "id": "stanford_ai_index_2025",
+            "title": "AI Index Report 2025",
+            "author": "Stanford HAI",
+            "year": 2025,
+            "type": "report",
+            "url": "https://aiindex.stanford.edu/report/",
+            "modules": ["aile_00_wakeup", "aile_02_strategy"],
+            "description_fr": "Rapport annuel de référence sur les tendances IA mondiales : investissements, recherche, adoption, gouvernance.",
+            "description_en": "Reference annual report on global AI trends: investment, research, adoption, governance."
+        },
+        {
+            "id": "deloitte_genai_enterprise",
+            "title": "State of Generative AI in the Enterprise",
+            "author": "Deloitte",
+            "year": 2025,
+            "type": "report",
+            "url": "https://www2.deloitte.com/us/en/pages/consulting/articles/state-of-generative-ai-in-enterprise.html",
+            "modules": ["aile_01_demystify", "aile_04_roi"],
+            "description_fr": "Adoption GenAI en entreprise, investissements, ROI, défis de mise à l'échelle.",
+            "description_en": "Enterprise GenAI adoption, investments, ROI, scaling challenges."
+        },
+        {
+            "id": "pinski_tmt_literacy",
+            "title": "AI Literacy for the Top Management Team",
+            "author": "Pinski et al.",
+            "year": 2023,
+            "type": "academic",
+            "url": "https://d-nb.info/1333342918/34",
+            "modules": ["aile_00_wakeup", "aile_01_demystify"],
+            "description_fr": "La littératie IA de l'équipe dirigeante influence l'orientation IA de l'entreprise et sa capacité d'implémentation.",
+            "description_en": "Executive AI literacy influences corporate AI orientation and implementation ability."
+        },
+        {
+            "id": "bcg_ai_at_work_2025",
+            "title": "AI at Work: Momentum Builds, but Gaps Remain",
+            "author": "BCG",
+            "year": 2025,
+            "type": "report",
+            "url": "https://www.bcg.com/publications/2025/as-ai-changes-work-ceos-must-change-how-work-happens",
+            "modules": ["aile_05_roadmap"],
+            "description_fr": "Adoption IA par les employés, culture, formation. 36% seulement sont satisfaits de leur formation IA.",
+            "description_en": "Employee AI adoption, culture, training. Only 36% are satisfied with their AI training."
+        },
+        {
+            "id": "ng_genai_everyone",
+            "title": "Generative AI for Everyone",
+            "author": "Andrew Ng / DeepLearning.AI",
+            "year": 2024,
+            "type": "course",
+            "url": "https://www.coursera.org/learn/generative-ai-for-everyone",
+            "modules": ["aile_01_demystify"],
+            "description_fr": "Cours GenAI pour managers et dirigeants : usages quotidiens, prompt engineering, limites.",
+            "description_en": "GenAI course for managers and executives: daily uses, prompt engineering, limits."
+        },
+        {
+            "id": "mit_sloan_ai_strategy",
+            "title": "AI: Implications for Business Strategy",
+            "author": "MIT Sloan / MIT CSAIL",
+            "year": 2024,
+            "type": "course",
+            "url": "https://executive.mit.edu/course/artificial-intelligence/a056g00000URaa3AAD.html",
+            "modules": ["aile_02_strategy", "aile_04_roi"],
+            "description_fr": "Programme executive de référence : stratégie, technologie, impacts économiques et sociaux de l'IA.",
+            "description_en": "Reference executive program: strategy, technology, economic and social impacts of AI."
+        },
+        {
+            "id": "elements_of_ai",
+            "title": "Elements of AI",
+            "author": "University of Helsinki / MinnaLearn",
+            "year": 2023,
+            "type": "course",
+            "url": "https://www.elementsofai.com/",
+            "modules": ["aile_01_demystify"],
+            "description_fr": "Cours gratuit, accessible, non technique. Bon prérequis pour participants peu familiers avec l'IA.",
+            "description_en": "Free, accessible, non-technical AI course. Good prerequisite for less familiar participants."
+        },
+        {
+            "id": "stanford_hai_videos",
+            "title": "Stanford HAI YouTube Channel",
+            "author": "Stanford Human-Centered AI",
+            "year": 2025,
+            "type": "video",
+            "url": "https://www.youtube.com/@StanfordHAI",
+            "modules": ["aile_02_strategy", "aile_03_governance"],
+            "description_fr": "Chaîne vidéo sur l'IA responsable, gouvernance, politique publique, risques et impact sociétal.",
+            "description_en": "Video channel on responsible AI, governance, public policy, risks and societal impact."
+        },
+        {
+            "id": "nist_ai_rmf_videos",
+            "title": "NIST AI RMF Introduction Videos",
+            "author": "NIST",
+            "year": 2023,
+            "type": "video",
+            "url": "https://www.nist.gov/artificial-intelligence/ai-risk-management-framework-ai-rmf-10-videos",
+            "modules": ["aile_03_governance"],
+            "description_fr": "Support vidéo pour comprendre et implémenter le NIST AI Risk Management Framework.",
+            "description_en": "Video support for understanding and implementing the NIST AI Risk Management Framework."
+        }
+    ]
+}

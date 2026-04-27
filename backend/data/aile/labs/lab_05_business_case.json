@@ -1,0 +1,150 @@
+{
+    "lab_id": "05_business_case",
+    "title": {
+        "fr": "Business Case Builder",
+        "en": "Business Case Builder"
+    },
+    "description": {
+        "fr": "Structurez un business case IA complet pour un use case de votre organisation. TCO, ROI, risques, timeline — tout y passe. ELLA évalue la cohérence et le réalisme.",
+        "en": "Build a complete AI business case for a use case in your organization. TCO, ROI, risks, timeline — everything included. ELLA evaluates coherence and realism."
+    },
+    "concept": {
+        "fr": "Un bon business case IA convainc le CODIR d'investir — ou convainc de ne PAS investir, ce qui est tout aussi précieux. Il structure le problème, quantifie les coûts et bénéfices, identifie les risques, et propose un plan. Ce lab vous fait construire un business case complet en utilisant les frameworks du Module 04.",
+        "en": "A good AI business case convinces the board to invest — or convinces them NOT to invest, which is equally valuable. It structures the problem, quantifies costs and benefits, identifies risks, and proposes a plan. This lab has you build a complete business case using Module 04 frameworks."
+    },
+    "rubric_id": "business_case",
+    "missions": [
+        {
+            "mission_id": "bc_fraud_detection_finance",
+            "title": {"fr": "Business Case — Détection de Fraude IA", "en": "Business Case — AI Fraud Detection"},
+            "audience": "finance",
+            "difficulty": "advanced",
+            "instructions": {
+                "fr": "Votre banque perd environ 8M TND par an en fraude (cartes, virements, chèques). Le système actuel est basé sur des règles manuelles qui génèrent 60% de faux positifs (blocages injustifiés qui irritent les clients) et ne détectent que 40% des fraudes réelles.\n\nVotre mission : Rédigez un business case complet pour un système de détection de fraude basé sur l'IA. Votre document doit couvrir :\n\n1. **Le problème** (quantifié : pertes, faux positifs, impact client)\n2. **La solution proposée** (ML ? Approche ? Build/Buy/Partner ?)\n3. **Le TCO sur 3 ans** (utilisez la structure iceberg du Module 04)\n4. **Les bénéfices attendus** (réduction des pertes, réduction des faux positifs, satisfaction client)\n5. **Le ROI estimé** (avec hypothèses conservatrices et optimistes)\n6. **Les risques** (top 3 risques avec mitigations)\n7. **La timeline** (PoC → industrialisation → déploiement complet)\n8. **La recommandation** (Go/No-Go avec critères de décision)",
+                "en": "Your bank loses approximately 8M TND per year to fraud (cards, transfers, checks). The current system uses manual rules generating 60% false positives (unjustified blocks that irritate customers) and detects only 40% of actual fraud.\n\nYour mission: Write a complete business case for an AI-based fraud detection system. Your document must cover:\n\n1. **The problem** (quantified: losses, false positives, customer impact)\n2. **Proposed solution** (ML? Approach? Build/Buy/Partner?)\n3. **3-year TCO** (use the iceberg structure from Module 04)\n4. **Expected benefits** (loss reduction, false positive reduction, customer satisfaction)\n5. **Estimated ROI** (with conservative and optimistic assumptions)\n6. **Risks** (top 3 risks with mitigations)\n7. **Timeline** (PoC → industrialization → full deployment)\n8. **Recommendation** (Go/No-Go with decision criteria)"
+            },
+            "input_text": {},
+            "expected_behavior": "A well-structured business case with realistic numbers. TCO should include data preparation, integration with core banking, skills, and ongoing monitoring. ROI should show conservative and optimistic scenarios. The recommendation should be nuanced, not blindly optimistic.",
+            "learning_objectives": [
+                {"fr": "Structurer un business case IA avec TCO et ROI réalistes", "en": "Structure an AI business case with realistic TCO and ROI"},
+                {"fr": "Appliquer le framework Build/Buy/Partner à un cas concret", "en": "Apply the Build/Buy/Partner framework to a concrete case"},
+                {"fr": "Intégrer les risques dans la recommandation", "en": "Integrate risks into the recommendation"}
+            ],
+            "hints": [
+                {"fr": "TCO = 3× le coût visible. Budget visible pour la fraude : 200-500K pour le PoC", "en": "TCO = 3× visible cost. Visible fraud detection budget: 200-500K for PoC"},
+                {"fr": "Si vous réduisez la fraude de 40% à 70%, quel est le gain en TND ?", "en": "If you reduce fraud detection from 40% to 70%, what's the TND gain?"},
+                {"fr": "Les faux positifs ont un coût caché : clients perdus, image de marque", "en": "False positives have hidden costs: lost customers, brand image"}
+            ]
+        },
+        {
+            "mission_id": "bc_patient_flow_health",
+            "title": {"fr": "Business Case — Optimisation des Flux Patients", "en": "Business Case — Patient Flow Optimization"},
+            "audience": "health",
+            "difficulty": "advanced",
+            "instructions": {
+                "fr": "Votre hôpital a un temps d'attente moyen aux urgences de 4h30, avec des pics à 8h certains week-ends. Le taux de satisfaction patient urgences est de 2,1/5. Vous perdez 15% de patients qui partent avant d'être vus. Le personnel infirmier est en burnout chronique à cause des pics mal anticipés.\n\nVotre mission : Business case complet pour un système IA de prédiction et d'optimisation des flux patients aux urgences. Couvrez les 8 sections (problème, solution, TCO, bénéfices, ROI, risques, timeline, recommandation).",
+                "en": "Your hospital has an average ER wait time of 4h30, with peaks of 8h on some weekends. ER patient satisfaction is 2.1/5. You lose 15% of patients who leave before being seen. Nursing staff suffers chronic burnout from poorly anticipated peaks.\n\nYour mission: Complete business case for an AI patient flow prediction and optimization system. Cover all 8 sections (problem, solution, TCO, benefits, ROI, risks, timeline, recommendation)."
+            },
+            "input_text": {},
+            "expected_behavior": "The business case should quantify the problem (lost patients × average revenue, staff turnover costs, satisfaction impact), propose a realistic AI solution (predictive flow + dynamic staffing), and include change management for clinical staff.",
+            "learning_objectives": [
+                {"fr": "Quantifier un problème opérationnel en termes financiers", "en": "Quantify an operational problem in financial terms"},
+                {"fr": "Construire un ROI incluant des bénéfices non-financiers (satisfaction, burnout)", "en": "Build ROI including non-financial benefits (satisfaction, burnout)"},
+                {"fr": "Intégrer la conduite du changement dans le business case", "en": "Integrate change management into the business case"}
+            ],
+            "hints": [
+                {"fr": "15% de patients qui partent × prix moyen consultation = perte directe", "en": "15% patients who leave × average consultation price = direct loss"},
+                {"fr": "Le coût du turnover infirmier est souvent sous-estimé", "en": "Nursing turnover cost is often underestimated"},
+                {"fr": "Un PoC sur 1 service (urgences) avant de généraliser", "en": "A PoC on 1 department (ER) before scaling"}
+            ]
+        },
+        {
+            "mission_id": "bc_predictive_maintenance_engineering",
+            "title": {"fr": "Business Case — Maintenance Prédictive", "en": "Business Case — Predictive Maintenance"},
+            "audience": "engineering",
+            "difficulty": "advanced",
+            "instructions": {
+                "fr": "Votre usine subit en moyenne 45 pannes non planifiées par an sur ses 20 machines critiques. Chaque panne coûte en moyenne 25 000 TND (pièces + main d'œuvre + perte de production). Le plan de maintenance préventive actuel remplace des pièces qui fonctionnent encore dans 30% des cas.\n\nVotre mission : Business case complet pour un système de maintenance prédictive IA. 8 sections.",
+                "en": "Your factory suffers an average of 45 unplanned breakdowns per year on its 20 critical machines. Each breakdown costs an average of 25,000 TND (parts + labor + lost production). The current preventive maintenance plan replaces parts still working in 30% of cases.\n\nYour mission: Complete business case for an AI predictive maintenance system. 8 sections."
+            },
+            "input_text": {},
+            "expected_behavior": "Problem quantified at 1.125M TND/year. Solution should address sensor installation, data collection, model training. TCO should include IoT infrastructure, integration with SCADA/MES, and skills. ROI should consider both avoided breakdowns and avoided unnecessary replacements.",
+            "learning_objectives": [
+                {"fr": "Quantifier les coûts de la maintenance non-optimisée", "en": "Quantify costs of non-optimized maintenance"},
+                {"fr": "Évaluer le TCO d'un projet IoT + IA industriel", "en": "Assess TCO of an IoT + AI industrial project"},
+                {"fr": "Construire un ROI avec deux sources de gains (pannes évitées + remplacements évités)", "en": "Build ROI with two gain sources (avoided breakdowns + avoided replacements)"}
+            ],
+            "hints": [
+                {"fr": "45 pannes × 25K TND = 1,125M TND/an de pertes", "en": "45 breakdowns × 25K TND = 1.125M TND/year in losses"},
+                {"fr": "30% de remplacements inutiles = combien de pièces × coût moyen ?", "en": "30% unnecessary replacements = how many parts × average cost?"},
+                {"fr": "N'oubliez pas le coût des capteurs IoT sur 20 machines", "en": "Don't forget the cost of IoT sensors on 20 machines"}
+            ]
+        },
+        {
+            "mission_id": "bc_ai_assistant_business",
+            "title": {"fr": "Business Case — Assistant IA Interne", "en": "Business Case — Internal AI Assistant"},
+            "audience": "business",
+            "difficulty": "advanced",
+            "instructions": {
+                "fr": "Vos 250 employés passent en moyenne 2h par jour à chercher des informations (procédures internes, documents, politiques, réponses à des questions métier). Votre intranet est un cimetière de documents obsolètes. Les nouvelles recrues mettent 3 mois à être autonomes.\n\nVotre mission : Business case complet pour un assistant IA interne basé sur un LLM avec RAG sur votre base documentaire. 8 sections.",
+                "en": "Your 250 employees spend an average of 2 hours per day searching for information (internal procedures, documents, policies, business answers). Your intranet is a graveyard of obsolete documents. New hires take 3 months to become autonomous.\n\nYour mission: Complete business case for an internal AI assistant based on an LLM with RAG on your document base. 8 sections."
+            },
+            "input_text": {},
+            "expected_behavior": "Problem quantified: 250 employees × 2h/day × 220 days × hourly cost = massive hidden cost. Solution: LLM + RAG. Key challenge: document quality and maintenance. ROI should include productivity gain AND onboarding acceleration.",
+            "learning_objectives": [
+                {"fr": "Quantifier un problème de productivité cachée", "en": "Quantify a hidden productivity problem"},
+                {"fr": "Comprendre le modèle RAG dans un business case", "en": "Understand the RAG model in a business case"},
+                {"fr": "Estimer le ROI d'un gain de temps à l'échelle d'une organisation", "en": "Estimate ROI of time savings at organizational scale"}
+            ],
+            "hints": [
+                {"fr": "250 × 2h × 220 jours × coût horaire moyen = combien ?", "en": "250 × 2h × 220 days × average hourly cost = how much?"},
+                {"fr": "Le RAG nécessite que votre base documentaire soit à jour et structurée", "en": "RAG requires your document base to be current and structured"},
+                {"fr": "3 mois d'onboarding × nombre de recrutements/an = coût d'improductivité", "en": "3 months onboarding × annual hires = unproductivity cost"}
+            ]
+        },
+        {
+            "mission_id": "bc_content_personalization_marketing",
+            "title": {"fr": "Business Case — Personnalisation Contenu IA", "en": "Business Case — AI Content Personalization"},
+            "audience": "marketing",
+            "difficulty": "advanced",
+            "instructions": {
+                "fr": "Votre taux de conversion e-commerce est de 1,8% (benchmark secteur : 3,2%). Votre taux d'ouverture email est de 15% (benchmark : 22%). Votre équipe de 4 content managers produit le même contenu pour tous les segments.\n\nVotre mission : Business case complet pour un système de personnalisation de contenu basé sur l'IA (emails, landing pages, recommandations produit). 8 sections.",
+                "en": "Your e-commerce conversion rate is 1.8% (sector benchmark: 3.2%). Your email open rate is 15% (benchmark: 22%). Your team of 4 content managers produces the same content for all segments.\n\nYour mission: Complete business case for an AI-based content personalization system (emails, landing pages, product recommendations). 8 sections."
+            },
+            "input_text": {},
+            "expected_behavior": "Problem quantified by gap to benchmark (conversion and email rates). Solution should be phased: segmented personalization first, then individual. TCO should include data unification (CDP), tool licensing, and content production increase. ROI measured by conversion uplift × average basket.",
+            "learning_objectives": [
+                {"fr": "Quantifier l'opportunité de la personnalisation par rapport aux benchmarks", "en": "Quantify personalization opportunity vs benchmarks"},
+                {"fr": "Structurer un business case marketing avec des métriques claires", "en": "Structure a marketing business case with clear metrics"},
+                {"fr": "Planifier un déploiement progressif de la personnalisation", "en": "Plan a progressive personalization deployment"}
+            ],
+            "hints": [
+                {"fr": "Si votre conversion passe de 1,8% à 2,5%, quel est le gain en CA ?", "en": "If your conversion goes from 1.8% to 2.5%, what's the revenue gain?"},
+                {"fr": "La personnalisation nécessite d'abord une vue client unifiée (CDP)", "en": "Personalization first requires a unified customer view (CDP)"},
+                {"fr": "Phase 1 : segmentation (3-4 segments). Phase 2 : individuel", "en": "Phase 1: segmentation (3-4 segments). Phase 2: individual"}
+            ]
+        },
+        {
+            "mission_id": "bc_adaptive_learning_humanities",
+            "title": {"fr": "Business Case — Apprentissage Adaptatif IA", "en": "Business Case — AI Adaptive Learning"},
+            "audience": "humanities",
+            "difficulty": "advanced",
+            "instructions": {
+                "fr": "Votre établissement a un taux de complétion de 65% sur ses formations en ligne (objectif : 85%). Le taux de satisfaction est de 3,2/5. Les apprenants se plaignent de contenus « trop faciles » ou « trop difficiles » selon leur niveau. Votre équipe pédagogique de 8 formateurs ne peut pas personnaliser pour 2 000 apprenants.\n\nVotre mission : Business case complet pour une plateforme d'apprentissage adaptatif avec IA. 8 sections.",
+                "en": "Your institution has a 65% completion rate on online training (target: 85%). Satisfaction is 3.2/5. Learners complain about content being 'too easy' or 'too hard' for their level. Your 8-person pedagogical team can't personalize for 2,000 learners.\n\nYour mission: Complete business case for an AI adaptive learning platform. 8 sections."
+            },
+            "input_text": {},
+            "expected_behavior": "Problem: 35% dropout × tuition cost = lost revenue + reputation. Solution: adaptive learning AI that adjusts difficulty and pace. Key challenge: content must be modular. ROI includes completion uplift, satisfaction, and word-of-mouth enrollment.",
+            "learning_objectives": [
+                {"fr": "Quantifier le coût du décrochage dans la formation", "en": "Quantify the cost of dropout in training"},
+                {"fr": "Concevoir un business case pour l'IA éducative", "en": "Design a business case for educational AI"},
+                {"fr": "Intégrer les métriques pédagogiques dans le ROI", "en": "Integrate pedagogical metrics into ROI"}
+            ],
+            "hints": [
+                {"fr": "35% de décrochage × frais de formation = perte directe", "en": "35% dropout × tuition fees = direct loss"},
+                {"fr": "L'apprentissage adaptatif nécessite un contenu découpé en micro-modules", "en": "Adaptive learning requires content broken into micro-modules"},
+                {"fr": "Build vs Buy : des plateformes adaptatives existent (Knewton, Smart Sparrow...)", "en": "Build vs Buy: adaptive platforms exist (Knewton, Smart Sparrow...)"}
+            ]
+        }
+    ]
+}

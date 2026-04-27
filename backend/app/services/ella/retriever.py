@@ -115,6 +115,25 @@ _PE_PAGE_TOPICS = {
     "05_structured_output": {"structured_output", "system_prompts", "few_shot", "general_pe"},
 }
 
+# AILE (Executive AI Leadership) topic filter mapping
+# Topics match the build_aile_index.py AILE_TOPIC_MAP values
+_AILE_PAGE_TOPICS = {
+    # Modules — each module can access its own topic + prerequisite content + resources
+    "aile_00_wakeup": {"wakeup", "resources"},
+    "aile_01_demystify": {"demystify", "wakeup", "resources"},
+    "aile_02_strategy": {"strategy", "wakeup", "demystify", "resources"},
+    "aile_03_governance": {"governance", "strategy", "resources"},
+    "aile_04_roi": {"roi", "strategy", "governance", "resources"},
+    "aile_05_roadmap": {"roadmap", "roi", "strategy", "governance", "resources"},
+    # Labs — each lab can access its related module topics + resources
+    "01_self_assessment": {"wakeup", "demystify", "resources"},
+    "02_genai_demo": {"demystify", "wakeup", "resources"},
+    "03_competitive_analysis": {"strategy", "wakeup", "demystify", "resources"},
+    "04_risk_audit": {"governance", "strategy", "resources"},
+    "05_business_case": {"roi", "strategy", "governance", "resources"},
+    "06_maturity_diagnostic": {"roadmap", "roi", "strategy", "governance", "demystify", "wakeup", "resources"},
+}
+
 
 def retrieve_context(
     query: str,
@@ -153,6 +172,8 @@ def retrieve_context(
     # Stage 1: Topic filtering
     if course_id == "pe":
         relevant_topics = _PE_PAGE_TOPICS.get(page_id, set())
+    elif course_id == "aile":
+        relevant_topics = _AILE_PAGE_TOPICS.get(page_id, set())
     else:
         relevant_topics = _PAGE_TOPICS.get(page_id, set())
     

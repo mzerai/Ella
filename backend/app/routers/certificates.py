@@ -45,6 +45,20 @@ COURSE_CONFIG = {
             "Implémenter Q-Learning et expliquer les fondements du Deep RL (DQN)",
         ],
     },
+    "aile": {
+        "title": "Executive AI Leadership",
+        "title_fr": "Leadership IA pour Dirigeants",
+        "labs": ["aile_00_wakeup", "aile_01_demystify", "aile_02_strategy", "aile_03_governance", "aile_04_roi", "aile_05_roadmap"],
+        "duration": "12 heures",
+        "competencies": [
+            "Identifier l'urgence IA et le coût de l'inaction pour son organisation",
+            "Comprendre ML, Deep Learning et IA Générative sans jargon technique",
+            "Élaborer une stratégie IA alignée sur les pressions concurrentielles et réglementaires",
+            "Concevoir un cadre de gouvernance et d'évaluation des risques IA",
+            "Construire un business case IA avec ROI, TCO et métriques de succès",
+            "Piloter une roadmap de transformation IA sur 12-18 mois",
+        ],
+    },
 }
 
 VERIFY_BASE_URL = "https://ella-frontend-322382658983.us-central1.run.app/verify"

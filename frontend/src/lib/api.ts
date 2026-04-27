@@ -236,6 +236,35 @@ export async function getRLModuleCells(moduleId: string): Promise<ModuleData> {
 }
 
 // ============================================
+// AILE (Executive AI Leadership) API
+// ============================================
+
+export async function getAILEModuleCells(moduleId: string): Promise<ModuleData> {
+  return apiFetch<ModuleData>(`/api/labs/aile/modules/${moduleId}`);
+}
+
+export async function getAILELabDetail(labId: string): Promise<PELabDetail> {
+  return apiFetch<PELabDetail>(`/api/labs/aile/labs/${labId}`);
+}
+
+export interface AILEEvalResponse {
+  feedback: string;
+  score_qualitative: "excellent" | "good" | "needs_improvement";
+}
+
+export async function evaluateAILEResponse(params: {
+  lab_id: string;
+  mission_id: string;
+  student_response: string;
+  language: string;
+}): Promise<AILEEvalResponse> {
+  return apiFetch<AILEEvalResponse>("/api/labs/aile/evaluate", {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+}
+
+// ============================================
 // RL Labs Execution API
 // ============================================
 

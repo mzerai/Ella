@@ -8,6 +8,7 @@ import time
 from app.services.ella.models import ConversationRequest
 from app.services.ella.prompts import build_system_prompt
 from app.services.ella.pe_prompts import build_pe_system_prompt
+from app.services.ella.aile_prompts import build_aile_system_prompt
 from app.services.ella.retriever import retrieve_context
 from app.services.ella.client import request_chat_completion
 from app.services.ella.formatter import parse_llm_response, format_for_ui
@@ -37,6 +38,8 @@ def generate_response(request: ConversationRequest) -> str:
 
     if course_id == "pe":
         system_prompt = build_pe_system_prompt(request.context, retrieved_chunks)
+    elif course_id == "aile":
+        system_prompt = build_aile_system_prompt(request.context, retrieved_chunks)
     else:
         system_prompt = build_system_prompt(request.context, retrieved_chunks)
 

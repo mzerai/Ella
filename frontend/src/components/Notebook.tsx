@@ -33,7 +33,7 @@ interface NotebookProps {
     cells: NotebookCell[];
     moduleId: string;
     lang: "fr" | "en";
-    courseId?: "pe" | "rl";
+    courseId?: "pe" | "rl" | "aile";
 }
 
 export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: NotebookProps) {

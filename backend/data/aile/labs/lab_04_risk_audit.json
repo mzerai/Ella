@@ -1,0 +1,150 @@
+{
+    "lab_id": "04_risk_audit",
+    "title": {
+        "fr": "Audit de Risques IA",
+        "en": "AI Risk Audit"
+    },
+    "description": {
+        "fr": "Un projet IA est prêt à être déployé. Identifiez les risques cachés, évaluez-les, et proposez des mitigations. ELLA évalue la rigueur de votre audit.",
+        "en": "An AI project is ready to deploy. Identify hidden risks, assess them, and propose mitigations. ELLA evaluates the rigor of your audit."
+    },
+    "concept": {
+        "fr": "Un audit de risques IA suit la méthodologie vue dans le Module 03 : identifier les risques dans les 6 catégories (biais, fiabilité, sécurité, transparence, conformité, impact humain), évaluer probabilité et impact, et proposer des mitigations concrètes. Ce lab vous met en situation réelle.",
+        "en": "An AI risk audit follows the methodology from Module 03: identify risks across 6 categories (bias, reliability, security, transparency, compliance, human impact), assess probability and impact, and propose concrete mitigations. This lab puts you in a real situation."
+    },
+    "rubric_id": "risk_audit",
+    "missions": [
+        {
+            "mission_id": "credit_scoring_finance",
+            "title": {"fr": "Audit du Scoring Crédit IA", "en": "AI Credit Scoring Audit"},
+            "audience": "finance",
+            "difficulty": "intermediate",
+            "instructions": {
+                "fr": "SCÉNARIO : Votre banque s'apprête à déployer un nouveau modèle de scoring crédit basé sur le Machine Learning. Le modèle a été entraîné sur 5 ans d'historique de prêts. Il utilise 47 variables dont l'âge, le revenu, l'ancienneté professionnelle, le code postal, le nombre de comptes bancaires, et l'historique de transactions. Le data scientist annonce une accuracy de 92% et un gain de 40% en temps de traitement. Le déploiement est prévu dans 2 semaines.\n\nVotre mission : Rédigez un audit de risques complet en utilisant les 6 catégories du Module 03. Pour chaque risque identifié : (1) Catégorie, (2) Description du risque, (3) Probabilité (faible/moyenne/élevée), (4) Impact (faible/moyen/critique), (5) Mitigation proposée. Concluez par une recommandation : déployer tel quel, déployer avec conditions, ou reporter le déploiement.",
+                "en": "SCENARIO: Your bank is about to deploy a new ML-based credit scoring model. The model was trained on 5 years of loan history. It uses 47 variables including age, income, professional tenure, zip code, number of bank accounts, and transaction history. The data scientist announces 92% accuracy and 40% processing time gain. Deployment is planned in 2 weeks.\n\nYour mission: Write a complete risk audit using the 6 categories from Module 03. For each identified risk: (1) Category, (2) Risk description, (3) Probability (low/medium/high), (4) Impact (low/medium/critical), (5) Proposed mitigation. Conclude with a recommendation: deploy as-is, deploy with conditions, or postpone deployment."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive should identify: bias risk (zip code as proxy for ethnicity/income), explainability issue (47 variables, black box), compliance risk (GDPR right to explanation, BCT requirements), reliability concern (5 years may not capture post-COVID patterns), and human impact (loan officers losing decision authority).",
+            "learning_objectives": [
+                {"fr": "Appliquer la grille de risques IA à un cas bancaire concret", "en": "Apply the AI risk grid to a concrete banking case"},
+                {"fr": "Identifier les biais cachés dans les variables du modèle", "en": "Identify hidden biases in model variables"},
+                {"fr": "Formuler une recommandation de déploiement argumentée", "en": "Formulate an argued deployment recommendation"}
+            ],
+            "hints": [
+                {"fr": "Le code postal est souvent un proxy pour l'origine ethnique ou le niveau de revenus", "en": "Zip code is often a proxy for ethnicity or income level"},
+                {"fr": "92% d'accuracy = 8% d'erreur. Sur 10 000 demandes, c'est 800 décisions potentiellement erronées", "en": "92% accuracy = 8% error. On 10,000 applications, that's 800 potentially wrong decisions"},
+                {"fr": "Les données de 2020-2021 reflètent-elles un comportement normal ?", "en": "Does 2020-2021 data reflect normal behavior?"}
+            ]
+        },
+        {
+            "mission_id": "ai_triage_health",
+            "title": {"fr": "Audit du Triage IA — Urgences", "en": "AI Triage Audit — Emergency"},
+            "audience": "health",
+            "difficulty": "intermediate",
+            "instructions": {
+                "fr": "SCÉNARIO : Votre hôpital veut déployer un système IA d'aide au triage aux urgences. Le système analyse les constantes vitales, les symptômes déclarés, et l'historique patient pour proposer un niveau de priorité (P1-P4). Entraîné sur 200 000 dossiers de 3 hôpitaux européens. Accuracy : 89%. Le déploiement prévu assiste les infirmiers d'accueil (l'IA propose, l'infirmier décide).\n\nVotre mission : Audit de risques complet (6 catégories). Recommandation finale argumentée.",
+                "en": "SCENARIO: Your hospital wants to deploy an AI triage system for the ER. The system analyzes vital signs, reported symptoms, and patient history to propose a priority level (P1-P4). Trained on 200,000 records from 3 European hospitals. Accuracy: 89%. The planned deployment assists triage nurses (AI proposes, nurse decides).\n\nYour mission: Complete risk audit (6 categories). Argued final recommendation."
+            },
+            "input_text": {},
+            "expected_behavior": "Key risks: bias (European training data may not represent Tunisian population), reliability (89% means 11% wrong triage — potentially life-threatening), transparency (can the nurse understand why?), compliance (medical device regulation), human impact (nurse deskilling over time).",
+            "learning_objectives": [
+                {"fr": "Évaluer les risques d'un déploiement IA dans un contexte critique", "en": "Assess risks of AI deployment in a critical context"},
+                {"fr": "Comprendre les enjeux de données d'entraînement non-représentatives", "en": "Understand issues with non-representative training data"},
+                {"fr": "Arbitrer entre innovation et sécurité patient", "en": "Balance innovation and patient safety"}
+            ],
+            "hints": [
+                {"fr": "Des données européennes sont-elles représentatives de la population tunisienne ?", "en": "Is European data representative of the Tunisian population?"},
+                {"fr": "11% d'erreur en triage = potentiellement des vies en jeu", "en": "11% triage error = potentially lives at stake"},
+                {"fr": "'L'IA propose, l'infirmier décide' — mais que se passe-t-il quand l'infirmier suit toujours l'IA ?", "en": "'AI proposes, nurse decides' — but what happens when the nurse always follows the AI?"}
+            ]
+        },
+        {
+            "mission_id": "predictive_maintenance_engineering",
+            "title": {"fr": "Audit de la Maintenance Prédictive", "en": "Predictive Maintenance Audit"},
+            "audience": "engineering",
+            "difficulty": "intermediate",
+            "instructions": {
+                "fr": "SCÉNARIO : Votre usine va déployer un système de maintenance prédictive IA sur 12 machines critiques. Le système analyse les données capteurs (vibrations, température, pression) pour prédire les pannes 48h à l'avance. Entraîné sur 18 mois de données de vos machines. Taux de détection des pannes : 85%. Taux de fausses alertes : 12%. Le système remplacera le planning de maintenance préventive actuel.\n\nVotre mission : Audit de risques complet. Recommandation finale.",
+                "en": "SCENARIO: Your factory will deploy an AI predictive maintenance system on 12 critical machines. The system analyzes sensor data (vibrations, temperature, pressure) to predict failures 48h in advance. Trained on 18 months of your machine data. Failure detection rate: 85%. False alert rate: 12%. The system will replace the current preventive maintenance schedule.\n\nYour mission: Complete risk audit. Final recommendation."
+            },
+            "input_text": {},
+            "expected_behavior": "Key risks: reliability (85% detection means 15% missed failures on critical machines), operational (12% false alerts create alert fatigue), security (sensor data connected to network = attack surface), human impact (maintenance technicians losing preventive expertise).",
+            "learning_objectives": [
+                {"fr": "Évaluer les risques IA dans un contexte industriel", "en": "Assess AI risks in an industrial context"},
+                {"fr": "Comprendre les implications de remplacer un processus humain par l'IA", "en": "Understand implications of replacing a human process with AI"},
+                {"fr": "Identifier les risques opérationnels des fausses alertes", "en": "Identify operational risks of false alerts"}
+            ],
+            "hints": [
+                {"fr": "15% de pannes non détectées sur des machines critiques — quel est le coût ?", "en": "15% undetected failures on critical machines — what's the cost?"},
+                {"fr": "Remplacer la maintenance préventive = si l'IA se trompe, pas de filet de sécurité", "en": "Replacing preventive maintenance = if AI is wrong, no safety net"},
+                {"fr": "18 mois de données suffisent-ils pour couvrir toutes les conditions de fonctionnement ?", "en": "Does 18 months of data cover all operating conditions?"}
+            ]
+        },
+        {
+            "mission_id": "ai_chatbot_business",
+            "title": {"fr": "Audit du Chatbot IA Client", "en": "Customer AI Chatbot Audit"},
+            "audience": "business",
+            "difficulty": "intermediate",
+            "instructions": {
+                "fr": "SCÉNARIO : Votre entreprise va déployer un chatbot IA pour le service client. Le chatbot peut répondre aux questions produits, traiter les réclamations simples, et déclencher des remboursements jusqu'à 200 TND sans intervention humaine. Il est basé sur un LLM fine-tuné sur 50 000 tickets historiques. Le test interne montre un taux de résolution de 70% et un CSAT de 4,1/5. Le déploiement remplacera 40% du volume du centre d'appels.\n\nVotre mission : Audit de risques complet. Recommandation finale.",
+                "en": "SCENARIO: Your company will deploy an AI chatbot for customer service. The chatbot can answer product questions, handle simple complaints, and trigger refunds up to 200 TND without human intervention. It's based on an LLM fine-tuned on 50,000 historical tickets. Internal testing shows a 70% resolution rate and 4.1/5 CSAT. Deployment will replace 40% of call center volume.\n\nYour mission: Complete risk audit. Final recommendation."
+            },
+            "input_text": {},
+            "expected_behavior": "Key risks: hallucinations (LLM giving wrong product info or making unauthorized commitments), reputational (angry customer + bot = viral social media), compliance (automated refunds = financial control), human impact (call center staff reduction), bias (ticket history may not cover edge cases).",
+            "learning_objectives": [
+                {"fr": "Évaluer les risques d'un chatbot IA autonome", "en": "Assess risks of an autonomous AI chatbot"},
+                {"fr": "Identifier les scénarios d'escalade humaine nécessaires", "en": "Identify necessary human escalation scenarios"},
+                {"fr": "Comprendre les risques financiers des décisions automatisées", "en": "Understand financial risks of automated decisions"}
+            ],
+            "hints": [
+                {"fr": "Que se passe-t-il si le chatbot promet quelque chose que l'entreprise ne peut pas tenir ?", "en": "What happens if the chatbot promises something the company can't deliver?"},
+                {"fr": "200 TND × nombre de remboursements/jour = quel risque financier ?", "en": "200 TND × number of refunds/day = what financial risk?"},
+                {"fr": "30% non résolu par le chatbot = frustration client → quel parcours d'escalade ?", "en": "30% unresolved by chatbot = customer frustration → what escalation path?"}
+            ]
+        },
+        {
+            "mission_id": "personalization_engine_marketing",
+            "title": {"fr": "Audit du Moteur de Personnalisation", "en": "Personalization Engine Audit"},
+            "audience": "marketing",
+            "difficulty": "intermediate",
+            "instructions": {
+                "fr": "SCÉNARIO : Votre département marketing veut déployer un moteur de personnalisation IA qui adapte en temps réel les offres, contenus, et prix sur votre site web et vos emails. Le moteur utilise les données de navigation, l'historique d'achat, la géolocalisation, et le profil socio-démographique. Il peut modifier les prix affichés de ±15% selon le profil.\n\nVotre mission : Audit de risques complet. Attention particulière aux risques éthiques.",
+                "en": "SCENARIO: Your marketing department wants to deploy an AI personalization engine that adapts offers, content, and prices in real time on your website and emails. The engine uses browsing data, purchase history, geolocation, and socio-demographic profile. It can modify displayed prices by ±15% based on profile.\n\nYour mission: Complete risk audit. Special attention to ethical risks."
+            },
+            "input_text": {},
+            "expected_behavior": "Key risks: ethical (dynamic pricing is price discrimination — legal and reputational risk), privacy (extensive tracking without clear consent), bias (socio-demographic profiling may discriminate), compliance (GDPR consent for tracking/profiling), transparency (customers don't know they see different prices).",
+            "learning_objectives": [
+                {"fr": "Identifier les risques éthiques de la personnalisation IA", "en": "Identify ethical risks of AI personalization"},
+                {"fr": "Évaluer les implications légales du pricing dynamique", "en": "Assess legal implications of dynamic pricing"},
+                {"fr": "Arbitrer entre performance marketing et éthique", "en": "Balance marketing performance and ethics"}
+            ],
+            "hints": [
+                {"fr": "Des prix différents pour des clients différents — est-ce légal ? Est-ce éthique ?", "en": "Different prices for different customers — is it legal? Is it ethical?"},
+                {"fr": "Que se passe-t-il si un client découvre qu'il paie 15% de plus que son voisin ?", "en": "What happens if a customer discovers they pay 15% more than their neighbor?"},
+                {"fr": "La géolocalisation comme variable de prix pose des questions de discrimination", "en": "Geolocation as a price variable raises discrimination questions"}
+            ]
+        },
+        {
+            "mission_id": "student_assessment_humanities",
+            "title": {"fr": "Audit de l'Évaluation IA", "en": "AI Assessment Audit"},
+            "audience": "humanities",
+            "difficulty": "intermediate",
+            "instructions": {
+                "fr": "SCÉNARIO : Votre établissement veut utiliser l'IA pour aider à évaluer les travaux écrits des étudiants (essais, rapports, mémoires). Le système LLM analyse le texte et propose une note sur 20 avec des commentaires structurés. Le professeur garde le dernier mot mais le système traite 80% de la charge d'évaluation. Entraîné sur 10 000 copies corrigées par vos enseignants.\n\nVotre mission : Audit de risques complet. Attention aux risques pédagogiques et éthiques.",
+                "en": "SCENARIO: Your institution wants to use AI to help evaluate student written work (essays, reports, theses). The LLM system analyzes the text and proposes a grade out of 20 with structured comments. The professor keeps the final say but the system handles 80% of the grading load. Trained on 10,000 papers graded by your teachers.\n\nYour mission: Complete risk audit. Attention to pedagogical and ethical risks."
+            },
+            "input_text": {},
+            "expected_behavior": "Key risks: bias (trained on past grading patterns which may favor certain writing styles), fairness (can the AI handle non-native speakers fairly?), transparency (students deserve to know if AI grades them), pedagogical (reduced teacher-student feedback interaction), gaming (students may optimize for AI grading patterns instead of learning).",
+            "learning_objectives": [
+                {"fr": "Identifier les risques spécifiques de l'IA dans l'éducation", "en": "Identify AI-specific risks in education"},
+                {"fr": "Évaluer l'impact pédagogique de l'automatisation de l'évaluation", "en": "Assess pedagogical impact of grading automation"},
+                {"fr": "Concevoir des garde-fous éthiques pour l'IA éducative", "en": "Design ethical safeguards for educational AI"}
+            ],
+            "hints": [
+                {"fr": "Les étudiants non-francophones natifs sont-ils évalués équitablement ?", "en": "Are non-native speakers evaluated fairly?"},
+                {"fr": "Si les étudiants savent que l'IA les évalue, vont-ils optimiser pour l'IA plutôt qu'apprendre ?", "en": "If students know AI grades them, will they optimize for AI rather than learn?"},
+                {"fr": "Le feedback personnalisé du professeur est une valeur pédagogique irremplaçable", "en": "Personalized professor feedback is an irreplaceable pedagogical value"}
+            ]
+        }
+    ]
+}

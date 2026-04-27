@@ -1,0 +1,150 @@
+{
+    "lab_id": "03_competitive_analysis",
+    "title": {
+        "fr": "Analyse Compétitive IA",
+        "en": "AI Competitive Analysis"
+    },
+    "description": {
+        "fr": "Un concurrent déploie l'IA dans votre secteur. Analysez la menace et proposez une réponse stratégique. ELLA évalue la qualité de votre raisonnement.",
+        "en": "A competitor deploys AI in your sector. Analyze the threat and propose a strategic response. ELLA evaluates the quality of your reasoning."
+    },
+    "concept": {
+        "fr": "La veille compétitive IA est une compétence stratégique. Quand un concurrent déploie l'IA, la réponse ne doit pas être de panique ni d'imitation aveugle — elle doit être analysée, structurée, et proportionnée. Ce lab vous met en situation d'analyse compétitive.",
+        "en": "AI competitive intelligence is a strategic skill. When a competitor deploys AI, the response shouldn't be panic or blind imitation — it should be analyzed, structured, and proportionate. This lab puts you in a competitive analysis situation."
+    },
+    "rubric_id": "competitive_analysis",
+    "missions": [
+        {
+            "mission_id": "neobank_threat_finance",
+            "title": {"fr": "La Menace Néobanque", "en": "The Neobank Threat"},
+            "audience": "finance",
+            "difficulty": "intermediate",
+            "instructions": {
+                "fr": "SCÉNARIO : Une néobanque vient de lancer en Tunisie un service de scoring crédit instantané basé sur l'IA. Le client obtient une réponse en 30 secondes au lieu de 48h dans votre banque. La néobanque annonce un taux d'approbation supérieur de 20% grâce à l'analyse de données alternatives (transactions mobile money, historique de paiement de factures). En 3 mois, elle a capté 15 000 clients, principalement des jeunes de 25-35 ans.\n\nVotre mission : Rédigez une analyse compétitive structurée couvrant : (1) L'analyse de la menace (court terme et long terme), (2) Les forces et faiblesses de votre position, (3) Votre réponse stratégique (actions à 3 mois, 6 mois, 12 mois), (4) Les investissements nécessaires et le ROI attendu.",
+                "en": "SCENARIO: A neobank just launched in Tunisia an AI-based instant credit scoring service. The customer gets an answer in 30 seconds instead of 48 hours at your bank. The neobank announces a 20% higher approval rate thanks to alternative data analysis (mobile money transactions, bill payment history). In 3 months, it has captured 15,000 clients, mainly young people aged 25-35.\n\nYour mission: Write a structured competitive analysis covering: (1) Threat analysis (short and long term), (2) Your strengths and weaknesses, (3) Your strategic response (actions at 3, 6, 12 months), (4) Required investments and expected ROI."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive should produce a structured analysis identifying the neobank's advantages (speed, data, UX), their own strengths (trust, regulatory compliance, existing client base), and propose a response that doesn't just copy the competitor but leverages unique assets.",
+            "learning_objectives": [
+                {"fr": "Analyser une menace compétitive IA de manière structurée", "en": "Analyze an AI competitive threat in a structured way"},
+                {"fr": "Identifier ses avantages compétitifs face à un disrupteur", "en": "Identify competitive advantages against a disruptor"},
+                {"fr": "Construire une réponse stratégique proportionnée", "en": "Build a proportionate strategic response"}
+            ],
+            "hints": [
+                {"fr": "Ne copiez pas le concurrent — identifiez ce que VOUS faites mieux", "en": "Don't copy the competitor — identify what YOU do better"},
+                {"fr": "Pensez aux segments que la néobanque ne sert PAS", "en": "Think about segments the neobank does NOT serve"},
+                {"fr": "Votre réponse à 3 mois doit être réaliste, pas un plan à 5 ans", "en": "Your 3-month response must be realistic, not a 5-year plan"}
+            ]
+        },
+        {
+            "mission_id": "ai_diagnosis_health",
+            "title": {"fr": "Le Concurrent Augmenté — Santé", "en": "The Augmented Competitor — Health"},
+            "audience": "health",
+            "difficulty": "intermediate",
+            "instructions": {
+                "fr": "SCÉNARIO : Un hôpital concurrent vient de déployer un système IA de triage aux urgences. Les résultats annoncés : temps d'attente moyen réduit de 35%, meilleure allocation des ressources médicales, et satisfaction patient en hausse de 20 points. Deux médecins de votre équipe ont postulé là-bas.\n\nVotre mission : Rédigez une analyse compétitive structurée couvrant : (1) L'impact réel vs l'effet d'annonce, (2) Votre position compétitive (forces/faiblesses), (3) Votre réponse stratégique, (4) Les risques éthiques et cliniques à surveiller chez le concurrent.",
+                "en": "SCENARIO: A competing hospital just deployed an AI triage system in their ER. Announced results: 35% average wait time reduction, better medical resource allocation, and patient satisfaction up 20 points. Two doctors from your team have applied there.\n\nYour mission: Write a structured competitive analysis covering: (1) Real impact vs announcement effect, (2) Your competitive position (strengths/weaknesses), (3) Your strategic response, (4) Ethical and clinical risks to watch at the competitor."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive should critically assess the competitor's claims, identify their own strengths (clinical expertise, patient relationships), and propose a response that includes both quick wins and a longer-term AI strategy.",
+            "learning_objectives": [
+                {"fr": "Évaluer critiquement les annonces IA d'un concurrent", "en": "Critically evaluate a competitor's AI announcements"},
+                {"fr": "Construire une réponse qui ne compromet pas la qualité des soins", "en": "Build a response that doesn't compromise care quality"},
+                {"fr": "Identifier les risques éthiques dans le déploiement IA santé", "en": "Identify ethical risks in health AI deployment"}
+            ],
+            "hints": [
+                {"fr": "Les chiffres du concurrent sont-ils audités ou auto-déclarés ?", "en": "Are the competitor's figures audited or self-reported?"},
+                {"fr": "La rétention de vos médecins est un enjeu stratégique", "en": "Retaining your doctors is a strategic issue"},
+                {"fr": "Votre réponse ne doit pas compromettre la sécurité patient", "en": "Your response must not compromise patient safety"}
+            ]
+        },
+        {
+            "mission_id": "smart_factory_engineering",
+            "title": {"fr": "L'Usine 4.0 du Voisin", "en": "The Neighbor's Smart Factory"},
+            "audience": "engineering",
+            "difficulty": "intermediate",
+            "instructions": {
+                "fr": "SCÉNARIO : Votre principal concurrent industriel a annoncé un partenariat avec un leader mondial de l'IA industrielle. Il déploie la maintenance prédictive, l'optimisation de production en temps réel, et le contrôle qualité par vision IA. Il annonce +23% de productivité et -40% de temps d'arrêt non planifié. Votre meilleur ingénieur de maintenance vient de démissionner pour les rejoindre.\n\nVotre mission : Analyse compétitive structurée : (1) Menace réelle vs communication, (2) Vos forces et faiblesses, (3) Réponse à 3/6/12 mois, (4) Budget estimé.",
+                "en": "SCENARIO: Your main industrial competitor announced a partnership with a global AI industry leader. They're deploying predictive maintenance, real-time production optimization, and AI vision quality control. They announce +23% productivity and -40% unplanned downtime. Your best maintenance engineer just resigned to join them.\n\nYour mission: Structured competitive analysis: (1) Real threat vs communication, (2) Your strengths and weaknesses, (3) Response at 3/6/12 months, (4) Estimated budget."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive should assess the competitor's claims critically (are they real or aspirational?), identify their own operational strengths, and propose a phased response starting with data collection from existing equipment.",
+            "learning_objectives": [
+                {"fr": "Évaluer une menace IA industrielle", "en": "Evaluate an industrial AI threat"},
+                {"fr": "Construire un plan de réponse réaliste avec budget", "en": "Build a realistic response plan with budget"},
+                {"fr": "Gérer la rétention des talents dans un contexte IA", "en": "Manage talent retention in an AI context"}
+            ],
+            "hints": [
+                {"fr": "+23% de productivité = combien en valeur absolue pour VOTRE usine ?", "en": "+23% productivity = how much in absolute value for YOUR factory?"},
+                {"fr": "Commencez par ce qui est faisable avec vos machines actuelles", "en": "Start with what's achievable with your current machines"},
+                {"fr": "La perte de votre ingénieur est un symptôme — pas la cause", "en": "Losing your engineer is a symptom — not the cause"}
+            ]
+        },
+        {
+            "mission_id": "ai_first_startup_business",
+            "title": {"fr": "Le Disrupteur IA — Direction Générale", "en": "The AI Disruptor — General Management"},
+            "audience": "business",
+            "difficulty": "intermediate",
+            "instructions": {
+                "fr": "SCÉNARIO : Une startup IA-first propose exactement votre service principal, mais à 40% moins cher, avec une UX mobile-native, et un service client 100% automatisé par IA. Elle vient de lever 5M$ et cible agressivement votre marché. Vos commerciaux rapportent que 3 prospects importants ont choisi la startup ce mois-ci.\n\nVotre mission : Analyse compétitive structurée : (1) Analyse de la menace (modèle économique, avantages, faiblesses), (2) Vos actifs défendables, (3) Réponse stratégique (court et moyen terme), (4) Ce que vous devez changer dans votre organisation.",
+                "en": "SCENARIO: An AI-first startup offers exactly your core service, but 40% cheaper, with a mobile-native UX, and 100% AI-automated customer service. It just raised $5M and aggressively targets your market. Your sales team reports that 3 important prospects chose the startup this month.\n\nYour mission: Structured competitive analysis: (1) Threat analysis (business model, advantages, weaknesses), (2) Your defensible assets, (3) Strategic response (short and medium term), (4) What you need to change in your organization."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive should identify defensible assets (client relationships, domain expertise, trust, compliance), acknowledge the startup's advantages (cost, speed, UX), and propose a response that leverages incumbency while adopting AI.",
+            "learning_objectives": [
+                {"fr": "Analyser un modèle de disruption IA", "en": "Analyze an AI disruption model"},
+                {"fr": "Identifier ses actifs défendables face à un disrupteur", "en": "Identify defensible assets against a disruptor"},
+                {"fr": "Concevoir une réponse qui combine défense et transformation", "en": "Design a response combining defense and transformation"}
+            ],
+            "hints": [
+                {"fr": "40% moins cher = durable ou subventionné par la levée de fonds ?", "en": "40% cheaper = sustainable or subsidized by fundraising?"},
+                {"fr": "Vos clients existants ont des coûts de switching — exploitez-les", "en": "Your existing clients have switching costs — leverage them"},
+                {"fr": "Ne rivalisez pas sur le prix — rivalisez sur la valeur", "en": "Don't compete on price — compete on value"}
+            ]
+        },
+        {
+            "mission_id": "personalization_war_marketing",
+            "title": {"fr": "La Guerre de la Personnalisation", "en": "The Personalization War"},
+            "audience": "marketing",
+            "difficulty": "intermediate",
+            "instructions": {
+                "fr": "SCÉNARIO : Votre concurrent principal vient de lancer une plateforme de personnalisation IA en temps réel. Chaque client reçoit des offres, contenus, et prix dynamiquement adaptés à son profil et son comportement. Leur taux de conversion a augmenté de 25% en 2 mois. Votre CMO est en panique.\n\nVotre mission : Analyse compétitive structurée : (1) Analyse de l'avantage compétitif du concurrent, (2) Vos capacités actuelles en personnalisation, (3) Réponse stratégique avec plan d'action, (4) Risques éthiques de la personnalisation extrême.",
+                "en": "SCENARIO: Your main competitor just launched a real-time AI personalization platform. Each customer receives dynamically adapted offers, content, and pricing based on their profile and behavior. Their conversion rate increased 25% in 2 months. Your CMO is panicking.\n\nYour mission: Structured competitive analysis: (1) Analysis of the competitor's competitive advantage, (2) Your current personalization capabilities, (3) Strategic response with action plan, (4) Ethical risks of extreme personalization."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive should analyze the competitor's personalization strategy, assess their own data and tech capabilities honestly, propose a phased response, and flag ethical risks (price discrimination, manipulation, privacy).",
+            "learning_objectives": [
+                {"fr": "Évaluer une stratégie de personnalisation IA concurrente", "en": "Evaluate a competitor's AI personalization strategy"},
+                {"fr": "Identifier ses lacunes en données et technologie marketing", "en": "Identify gaps in marketing data and technology"},
+                {"fr": "Intégrer les considérations éthiques dans la réponse compétitive", "en": "Integrate ethical considerations in competitive response"}
+            ],
+            "hints": [
+                {"fr": "+25% conversion = quel impact sur LEUR CA ? Et sur le vôtre ?", "en": "+25% conversion = what impact on THEIR revenue? And on yours?"},
+                {"fr": "Avez-vous les données nécessaires pour personnaliser ?", "en": "Do you have the data needed to personalize?"},
+                {"fr": "La personnalisation des prix pose des questions éthiques majeures", "en": "Price personalization raises major ethical questions"}
+            ]
+        },
+        {
+            "mission_id": "edtech_disruption_humanities",
+            "title": {"fr": "La Disruption EdTech", "en": "The EdTech Disruption"},
+            "audience": "humanities",
+            "difficulty": "intermediate",
+            "instructions": {
+                "fr": "SCÉNARIO : Une plateforme EdTech avec IA adaptative propose des formations dans votre domaine à 1/10ème du prix. Le parcours est personnalisé par IA : chaque apprenant reçoit des contenus adaptés à son niveau et son rythme. La plateforme annonce un taux de complétion de 78% (vs 30% pour les MOOC classiques) et délivre des certifications reconnues par 50 entreprises partenaires.\n\nVotre mission : Analyse compétitive et réponse stratégique structurée.",
+                "en": "SCENARIO: An EdTech platform with adaptive AI offers training in your field at 1/10th the price. The pathway is AI-personalized: each learner receives content adapted to their level and pace. The platform announces a 78% completion rate (vs 30% for traditional MOOCs) and delivers certifications recognized by 50 partner companies.\n\nYour mission: Competitive analysis and structured strategic response."
+            },
+            "input_text": {},
+            "expected_behavior": "The executive should identify what the EdTech can't replicate (mentoring, networking, hands-on projects, employer relationships), assess the real threat to different segments, and propose a hybrid response combining technology with human-centric advantages.",
+            "learning_objectives": [
+                {"fr": "Analyser une disruption EdTech IA dans l'éducation", "en": "Analyze an AI EdTech disruption in education"},
+                {"fr": "Identifier les avantages non-réplicables par l'IA", "en": "Identify advantages that AI cannot replicate"},
+                {"fr": "Concevoir un modèle hybride humain + IA", "en": "Design a hybrid human + AI model"}
+            ],
+            "hints": [
+                {"fr": "1/10ème du prix = quel modèle économique ? Soutenable ?", "en": "1/10th the price = what business model? Sustainable?"},
+                {"fr": "78% de complétion ≠ 78% d'emploi — distinguez les deux", "en": "78% completion ≠ 78% employment — distinguish the two"},
+                {"fr": "Votre avantage : le réseau, le mentorat, la réputation", "en": "Your advantage: the network, mentoring, reputation"}
+            ]
+        }
+    ]
+}

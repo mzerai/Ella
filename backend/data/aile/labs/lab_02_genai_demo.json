@@ -1,0 +1,186 @@
+{
+    "lab_id": "02_genai_demo",
+    "title": {
+        "fr": "Démo GenAI — Les mains dans le moteur",
+        "en": "GenAI Demo — Hands On"
+    },
+    "description": {
+        "fr": "Écrivez un prompt pour une tâche métier de votre secteur et voyez un LLM répondre en temps réel. Comprenez viscéralement ce que vos équipes font quand elles 'utilisent l'IA'.",
+        "en": "Write a prompt for a business task in your sector and watch an LLM respond in real time. Viscerally understand what your teams do when they 'use AI'."
+    },
+    "concept": {
+        "fr": "L'IA générative fonctionne par prompts : vous lui donnez une instruction en langage naturel, et elle génère une réponse. La qualité du résultat dépend directement de la qualité de votre instruction. Dans ce lab, vous allez écrire un prompt pour une tâche métier de votre secteur — et voir le LLM répondre. Ce n'est pas un exercice technique : c'est une expérience de compréhension.",
+        "en": "Generative AI works through prompts: you give it a natural language instruction, and it generates a response. Result quality directly depends on instruction quality. In this lab, you'll write a prompt for a business task in your sector — and watch the LLM respond. This isn't a technical exercise: it's an understanding experience."
+    },
+    "rubric_id": "genai_demo",
+    "missions": [
+        {
+            "mission_id": "exec_summary_finance",
+            "title": {
+                "fr": "Le Résumé Exécutif — Finance",
+                "en": "The Executive Summary — Finance"
+            },
+            "audience": "finance",
+            "difficulty": "beginner",
+            "instructions": {
+                "fr": "Vous êtes DG d'une banque. Votre directeur des risques vous envoie le rapport trimestriel ci-dessous et vous avez 5 minutes avant le comité de direction.\n\nVotre tâche : Rédigez UN prompt qui demande au LLM de vous produire un résumé exécutif de ce rapport, adapté à un comité de direction. Le résumé doit être structuré, avec les chiffres clés, les alertes, et les recommandations.\n\nRappel du Module 01 : la qualité du résultat dépend de la précision de votre instruction. Pensez au destinataire, au format, et aux contraintes.",
+                "en": "You are the CEO of a bank. Your Chief Risk Officer sends you the quarterly report below and you have 5 minutes before the board meeting.\n\nYour task: Write ONE prompt asking the LLM to produce an executive summary of this report, adapted for a board of directors. The summary must be structured, with key figures, alerts, and recommendations.\n\nReminder from Module 01: result quality depends on instruction precision. Think about the audience, format, and constraints."
+            },
+            "input_text": {
+                "fr": "RAPPORT TRIMESTRIEL DES RISQUES — T1 2025\n\nPortefeuille crédit : encours total 2,3 milliards TND (+4,2% vs T4 2024). Le taux de NPL (Non-Performing Loans) est passé de 8,7% à 9,1%, principalement tiré par le segment PME (taux NPL PME : 14,2% vs 12,8% au T4). Le taux de couverture des provisions reste stable à 67%.\n\nRisque de marché : la volatilité du dinar tunisien face à l'euro a augmenté de 15% ce trimestre. L'exposition nette en devises est de 180M TND, dans les limites réglementaires mais en hausse de 22% par rapport au trimestre précédent.\n\nRisque opérationnel : 3 incidents cyber signalés ce trimestre (2 tentatives de phishing, 1 attaque DDoS mitigée). Aucune perte de données. Le plan de continuité d'activité a été testé avec succès. 12 réclamations clients liées à des erreurs de traitement automatisé.\n\nConformité : l'audit BCT de février n'a relevé aucune non-conformité majeure. 2 observations mineures sur la documentation des processus KYC. Deadline de correction : 30 juin 2025.\n\nRecommandations du département risques : (1) Renforcer le suivi du segment PME — proposition de révision des critères d'octroi. (2) Réduire l'exposition devises de 15% avant fin T2. (3) Accélérer la digitalisation du processus KYC pour répondre aux observations BCT.",
+                "en": "QUARTERLY RISK REPORT — Q1 2025\n\nCredit portfolio: total outstanding 2.3 billion TND (+4.2% vs Q4 2024). The NPL (Non-Performing Loans) rate rose from 8.7% to 9.1%, mainly driven by the SME segment (SME NPL rate: 14.2% vs 12.8% in Q4). The provision coverage ratio remains stable at 67%.\n\nMarket risk: Tunisian dinar volatility against the euro increased by 15% this quarter. Net foreign currency exposure is 180M TND, within regulatory limits but up 22% from the previous quarter.\n\nOperational risk: 3 cyber incidents reported this quarter (2 phishing attempts, 1 mitigated DDoS attack). No data loss. Business continuity plan tested successfully. 12 customer complaints related to automated processing errors.\n\nCompliance: the BCT audit in February found no major non-compliance. 2 minor observations on KYC process documentation. Correction deadline: June 30, 2025.\n\nRisk department recommendations: (1) Strengthen SME segment monitoring — proposal to revise lending criteria. (2) Reduce FX exposure by 15% before end of Q2. (3) Accelerate KYC process digitalization to address BCT observations."
+            },
+            "expected_behavior": "The LLM should produce a concise, board-ready executive summary with key figures, risk levels (red/amber/green), and actionable recommendations. The quality depends on the executive's prompt precision.",
+            "learning_objectives": [
+                {"fr": "Formuler un prompt clair pour un résumé exécutif", "en": "Formulate a clear prompt for an executive summary"},
+                {"fr": "Comprendre comment la précision du prompt impacte le résultat", "en": "Understand how prompt precision impacts the result"},
+                {"fr": "Expérimenter l'IA générative sur une tâche métier réelle", "en": "Experience generative AI on a real business task"}
+            ],
+            "hints": [
+                {"fr": "Précisez le destinataire : comité de direction, pas techniciens", "en": "Specify the audience: board of directors, not technicians"},
+                {"fr": "Demandez un format structuré : bullet points, chiffres clés, alertes", "en": "Request a structured format: bullet points, key figures, alerts"},
+                {"fr": "Fixez une contrainte de longueur : 'en 10 lignes maximum'", "en": "Set a length constraint: 'in 10 lines maximum'"}
+            ]
+        },
+        {
+            "mission_id": "patient_triage_health",
+            "title": {
+                "fr": "Le Triage Intelligent — Santé",
+                "en": "Smart Triage — Health"
+            },
+            "audience": "health",
+            "difficulty": "beginner",
+            "instructions": {
+                "fr": "Vous êtes directeur d'un hôpital. Votre équipe explore l'utilisation de l'IA pour aider au triage aux urgences. Avant d'investir, vous voulez voir ce qu'un LLM peut faire avec une description patient.\n\nVotre tâche : Rédigez UN prompt qui demande au LLM d'analyser la description patient ci-dessous et de proposer un niveau de priorité (P1 urgent, P2 semi-urgent, P3 non-urgent) avec une justification structurée.\n\nAttention : le LLM n'est PAS un dispositif médical. Ce test est purement exploratoire.",
+                "en": "You are a hospital director. Your team is exploring AI use for emergency triage. Before investing, you want to see what an LLM can do with a patient description.\n\nYour task: Write ONE prompt asking the LLM to analyze the patient description below and propose a priority level (P1 urgent, P2 semi-urgent, P3 non-urgent) with structured justification.\n\nWarning: the LLM is NOT a medical device. This test is purely exploratory."
+            },
+            "input_text": {
+                "fr": "Patient : Femme, 62 ans. Se présente aux urgences à 14h30. Symptômes : douleur thoracique modérée depuis 2 heures, irradiant vers le bras gauche. Antécédents : hypertension traitée, diabète type 2, tabagisme actif. Constantes : TA 165/95, FC 92, SpO2 96%, température 37.1°C. ECG en cours. La patiente est consciente, anxieuse, et signale des nausées légères.",
+                "en": "Patient: Female, 62 years old. Presents to emergency at 2:30 PM. Symptoms: moderate chest pain for 2 hours, radiating to left arm. History: treated hypertension, type 2 diabetes, active smoking. Vitals: BP 165/95, HR 92, SpO2 96%, temperature 37.1°C. ECG in progress. Patient is conscious, anxious, and reports mild nausea."
+            },
+            "expected_behavior": "The LLM should identify this as a potential acute coronary syndrome, assign P1 priority, and provide structured justification. The executive learns that LLMs can process medical text but must always be validated by a clinician.",
+            "learning_objectives": [
+                {"fr": "Observer les capacités et limites de l'IA sur une tâche clinique", "en": "Observe AI capabilities and limits on a clinical task"},
+                {"fr": "Comprendre pourquoi la validation humaine est indispensable en santé", "en": "Understand why human validation is essential in healthcare"},
+                {"fr": "Évaluer le potentiel d'un PoC IA dans son établissement", "en": "Evaluate the potential of an AI PoC in one's institution"}
+            ],
+            "hints": [
+                {"fr": "Demandez une justification structurée, pas juste le niveau de priorité", "en": "Ask for structured justification, not just the priority level"},
+                {"fr": "Demandez au LLM d'identifier les facteurs de risque", "en": "Ask the LLM to identify risk factors"},
+                {"fr": "Ajoutez un disclaimer : 'ceci n'est pas un avis médical'", "en": "Add a disclaimer: 'this is not medical advice'"}
+            ]
+        },
+        {
+            "mission_id": "quality_report_engineering",
+            "title": {
+                "fr": "Le Rapport Qualité — Industrie",
+                "en": "The Quality Report — Industry"
+            },
+            "audience": "engineering",
+            "difficulty": "beginner",
+            "instructions": {
+                "fr": "Vous êtes DG d'une usine. Votre responsable qualité vous envoie les données de production de la semaine ci-dessous. Vous voulez tester si un LLM peut vous aider à analyser ces données et détecter des anomalies.\n\nVotre tâche : Rédigez UN prompt qui demande au LLM d'analyser les données de production et d'identifier les anomalies, tendances, et recommandations.\n\nRappel : le LLM ne « voit » pas de graphiques. Donnez-lui les données sous forme textuelle.",
+                "en": "You are the CEO of a factory. Your quality manager sends you this week's production data below. You want to test if an LLM can help analyze this data and detect anomalies.\n\nYour task: Write ONE prompt asking the LLM to analyze the production data and identify anomalies, trends, and recommendations.\n\nReminder: the LLM doesn't 'see' graphs. Give it data in text form."
+            },
+            "input_text": {
+                "fr": "DONNÉES DE PRODUCTION — Semaine 12 (17-21 mars 2025)\nLigne A (composants électroniques) :\n- Lundi : 1 250 pièces, 2,1% rebut, 0 arrêt machine\n- Mardi : 1 230 pièces, 2,3% rebut, 0 arrêt machine\n- Mercredi : 1 180 pièces, 3,8% rebut, 1 arrêt de 45min (surchauffe four)\n- Jeudi : 1 050 pièces, 5,2% rebut, 2 arrêts (surchauffe + calibration)\n- Vendredi : 980 pièces, 6,1% rebut, 1 arrêt de 90min (maintenance corrective)\n\nLigne B (assemblage) :\n- Production stable : 800-820 pièces/jour, rebut constant 1,5-1,8%\n\nObjectif hebdomadaire Ligne A : 6 000 pièces, rebut <3%. Réalisé : 5 690 pièces, rebut moyen 3,9%.",
+                "en": "PRODUCTION DATA — Week 12 (March 17-21, 2025)\nLine A (electronic components):\n- Monday: 1,250 pieces, 2.1% scrap, 0 machine stops\n- Tuesday: 1,230 pieces, 2.3% scrap, 0 machine stops\n- Wednesday: 1,180 pieces, 3.8% scrap, 1 stop of 45min (furnace overheating)\n- Thursday: 1,050 pieces, 5.2% scrap, 2 stops (overheating + calibration)\n- Friday: 980 pieces, 6.1% scrap, 1 stop of 90min (corrective maintenance)\n\nLine B (assembly):\n- Stable production: 800-820 pieces/day, constant scrap 1.5-1.8%\n\nWeekly target Line A: 6,000 pieces, scrap <3%. Achieved: 5,690 pieces, average scrap 3.9%."
+            },
+            "expected_behavior": "The LLM should identify the degrading trend on Line A (increasing scrap rate, increasing stops), flag the furnace overheating as a recurring issue suggesting preventive maintenance is needed, and note that Line B is stable.",
+            "learning_objectives": [
+                {"fr": "Observer la capacité du LLM à analyser des données de production", "en": "Observe the LLM's ability to analyze production data"},
+                {"fr": "Comprendre les limites de l'IA sur les données quantitatives", "en": "Understand AI limits on quantitative data"},
+                {"fr": "Évaluer le potentiel d'un assistant IA pour le reporting industriel", "en": "Evaluate the potential of an AI assistant for industrial reporting"}
+            ],
+            "hints": [
+                {"fr": "Demandez au LLM de comparer chaque jour aux objectifs", "en": "Ask the LLM to compare each day against targets"},
+                {"fr": "Demandez d'identifier les tendances (amélioration ou dégradation)", "en": "Ask to identify trends (improvement or degradation)"},
+                {"fr": "Demandez des recommandations actionnables pour la semaine suivante", "en": "Ask for actionable recommendations for next week"}
+            ]
+        },
+        {
+            "mission_id": "strategy_memo_business",
+            "title": {
+                "fr": "La Note Stratégique — Direction Générale",
+                "en": "The Strategic Memo — General Management"
+            },
+            "audience": "business",
+            "difficulty": "beginner",
+            "instructions": {
+                "fr": "Vous êtes CEO. Votre directeur commercial vous envoie les résultats commerciaux du trimestre ci-dessous. Vous devez préparer une note stratégique pour le conseil d'administration.\n\nVotre tâche : Rédigez UN prompt qui demande au LLM de transformer ces données brutes en une note stratégique de 10 lignes maximum, avec les tendances clés, les alertes, et les décisions à prendre.\n\nTestez la différence entre un prompt vague et un prompt précis.",
+                "en": "You are the CEO. Your commercial director sends you the quarterly commercial results below. You need to prepare a strategic memo for the board.\n\nYour task: Write ONE prompt asking the LLM to transform this raw data into a strategic memo of 10 lines maximum, with key trends, alerts, and decisions to make.\n\nTest the difference between a vague prompt and a precise one."
+            },
+            "input_text": {
+                "fr": "RÉSULTATS COMMERCIAUX T1 2025\n\nCA total : 12,3M TND (+7% vs T1 2024). Segment B2B : 8,1M TND (+12%). Segment B2C : 4,2M TND (-2%). Nouveaux clients B2B : 34 (objectif : 30). Churn B2C : 8,3% (vs 5,1% T1 2024). Panier moyen B2B : +15%. Panier moyen B2C : -8%.\n\nTop 3 secteurs B2B : industrie (3,2M), services financiers (2,8M), télécom (1,4M). Secteur en déclin : retail (-18% vs T1 2024).\n\nPipeline T2 : 18M TND de propositions en cours. Taux de conversion pipeline : 32% (vs 38% T1 2024).\n\nÉquipe commerciale : 28 commerciaux actifs. 3 départs au T1 (2 B2C, 1 B2B senior). Taux de remplacement : 1 recrutement effectif sur 3 postes ouverts.",
+                "en": "COMMERCIAL RESULTS Q1 2025\n\nTotal revenue: 12.3M TND (+7% vs Q1 2024). B2B segment: 8.1M TND (+12%). B2C segment: 4.2M TND (-2%). New B2B clients: 34 (target: 30). B2C churn: 8.3% (vs 5.1% Q1 2024). Average B2B basket: +15%. Average B2C basket: -8%.\n\nTop 3 B2B sectors: industry (3.2M), financial services (2.8M), telecom (1.4M). Declining sector: retail (-18% vs Q1 2024).\n\nQ2 pipeline: 18M TND in proposals. Pipeline conversion rate: 32% (vs 38% Q1 2024).\n\nSales team: 28 active reps. 3 departures in Q1 (2 B2C, 1 senior B2B). Replacement rate: 1 effective hire out of 3 open positions."
+            },
+            "expected_behavior": "The LLM should identify the B2B strength, the B2C problem (churn doubling, basket declining), the pipeline conversion concern, and the staffing risk. Quality varies dramatically based on prompt precision.",
+            "learning_objectives": [
+                {"fr": "Expérimenter l'impact de la précision du prompt sur le résultat", "en": "Experience the impact of prompt precision on results"},
+                {"fr": "Comprendre ce qu'un LLM peut et ne peut pas faire avec des données business", "en": "Understand what an LLM can and can't do with business data"},
+                {"fr": "Évaluer le potentiel d'un assistant IA pour le reporting exécutif", "en": "Evaluate AI assistant potential for executive reporting"}
+            ],
+            "hints": [
+                {"fr": "Précisez le destinataire : conseil d'administration (pas l'équipe commerciale)", "en": "Specify audience: board of directors (not the sales team)"},
+                {"fr": "Demandez de distinguer les signaux positifs et les alertes", "en": "Ask to distinguish positive signals from alerts"},
+                {"fr": "Testez d'abord un prompt vague, puis améliorez-le — observez la différence", "en": "First test a vague prompt, then improve it — observe the difference"}
+            ]
+        },
+        {
+            "mission_id": "campaign_analysis_marketing",
+            "title": {
+                "fr": "L'Analyse de Campagne — Marketing",
+                "en": "Campaign Analysis — Marketing"
+            },
+            "audience": "marketing",
+            "difficulty": "beginner",
+            "instructions": {
+                "fr": "Vous êtes directeur marketing. Votre équipe a lancé 3 campagnes email le mois dernier et vous devez analyser les résultats pour décider de l'allocation du budget T2.\n\nVotre tâche : Rédigez UN prompt qui demande au LLM d'analyser les résultats ci-dessous et de recommander une allocation budgétaire pour le T2 avec justification.",
+                "en": "You are the marketing director. Your team launched 3 email campaigns last month and you need to analyze results to decide Q2 budget allocation.\n\nYour task: Write ONE prompt asking the LLM to analyze the results below and recommend a Q2 budget allocation with justification."
+            },
+            "input_text": {
+                "fr": "RÉSULTATS CAMPAGNES EMAIL — MARS 2025\n\nCampagne A (promotion produit premium) : 45 000 envois, taux d'ouverture 22%, taux de clic 4,8%, conversions 127, CA généré 89 000 TND, coût campagne 3 500 TND.\n\nCampagne B (réactivation clients inactifs) : 28 000 envois, taux d'ouverture 11%, taux de clic 1,2%, conversions 18, CA généré 7 200 TND, coût campagne 2 800 TND.\n\nCampagne C (newsletter éducative + CTA soft) : 60 000 envois, taux d'ouverture 38%, taux de clic 8,5%, conversions 45, CA généré 22 000 TND, coût campagne 1 200 TND.\n\nBudget total disponible T2 : 15 000 TND.\nBenchmarks secteur : taux d'ouverture moyen 18%, taux de clic moyen 3,5%.",
+                "en": "EMAIL CAMPAIGN RESULTS — MARCH 2025\n\nCampaign A (premium product promotion): 45,000 sends, 22% open rate, 4.8% click rate, 127 conversions, revenue generated 89,000 TND, campaign cost 3,500 TND.\n\nCampaign B (inactive customer reactivation): 28,000 sends, 11% open rate, 1.2% click rate, 18 conversions, revenue generated 7,200 TND, campaign cost 2,800 TND.\n\nCampaign C (educational newsletter + soft CTA): 60,000 sends, 38% open rate, 8.5% click rate, 45 conversions, revenue generated 22,000 TND, campaign cost 1,200 TND.\n\nTotal Q2 budget available: 15,000 TND.\nSector benchmarks: average open rate 18%, average click rate 3.5%."
+            },
+            "expected_behavior": "The LLM should calculate ROI per campaign (A: 25.4x, B: 2.6x, C: 18.3x), note that Campaign A has the best absolute ROI, Campaign C has the best engagement and efficiency, and Campaign B underperforms. Budget recommendation should prioritize A and C.",
+            "learning_objectives": [
+                {"fr": "Observer la capacité du LLM à analyser des données marketing", "en": "Observe the LLM's ability to analyze marketing data"},
+                {"fr": "Comprendre quand l'IA ajoute de la valeur dans l'analyse marketing", "en": "Understand when AI adds value in marketing analysis"},
+                {"fr": "Évaluer la qualité d'une recommandation budgétaire générée par IA", "en": "Evaluate the quality of an AI-generated budget recommendation"}
+            ],
+            "hints": [
+                {"fr": "Demandez au LLM de calculer le ROI par campagne", "en": "Ask the LLM to calculate ROI per campaign"},
+                {"fr": "Demandez de comparer aux benchmarks secteur", "en": "Ask to compare against sector benchmarks"},
+                {"fr": "Demandez une recommandation budgétaire chiffrée, pas juste qualitative", "en": "Ask for a quantified budget recommendation, not just qualitative"}
+            ]
+        },
+        {
+            "mission_id": "program_review_humanities",
+            "title": {
+                "fr": "La Revue de Programme — Éducation",
+                "en": "Program Review — Education"
+            },
+            "audience": "humanities",
+            "difficulty": "beginner",
+            "instructions": {
+                "fr": "Vous êtes directeur d'un établissement de formation. Votre responsable pédagogique vous envoie les retours des évaluations de la dernière promotion. Vous voulez tester si un LLM peut vous aider à synthétiser les feedbacks et identifier les priorités d'amélioration.\n\nVotre tâche : Rédigez UN prompt qui demande au LLM d'analyser ces évaluations et de produire un plan d'amélioration structuré.",
+                "en": "You are the director of a training institution. Your academic lead sends you the evaluation feedback from the latest cohort. You want to test if an LLM can help synthesize feedback and identify improvement priorities.\n\nYour task: Write ONE prompt asking the LLM to analyze these evaluations and produce a structured improvement plan."
+            },
+            "input_text": {
+                "fr": "ÉVALUATIONS DE FIN DE FORMATION — Promotion 2024-2025 (87 répondants sur 120 inscrits, taux de réponse 72,5%)\n\nNote globale de satisfaction : 3,6/5\n\nPoints forts récurrents (mentionnés par >50% des répondants) :\n- Qualité des intervenants professionnels (72%)\n- Contenu pratique et cas réels (68%)\n- Ambiance et cohésion de la promotion (55%)\n\nPoints faibles récurrents :\n- Organisation administrative (retards plannings, salles non attribuées) — 61%\n- Manque de suivi individuel — 48%\n- Cours théoriques trop longs sans mise en pratique — 44%\n- Supports de cours obsolètes ou incomplets — 38%\n- Accès limité aux outils numériques (licences logicielles expirées) — 33%\n\nVerbatim représentatifs :\n- \"Les intervenants sont top mais l'organisation gâche tout\"\n- \"J'aurais aimé plus de feedback personnalisé sur mes travaux\"\n- \"Les cours de marketing digital datent de 2019, le monde a changé\"\n- \"L'alternance était bien mais le suivi entreprise quasi inexistant\"",
+                "en": "END-OF-PROGRAM EVALUATIONS — 2024-2025 Cohort (87 respondents out of 120 enrolled, 72.5% response rate)\n\nOverall satisfaction score: 3.6/5\n\nRecurrent strengths (mentioned by >50% of respondents):\n- Quality of professional instructors (72%)\n- Practical content and real cases (68%)\n- Cohort atmosphere and cohesion (55%)\n\nRecurrent weaknesses:\n- Administrative organization (schedule delays, unassigned rooms) — 61%\n- Lack of individual follow-up — 48%\n- Theory-heavy courses too long without practical application — 44%\n- Outdated or incomplete course materials — 38%\n- Limited access to digital tools (expired software licenses) — 33%\n\nRepresentative verbatim:\n- \"The instructors are great but the organization ruins everything\"\n- \"I would have liked more personalized feedback on my work\"\n- \"The digital marketing courses are from 2019, the world has changed\"\n- \"The work-study program was good but company supervision was almost nonexistent\""
+            },
+            "expected_behavior": "The LLM should produce a structured improvement plan prioritizing administrative organization (highest mention rate), curriculum updates, and individual follow-up. It should distinguish quick fixes from structural changes.",
+            "learning_objectives": [
+                {"fr": "Observer la capacité du LLM à synthétiser des feedbacks qualitatifs", "en": "Observe the LLM's ability to synthesize qualitative feedback"},
+                {"fr": "Évaluer le potentiel de l'IA pour l'amélioration continue", "en": "Evaluate AI potential for continuous improvement"},
+                {"fr": "Comprendre les limites de l'IA sur le contexte et les nuances", "en": "Understand AI limits on context and nuance"}
+            ],
+            "hints": [
+                {"fr": "Demandez de prioriser par impact et faisabilité", "en": "Ask to prioritize by impact and feasibility"},
+                {"fr": "Demandez de distinguer les quick wins des chantiers structurels", "en": "Ask to distinguish quick wins from structural projects"},
+                {"fr": "Demandez un plan d'action avec responsables et délais", "en": "Ask for an action plan with owners and deadlines"}
+            ]
+        }
+    ]
+}
