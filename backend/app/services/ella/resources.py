@@ -284,6 +284,42 @@ RESOURCE_CATALOG = {
             "type": "video",
             "description": "Full free course on prompt engineering by freeCodeCamp — covers all major techniques with examples."
         },
+        {
+            "title": "Google Prompting Essentials (cours gratuit avec certificat)",
+            "url": "https://www.skills.google/paths/2337/course_templates/1229",
+            "type": "tutorial",
+            "description": "Cours gratuit de Google en 5 étapes pour maîtriser le prompting — certificat inclus, aucune expérience requise."
+        },
+        {
+            "title": "OpenAI Academy — Prompt Engineering",
+            "url": "https://academy.openai.com/public/clubs/work-users-ynjqu/resources/prompting",
+            "type": "tutorial",
+            "description": "Guide officiel d'OpenAI pour écrire des prompts efficaces avec ChatGPT et GPT-5."
+        },
+        {
+            "title": "OpenAI — Prompt Engineering API Guide",
+            "url": "https://developers.openai.com/api/docs/guides/prompt-engineering",
+            "type": "article",
+            "description": "Guide technique officiel d'OpenAI pour le prompt engineering via l'API — roles, structured output, best practices."
+        },
+        {
+            "title": "Kaggle — Google Whitepaper on Prompt Engineering",
+            "url": "https://www.kaggle.com/whitepaper-prompt-engineering",
+            "type": "article",
+            "description": "Whitepaper technique de Google sur le prompt engineering — techniques avancées avec exemples concrets."
+        },
+        {
+            "title": "Prompt Engineering for ChatGPT (Vanderbilt University, Coursera)",
+            "url": "https://www.coursera.org/learn/prompt-engineering",
+            "type": "tutorial",
+            "description": "Cours universitaire gratuit de Vanderbilt sur Coursera — patterns et approches pour des prompts efficaces."
+        },
+        {
+            "title": "Google Coursera — Prompting Essentials Specialization",
+            "url": "https://www.coursera.org/specializations/prompting-essentials-google",
+            "type": "tutorial",
+            "description": "Spécialisation Google sur Coursera couvrant le prompting de A à Z avec exercices pratiques."
+        },
     ],
 
     # ---- Prompt Engineering: Zero-Shot & Few-Shot ----

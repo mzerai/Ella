@@ -4,8 +4,8 @@ import json
 import logging
 import os
 from fastapi import APIRouter, HTTPException
-from app.services.labs.rl.models import RLLabRunRequest, RLLabRunResponse
-from app.services.labs.rl.executor import run_rl_lab
+from app.services.labs.rl.models import RLLabRunRequest, RLLabRunResponse, RLLabTrainRequest, RLLabTrainResponse
+from app.services.labs.rl.executor import run_rl_lab, run_rl_training
 
 logger = logging.getLogger(__name__)
 
@@ -100,3 +100,15 @@ async def run_rl_algorithm(request: RLLabRunRequest):
     except Exception as e:
         logger.error("RL lab execution error: %s", e)
         raise HTTPException(status_code=500, detail=f"Lab execution failed: {str(e)}")
+
+
+@router.post("/train", response_model=RLLabTrainResponse)
+async def train_rl_agent(request: RLLabTrainRequest):
+    """Train a model-free RL agent on FrozenLake and return results."""
+    try:
+        return run_rl_training(request)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error("RL training error: %s", e)
+        raise HTTPException(status_code=500, detail=f"Training failed: {str(e)}")

@@ -17,6 +17,7 @@ interface FrozenLakeGridProps {
   V: number[];
   Q: number[][];
   policy: number[][];
+  showQ?: boolean;
 }
 
 const TILE_ICONS: Record<string, string> = {
@@ -42,6 +43,7 @@ export default function FrozenLakeGrid({
   V,
   Q,
   policy,
+  showQ = true,
 }: FrozenLakeGridProps) {
   const vMax = Math.max(...V.map(Math.abs), 0.001);
 
@@ -95,41 +97,49 @@ export default function FrozenLakeGrid({
                 <span className="text-[7px] text-ella-gray-400">{tile}</span>
               </span>
 
-              {/* 3x3 sub-grid for Q-values and V */}
-              <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 items-center justify-items-center p-0.5">
-                {/* Row 0: _, UP(3), _ */}
-                <span />
-                <QCell
-                  value={qValues[3]}
-                  label={ACTION_LABELS[3]}
-                  selected={policyRow[3] > 0}
-                />
-                <span />
+              {/* Inner content: 3x3 sub-grid with Q, or V-only centered */}
+              {showQ ? (
+                <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 items-center justify-items-center p-0.5">
+                  {/* Row 0: _, UP(3), _ */}
+                  <span />
+                  <QCell
+                    value={qValues[3]}
+                    label={ACTION_LABELS[3]}
+                    selected={policyRow[3] > 0}
+                  />
+                  <span />
 
-                {/* Row 1: LEFT(0), V(s), RIGHT(2) */}
-                <QCell
-                  value={qValues[0]}
-                  label={ACTION_LABELS[0]}
-                  selected={policyRow[0] > 0}
-                />
-                <span className="text-[10px] sm:text-xs font-bold text-ella-gray-900 leading-none text-center">
-                  {fmt(V[s])}
-                </span>
-                <QCell
-                  value={qValues[2]}
-                  label={ACTION_LABELS[2]}
-                  selected={policyRow[2] > 0}
-                />
+                  {/* Row 1: LEFT(0), V(s), RIGHT(2) */}
+                  <QCell
+                    value={qValues[0]}
+                    label={ACTION_LABELS[0]}
+                    selected={policyRow[0] > 0}
+                  />
+                  <span className="text-[10px] sm:text-xs font-bold text-ella-gray-900 leading-none text-center">
+                    {fmt(V[s])}
+                  </span>
+                  <QCell
+                    value={qValues[2]}
+                    label={ACTION_LABELS[2]}
+                    selected={policyRow[2] > 0}
+                  />
 
-                {/* Row 2: _, DOWN(1), _ */}
-                <span />
-                <QCell
-                  value={qValues[1]}
-                  label={ACTION_LABELS[1]}
-                  selected={policyRow[1] > 0}
-                />
-                <span />
-              </div>
+                  {/* Row 2: _, DOWN(1), _ */}
+                  <span />
+                  <QCell
+                    value={qValues[1]}
+                    label={ACTION_LABELS[1]}
+                    selected={policyRow[1] > 0}
+                  />
+                  <span />
+                </div>
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-sm sm:text-base font-black text-ella-gray-900 leading-none">
+                    {fmt(V[s])}
+                  </span>
+                </div>
+              )}
             </div>
           );
         })}

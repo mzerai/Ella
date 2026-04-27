@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import EllaAvatar from "@/components/EllaAvatar";
+import EllaCoachingPanel from "@/components/EllaCoachingPanel";
 import {
   getPELabDetail,
   runPELab,
@@ -507,10 +508,20 @@ function LabContent() {
         </div>
       )}
 
-      <ProfileModal 
-        isOpen={isProfileModalOpen} 
-        onClose={() => setIsProfileModalOpen(false)} 
-        onSelect={handleProfileSelect} 
+      <ProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        onSelect={handleProfileSelect}
+      />
+
+      <EllaCoachingPanel
+        labId={labId}
+        labTitle={lab.title[lang]}
+        algorithm=""
+        isSlippery={false}
+        gamma={0}
+        result={null}
+        lang={lang}
       />
     </div>
   );

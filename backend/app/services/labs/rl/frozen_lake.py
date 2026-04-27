@@ -58,6 +58,7 @@ def make_env(
         map_name=map_name,
         is_slippery=is_slippery,
         render_mode=None,        # never open a Pygame window
+        max_episode_steps=500,   # default 100 is too short for exploration
     )
 
 

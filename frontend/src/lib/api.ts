@@ -49,7 +49,7 @@ export interface ChatRequest {
     algorithm: string;
     lab_name: string;
     environment?: { name: string; is_slippery: boolean };
-    hyperparameters?: { gamma: number; theta: number };
+    hyperparameters?: Record<string, number>;
     policy_mode?: string;
     evaluation_status?: string;
     metrics?: {
@@ -276,6 +276,48 @@ export async function runRLLab(
   request: RLLabRunRequest
 ): Promise<RLLabRunResponse> {
   return apiFetch<RLLabRunResponse>("/api/labs/rl/run", {
+    method: "POST",
+    body: JSON.stringify(request),
+  });
+}
+
+// ============================================
+// RL Labs Training API (Model-Free)
+// ============================================
+
+export interface RLLabTrainRequest {
+  algorithm: string;
+  n_episodes: number;
+  alpha: number;
+  gamma: number;
+  epsilon: number;
+  epsilon_min: number;
+  epsilon_decay: number;
+  is_slippery: boolean;
+  map_name: string;
+}
+
+export interface RLLabTrainResponse {
+  algorithm: string;
+  grid: string[][];
+  grid_size: number;
+  n_episodes: number;
+  success_rate: number;
+  avg_reward: number;
+  avg_steps: number;
+  reward_history: number[];
+  success_rate_history: number[];
+  V: number[];
+  Q: number[][];
+  policy: number[][];
+  q_snapshots: Array<{ episode: number; q_table: number[][] }> | null;
+  v_snapshots: Array<{ episode: number; V: number[] }> | null;
+}
+
+export async function trainRLLab(
+  request: RLLabTrainRequest
+): Promise<RLLabTrainResponse> {
+  return apiFetch<RLLabTrainResponse>("/api/labs/rl/train", {
     method: "POST",
     body: JSON.stringify(request),
   });
