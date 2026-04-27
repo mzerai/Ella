@@ -873,15 +873,22 @@ function LabContent() {
 
       {/* ELLA Coaching Panel */}
       <EllaCoachingPanel
-        labId={labId}
-        labTitle={lab.title[lang]}
-        algorithm={algorithm}
-        isSlippery={isSlippery}
-        gamma={gamma}
-        alpha={isTrainMode ? alpha : undefined}
-        result={anyResult}
+        courseId="rl"
+        pageId={labId}
+        pageTitle={lab.title[lang]}
+        pageType="lab"
         lang={lang}
         studentFirstName={firstName}
+        labContext={{
+          algorithm,
+          environment: { name: "FrozenLake", is_slippery: isSlippery },
+          hyperparameters: { gamma, ...(isTrainMode ? { alpha } : { theta }) },
+          metrics: {
+            iterations_to_converge: anyResult && "n_episodes" in anyResult ? anyResult.n_episodes : anyResult && "iterations" in anyResult ? anyResult.iterations : 0,
+            final_delta: anyResult && "final_delta" in anyResult ? anyResult.final_delta : 0,
+            success_rate: anyResult && "success_rate" in anyResult ? anyResult.success_rate : undefined,
+          },
+        }}
       />
     </div>
   );

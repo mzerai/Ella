@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Notebook from "@/components/Notebook";
 import EllaAvatar from "@/components/EllaAvatar";
+import EllaCoachingPanel from "@/components/EllaCoachingPanel";
 import { useAuth } from "@/components/AuthProvider";
 import { getModuleCells, type ModuleData } from "@/lib/api";
 import Link from "next/link";
@@ -131,6 +132,15 @@ function ModuleLessonContent() {
                     />
                 )}
             </div>
+
+            <EllaCoachingPanel
+                courseId="pe"
+                pageId={moduleId}
+                pageTitle={module?.title[lang] || MODULE_NAMES[moduleId] || moduleId}
+                pageType="lesson"
+                lang={lang}
+                studentFirstName={firstName}
+            />
         </div>
     );
 }

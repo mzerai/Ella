@@ -513,14 +513,13 @@ function LabContent() {
       />
 
       <EllaCoachingPanel
-        labId={labId}
-        labTitle={lab.title[lang]}
-        algorithm=""
-        isSlippery={false}
-        gamma={0}
-        result={null}
+        courseId="pe"
+        pageId={labId}
+        pageTitle={lab.title[lang]}
+        pageType="lab"
         lang={lang}
         studentFirstName={firstName}
+        labContext={{ profile, missionId: selectedMission?.mission_id, lastScore: result?.evaluation?.total_score }}
       />
     </div>
   );

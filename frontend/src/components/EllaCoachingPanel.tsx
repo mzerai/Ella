@@ -1,7 +1,8 @@
 "use client";
 
 /**
- * EllaCoachingPanel — floating chat panel for ELLA coaching in RL labs.
+ * EllaCoachingPanel — floating chat panel for ELLA coaching.
+ * Course-agnostic: works in PE lessons, RL lessons, PE labs, and RL labs.
  */
 
 import { useState, useRef, useEffect } from "react";
@@ -9,18 +10,15 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import EllaAvatar from "./EllaAvatar";
 import { sendChatMessage, type ChatMessage } from "@/lib/api";
-import type { RLLabRunResponse, RLLabTrainResponse } from "@/lib/api";
 
 interface EllaCoachingPanelProps {
-  labId: string;
-  labTitle: string;
-  algorithm: string;
-  isSlippery: boolean;
-  gamma: number;
-  alpha?: number;
-  result: RLLabRunResponse | RLLabTrainResponse | null;
+  courseId: string;
+  pageId: string;
+  pageTitle: string;
+  pageType: "lesson" | "lab";
   lang: "fr" | "en";
   studentFirstName?: string | null;
+  labContext?: Record<string, unknown>;
 }
 
 // Simple regex patterns to detect prompt injection attempts
@@ -33,35 +31,87 @@ const INJECTION_PATTERNS = [
   /system\s*prompt\s*:/i,
 ];
 
-const QUICK_ACTIONS = {
-  fr: [
-    { label: "Ce lab", message: "Explique-moi ce que je fais dans ce lab et quel concept il illustre." },
-    { label: "Mes résultats", message: "Analyse mes résultats actuels et dis-moi si je suis sur la bonne voie." },
-    { label: "Coach-moi", message: "Donne-moi un conseil pédagogique pour mieux comprendre cet algorithme." },
-  ],
-  en: [
-    { label: "This lab", message: "Explain what I'm doing in this lab and what concept it illustrates." },
-    { label: "My results", message: "Analyze my current results and tell me if I'm on the right track." },
-    { label: "Coach me", message: "Give me a pedagogical tip to better understand this algorithm." },
-  ],
-};
+function getQuickActions(
+  lang: "fr" | "en",
+  courseId: string,
+  pageType: "lesson" | "lab",
+) {
+  const isLesson = pageType === "lesson";
+  const isPE = courseId === "pe";
+
+  if (lang === "fr") {
+    const contextAction = isLesson && isPE
+      ? { label: "Cette leçon", message: "Explique-moi les concepts clés de cette leçon sur le prompt engineering." }
+      : isLesson
+      ? { label: "Cette leçon", message: "Explique-moi les concepts clés de cette leçon sur le reinforcement learning." }
+      : isPE
+      ? { label: "Ce lab", message: "Quel est l'objectif de ce lab et comment je peux réussir la mission ?" }
+      : { label: "Ce lab", message: "Qu'est-ce que je dois observer dans ce lab et comment interpréter les résultats ?" };
+
+    const resultsAction = isLesson
+      ? { label: "Ma progression", message: "Comment je progresse dans cette leçon ? Quels concepts devrais-je revoir ?" }
+      : isPE
+      ? { label: "Mon prompt", message: "Analyse mon dernier prompt et donne-moi des pistes d'amélioration." }
+      : { label: "Mes résultats", message: "Explique-moi mes résultats et ce que j'observe sur la grille." };
+
+    const coachAction = isLesson
+      ? { label: "Coach-moi", message: "[COACH_MODE] Pose-moi 2-3 questions pour tester ma compréhension de cette leçon." }
+      : { label: "Coach-moi", message: "[COACH_MODE] Donne-moi un indice pour améliorer mon approche sans me donner la réponse." };
+
+    return [contextAction, resultsAction, coachAction];
+  }
+
+  // --- English ---
+  const contextAction = isLesson && isPE
+    ? { label: "This lesson", message: "Explain the key concepts of this prompt engineering lesson." }
+    : isLesson
+    ? { label: "This lesson", message: "Explain the key concepts of this reinforcement learning lesson." }
+    : isPE
+    ? { label: "This lab", message: "What is the goal of this lab and how can I succeed at the mission?" }
+    : { label: "This lab", message: "What should I observe in this lab and how do I interpret the results?" };
+
+  const resultsAction = isLesson
+    ? { label: "My progress", message: "How am I progressing in this lesson? Which concepts should I review?" }
+    : isPE
+    ? { label: "My prompt", message: "Analyze my last prompt and suggest improvements." }
+    : { label: "My results", message: "Explain my results and what I'm seeing on the grid." };
+
+  const coachAction = isLesson
+    ? { label: "Coach me", message: "[COACH_MODE] Ask me 2-3 questions to test my understanding of this lesson." }
+    : { label: "Coach me", message: "[COACH_MODE] Give me a hint to improve my approach without giving me the answer." };
+
+  return [contextAction, resultsAction, coachAction];
+}
+
+/** Strip formatted rubrics added by the backend formatter — keep only the main answer text. */
+function stripRubrics(text: string): string {
+  return text
+    .replace(/🔍\s*\*\*Intuition\*\*:.*?(\n\n|\n(?=🎯|⛔|📌|$$)|$)/gs, "")
+    .replace(/🎯\s*\*\*Lien avec le lab\*\*:.*?(\n\n|\n(?=🔍|⛔|📌|$$)|$)/gs, "")
+    .replace(/⛔\s*\*\*Attention\*\*:.*?(\n\n|\n(?=🔍|🎯|📌|$$)|$)/gs, "")
+    .replace(/📌\s*\*\*Pour aller plus loin\*\*:[\s\S]*?(_Links are curated.*?\n\n|$)/g, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
 
 export default function EllaCoachingPanel({
-  labId,
-  labTitle,
-  algorithm,
-  isSlippery,
-  gamma,
-  alpha,
-  result,
+  courseId,
+  pageId,
+  pageTitle,
+  pageType,
   lang,
   studentFirstName,
+  labContext,
 }: EllaCoachingPanelProps) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const isLesson = pageType === "lesson";
+  const isPE = courseId === "pe";
+  const quickActions = getQuickActions(lang, courseId, pageType);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -70,31 +120,41 @@ export default function EllaCoachingPanel({
   }, [messages, open]);
 
   const buildContext = () => {
-    const isTrainResult = result && "n_episodes" in result;
-    const isRunResult = result && "iterations" in result;
-
-    return {
-      page_id: labId,
-      page_title: labTitle,
-      algorithm,
-      lab_name: labTitle,
-      environment: { name: "FrozenLake", is_slippery: isSlippery },
-      hyperparameters: { gamma, ...(alpha !== undefined ? { alpha } : {}) },
-      metrics: {
-        iterations_to_converge: isTrainResult
-          ? (result as RLLabTrainResponse).n_episodes
-          : isRunResult
-          ? (result as RLLabRunResponse).iterations
-          : 0,
-        final_delta: isRunResult ? (result as RLLabRunResponse).final_delta : 0,
-        is_mathematically_valid: isTrainResult
-          ? (result as RLLabTrainResponse).success_rate > 0
-          : isRunResult
-          ? (result as RLLabRunResponse).goal_reachable
-          : false,
-      },
-      extra: { course_id: "rl", ...(studentFirstName ? { student_first_name: studentFirstName } : {}) },
+    const extra: Record<string, unknown> = {
+      course_id: courseId,
+      page_type: pageType,
+      ...(studentFirstName ? { student_first_name: studentFirstName } : {}),
+      ...(labContext || {}),
     };
+
+    const ctx: {
+      page_id: string;
+      page_title: string;
+      algorithm: string;
+      lab_name: string;
+      environment?: { name: string; is_slippery: boolean };
+      hyperparameters?: Record<string, number>;
+      metrics?: { iterations_to_converge: number; final_delta: number; is_mathematically_valid: boolean };
+      extra: Record<string, unknown>;
+    } = {
+      page_id: pageId,
+      page_title: pageTitle,
+      algorithm: (labContext?.algorithm as string) || "",
+      lab_name: isLesson ? `Leçon: ${pageTitle}` : `Lab: ${pageTitle}`,
+      extra,
+    };
+
+    // Only include RL-specific fields when in a lab with actual data
+    if (!isLesson && labContext) {
+      const env = labContext.environment as { name: string; is_slippery: boolean } | undefined;
+      if (env) ctx.environment = env;
+      const hp = labContext.hyperparameters as Record<string, number> | undefined;
+      if (hp) ctx.hyperparameters = hp;
+      const m = labContext.metrics as { iterations_to_converge?: number; final_delta?: number; success_rate?: number } | undefined;
+      if (m) ctx.metrics = { iterations_to_converge: m.iterations_to_converge ?? 0, final_delta: m.final_delta ?? 0, is_mathematically_valid: (m.success_rate ?? 0) > 0 };
+    }
+
+    return ctx;
   };
 
   const handleSend = async (text?: string) => {
@@ -110,8 +170,8 @@ export default function EllaCoachingPanel({
           role: "assistant",
           content:
             lang === "fr"
-              ? "Je ne peux pas traiter ce type de message. Pose-moi une question sur le lab !"
-              : "I can't process that kind of message. Ask me a question about the lab!",
+              ? `Je ne peux pas traiter ce type de message. Pose-moi une question sur ${isLesson ? "cette leçon" : "ce lab"} !`
+              : `I can't process that kind of message. Ask me a question about this ${isLesson ? "lesson" : "lab"}!`,
         },
       ]);
       setInput("");
@@ -131,7 +191,7 @@ export default function EllaCoachingPanel({
       });
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: resp.answer },
+        { role: "assistant", content: stripRubrics(resp.answer) },
       ]);
     } catch {
       setMessages((prev) => [
@@ -148,6 +208,14 @@ export default function EllaCoachingPanel({
       setLoading(false);
     }
   };
+
+  const placeholderText = lang === "fr"
+    ? (isLesson
+        ? (isPE ? "Une question sur le prompt engineering ?" : "Une question sur le reinforcement learning ?")
+        : "Une question sur ce lab ?")
+    : (isLesson
+        ? (isPE ? "A question about prompt engineering?" : "A question about reinforcement learning?")
+        : "A question about this lab?");
 
   return (
     <>
@@ -177,10 +245,10 @@ export default function EllaCoachingPanel({
             <EllaAvatar size="sm" className="ring-2 ring-white/20" />
             <div>
               <h4 className="text-sm font-black text-white leading-none">
-                ELLA — Coaching
+                {studentFirstName ? `ELLA — Coach de ${studentFirstName}` : "ELLA — Coaching"}
               </h4>
               <p className="text-[9px] text-white/60 font-bold uppercase tracking-widest mt-0.5">
-                {algorithm}
+                {pageTitle}
               </p>
             </div>
           </div>
@@ -191,11 +259,11 @@ export default function EllaCoachingPanel({
               <div className="text-center py-6">
                 <p className="text-xs text-ella-gray-400 font-bold mb-4">
                   {lang === "fr"
-                    ? "Pose-moi une question sur ce lab !"
-                    : "Ask me a question about this lab!"}
+                    ? (studentFirstName ? `Salut ${studentFirstName} ! Je suis là pour t'accompagner.` : `Pose-moi une question sur ${isLesson ? "cette leçon" : "ce lab"} !`)
+                    : (studentFirstName ? `Hey ${studentFirstName}! I'm here to help you out.` : `Ask me a question about this ${isLesson ? "lesson" : "lab"}!`)}
                 </p>
                 <div className="flex flex-wrap gap-2 justify-center">
-                  {QUICK_ACTIONS[lang].map((qa) => (
+                  {quickActions.map((qa) => (
                     <button
                       key={qa.label}
                       onClick={() => handleSend(qa.message)}
@@ -251,7 +319,7 @@ export default function EllaCoachingPanel({
           {/* Quick actions (shown when messages exist) */}
           {messages.length > 0 && (
             <div className="px-4 pb-2 flex gap-1.5 flex-wrap">
-              {QUICK_ACTIONS[lang].map((qa) => (
+              {quickActions.map((qa) => (
                 <button
                   key={qa.label}
                   onClick={() => handleSend(qa.message)}
@@ -276,7 +344,7 @@ export default function EllaCoachingPanel({
                   handleSend();
                 }
               }}
-              placeholder={lang === "fr" ? "Demande à Ella..." : "Ask Ella..."}
+              placeholder={placeholderText}
               disabled={loading}
               className="flex-1 border border-ella-gray-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-ella-primary/20 focus:border-ella-primary placeholder-ella-gray-400 disabled:opacity-50"
             />
