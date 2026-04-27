@@ -13,6 +13,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import EllaAvatar from "@/components/EllaAvatar";
 import EllaCoachingPanel from "@/components/EllaCoachingPanel";
+import MaturityDiagnosticWizard from "@/components/MaturityDiagnosticWizard";
 import {
   getAILELabDetail,
   evaluateAILEResponse,
@@ -65,6 +66,7 @@ function AILELabContent() {
   const params = useParams();
   const labId = params.labId as string;
   const isGenAIDemo = labId === "02_genai_demo";
+  const isMaturityDiagnostic = labId === "06_maturity_diagnostic";
 
   const { user, firstName } = useAuth();
   const supabase = createClient();
@@ -205,6 +207,50 @@ function AILELabContent() {
   const canShowNext = isGenAIDemo
     ? peResult && peResult.evaluation.total_score >= peResult.evaluation.max_score * 0.5
     : evalResult && evalResult.score_qualitative !== "needs_improvement";
+
+  // --- Type C: Maturity Diagnostic (full-page wizard) ---
+  if (isMaturityDiagnostic) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+        {/* Header with lang toggle */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/courses/ai-leadership"
+              className="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold shadow-sm hover:bg-amber-700 transition-colors"
+            >
+              06
+            </Link>
+            <div>
+              <h1 className="text-xl font-bold text-gray-900 leading-tight">
+                {lang === "fr" ? "Diagnostic de Maturite IA" : "AI Maturity Diagnostic"}
+              </h1>
+              <p className="text-xs text-gray-500">
+                {lang === "fr"
+                  ? "Evaluez votre organisation sur 7 dimensions."
+                  : "Assess your organization across 7 dimensions."}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setLang("fr")}
+              className={`px-3 py-1 text-[10px] rounded-full font-black transition-all ${lang === "fr" ? "bg-amber-600 text-white shadow-lg shadow-amber-600/20" : "bg-gray-100 text-gray-400 hover:bg-gray-200"}`}
+            >
+              FR
+            </button>
+            <button
+              onClick={() => setLang("en")}
+              className={`px-3 py-1 text-[10px] rounded-full font-black transition-all ${lang === "en" ? "bg-amber-600 text-white shadow-lg shadow-amber-600/20" : "bg-gray-100 text-gray-400 hover:bg-gray-200"}`}
+            >
+              EN
+            </button>
+          </div>
+        </div>
+        <MaturityDiagnosticWizard lang={lang} />
+      </div>
+    );
+  }
 
   // --- Error state ---
   if (error && !lab) {

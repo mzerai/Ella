@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(npx tsc:*)",
-      "Bash(python test_qlearning_debug.py)"
+      "Bash(python test_qlearning_debug.py)",
+      "Bash(mkdir -p \"C:/Users/Mourad ZERAI/Documents/Projets IA à développer/ELLA/ella/frontend/src/app/courses/ai-leadership/modules/[moduleId]\")",
+      "Bash(mkdir -p \"C:/Users/Mourad ZERAI/Documents/Projets IA à développer/ELLA/ella/frontend/src/app/courses/ai-leadership/labs/[labId]\")",
+      "Bash(python -c \"import json; json.load\\(open\\('backend/data/aile/modules/module_04_cells.json', encoding='utf-8'\\)\\); print\\('OK'\\)\")",
+      "Bash(python -c \"import json; json.load\\(open\\('backend/data/aile/modules/module_05_cells.json','r',encoding='utf-8'\\)\\); print\\('OK'\\)\")"
     ]
   }
 }

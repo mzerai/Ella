@@ -1,0 +1,441 @@
+{
+    "lab_id": "06_maturity_diagnostic",
+    "title": {
+        "fr": "Diagnostic de Maturité IA",
+        "en": "AI Maturity Diagnostic"
+    },
+    "description": {
+        "fr": "Évaluez la maturité IA de votre organisation sur 7 dimensions. ELLA analyse vos réponses et génère un diagnostic personnalisé avec plan d'action.",
+        "en": "Assess your organization's AI maturity across 7 dimensions. ELLA analyzes your answers and generates a personalized diagnostic with action plan."
+    },
+    "concept": {
+        "fr": "Ce diagnostic s'inspire des modèles de maturité IA de référence (Gartner, NIST, ISO 42001). Il évalue votre organisation sur 7 dimensions clés et vous positionne sur 5 niveaux de maturité : Awareness, Active, Operational, Systemic, Transformational. Le résultat est un rapport structuré que vous pouvez présenter à votre comité de direction.",
+        "en": "This diagnostic draws on reference AI maturity models (Gartner, NIST, ISO 42001). It evaluates your organization across 7 key dimensions and positions you on 5 maturity levels: Awareness, Active, Operational, Systemic, Transformational. The result is a structured report you can present to your board."
+    },
+    "lab_type": "maturity_diagnostic",
+    "maturity_levels": [
+        {
+            "level": 1,
+            "name": "Awareness",
+            "name_fr": "Sensibilisation",
+            "description_fr": "L'entreprise parle d'IA, mais les usages restent flous. Intérêt fort, peu d'exécution.",
+            "description_en": "The company talks about AI, but uses remain unclear. Strong interest, little execution.",
+            "score_range": [1.0, 1.9]
+        },
+        {
+            "level": 2,
+            "name": "Active",
+            "name_fr": "Expérimentation",
+            "description_fr": "Des expérimentations existent dans quelques équipes. Pilotes isolés.",
+            "description_en": "Experiments exist in a few teams. Isolated pilots.",
+            "score_range": [2.0, 2.9]
+        },
+        {
+            "level": 3,
+            "name": "Operational",
+            "name_fr": "Opérationnel",
+            "description_fr": "Des cas d'usage IA sont en production. Valeur mesurée sur certains processus.",
+            "description_en": "AI use cases are in production. Value measured on some processes.",
+            "score_range": [3.0, 3.9]
+        },
+        {
+            "level": 4,
+            "name": "Systemic",
+            "name_fr": "Systémique",
+            "description_fr": "L'IA est structurée à l'échelle de l'entreprise. Plateformes, gouvernance et portefeuille IA.",
+            "description_en": "AI is structured enterprise-wide. Platforms, governance and AI portfolio.",
+            "score_range": [4.0, 4.6]
+        },
+        {
+            "level": 5,
+            "name": "Transformational",
+            "name_fr": "Transformationnel",
+            "description_fr": "L'IA transforme le modèle économique. Avantage concurrentiel fondé sur l'IA.",
+            "description_en": "AI transforms the business model. Competitive advantage built on AI.",
+            "score_range": [4.7, 5.0]
+        }
+    ],
+    "prudence_rule": {
+        "description_fr": "Une entreprise ne peut pas être classée au niveau 4 ou 5 si l'une de ces dimensions est inférieure à 3 : Données, Gouvernance, Technologie, Cas d'usage.",
+        "description_en": "A company cannot be rated level 4 or 5 if any of these dimensions is below 3: Data, Governance, Technology, Use cases.",
+        "blocking_dimensions": ["data", "governance", "technology", "use_cases"]
+    },
+    "company_profile": {
+        "title": {
+            "fr": "Profil de votre organisation",
+            "en": "Your organization profile"
+        },
+        "fields": [
+            {
+                "id": "sector",
+                "label": {"fr": "Secteur d'activité", "en": "Industry sector"},
+                "type": "select",
+                "options": [
+                    {"value": "finance", "label": {"fr": "Finance & Banque", "en": "Finance & Banking"}},
+                    {"value": "health", "label": {"fr": "Santé & Pharma", "en": "Health & Pharma"}},
+                    {"value": "manufacturing", "label": {"fr": "Industrie & Manufacturing", "en": "Industry & Manufacturing"}},
+                    {"value": "tech", "label": {"fr": "Tech & IT", "en": "Tech & IT"}},
+                    {"value": "retail", "label": {"fr": "Retail & Commerce", "en": "Retail & Commerce"}},
+                    {"value": "services", "label": {"fr": "Services & Conseil", "en": "Services & Consulting"}},
+                    {"value": "education", "label": {"fr": "Éducation & Formation", "en": "Education & Training"}},
+                    {"value": "telecom", "label": {"fr": "Télécoms & Médias", "en": "Telecom & Media"}},
+                    {"value": "other", "label": {"fr": "Autre", "en": "Other"}}
+                ]
+            },
+            {
+                "id": "company_size",
+                "label": {"fr": "Nombre d'employés", "en": "Number of employees"},
+                "type": "select",
+                "options": [
+                    {"value": "micro", "label": {"fr": "< 50 employés", "en": "< 50 employees"}},
+                    {"value": "small", "label": {"fr": "50 - 250", "en": "50 - 250"}},
+                    {"value": "medium", "label": {"fr": "250 - 1 000", "en": "250 - 1,000"}},
+                    {"value": "large", "label": {"fr": "1 000 - 5 000", "en": "1,000 - 5,000"}},
+                    {"value": "enterprise", "label": {"fr": "> 5 000", "en": "> 5,000"}}
+                ]
+            },
+            {
+                "id": "revenue",
+                "label": {"fr": "Chiffre d'affaires annuel", "en": "Annual revenue"},
+                "type": "select",
+                "options": [
+                    {"value": "under_1m", "label": {"fr": "< 1M TND", "en": "< 1M TND"}},
+                    {"value": "1m_10m", "label": {"fr": "1 - 10M TND", "en": "1 - 10M TND"}},
+                    {"value": "10m_50m", "label": {"fr": "10 - 50M TND", "en": "10 - 50M TND"}},
+                    {"value": "50m_200m", "label": {"fr": "50 - 200M TND", "en": "50 - 200M TND"}},
+                    {"value": "over_200m", "label": {"fr": "> 200M TND", "en": "> 200M TND"}}
+                ]
+            },
+            {
+                "id": "ai_budget",
+                "label": {"fr": "Budget IA prévu (12 mois)", "en": "Planned AI budget (12 months)"},
+                "type": "select",
+                "options": [
+                    {"value": "none", "label": {"fr": "Pas encore défini", "en": "Not yet defined"}},
+                    {"value": "under_50k", "label": {"fr": "< 50K TND", "en": "< 50K TND"}},
+                    {"value": "50k_200k", "label": {"fr": "50 - 200K TND", "en": "50 - 200K TND"}},
+                    {"value": "200k_1m", "label": {"fr": "200K - 1M TND", "en": "200K - 1M TND"}},
+                    {"value": "over_1m", "label": {"fr": "> 1M TND", "en": "> 1M TND"}}
+                ]
+            },
+            {
+                "id": "role",
+                "label": {"fr": "Votre fonction", "en": "Your role"},
+                "type": "select",
+                "options": [
+                    {"value": "ceo", "label": {"fr": "CEO / DG", "en": "CEO / Managing Director"}},
+                    {"value": "cto", "label": {"fr": "CTO / DSI", "en": "CTO / CIO"}},
+                    {"value": "cfo", "label": {"fr": "CFO / DAF", "en": "CFO"}},
+                    {"value": "coo", "label": {"fr": "COO / DGA", "en": "COO / Deputy MD"}},
+                    {"value": "board", "label": {"fr": "Membre du CODIR", "en": "Board member"}},
+                    {"value": "other_exec", "label": {"fr": "Autre cadre dirigeant", "en": "Other executive"}}
+                ]
+            }
+        ]
+    },
+    "dimensions": [
+        {
+            "id": "strategy",
+            "name": {"fr": "Stratégie IA", "en": "AI Strategy"},
+            "icon": "🎯",
+            "questions": [
+                {
+                    "id": "strategy_q1",
+                    "text": {"fr": "L'IA est-elle inscrite dans la stratégie de l'entreprise ?", "en": "Is AI included in the company's strategy?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Oui, sur quelques axes", "en": "Yes, on a few areas"},
+                        "5": {"fr": "Oui, avec objectifs, budget et sponsors", "en": "Yes, with objectives, budget and sponsors"}
+                    }
+                },
+                {
+                    "id": "strategy_q2",
+                    "text": {"fr": "Les dirigeants partagent-ils une vision IA commune ?", "en": "Do executives share a common AI vision?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Partiellement", "en": "Partially"},
+                        "5": {"fr": "Oui, vision claire et alignée", "en": "Yes, clear and aligned vision"}
+                    }
+                },
+                {
+                    "id": "strategy_q3",
+                    "text": {"fr": "Le portefeuille IA est-il relié aux priorités business ?", "en": "Is the AI portfolio linked to business priorities?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Quelques cas", "en": "A few cases"},
+                        "5": {"fr": "Portefeuille priorisé par valeur", "en": "Portfolio prioritized by value"}
+                    }
+                }
+            ]
+        },
+        {
+            "id": "use_cases",
+            "name": {"fr": "Cas d'usage & Valeur", "en": "Use Cases & Value"},
+            "icon": "💎",
+            "questions": [
+                {
+                    "id": "use_cases_q1",
+                    "text": {"fr": "Combien de cas d'usage IA sont actifs ?", "en": "How many AI use cases are active?"},
+                    "anchors": {
+                        "1": {"fr": "Aucun", "en": "None"},
+                        "3": {"fr": "Quelques pilotes ou projets", "en": "A few pilots or projects"},
+                        "5": {"fr": "Portefeuille structuré", "en": "Structured portfolio"}
+                    }
+                },
+                {
+                    "id": "use_cases_q2",
+                    "text": {"fr": "La valeur générée par l'IA est-elle mesurée ?", "en": "Is the value generated by AI measured?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Sur certains cas", "en": "On some cases"},
+                        "5": {"fr": "ROI, productivité, qualité et risque suivis", "en": "ROI, productivity, quality and risk tracked"}
+                    }
+                },
+                {
+                    "id": "use_cases_q3",
+                    "text": {"fr": "Les cas d'usage sont-ils choisis par impact business ?", "en": "Are use cases selected by business impact?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Partiellement", "en": "Partially"},
+                        "5": {"fr": "Méthode de priorisation formelle", "en": "Formal prioritization method"}
+                    }
+                }
+            ]
+        },
+        {
+            "id": "data",
+            "name": {"fr": "Données", "en": "Data"},
+            "icon": "🗄️",
+            "questions": [
+                {
+                    "id": "data_q1",
+                    "text": {"fr": "Les données critiques sont-elles accessibles ?", "en": "Is critical data accessible?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Partiellement", "en": "Partially"},
+                        "5": {"fr": "Oui, via des pipelines fiables", "en": "Yes, via reliable pipelines"}
+                    }
+                },
+                {
+                    "id": "data_q2",
+                    "text": {"fr": "La qualité des données est-elle mesurée ?", "en": "Is data quality measured?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Sur quelques bases", "en": "On a few databases"},
+                        "5": {"fr": "Indicateurs suivis en continu", "en": "Indicators tracked continuously"}
+                    }
+                },
+                {
+                    "id": "data_q3",
+                    "text": {"fr": "Les droits d'accès aux données sont-ils maîtrisés ?", "en": "Are data access rights controlled?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Règles partielles", "en": "Partial rules"},
+                        "5": {"fr": "Gouvernance claire et auditée", "en": "Clear and audited governance"}
+                    }
+                }
+            ]
+        },
+        {
+            "id": "technology",
+            "name": {"fr": "Technologie", "en": "Technology"},
+            "icon": "⚙️",
+            "questions": [
+                {
+                    "id": "technology_q1",
+                    "text": {"fr": "Existe-t-il une plateforme IA ?", "en": "Does an AI platform exist?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Outils dispersés", "en": "Scattered tools"},
+                        "5": {"fr": "Plateforme commune et sécurisée", "en": "Common and secure platform"}
+                    }
+                },
+                {
+                    "id": "technology_q2",
+                    "text": {"fr": "Les modèles IA sont-ils déployés proprement ?", "en": "Are AI models deployed properly?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Déploiements manuels", "en": "Manual deployments"},
+                        "5": {"fr": "MLOps/LLMOps structuré", "en": "Structured MLOps/LLMOps"}
+                    }
+                },
+                {
+                    "id": "technology_q3",
+                    "text": {"fr": "Les coûts IA sont-ils suivis ?", "en": "Are AI costs tracked?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Suivi partiel", "en": "Partial tracking"},
+                        "5": {"fr": "Pilotage FinOps IA", "en": "AI FinOps management"}
+                    }
+                }
+            ]
+        },
+        {
+            "id": "talent",
+            "name": {"fr": "Talents & Culture", "en": "Talent & Culture"},
+            "icon": "👥",
+            "questions": [
+                {
+                    "id": "talent_q1",
+                    "text": {"fr": "Les collaborateurs sont-ils formés à l'IA ?", "en": "Are employees trained in AI?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Formation partielle", "en": "Partial training"},
+                        "5": {"fr": "Parcours de formation par métier", "en": "Training paths by role"}
+                    }
+                },
+                {
+                    "id": "talent_q2",
+                    "text": {"fr": "Les managers savent-ils identifier des cas d'usage IA ?", "en": "Can managers identify AI use cases?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Quelques managers", "en": "A few managers"},
+                        "5": {"fr": "Capacité diffusée dans l'organisation", "en": "Capability diffused across the organization"}
+                    }
+                },
+                {
+                    "id": "talent_q3",
+                    "text": {"fr": "L'IA est-elle acceptée par les équipes ?", "en": "Is AI accepted by the teams?"},
+                    "anchors": {
+                        "1": {"fr": "Méfiance généralisée", "en": "Widespread distrust"},
+                        "3": {"fr": "Adoption inégale", "en": "Uneven adoption"},
+                        "5": {"fr": "Usage naturel et encadré", "en": "Natural and supervised use"}
+                    }
+                }
+            ]
+        },
+        {
+            "id": "governance",
+            "name": {"fr": "Gouvernance & Risques", "en": "Governance & Risks"},
+            "icon": "🛡️",
+            "questions": [
+                {
+                    "id": "governance_q1",
+                    "text": {"fr": "Existe-t-il une politique IA ?", "en": "Does an AI policy exist?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Charte générale", "en": "General charter"},
+                        "5": {"fr": "Politique complète et appliquée", "en": "Complete and enforced policy"}
+                    }
+                },
+                {
+                    "id": "governance_q2",
+                    "text": {"fr": "Les risques IA sont-ils évalués avant déploiement ?", "en": "Are AI risks assessed before deployment?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Pour certains projets", "en": "For some projects"},
+                        "5": {"fr": "Processus systématique", "en": "Systematic process"}
+                    }
+                },
+                {
+                    "id": "governance_q3",
+                    "text": {"fr": "Les usages IA sont-ils auditables ?", "en": "Are AI uses auditable?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Partiellement", "en": "Partially"},
+                        "5": {"fr": "Traçabilité complète", "en": "Complete traceability"}
+                    }
+                }
+            ]
+        },
+        {
+            "id": "operating_model",
+            "name": {"fr": "Operating Model", "en": "Operating Model"},
+            "icon": "🏗️",
+            "questions": [
+                {
+                    "id": "operating_model_q1",
+                    "text": {"fr": "Qui pilote l'IA dans votre organisation ?", "en": "Who leads AI in your organization?"},
+                    "anchors": {
+                        "1": {"fr": "Personne clairement", "en": "Nobody clearly"},
+                        "3": {"fr": "Un sponsor ou une équipe limitée", "en": "A sponsor or limited team"},
+                        "5": {"fr": "Gouvernance exécutive claire", "en": "Clear executive governance"}
+                    }
+                },
+                {
+                    "id": "operating_model_q2",
+                    "text": {"fr": "Les rôles IA sont-ils définis ?", "en": "Are AI roles defined?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Partiellement", "en": "Partially"},
+                        "5": {"fr": "CEO, CTO, CFO, métiers et data alignés", "en": "CEO, CTO, CFO, business and data aligned"}
+                    }
+                },
+                {
+                    "id": "operating_model_q3",
+                    "text": {"fr": "Les projets IA suivent-ils un processus commun ?", "en": "Do AI projects follow a common process?"},
+                    "anchors": {
+                        "1": {"fr": "Non", "en": "No"},
+                        "3": {"fr": "Quelques pratiques partagées", "en": "A few shared practices"},
+                        "5": {"fr": "Processus standardisé de bout en bout", "en": "End-to-end standardized process"}
+                    }
+                }
+            ]
+        }
+    ],
+    "transition_plans": {
+        "1_to_2": {
+            "objective": {"fr": "Passer du discours à l'expérimentation contrôlée", "en": "Move from talk to controlled experimentation"},
+            "actions": [
+                {"action": {"fr": "Nommer un sponsor IA au COMEX", "en": "Appoint an AI sponsor at executive committee"}, "owner": "CEO", "deliverable": {"fr": "Lettre de mission", "en": "Mission letter"}},
+                {"action": {"fr": "Identifier 10 cas d'usage potentiels", "en": "Identify 10 potential use cases"}, "owner": {"fr": "Métiers", "en": "Business units"}, "deliverable": {"fr": "Backlog IA", "en": "AI backlog"}},
+                {"action": {"fr": "Sélectionner 3 cas simples à tester", "en": "Select 3 simple cases to test"}, "owner": "CEO / CTO / CFO", "deliverable": {"fr": "Liste priorisée", "en": "Prioritized list"}},
+                {"action": {"fr": "Former les dirigeants aux fondamentaux IA", "en": "Train executives on AI fundamentals"}, "owner": "RH / CTO", "deliverable": {"fr": "Session exécutive", "en": "Executive session"}},
+                {"action": {"fr": "Rédiger une charte d'usage IA", "en": "Draft an AI usage charter"}, "owner": {"fr": "Juridique / CTO", "en": "Legal / CTO"}, "deliverable": {"fr": "Charte IA v1", "en": "AI Charter v1"}}
+            ],
+            "criteria": [
+                {"fr": "3 pilotes IA lancés", "en": "3 AI pilots launched"},
+                {"fr": "Un sponsor IA désigné", "en": "An AI sponsor designated"},
+                {"fr": "Une charte d'usage existe", "en": "A usage charter exists"},
+                {"fr": "Les premiers budgets sont identifiés", "en": "Initial budgets are identified"}
+            ]
+        },
+        "2_to_3": {
+            "objective": {"fr": "Transformer les pilotes en cas d'usage utiles et mesurables", "en": "Transform pilots into useful and measurable use cases"},
+            "actions": [
+                {"action": {"fr": "Définir une méthode de priorisation des cas IA", "en": "Define an AI use case prioritization method"}, "owner": "CTO / CFO", "deliverable": {"fr": "Grille impact-effort-risque", "en": "Impact-effort-risk grid"}},
+                {"action": {"fr": "Mesurer le ROI ou le gain opérationnel", "en": "Measure ROI or operational gain"}, "owner": "CFO", "deliverable": {"fr": "Business case par projet", "en": "Business case per project"}},
+                {"action": {"fr": "Mettre en production 2 à 5 cas d'usage", "en": "Put 2 to 5 use cases in production"}, "owner": {"fr": "CTO / Métiers", "en": "CTO / Business"}, "deliverable": {"fr": "Cas IA opérationnels", "en": "Operational AI cases"}},
+                {"action": {"fr": "Structurer les données nécessaires", "en": "Structure necessary data"}, "owner": "CDO / CTO", "deliverable": {"fr": "Cartographie data", "en": "Data mapping"}},
+                {"action": {"fr": "Mettre en place un cadre de risque IA", "en": "Establish an AI risk framework"}, "owner": {"fr": "Juridique / DSI", "en": "Legal / CIO"}, "deliverable": {"fr": "Processus de validation", "en": "Validation process"}}
+            ],
+            "criteria": [
+                {"fr": "Au moins 2 cas d'usage en production", "en": "At least 2 use cases in production"},
+                {"fr": "Les gains sont mesurés", "en": "Gains are measured"},
+                {"fr": "Les données critiques sont identifiées", "en": "Critical data is identified"},
+                {"fr": "Les risques sont évalués avant déploiement", "en": "Risks are assessed before deployment"}
+            ]
+        },
+        "3_to_4": {
+            "objective": {"fr": "Passer de projets isolés à une capacité IA d'entreprise", "en": "Move from isolated projects to enterprise AI capability"},
+            "actions": [
+                {"action": {"fr": "Créer un portefeuille IA consolidé", "en": "Create a consolidated AI portfolio"}, "owner": "CEO / CTO / CFO", "deliverable": {"fr": "Roadmap IA 12-24 mois", "en": "AI Roadmap 12-24 months"}},
+                {"action": {"fr": "Mettre en place une plateforme IA commune", "en": "Establish a common AI platform"}, "owner": "CTO", "deliverable": {"fr": "Architecture cible", "en": "Target architecture"}},
+                {"action": {"fr": "Standardiser le cycle de vie des modèles", "en": "Standardize model lifecycle"}, "owner": "CTO", "deliverable": "MLOps/LLMOps"},
+                {"action": {"fr": "Créer un AI Office ou Center of Excellence", "en": "Create an AI Office or Center of Excellence"}, "owner": "CEO", "deliverable": {"fr": "Structure de pilotage", "en": "Steering structure"}},
+                {"action": {"fr": "Définir des KPI IA communs", "en": "Define common AI KPIs"}, "owner": "CFO / CTO", "deliverable": {"fr": "Tableau de bord IA", "en": "AI dashboard"}}
+            ],
+            "criteria": [
+                {"fr": "Roadmap IA validée par le COMEX", "en": "AI roadmap validated by executive committee"},
+                {"fr": "Budget IA consolidé", "en": "Consolidated AI budget"},
+                {"fr": "Plateforme IA commune", "en": "Common AI platform"},
+                {"fr": "KPI suivis chaque mois", "en": "KPIs tracked monthly"}
+            ]
+        },
+        "4_to_5": {
+            "objective": {"fr": "Faire de l'IA un levier de différenciation stratégique", "en": "Make AI a lever for strategic differentiation"},
+            "actions": [
+                {"action": {"fr": "Repenser les offres avec l'IA", "en": "Rethink offerings with AI"}, "owner": "CEO / CMO / CTO", "deliverable": {"fr": "Nouvelles offres IA", "en": "New AI offerings"}},
+                {"action": {"fr": "Intégrer l'IA dans les décisions clés", "en": "Integrate AI into key decisions"}, "owner": {"fr": "CEO / Métiers", "en": "CEO / Business"}, "deliverable": {"fr": "Processus augmentés", "en": "Augmented processes"}},
+                {"action": {"fr": "Développer des actifs IA propriétaires", "en": "Develop proprietary AI assets"}, "owner": "CTO", "deliverable": {"fr": "Modèles, données, agents ou plateformes", "en": "Models, data, agents or platforms"}},
+                {"action": {"fr": "Piloter l'avantage concurrentiel IA", "en": "Drive AI competitive advantage"}, "owner": "CEO / CFO", "deliverable": {"fr": "Indicateurs de différenciation", "en": "Differentiation indicators"}}
+            ],
+            "criteria": [
+                {"fr": "L'IA influence le modèle économique", "en": "AI influences the business model"},
+                {"fr": "Des produits ou services IA génèrent du revenu", "en": "AI products or services generate revenue"},
+                {"fr": "L'entreprise possède des actifs IA différenciants", "en": "The company owns differentiating AI assets"},
+                {"fr": "L'IA crée un avantage concurrentiel mesurable", "en": "AI creates a measurable competitive advantage"}
+            ]
+        }
+    }
+}

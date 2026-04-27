@@ -264,6 +264,56 @@ export async function evaluateAILEResponse(params: {
   });
 }
 
+// ---- AILE Lab 06: Maturity Diagnostic ----
+
+export interface DimensionScore {
+  dimension_id: string;
+  dimension_name: string;
+  score: number;
+  level: number;
+  level_name: string;
+}
+
+export interface MaturityDiagnosticResponse {
+  company_profile: Record<string, string>;
+  dimension_scores: DimensionScore[];
+  global_score: number;
+  global_level: number;
+  global_level_name: string;
+  prudence_applied: boolean;
+  prudence_details: string;
+  ella_analysis: string;
+  transition_plan_key: string;
+}
+
+export async function runMaturityDiagnostic(params: {
+  company_profile: Record<string, string>;
+  answers: Record<string, number>;
+  language: string;
+}): Promise<MaturityDiagnosticResponse> {
+  return apiFetch<MaturityDiagnosticResponse>("/api/labs/aile/maturity-diagnostic", {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+}
+
+export async function downloadMaturityPDF(params: {
+  company_profile: Record<string, string>;
+  answers: Record<string, number>;
+  language: string;
+}): Promise<Blob> {
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+  const response = await fetch(`${API_BASE}/api/labs/aile/maturity-diagnostic/pdf`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(params),
+  });
+  if (!response.ok) {
+    throw new Error(`PDF generation failed: ${response.status}`);
+  }
+  return response.blob();
+}
+
 // ============================================
 // RL Labs Execution API
 // ============================================
