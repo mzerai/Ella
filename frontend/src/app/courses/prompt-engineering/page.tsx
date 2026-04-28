@@ -10,6 +10,7 @@ import EllaAvatar from "@/components/EllaAvatar";
 import { listPELabs, type PELab } from "@/lib/api";
 import Link from "next/link";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import AccessCodeGate from "@/components/AccessCodeGate";
 import { useAuth } from "@/components/AuthProvider";
 import ProfileModal, { type ProfileType } from "@/components/ProfileModal";
 
@@ -261,7 +262,9 @@ function CourseContent() {
 export default function PromptEngineeringCourse() {
   return (
     <ProtectedRoute>
-      <CourseContent />
+      <AccessCodeGate courseId="pe" courseTitle="Prompt Engineering" accentColor="blue">
+        <CourseContent />
+      </AccessCodeGate>
     </ProtectedRoute>
   );
 }

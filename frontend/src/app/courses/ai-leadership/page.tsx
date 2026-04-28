@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import EllaAvatar from "@/components/EllaAvatar";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import AccessCodeGate from "@/components/AccessCodeGate";
 
 const modules = [
     {
@@ -288,8 +290,10 @@ function CourseContent() {
 
 export default function AILeadershipCourse() {
     return (
-        <>
-            <CourseContent />
-        </>
+        <ProtectedRoute>
+            <AccessCodeGate courseId="aile" courseTitle="Executive AI Leadership" accentColor="amber">
+                <CourseContent />
+            </AccessCodeGate>
+        </ProtectedRoute>
     );
 }

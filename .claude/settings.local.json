@@ -7,7 +7,9 @@
       "Bash(mkdir -p \"C:/Users/Mourad ZERAI/Documents/Projets IA à développer/ELLA/ella/frontend/src/app/courses/ai-leadership/labs/[labId]\")",
       "Bash(python -c \"import json; json.load\\(open\\('backend/data/aile/modules/module_04_cells.json', encoding='utf-8'\\)\\); print\\('OK'\\)\")",
       "Bash(python -c \"import json; json.load\\(open\\('backend/data/aile/modules/module_05_cells.json','r',encoding='utf-8'\\)\\); print\\('OK'\\)\")",
-      "Bash(grep -rn \"Dashboard\\\\|Déconnexion\\\\|déconnexion\" frontend/src/components/Nav*.tsx)"
+      "Bash(grep -rn \"Dashboard\\\\|Déconnexion\\\\|déconnexion\" frontend/src/components/Nav*.tsx)",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('backend/app/routers/access_codes.py', encoding='utf-8'\\).read\\(\\)\\); print\\('access_codes.py OK'\\)\")",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('backend/app/main.py', encoding='utf-8'\\).read\\(\\)\\); print\\('main.py OK'\\)\")"
     ]
   }
 }

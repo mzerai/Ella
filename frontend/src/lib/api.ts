@@ -503,3 +503,28 @@ export async function saveCheckpointProgress(
     console.warn("Failed to save checkpoint progress:", err);
   }
 }
+
+// ============================================
+// Course Access Codes
+// ============================================
+
+export interface CourseAccessResponse {
+  has_access: boolean;
+  unlocked_at: string | null;
+}
+
+export interface VerifyCodeResponse {
+  success: boolean;
+  message: string;
+}
+
+export async function checkCourseAccess(courseId: string): Promise<CourseAccessResponse> {
+  return authFetch<CourseAccessResponse>(`/api/courses/access/${courseId}`, undefined, { has_access: false, unlocked_at: null });
+}
+
+export async function verifyAccessCode(code: string, courseId: string): Promise<VerifyCodeResponse> {
+  return authFetch<VerifyCodeResponse>("/api/courses/verify-code", {
+    method: "POST",
+    body: JSON.stringify({ code, course_id: courseId }),
+  });
+}
