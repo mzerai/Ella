@@ -11,8 +11,7 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
-from app.services.ella.orchestrator import generate_response
-from app.services.ella.models import ConversationRequest, PageContextSchema
+from app.services.ella.client import request_chat_completion
 
 logger = logging.getLogger(__name__)
 
@@ -218,7 +217,34 @@ async def evaluate_response(request: AILEEvalRequest):
     mission_instructions = mission["instructions"].get(lang, mission["instructions"].get("fr", ""))
     expected = mission.get("expected_behavior", "")
 
-    eval_prompt = f"""[AILE_LAB_EVALUATION]
+    if request.lab_id == "01_self_assessment":
+        eval_prompt = f"""[AILE_LAB01_QUICK_ASSESSMENT]
+
+You are ELLA, strategic AI coach. The participant just completed a QUICK self-assessment (Lab 01, beginning of the course). They rated 5 dimensions on a scale of 1-5 and optionally added short comments.
+
+PARTICIPANT'S RESPONSES:
+{request.student_response}
+
+Respond in {"French" if lang == "fr" else "English"}.
+
+RULES:
+- This is the FIRST lab of the course. The participant has only completed Module 00 (Wake-Up Call). They know NOTHING about Gartner, governance frameworks, or AI strategy yet.
+- Do NOT mention Gartner, maturity models, or any framework they haven't learned yet.
+- Keep your feedback SHORT (3-4 sentences maximum).
+- Acknowledge their current situation based on their scores.
+- Identify their strongest dimension and their weakest dimension.
+- End with ONE encouraging sentence about what they'll learn in the upcoming modules.
+- Use "vous" (formal French). Be professional, direct, and warm — like a senior consultant.
+- Do NOT ask for more details. Do NOT lecture. Do NOT list recommendations.
+
+Example of GOOD feedback:
+"Votre organisation a déjà des bases solides en initiatives IA (3/5), ce qui est un bon signal. En revanche, la gouvernance (1/5) est un point à surveiller — c'est un sujet que nous aborderons en détail dans le Module 03. Les prochains modules vont vous donner les outils pour structurer votre approche."
+
+Respond with a JSON object: {{"feedback": "your feedback text", "score_qualitative": "good"}}
+Score should be "good" for any engaged response. Only use "needs_improvement" if responses are all 1/5 with no comments.
+Respond ONLY with the JSON, no other text."""
+    else:
+        eval_prompt = f"""[AILE_LAB_EVALUATION]
 
 You are evaluating an executive's written response in the AILE (Executive AI Leadership) course.
 
@@ -246,17 +272,12 @@ Scoring guide:
 
 Respond ONLY with the JSON, no other text."""
 
-    conv_request = ConversationRequest(
-        query=eval_prompt,
-        history=[],
-        context=PageContextSchema(
-            page_id=request.lab_id,
-            lab_name=request.lab_id,
-            extra={"course_id": "aile", "lab_evaluation": True}
-        )
-    )
+    messages = [
+        {"role": "system", "content": "You are ELLA, an executive AI leadership coach. Evaluate the executive's response professionally. Respond ONLY with valid JSON."},
+        {"role": "user", "content": eval_prompt}
+    ]
 
-    raw_response = generate_response(conv_request)
+    raw_response = request_chat_completion(messages, force_json=True)
 
     # Try to parse JSON from the response
     try:
@@ -457,17 +478,12 @@ Use concrete examples. No generic advice.
 Do NOT repeat the scores — the executive already has them.
 Keep the total response under 800 words."""
 
-    conv_request = ConversationRequest(
-        query=ella_prompt,
-        history=[],
-        context=PageContextSchema(
-            page_id="06_maturity_diagnostic",
-            lab_name="06_maturity_diagnostic",
-            extra={"course_id": "aile", "maturity_diagnostic": True}
-        )
-    )
+    messages = [
+        {"role": "system", "content": "You are ELLA, an executive AI leadership coach. Provide a strategic maturity diagnostic analysis. Respond in well-structured markdown."},
+        {"role": "user", "content": ella_prompt}
+    ]
 
-    ella_analysis = generate_response(conv_request)
+    ella_analysis = request_chat_completion(messages, force_json=False)
 
     return MaturityDiagnosticResponse(
         company_profile=request.company_profile,
