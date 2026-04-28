@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import Notebook from "@/components/Notebook";
+import Notebook, { type CheckpointSummaryEntry } from "@/components/Notebook";
 import EllaAvatar from "@/components/EllaAvatar";
 import EllaCoachingPanel from "@/components/EllaCoachingPanel";
 import { useAuth } from "@/components/AuthProvider";
@@ -26,6 +26,16 @@ function ModuleLessonContent() {
     const [module, setModule] = useState<ModuleData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [lang, setLang] = useState<"fr" | "en">("fr");
+    const [checkpointSummary, setCheckpointSummary] = useState("");
+
+    const handleCheckpointUpdate = useCallback((summaries: CheckpointSummaryEntry[]) => {
+        if (summaries.length === 0) { setCheckpointSummary(""); return; }
+        const parts = summaries.map(s =>
+            `Checkpoint "${s.cellId}": ${s.passed ? "PASSED" : `ATTEMPTED (${s.attempts} attempts)`}. ` +
+            `Question: "${s.question}". Student response: "${s.response}". Feedback: "${s.feedback}..."`
+        );
+        setCheckpointSummary(`\n\nSTUDENT CHECKPOINT HISTORY FOR THIS LESSON:\n${parts.join("\n")}`);
+    }, []);
 
     useEffect(() => {
         getModuleCells(moduleId)
@@ -129,6 +139,7 @@ function ModuleLessonContent() {
                         cells={module.cells}
                         moduleId={moduleId}
                         lang={lang}
+                        onCheckpointUpdate={handleCheckpointUpdate}
                     />
                 )}
             </div>
@@ -140,6 +151,7 @@ function ModuleLessonContent() {
                 pageType="lesson"
                 lang={lang}
                 studentFirstName={firstName}
+                labContext={{ checkpointSummary }}
             />
         </div>
     );

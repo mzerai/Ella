@@ -184,8 +184,22 @@ export default function EllaCoachingPanel({
     setLoading(true);
 
     try {
+      const cpSummary = (labContext?.checkpointSummary as string) || "";
+      const enrichedMessage = cpSummary
+        ? `${msg}\n\n[CONTEXT: ${cpSummary}]`
+        : msg;
+
+      // Force scope restriction when asking about progress
+      let scopeInstruction = "";
+      const lowerMsg = msg.toLowerCase();
+      if (lowerMsg.includes("progression") || lowerMsg.includes("progress") || lowerMsg.includes("progresse")) {
+        scopeInstruction = "\n\n[INSTRUCTION CRITIQUE: L'apprenant demande sa progression. Réponds UNIQUEMENT en te basant sur les checkpoints qu'il a passés (listés dans le CONTEXT ci-dessus). Ne mentionne AUCUN concept qu'il n'a pas encore étudié. Si le checkpoint_summary montre qu'il n'a fait que checkpoint_01 de intro_01, ne parle que du concept de zero-shot (instruction sans exemples). Ne mentionne PAS les 4C, le few-shot, le chain-of-thought, ou tout autre concept des sections suivantes. Sois spécifique à SES réponses et SES tentatives.]";
+      }
+
+      const finalMessage = enrichedMessage + scopeInstruction;
+
       const resp = await sendChatMessage({
-        message: msg,
+        message: finalMessage,
         context: buildContext(),
         conversation_history: [...messages, userMsg].slice(-10),
       });
@@ -290,6 +304,7 @@ export default function EllaCoachingPanel({
                       ? "bg-ella-primary text-white rounded-br-sm"
                       : "bg-ella-gray-100 text-ella-gray-800 rounded-bl-sm"
                   }`}
+                  {...(msg.role === "assistant" ? { style: { userSelect: "none", WebkitUserSelect: "none", MozUserSelect: "none", msUserSelect: "none" } as React.CSSProperties } : {})}
                 >
                   {msg.role === "assistant" ? (
                     <div className="prose prose-xs prose-ella max-w-none [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">

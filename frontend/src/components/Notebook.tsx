@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { RefreshCw } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import EllaAvatar from "./EllaAvatar";
 import { sendChatMessage, fetchLessonProgress, saveCheckpointProgress, type NotebookCell } from "@/lib/api";
@@ -29,14 +30,24 @@ const ANTI_COPY_STYLES = `
 
 import remarkGfm from "remark-gfm";
 
+export interface CheckpointSummaryEntry {
+    cellId: string;
+    passed: boolean;
+    attempts: number;
+    question: string;
+    response: string;
+    feedback: string;
+}
+
 interface NotebookProps {
     cells: NotebookCell[];
     moduleId: string;
     lang: "fr" | "en";
     courseId?: "pe" | "rl" | "aile";
+    onCheckpointUpdate?: (summaries: CheckpointSummaryEntry[]) => void;
 }
 
-export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: NotebookProps) {
+export default function Notebook({ cells, moduleId, lang, courseId = "pe", onCheckpointUpdate }: NotebookProps) {
     const { user, firstName } = useAuth();
     // Track which cells are unlocked.
     const [unlockedUpTo, setUnlockedUpTo] = useState(0);
@@ -180,6 +191,27 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
             }
         }, 100);
     };
+
+    // Notify parent of checkpoint state changes for ELLA context
+    useEffect(() => {
+        if (!onCheckpointUpdate) return;
+        const summaries: CheckpointSummaryEntry[] = [];
+        for (const cell of cells) {
+            if (cell.type !== "ella_checkpoint") continue;
+            const state = checkpointState[cell.id];
+            if (state && (state.submitted || state.attempts > 0)) {
+                summaries.push({
+                    cellId: cell.id,
+                    passed: state.passed,
+                    attempts: state.attempts,
+                    question: dynamicQuestions[cell.id] || "",
+                    response: state.response,
+                    feedback: state.feedback?.substring(0, 150) || "",
+                });
+            }
+        }
+        onCheckpointUpdate(summaries);
+    }, [checkpointState, dynamicQuestions, cells, onCheckpointUpdate]);
 
     const unlockAfterCheckpoint = (fromIndex: number) => {
         let target = fromIndex + 1;
@@ -325,7 +357,7 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                 }
                 try {
                     const result = await sendChatMessage({
-                        message: `[GENERATE_CHECKPOINT_QUESTION]\n\nTopic: ${config.topic}\nSection context: ${config.section_context}\nQuestion type: ${config.question_type}\nDifficulty: ${config.difficulty}\nLanguage: ${lang === "fr" ? "French" : "English"}\n\n${config.anti_gpt_instructions || ""}\n\nGenerate ONE checkpoint question. The question must:\n- Reference specific content from the lesson section described above\n- Ask the student to apply the concept to a personal or concrete example\n- Be impossible to answer correctly by just asking ChatGPT (requires lesson context)\n- Be concise (2-3 sentences max)\n\nRespond in JSON format: {"answer": "Your generated question here"}. No other fields.`,
+                        message: `[GENERATE_CHECKPOINT_QUESTION]\n\nTopic: ${config.topic}\nSection context: ${config.section_context}\nQuestion type: ${config.question_type}\nDifficulty: ${config.difficulty}\nLanguage: ${lang === "fr" ? "French" : "English"}\n\n${config.anti_gpt_instructions || ""}\n\nCRITICAL CONSTRAINT: You MUST follow the anti_gpt_instructions above. If they say to NOT mention certain topics, do NOT mention them in your question. Stay strictly within the topic described.\n\nSCOPE RESTRICTION: You are generating a question for Module '${moduleId}'. The student has ONLY studied the content described in 'Section context' above. Do NOT reference, mention, or compare with ANY concept from other modules or sections that the student has not yet studied. If the topic is about zero-shot, do NOT mention few-shot, chain-of-thought, or system prompts. Stay strictly within the section context provided.\n\nGenerate ONE checkpoint question. The question must:\n- Reference specific content from the lesson section described above\n- Ask the student to apply the concept to a personal or concrete example\n- Be impossible to answer correctly by just asking ChatGPT (requires lesson context)\n- Be concise (2-3 sentences max)\n\nRespond in JSON format: {"answer": "Your generated question here"}. No other fields.`,
                         context: {
                             page_id: moduleId,
                             page_title: `Module ${moduleId}`,
@@ -383,6 +415,28 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
             });
         }
         setGeneratingQuestion(prev => ({ ...prev, [cellId]: false }));
+    };
+
+    const handleNewQuestion = async (cellId: string, config: any) => {
+        // Reset checkpoint state for a new question attempt (keep passed=true so progression stays unlocked)
+        setCheckpointState(prev => ({
+            ...prev,
+            [cellId]: {
+                ...prev[cellId],
+                response: "",
+                feedback: "",
+                submitted: false,
+                // Keep passed as true so the lesson stays unlocked
+            }
+        }));
+        // Clear the old question so generateCheckpointQuestion can run
+        setDynamicQuestions(prev => {
+            const next = { ...prev };
+            delete next[cellId];
+            return next;
+        });
+        // Generate a new question
+        await generateCheckpointQuestion(cellId, config);
     };
 
     if (isHydrating) {
@@ -690,9 +744,17 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                                         </div>
                                     ) : null}
 
-                                    {/* Progression Button (only if passed or exhausted) */}
-                                    {(checkpointState[cell.id]?.passed || (checkpointState[cell.id]?.attempts || 0) >= 3) && (
-                                        <div className="flex justify-center pt-2">
+                                    {/* Progression + New Question (only if passed or exhausted) */}
+                                    {(checkpointState[cell.id]?.passed || (checkpointState[cell.id]?.attempts || 0) >= 3) && checkpointState[cell.id]?.submitted && (
+                                        <div className="flex items-center justify-between pt-2">
+                                            <button
+                                                onClick={() => handleNewQuestion(cell.id, cell.checkpoint_config)}
+                                                disabled={generatingQuestion[cell.id]}
+                                                className="flex items-center gap-1.5 text-xs font-bold text-ella-gray-400 hover:text-ella-primary transition-colors disabled:opacity-30"
+                                            >
+                                                <RefreshCw className={`w-3.5 h-3.5 ${generatingQuestion[cell.id] ? "animate-spin" : ""}`} />
+                                                {lang === "fr" ? "Tester une autre question" : "Try another question"}
+                                            </button>
                                             <button
                                                 onClick={() => {
                                                     unlockAfterCheckpoint(index);
