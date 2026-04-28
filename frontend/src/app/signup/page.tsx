@@ -26,7 +26,7 @@ export default function SignupPage() {
         setIsLoading(true);
         try {
             const { error, hasSession } = await signUp(email, password, fullName);
-            if (error) { setError(error); } else if (hasSession) { router.push("/courses"); } else { setSuccess(true); }
+            if (error) { setError(error); } else if (hasSession) { router.push("/dashboard"); } else { setSuccess(true); }
         } catch (err) {
             setError("Une erreur est survenue.");
         } finally {
@@ -58,7 +58,7 @@ export default function SignupPage() {
                     <form onSubmit={handleSubmit} className="space-y-3">
                         <div>
                             <label className="block text-[10px] font-black text-ella-gray-400 uppercase tracking-widest mb-1 ml-1">Nom complet</label>
-                            <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} required className="w-full bg-ella-gray-50 border border-ella-gray-200 focus:border-ella-accent focus:ring-4 focus:ring-ella-accent/10 rounded-xl px-4 py-2.5 text-sm font-medium transition-all outline-none" placeholder="Jean Dupont" />
+                            <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} required className="w-full bg-ella-gray-50 border border-ella-gray-200 focus:border-ella-accent focus:ring-4 focus:ring-ella-accent/10 rounded-xl px-4 py-2.5 text-sm font-medium transition-all outline-none" placeholder="Mohamed Ben Ali" />
                         </div>
                         <div>
                             <label className="block text-[10px] font-black text-ella-gray-400 uppercase tracking-widest mb-1 ml-1">Email</label>

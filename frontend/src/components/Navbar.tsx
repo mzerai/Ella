@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LayoutDashboard, LogOut, ShieldCheck } from "lucide-react";
 import EllaAvatar from "./EllaAvatar";
 import ProfileModal from "./ProfileModal";
 import { useAuth } from "@/components/AuthProvider";
@@ -94,18 +95,18 @@ export default function Navbar() {
                         <p className="text-sm font-bold text-ella-gray-900 truncate">{user.user_metadata?.full_name || user.email}</p>
                       </div>
                       <Link href="/dashboard" className="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-ella-gray-600 hover:bg-ella-gray-50 rounded-xl transition-all">
-                        📊 Dashboard
+                        <LayoutDashboard className="w-4 h-4" /> Dashboard
                       </Link>
                       {user?.email === "mourad.zerai@gmail.com" && (
                         <Link href="/admin" className="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-ella-gray-600 hover:bg-ella-gray-50 rounded-xl transition-all">
-                          🛡️ Admin
+                          <ShieldCheck className="w-4 h-4" /> Admin
                         </Link>
                       )}
                       <button 
                         onClick={() => signOut()}
                         className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-ella-accent hover:bg-ella-accent/5 rounded-xl transition-all text-left"
                       >
-                        🚪 Déconnexion
+                        <LogOut className="w-4 h-4" /> Déconnexion
                       </button>
                     </div>
                   </div>
@@ -160,7 +161,7 @@ export default function Navbar() {
                 onClick={() => setIsMenuOpen(false)}
                 className="block px-4 py-2 text-base font-bold text-ella-gray-600 rounded-xl hover:bg-ella-gray-50"
               >
-                📊 Dashboard
+                <LayoutDashboard className="w-4 h-4 inline-block mr-1" /> Dashboard
               </Link>
               {user?.email === "mourad.zerai@gmail.com" && (
                 <Link
@@ -168,7 +169,7 @@ export default function Navbar() {
                   onClick={() => setIsMenuOpen(false)}
                   className="block px-4 py-2 text-base font-bold text-ella-gray-600 rounded-xl hover:bg-ella-gray-50"
                 >
-                  🛡️ Admin
+                  <ShieldCheck className="w-4 h-4 inline-block mr-1" /> Admin
                 </Link>
               )}
               <button
@@ -178,7 +179,7 @@ export default function Navbar() {
                 }}
                 className="w-full text-left px-4 py-2 text-base font-bold text-ella-accent rounded-xl hover:bg-ella-accent/5"
               >
-                🚪 Déconnexion
+                <LogOut className="w-4 h-4 inline-block mr-1" /> Déconnexion
               </button>
             </>
           ) : (

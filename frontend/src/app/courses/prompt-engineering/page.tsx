@@ -5,11 +5,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Settings } from "lucide-react";
 import EllaAvatar from "@/components/EllaAvatar";
 import { listPELabs, type PELab } from "@/lib/api";
 import Link from "next/link";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { useAuth } from "@/components/AuthProvider";
+import ProfileModal, { type ProfileType } from "@/components/ProfileModal";
 
 const modules = [
   {
@@ -64,7 +66,21 @@ function CourseContent() {
   const [labs, setLabs] = useState<PELab[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+  const [profile, setProfile] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null;
+    return localStorage.getItem("ellaUserProfile");
+  });
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return !localStorage.getItem("ellaUserProfile");
+  });
   const isAdmin = user?.email === "mourad.zerai@gmail.com";
+
+  const handleProfileSelect = (newProfile: ProfileType) => {
+    localStorage.setItem("ellaUserProfile", newProfile);
+    setProfile(newProfile);
+    setIsProfileModalOpen(false);
+  };
 
   useEffect(() => {
     // Register completion tracking
@@ -76,7 +92,7 @@ function CourseContent() {
             console.error("Failed to load progress", e);
         }
     };
-    
+
     updateProgress();
     // Listen for changes (though mostly on same page here)
     window.addEventListener('storage', updateProgress);
@@ -100,7 +116,16 @@ function CourseContent() {
             <span className="text-white/20 text-xs">/</span>
             <span className="text-white/90 text-xs font-bold uppercase tracking-widest">Prompt Engineering</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-black mb-6 tracking-tight">Prompt Engineering</h1>
+          <div className="flex items-center gap-4 mb-6">
+            <h1 className="text-4xl sm:text-5xl font-black tracking-tight">Prompt Engineering</h1>
+            <button
+              onClick={() => setIsProfileModalOpen(true)}
+              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 transition-colors text-white/70 hover:text-white"
+              title="Changer de profil"
+            >
+              <Settings className="w-5 h-5" />
+            </button>
+          </div>
           <p className="text-ella-dark-text/70 max-w-2xl text-lg leading-relaxed font-medium">
             Maîtrisez l'art de piloter les Large Language Models (LLM) avec précision pour transformer vos idées en résultats concrets.
           </p>
@@ -223,6 +248,12 @@ function CourseContent() {
           </div>
         </div>
       )}
+
+      <ProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        onSelect={handleProfileSelect}
+      />
     </div>
   );
 }
