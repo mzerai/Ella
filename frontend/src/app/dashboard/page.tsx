@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { createClient } from "@/lib/supabase";
 import EllaAvatar from "@/components/EllaAvatar";
 import ScoreBadge from "@/components/ScoreBadge";
+import CelebrationModal from "@/components/CelebrationModal";
 import Link from "next/link";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
@@ -17,6 +18,9 @@ function CertificatesSection() {
     const [eligibility, setEligibility] = useState<Record<string, any>>({});
     const [loading, setLoading] = useState(true);
     const [generating, setGenerating] = useState<string | null>(null);
+    const [celebrationOpen, setCelebrationOpen] = useState(false);
+    const [celebrationCourseId, setCelebrationCourseId] = useState("");
+    const pendingBlobRef = useRef<Blob | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -59,19 +63,28 @@ function CertificatesSection() {
             });
             if (res.ok) {
                 const blob = await res.blob();
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = `ELLA_Certificate_${courseId}.pdf`;
-                a.click();
-                URL.revokeObjectURL(url);
-                // Refresh page to show the new certificate in the list
-                window.location.reload();
+                pendingBlobRef.current = blob;
+                setCelebrationCourseId(courseId);
+                setCelebrationOpen(true);
             }
         } catch (err) {
             console.error("Error generating certificate:", err);
         }
         setGenerating(null);
+    };
+
+    const handleCelebrationDownload = () => {
+        if (pendingBlobRef.current) {
+            const url = URL.createObjectURL(pendingBlobRef.current);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `ELLA_Certificate_${celebrationCourseId}.pdf`;
+            a.click();
+            URL.revokeObjectURL(url);
+            pendingBlobRef.current = null;
+        }
+        setCelebrationOpen(false);
+        window.location.reload();
     };
 
     const handleDownload = async (certId: string, courseId: string) => {
@@ -145,6 +158,15 @@ function CertificatesSection() {
                     );
                 })}
             </div>
+
+            <CelebrationModal
+                isOpen={celebrationOpen}
+                onClose={() => { setCelebrationOpen(false); window.location.reload(); }}
+                onDownloadCertificate={handleCelebrationDownload}
+                courseTitle={celebrationCourseId === "pe" ? "Prompt Engineering" : celebrationCourseId === "rl" ? "Reinforcement Learning" : "Executive AI Leadership"}
+                lang="fr"
+                accentColor={celebrationCourseId === "aile" ? "amber" : "blue"}
+            />
         </div>
     );
 }

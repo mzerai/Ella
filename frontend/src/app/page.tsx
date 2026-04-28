@@ -154,13 +154,19 @@ export default function HomePage() {
     }
   };
 
+  const playEllaJingle = () => {
+    const audio = new Audio("/assets/ella_gingle.mp3");
+    audio.volume = 0.7;
+    audio.play().catch(() => {});
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-ella-dark to-ella-primary-dark pt-12 pb-10 relative overflow-hidden flex items-center min-h-[35vh] md:min-h-[40vh]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 w-full text-center md:text-left">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            <div className="shrink-0 animate-fade-in order-2 md:order-1 relative">
+            <div className="shrink-0 animate-fade-in order-2 md:order-1 relative cursor-pointer" onClick={playEllaJingle}>
               <div className="absolute inset-x-0 bottom-0 h-1/2 bg-ella-accent/10 blur-3xl"></div>
               <EllaAvatar size="xl" className="relative z-10" />
             </div>
