@@ -710,6 +710,7 @@ function AILELabContent() {
         isOpen={isProfileModalOpen}
         onClose={() => setIsProfileModalOpen(false)}
         onSelect={handleProfileSelect}
+        courseId="aile"
       />
 
       <EllaCoachingPanel
