@@ -13,7 +13,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 function CertificatesSection() {
     const { user } = useAuth();
-    const supabase = createClient();
+    const supabaseRef = useRef(createClient());
     const [certificates, setCertificates] = useState<Array<{id: string; course_id: string; course_title: string; score: number; issued_at: string}>>([]);
     const [eligibility, setEligibility] = useState<Record<string, any>>({});
     const [loading, setLoading] = useState(true);
@@ -21,38 +21,63 @@ function CertificatesSection() {
     const [celebrationOpen, setCelebrationOpen] = useState(false);
     const [celebrationCourseId, setCelebrationCourseId] = useState("");
     const pendingBlobRef = useRef<Blob | null>(null);
+    const bestCertsRef = useRef<typeof certificates>([]);
+    const bestEligRef = useRef<Record<string, any>>({});
+    const fetchedRef = useRef(false);
+
+    const fetchWithRetry = async (url: string, headers: Record<string, string>) => {
+        const res = await fetch(url, { headers });
+        if (res.status === 401) {
+            await new Promise(r => setTimeout(r, 2000));
+            return fetch(url, { headers });
+        }
+        return res;
+    };
+
+    const refetchCertificates = async () => {
+        const supabase = supabaseRef.current;
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) return;
+        const headers = { "Authorization": `Bearer ${session.access_token}`, "Content-Type": "application/json" };
+
+        try {
+            const certsRes = await fetchWithRetry(`${API_BASE_URL}/api/certificates/my-certificates`, headers);
+            if (certsRes.ok) {
+                const certsData = await certsRes.json();
+                const newCerts = certsData.certificates || [];
+                if (newCerts.length >= bestCertsRef.current.length) {
+                    bestCertsRef.current = newCerts;
+                    setCertificates(newCerts);
+                }
+            }
+        } catch (err) {
+            console.error("Error re-fetching certificates:", err);
+        }
+
+        for (const courseId of ["pe", "rl", "aile"]) {
+            try {
+                const res = await fetchWithRetry(`${API_BASE_URL}/api/certificates/eligibility/${courseId}`, headers);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (bestEligRef.current[courseId]?.eligible && !data.eligible) continue;
+                    bestEligRef.current = { ...bestEligRef.current, [courseId]: data };
+                }
+            } catch (err) {
+                console.error(`Error fetching eligibility for ${courseId}:`, err);
+            }
+        }
+        setEligibility({ ...bestEligRef.current });
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            if (!user) return;
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) return;
-
-            const headers = { "Authorization": `Bearer ${session.access_token}`, "Content-Type": "application/json" };
-
-            try {
-                // Fetch existing certificates
-                const certsRes = await fetch(`${API_BASE_URL}/api/certificates/my-certificates`, { headers });
-                const certsData = await certsRes.json();
-                setCertificates(certsData.certificates || []);
-
-                // Check eligibility for each course
-                const elig: Record<string, any> = {};
-                for (const courseId of ["pe", "rl", "aile"]) {
-                    const res = await fetch(`${API_BASE_URL}/api/certificates/eligibility/${courseId}`, { headers });
-                    elig[courseId] = await res.json();
-                }
-                setEligibility(elig);
-            } catch (err) {
-                console.error("Error fetching certificates:", err);
-            }
-            setLoading(false);
-        };
-        fetchData();
+        if (!user || fetchedRef.current) return;
+        fetchedRef.current = true;
+        refetchCertificates().finally(() => setLoading(false));
     }, [user]);
 
     const handleGenerate = async (courseId: string) => {
         setGenerating(courseId);
+        const supabase = supabaseRef.current;
         const { data: { session } } = await supabase.auth.getSession();
         if (!session) return;
 
@@ -65,7 +90,10 @@ function CertificatesSection() {
                 const blob = await res.blob();
                 pendingBlobRef.current = blob;
                 setCelebrationCourseId(courseId);
+                console.log("Opening celebration modal for course:", courseId);
                 setCelebrationOpen(true);
+            } else {
+                console.error("Certificate generation failed:", res.status, await res.text());
             }
         } catch (err) {
             console.error("Error generating certificate:", err);
@@ -84,10 +112,12 @@ function CertificatesSection() {
             pendingBlobRef.current = null;
         }
         setCelebrationOpen(false);
-        window.location.reload();
+        // Re-fetch to show the new certificate card instead of full page reload
+        refetchCertificates();
     };
 
     const handleDownload = async (certId: string, courseId: string) => {
+        const supabase = supabaseRef.current;
         const { data: { session } } = await supabase.auth.getSession();
         if (!session) return;
 
@@ -161,7 +191,7 @@ function CertificatesSection() {
 
             <CelebrationModal
                 isOpen={celebrationOpen}
-                onClose={() => { setCelebrationOpen(false); window.location.reload(); }}
+                onClose={() => setCelebrationOpen(false)}
                 onDownloadCertificate={handleCelebrationDownload}
                 courseTitle={celebrationCourseId === "pe" ? "Prompt Engineering" : celebrationCourseId === "rl" ? "Reinforcement Learning" : "Executive AI Leadership"}
                 lang="fr"
@@ -286,17 +316,19 @@ function CourseSection({ title, icon, stats, accentColor }: {
 
 function DashboardContent() {
     const { user } = useAuth();
-    const supabase = createClient();
+    const supabaseRef = useRef(createClient());
     const [peStats, setPeStats] = useState<LabStats[]>([]);
     const [rlStats, setRlStats] = useState<LabStats[]>([]);
     const [aileStats, setAileStats] = useState<LabStats[]>([]);
     const [loading, setLoading] = useState(true);
+    const fetchedRef = useRef(false);
 
     useEffect(() => {
-        const fetchProgress = async () => {
-            if (!user) return;
+        if (!user || fetchedRef.current) return;
+        fetchedRef.current = true;
 
-            const { data: attempts, error } = await supabase
+        const fetchProgress = async () => {
+            const { data: attempts, error } = await supabaseRef.current
                 .from("lab_attempts")
                 .select("*")
                 .eq("user_id", user.id)

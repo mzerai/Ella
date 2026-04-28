@@ -35,7 +35,8 @@ COURSE_CONFIG = {
     "rl": {
         "title": "Reinforcement Learning",
         "title_fr": "Reinforcement Learning",
-        "labs": ["rl_00_culture", "rl_01_bellman", "rl_02_planning", "rl_03_td_mc", "rl_04_control", "rl_05_deep_rl"],
+        "use_checkpoints": True,
+        "modules": ["policy_evaluation", "planning", "td_mc", "control", "dqn"],
         "duration": "15 heures",
         "competencies": [
             "Modéliser un problème sous forme de MDP (états, actions, récompenses)",
@@ -47,9 +48,10 @@ COURSE_CONFIG = {
     },
     "aile": {
         "title": "Executive AI Leadership",
-        "title_fr": "Leadership IA pour Dirigeants",
-        "labs": ["aile_00_wakeup", "aile_01_demystify", "aile_02_strategy", "aile_03_governance", "aile_04_roi", "aile_05_roadmap"],
-        "duration": "12 heures",
+        "title_fr": "Executive AI Leadership",
+        "use_checkpoints": True,
+        "modules": ["aile_00_wakeup", "aile_01_demystify", "aile_02_strategy", "aile_03_governance", "aile_04_roi", "aile_05_roadmap"],
+        "duration": "24 heures",
         "competencies": [
             "Identifier l'urgence IA et le coût de l'inaction pour son organisation",
             "Comprendre ML, Deep Learning et IA Générative sans jargon technique",
@@ -99,9 +101,58 @@ def _check_eligibility(user_id: str, course_id: str) -> dict:
         return {"eligible": False, "scores": {}, "average": 0, "missing": ["Unknown course"]}
 
     supabase = _get_supabase_admin()
-    
+
+    # ── Checkpoint-based eligibility (AILE) ──
+    if config.get("use_checkpoints"):
+        modules = config["modules"]
+        print(f"[CERT-DEBUG] Checkpoint eligibility check: user={user_id}, course={course_id}, modules={modules}")
+        cp_resp = supabase.table("lesson_checkpoints_progress").select(
+            "module_id, checkpoint_id, passed, attempts"
+        ).eq("user_id", str(user_id)).eq("course_id", course_id).in_("module_id", modules).execute()
+
+        rows = cp_resp.data or []
+        print(f"[CERT-DEBUG] Found {len(rows)} checkpoint rows: {rows}")
+
+        # Group by module
+        by_module: dict[str, list] = {m: [] for m in modules}
+        for r in rows:
+            mid = r["module_id"]
+            if mid in by_module:
+                by_module[mid].append(r)
+
+        scores: dict[str, float] = {}
+        missing: list[str] = []
+
+        for mid in modules:
+            cps = by_module[mid]
+            if not cps:
+                missing.append(mid)
+                continue
+
+            all_passed = all(cp["passed"] for cp in cps)
+            if not all_passed:
+                missing.append(mid)
+                continue
+
+            # Score: ratio of first-try passes * 10 (min 8.0 if all passed)
+            first_try = sum(1 for cp in cps if cp["attempts"] == 1)
+            raw_score = round((first_try / len(cps)) * 10, 1)
+            scores[mid] = max(raw_score, 8.0)
+
+        result = {
+            "eligible": len(missing) == 0,
+            "scores": scores,
+            "average": round(sum(scores.values()) / len(scores), 1) if scores else 0,
+            "missing": missing,
+            "below_threshold": [],
+        }
+        print(f"[CERT-DEBUG] {course_id} result: {result}")
+        return result
+
+    # ── Lab-based eligibility (PE, RL) ──
+
     # Get all attempts for this user and course
-    attempts_resp = supabase.table("lab_attempts").select("lab_id, total_score, max_score").eq("user_id", user_id).execute()
+    attempts_resp = supabase.table("lab_attempts").select("lab_id, total_score, max_score").eq("user_id", str(user_id)).execute()
     attempts = attempts_resp.data or []
 
     # Find best score per lab
