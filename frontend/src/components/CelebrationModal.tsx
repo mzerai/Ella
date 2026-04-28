@@ -26,12 +26,14 @@ function launchCelebration() {
       angle: 60,
       spread: 55,
       origin: { x: 0, y: 0.6 },
+      zIndex: 10000,
     });
     confetti({
       particleCount: 50,
       angle: 120,
       spread: 55,
       origin: { x: 1, y: 0.6 },
+      zIndex: 10000,
     });
   }, 250);
 }
@@ -66,7 +68,7 @@ export default function CelebrationModal({
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 
       {/* Content */}
       <div className="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden animate-slide-up">
