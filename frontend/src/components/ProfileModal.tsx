@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Landmark, Factory, Monitor, ShoppingCart, Heart, GraduationCap, Wheat, HardHat, Hotel, Wrench } from "lucide-react";
+import { Code2, Briefcase, Heart, TrendingUp, Megaphone, BookOpen, Landmark, Factory, Monitor, ShoppingCart, GraduationCap, Wheat, HardHat, Hotel, Wrench } from "lucide-react";
 import EllaAvatar from "./EllaAvatar";
 
 export type ProfileType = "engineering" | "business" | "health" | "finance" | "marketing" | "humanities";
@@ -15,52 +15,52 @@ interface ProfileModalProps {
 
 const PROFILES: Array<{
   id: ProfileType;
-  icon: string;
+  icon: React.ReactNode;
   title: string;
   subtitle: string;
   description: string;
 }> = [
   {
     id: "engineering",
-    icon: "</>",
+    icon: <Code2 className="w-6 h-6" />,
     title: "Ingénierie",
     subtitle: "DATA, DEV & SYSTÈMES",
     description: "Missions orientées technique, déploiement et architecture.",
   },
   {
     id: "business",
-    icon: "💼",
+    icon: <Briefcase className="w-6 h-6" />,
     title: "Business & Management",
     subtitle: "STRATÉGIE & OPÉRATIONS",
     description: "Missions orientées décisionnelle, marketing et produit.",
   },
   {
     id: "health",
-    icon: "🏥",
+    icon: <Heart className="w-6 h-6" />,
     title: "Santé & Biotech",
     subtitle: "MÉDICAL & RECHERCHE",
     description: "Missions orientées santé publique, données cliniques et recherche biomédicale.",
   },
   {
     id: "finance",
-    icon: "📈",
+    icon: <TrendingUp className="w-6 h-6" />,
     title: "Finance & Fintech",
     subtitle: "BANQUE & INVESTISSEMENT",
     description: "Missions orientées analyse financière, gestion de risques et marchés.",
   },
   {
     id: "marketing",
-    icon: "📣",
+    icon: <Megaphone className="w-6 h-6" />,
     title: "Marketing & Communication",
     subtitle: "CONTENU & STRATÉGIE DIGITALE",
     description: "Missions orientées copywriting, campagnes digitales et analytics.",
   },
   {
     id: "humanities",
-    icon: "📚",
+    icon: <BookOpen className="w-6 h-6" />,
     title: "Sciences Humaines & Éducation",
     subtitle: "PÉDAGOGIE & RECHERCHE",
-    description: "Missions orientées enseignement, analyse de textes et sciences sociales.",
+    description: "Missions orientées analyse, rédaction académique et sciences sociales.",
   },
 ];
 
