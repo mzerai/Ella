@@ -25,12 +25,12 @@
             "id": "checkpoint_01",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "AI risk awareness in the executive's own context",
-                "section_context": "The participant learned about 4 categories of AI risk: reputational, legal, operational, and strategic. AI governance is a board-level responsibility because AI makes decisions that impact people.",
-                "question_type": "apply_to_personal_context",
+                "topic": "AI risk categories",
+                "section_context": "4 risk categories: reputational, legal, operational, strategic. AI governance is a board-level responsibility.",
+                "question_type": "scenario_choice",
                 "difficulty": "intermediate",
-                "hint": "The executive should identify risks specific to their sector and organization, not generic risks. Look for concrete scenarios tied to their business reality.",
-                "anti_gpt_instructions": "Present this scenario: 'Your AI-powered credit scoring system (or equivalent in your sector) has been running for 6 months. You just discovered it systematically rejects applicants from a specific geographic region — not because of credit risk, but because of a historical bias in the training data. Describe: (1) The immediate actions you take in the first 24 hours. (2) Who you inform and in what order. (3) The communication strategy for affected customers. Your answer must be specific and actionable, not generic.'"
+                "hint": "The participant should identify the correct risk category. Accept any reasonable categorization.",
+                "anti_gpt_instructions": "Ask: 'Votre chatbot IA publie une r\u00e9ponse incorrecte \u00e0 un client, qui la partage sur les r\u00e9seaux sociaux. Quel type de risque est-ce principalement ? (a) Risque op\u00e9rationnel, (b) Risque r\u00e9putationnel, (c) Risque l\u00e9gal, (d) Risque strat\u00e9gique.' Correct answer is (b) r\u00e9putationnel. Accept (a) or (b) as both are defensible. Briefly explain why."
             }
         },
         {
@@ -70,12 +70,12 @@
             "id": "checkpoint_02",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "AI risk assessment applied to a concrete scenario",
-                "section_context": "The participant learned a 4-pillar governance framework (policy, validation, monitoring, review committee) and 6 risk categories (bias, reliability, security, transparency, compliance, human impact). Risk assessment uses a probability × impact matrix.",
-                "question_type": "analysis",
-                "difficulty": "advanced",
-                "hint": "The executive should systematically evaluate the scenario across multiple risk categories, not just mention one risk. Look for structured thinking: identify risks, assess probability and impact, propose concrete mitigations.",
-                "anti_gpt_instructions": "Present this scenario: 'Your company is about to deploy an AI chatbot for customer service that handles complaints, answers product questions, and can process refund requests up to 500 TND without human approval. Using the 6 risk categories from the lesson, identify the 3 most critical risks for this specific deployment. For each risk: (1) name the category, (2) rate the probability and impact, (3) propose one specific mitigation measure. Then answer: should this chatbot be deployed as-is, or does it need modifications first?'"
+                "topic": "AI risk assessment before deployment",
+                "section_context": "6 risk categories: bias, reliability, security, transparency, compliance, human impact. Risk matrix: probability \u00d7 impact.",
+                "question_type": "identification",
+                "difficulty": "intermediate",
+                "hint": "The participant should identify at least one risk. Any relevant risk is acceptable.",
+                "anti_gpt_instructions": "Ask: 'Vous allez d\u00e9ployer un scoring cr\u00e9dit bas\u00e9 sur l\u2019IA. Quel est LE risque le plus important \u00e0 v\u00e9rifier avant le d\u00e9ploiement ?' Accept ANY of the 6 risk categories as valid (bias, reliability, compliance, etc.). The most common correct answers are 'biais' or 'conformit\u00e9'. Briefly explain why their chosen risk is important and mention one other risk they should also consider."
             }
         },
         {
@@ -106,12 +106,12 @@
             "id": "checkpoint_03",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "Designing a concrete AI charter for the executive's organization",
-                "section_context": "The participant learned about 5 principles of responsible AI (fairness, transparency, human control, privacy, accountability), the AI ethics committee, and the structure of an AI charter (vision, principles, red lines, processes, responsibilities, review).",
-                "question_type": "apply_to_personal_context",
-                "difficulty": "advanced",
-                "hint": "The executive should produce concrete, actionable principles — not abstract platitudes. Each principle must include a measurable commitment. 'We value fairness' is too vague. 'All scoring models are audited for bias quarterly' is concrete.",
-                "anti_gpt_instructions": "Ask the executive: 'Draft the 5 guiding principles of YOUR organization's AI charter. For each principle: (1) state the principle in one sentence, (2) define one concrete, measurable commitment that makes this principle actionable, and (3) define one red line (something you explicitly forbid). Your principles must be specific to your sector — a bank's charter is different from a hospital's charter.'"
+                "topic": "AI ethics charter principles",
+                "section_context": "5 principles: fairness, transparency, human control, privacy, accountability. AI charter = concrete commitments.",
+                "question_type": "recall",
+                "difficulty": "intermediate",
+                "hint": "The participant should name at least 2 out of 5 principles. Accept approximate formulations.",
+                "anti_gpt_instructions": "Ask: 'Citez 2 des 5 principes d\u2019une IA responsable vus dans cette le\u00e7on.' Correct principles: \u00e9quit\u00e9, transparence, contr\u00f4le humain, vie priv\u00e9e, responsabilit\u00e9. Accept ANY 2 correct principles, even if worded differently (e.g., 'pas de discrimination' = \u00e9quit\u00e9, 'expliquer les d\u00e9cisions' = transparence). Congratulate and briefly remind the other 3 principles."
             }
         },
         {

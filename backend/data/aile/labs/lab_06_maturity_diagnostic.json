@@ -71,14 +71,15 @@
                 "label": {"fr": "Secteur d'activité", "en": "Industry sector"},
                 "type": "select",
                 "options": [
-                    {"value": "finance", "label": {"fr": "Finance & Banque", "en": "Finance & Banking"}},
-                    {"value": "health", "label": {"fr": "Santé & Pharma", "en": "Health & Pharma"}},
+                    {"value": "banking_finance", "label": {"fr": "Banque & Finance", "en": "Banking & Finance"}},
                     {"value": "manufacturing", "label": {"fr": "Industrie & Manufacturing", "en": "Industry & Manufacturing"}},
-                    {"value": "tech", "label": {"fr": "Tech & IT", "en": "Tech & IT"}},
-                    {"value": "retail", "label": {"fr": "Retail & Commerce", "en": "Retail & Commerce"}},
-                    {"value": "services", "label": {"fr": "Services & Conseil", "en": "Services & Consulting"}},
+                    {"value": "it_telecom", "label": {"fr": "IT & Télécoms", "en": "IT & Telecom"}},
+                    {"value": "commerce_retail", "label": {"fr": "Commerce & Distribution", "en": "Commerce & Retail"}},
+                    {"value": "btp", "label": {"fr": "BTP & Immobilier", "en": "Construction & Real Estate"}},
+                    {"value": "health_pharma", "label": {"fr": "Santé & Pharma", "en": "Health & Pharma"}},
+                    {"value": "agri_food", "label": {"fr": "Agriculture & Agroalimentaire", "en": "Agriculture & Agrifood"}},
+                    {"value": "tourism", "label": {"fr": "Tourisme & Hôtellerie", "en": "Tourism & Hospitality"}},
                     {"value": "education", "label": {"fr": "Éducation & Formation", "en": "Education & Training"}},
-                    {"value": "telecom", "label": {"fr": "Télécoms & Médias", "en": "Telecom & Media"}},
                     {"value": "other", "label": {"fr": "Autre", "en": "Other"}}
                 ]
             },

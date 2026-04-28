@@ -25,12 +25,12 @@
             "id": "checkpoint_01",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "AI inaction risk in the executive's own sector",
-                "section_context": "The participant learned that 88% of companies use AI but only 6% achieve real impact. The gap is strategic, not technological. AI decisions belong at the board level.",
-                "question_type": "apply_to_personal_context",
+                "topic": "AI awareness in executive's sector",
+                "section_context": "The participant learned that 88% of companies use AI but only 6% achieve real impact. The gap is strategic, not technological.",
+                "question_type": "open_personal_short",
                 "difficulty": "beginner",
-                "hint": "The executive should identify a concrete, sector-specific risk — not a generic answer like 'falling behind'. Look for mentions of specific competitors, regulatory changes, or market shifts in their sector.",
-                "anti_gpt_instructions": "Ask the executive to name ONE specific company in their sector (or a close competitor) that has already deployed AI, and explain in 3 sentences exactly how this deployment threatens their own organization's market position. The answer must reference their specific sector and a real or plausible competitive scenario."
+                "hint": "Any answer about their company or sector is acceptable. Be encouraging.",
+                "anti_gpt_instructions": "Ask ONE simple question: 'Dans votre entreprise, utilisez-vous déjà l'IA dans un processus ou un service — même de manière informelle ?' Accept ANY answer: 'oui, on utilise...', 'non, pas encore', 'je ne suis pas sûr', 'certains employés utilisent ChatGPT'. ALL answers are valid. If they say yes, ask briefly what they use. If they say no, ask what process they aimeraient améliorer avec l'IA. If they're unsure, reassure them — that's exactly why this course exists. This is Module 00, be warm and welcoming. Never judge."
             }
         },
         {
@@ -61,12 +61,12 @@
             "id": "checkpoint_02",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "The 3 waves of AI and their strategic implications",
-                "section_context": "The participant learned about 3 AI waves: analytical (pattern detection, optimization), predictive (complex predictions, new products), generative (content creation, transforms all departments simultaneously). Wave 3 requires CEO-level involvement because it impacts every function.",
-                "question_type": "analysis",
-                "difficulty": "intermediate",
-                "hint": "The executive should demonstrate understanding that wave 3 is different because it's horizontal (all functions), not vertical (one department). Their answer should connect to concrete functions in their organization.",
-                "anti_gpt_instructions": "Present this scenario: 'Your CFO tells you that generative AI is just another IT tool, like ERP was in the 2000s, and should be managed entirely by IT. Write the 4-sentence email you would send in response, explaining why this view is dangerous. Your email must reference at least 2 specific business functions beyond IT that are already being transformed by GenAI.'"
+                "topic": "The 3 waves of AI",
+                "section_context": "The participant learned about 3 AI waves: analytical (pattern detection), predictive (complex predictions), generative (content creation). Wave 3 impacts all departments simultaneously.",
+                "question_type": "classification",
+                "difficulty": "beginner",
+                "hint": "This is a simple classification exercise. Accept any reasonable mapping.",
+                "anti_gpt_instructions": "Ask: 'Parmi ces trois exemples, associez chacun à la bonne vague de l'IA (analytique, prédictive, ou générative) : (A) Un scoring crédit bancaire, (B) Un chatbot qui rédige des emails clients, (C) Un système qui prédit les pannes machines.' The correct answers are: A=analytique, B=générative, C=prédictive. Accept the answer if at least 2 out of 3 are correct. Give a brief correction for any wrong answer. Be encouraging."
             }
         },
         {
@@ -94,12 +94,12 @@
             "id": "checkpoint_03",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "AI failure patterns and executive responsibility",
-                "section_context": "The participant studied success cases (JPMorgan, Tunisian manufacturer) and failure cases (IBM Watson Health, PoC graveyard). Key insight: success requires executive sponsorship, failure happens when AI is treated as a technical project delegated to IT.",
-                "question_type": "synthesis",
-                "difficulty": "intermediate",
-                "hint": "The executive should identify at least 3 specific failure patterns and show they understand that the common thread is lack of executive ownership, not lack of technology.",
-                "anti_gpt_instructions": "Present this scenario: 'A Tunisian company invested 500K TND in an AI project for customer service automation. After 12 months: the PoC works perfectly in demo, but no customer has ever interacted with it in production. The data science team is frustrated, the IT department blames the business units, and the CEO asks why there are no results. Identify the 3 most likely root causes of this failure, and for each one, explain what the CEO should have done differently from Day 1. Your answer must be specific — no generic advice.'"
+                "topic": "Success vs failure factors in AI projects",
+                "section_context": "The participant learned success cases (JPMorgan, Tunisian manufacturer) and failure cases (IBM Watson Health, PoC graveyard). Key insight: success requires executive sponsorship.",
+                "question_type": "single_choice",
+                "difficulty": "beginner",
+                "hint": "This is a comprehension check. Accept any answer that identifies executive involvement as key.",
+                "anti_gpt_instructions": "Ask: 'D\u2019apr\u00e8s les cas \u00e9tudi\u00e9s, quel est LE facteur commun \u00e0 tous les succ\u00e8s IA ? (a) Un budget \u00e9lev\u00e9, (b) Une technologie de pointe, (c) L\u2019implication personnelle du dirigeant, (d) Une \u00e9quipe data science nombreuse.' The correct answer is (c). If they answer correctly, congratulate briefly. If wrong, explain why (c) is correct using the JPMorgan and IBM Watson examples. Then ask: 'Dans votre organisation, qui pilote les initiatives num\u00e9riques aujourd\u2019hui ?' Accept any honest answer."
             }
         },
         {
@@ -130,12 +130,12 @@
             "id": "checkpoint_04",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "Personal AI urgency and commitment",
-                "section_context": "The participant has completed the Wake-Up Call module. They understand the AI paradox (88% use, 6% transform), the knowledge gap, the 3 waves, success/failure cases, and the 18-36 month strategic window for Tunisia.",
-                "question_type": "apply_to_personal_context",
+                "topic": "Personal urgency about AI",
+                "section_context": "The participant completed the Wake-Up Call module. They understand the AI paradox, knowledge gap, and strategic window.",
+                "question_type": "open_personal_short",
                 "difficulty": "beginner",
-                "hint": "The executive should demonstrate personal urgency, not abstract understanding. Their answer should mention their specific organization, sector, or role. A generic answer about 'AI being important' is insufficient.",
-                "anti_gpt_instructions": "Ask the executive to write a 3-sentence email to their board of directors justifying their enrollment in this training. The email must: (1) mention a specific risk or opportunity in their sector, (2) reference one concept from this module (the 3 waves, the knowledge gap, or the 6% statistic), and (3) propose one concrete first action they want to take after completing the course. No generic statements allowed."
+                "hint": "Any answer showing personal engagement is acceptable. Even 'I'm not sure yet but I want to learn more' is fine for Module 00.",
+                "anti_gpt_instructions": "Ask: 'En une phrase : quelle est la raison principale pour laquelle vous suivez cette formation ?' Accept ANY honest answer. This is a reflection question, not a test. Whether they say 'my boss asked me to', 'I want to understand AI', or 'I'm worried about competition' — all are valid. Respond warmly and connect their answer to what's coming in the next modules."
             }
         },
         {

@@ -25,12 +25,12 @@
             "id": "checkpoint_01",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "Evaluating AI vendor proposals critically",
-                "section_context": "The participant learned 10 red flags for vendor proposals: overstated accuracy, guaranteed quick ROI, turnkey claims, vague savings, no demo on real data, job replacement promises, missing data specs, vendor lock-in, PoC-only budget, no maintenance plan.",
-                "question_type": "analysis",
+                "topic": "Vendor red flags",
+                "section_context": "10 red flags for vendor proposals: overstated accuracy, guaranteed quick ROI, turnkey claims, etc.",
+                "question_type": "identification",
                 "difficulty": "intermediate",
-                "hint": "The executive should identify specific red flags and explain WHY each is problematic, not just list them. Look for critical thinking that goes beyond the list — connecting red flags to real consequences.",
-                "anti_gpt_instructions": "Present this vendor proposal summary: 'AIVendorCorp proposes a customer churn prediction solution. Key claims: 97% accuracy on industry benchmarks, -60% churn in 12 months, fully automated with no manual intervention needed, €150K for a 3-month implementation. They showed an impressive demo using sample data from a US telecom company.' Ask the executive to identify ALL the red flags in this proposal (there are at least 5) and for each one, write the specific question they would ask the vendor in the next meeting."
+                "hint": "The participant should identify at least 2 red flags. Any from the list of 10 is valid.",
+                "anti_gpt_instructions": "Ask: 'Un vendeur vous dit : Notre IA a 99% de pr\u00e9cision et vous garantit un ROI en 6 mois, cl\u00e9 en main. Citez 2 signaux d\u2019alerte (red flags) dans cette proposition.' Accept ANY 2 red flags from the lesson (overstated accuracy, guaranteed ROI, turnkey claims). Also accept equivalent formulations. Briefly explain why each is problematic."
             }
         },
         {
@@ -79,12 +79,12 @@
             "id": "checkpoint_02",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "TCO calculation and Build vs Buy vs Partner decision",
-                "section_context": "The participant learned: TCO = visible costs (30%) + hidden costs (70%). Hidden costs: data prep (30-50%), integration (15-25%), skills (10-20%), change management (5-15%), maintenance (15-25%/year). Rule of ×3. Build vs Buy vs Partner depends on strategic criticality × technological maturity.",
-                "question_type": "apply_to_personal_context",
-                "difficulty": "advanced",
-                "hint": "The executive should produce concrete numbers, not just percentages. They should apply the ×3 rule and the Build/Buy/Partner matrix to a real use case. Generic answers without sector context are insufficient.",
-                "anti_gpt_instructions": "Ask the executive: 'Choose one AI use case you are considering for your organization. (1) Estimate the vendor's initial quote (or guess one based on market rates). (2) Apply the TCO iceberg structure to estimate the REAL cost over 3 years, breaking down each hidden cost category with your best estimate in TND. (3) Using the Build vs Buy vs Partner matrix, which option would you choose for this use case? Justify by rating strategic criticality (high/low) and technological maturity (high/low).'"
+                "topic": "TCO rule of thumb",
+                "section_context": "TCO = visible costs (30%) + hidden costs (70%). Rule of \u00d73: multiply vendor quote by 3 for realistic TCO.",
+                "question_type": "calculation",
+                "difficulty": "intermediate",
+                "hint": "Simple multiplication. Accept approximate answers.",
+                "anti_gpt_instructions": "Ask: 'Un vendeur propose un PoC IA \u00e0 100K TND. En appliquant la r\u00e8gle du TCO vue dans ce module, quel budget total devez-vous pr\u00e9voir sur 3 ans ?' Correct answer: 300K TND (rule of \u00d73). Accept answers between 250K and 350K. Then ask: 'Citez un co\u00fbt cach\u00e9 qui n\u2019est probablement pas dans le devis du vendeur.' Accept any hidden cost: data preparation, integration, skills, change management, maintenance."
             }
         },
         {
@@ -103,12 +103,12 @@
             "id": "checkpoint_03",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "Designing a CEO-level AI dashboard with meaningful metrics",
-                "section_context": "The participant learned 3 categories of AI metrics: business (ROI, time-to-value, adoption rate, KPI impact), operational (error rate, volume, response time, cost per transaction), and risk (bias, incidents, compliance). The CEO dashboard should be one page, 5-8 metrics, updated monthly.",
-                "question_type": "apply_to_personal_context",
-                "difficulty": "advanced",
-                "hint": "The executive should select metrics that are relevant to THEIR specific AI use case and sector, not just list generic metrics. Each metric should have a target value. A dashboard without targets is useless.",
-                "anti_gpt_instructions": "Ask the executive: 'Design YOUR CEO AI dashboard. Pick one AI use case (real or planned) in your organization. Select exactly 6 metrics (2 business, 2 operational, 2 risk) that you would track. For each metric: (1) name it, (2) define how it's measured, (3) set a target value for Month 6 and Month 12. Present this as a simple table. Your metrics must be specific to your use case — not generic.'"
+                "topic": "Build vs Buy vs Partner decision",
+                "section_context": "Build = competitive advantage + sensitive data. Buy = generic problem + mature solution. Partner = need expertise + need customization.",
+                "question_type": "scenario_choice",
+                "difficulty": "intermediate",
+                "hint": "Accept any well-reasoned choice. There's no single correct answer \u2014 it depends on context.",
+                "anti_gpt_instructions": "Ask: 'Votre entreprise veut un chatbot pour le service client. C\u2019est un probl\u00e8me g\u00e9n\u00e9rique avec des solutions matures sur le march\u00e9. Quelle approche choisissez-vous : Build, Buy, ou Partner ?' The best answer is Buy (generic problem + mature solution). But accept Partner as well-reasoned if justified. Accept Build only if the participant gives a strong reason (e.g., highly sensitive data). Briefly explain the reasoning."
             }
         },
         {

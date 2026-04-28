@@ -207,11 +207,15 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
 
         try {
             // Append strict evaluation instructions
-            const evaluationInstruction = `\n\nIMPORTANT: Termine ta réponse par EXACTEMENT l'une de ces deux lignes (et rien d'autre sur cette ligne):\n[CHECKPOINT_PASSED]\n[CHECKPOINT_RETRY]\n\nRègles d'évaluation :\n- [CHECKPOINT_PASSED] uniquement si l'étudiant montre une compréhension réelle et correcte du concept dans sa réponse.\n- [CHECKPOINT_RETRY] dans TOUS les autres cas : réponse hors-sujet, trop vague, incorrecte, incompréhension, ou si l'étudiant demande des indices/aide au lieu de répondre.\n- Si l'étudiant demande de l'aide, des indices ou dit qu'il ne comprend pas : donne-lui un indice pédagogique qui le guide vers la bonne réponse SANS la révéler, puis termine par [CHECKPOINT_RETRY].\n- Ne génère JAMAIS de question ambiguë ou piège. La question doit avoir une réponse claire et vérifiable.\n- Sois encourageante mais honnête. Ne valide jamais une non-réponse.\n- Tu dois TOUJOURS terminer par l'un des deux tags, sans exception.`;
+            const evaluationInstruction = courseId === "aile"
+  ? `\n\nIMPORTANT: Termine ta réponse par EXACTEMENT l'une de ces deux lignes (et rien d'autre sur cette ligne):\n[CHECKPOINT_PASSED]\n[CHECKPOINT_RETRY]\n\nRègles d'évaluation AILE (formation dirigeants) :\n- [CHECKPOINT_PASSED] si le participant a répondu à la question de manière pertinente, même brièvement. Une réponse courte (1-2 phrases) est parfaitement acceptable.\n- [CHECKPOINT_PASSED] si le participant montre un engagement avec le sujet, même si la réponse n'est pas parfaite.\n- [CHECKPOINT_RETRY] UNIQUEMENT si la réponse est complètement hors-sujet, vide, ou si le participant demande de l'aide au lieu de répondre.\n- Utilise "vous" (vouvoiement). Tu parles à un dirigeant d'entreprise, pas à un étudiant.\n- Sois bref (2-3 phrases max), professionnel, et direct. Pas de "Excellente réponse !" ou "Bravo !". Utilise plutôt "Bien noté.", "C'est pertinent.", "Tout à fait.".\n- Tu dois TOUJOURS terminer par l'un des deux tags, sans exception.`
+  : `\n\nIMPORTANT: Termine ta réponse par EXACTEMENT l'une de ces deux lignes (et rien d'autre sur cette ligne):\n[CHECKPOINT_PASSED]\n[CHECKPOINT_RETRY]\n\nRègles d'évaluation :\n- [CHECKPOINT_PASSED] uniquement si l'étudiant montre une compréhension réelle et correcte du concept dans sa réponse.\n- [CHECKPOINT_RETRY] dans TOUS les autres cas : réponse hors-sujet, trop vague, incorrecte, incompréhension, ou si l'étudiant demande des indices/aide au lieu de répondre.\n- Si l'étudiant demande de l'aide, des indices ou dit qu'il ne comprend pas : donne-lui un indice pédagogique qui le guide vers la bonne réponse SANS la révéler, puis termine par [CHECKPOINT_RETRY].\n- Ne génère JAMAIS de question ambiguë ou piège. La question doit avoir une réponse claire et vérifiable.\n- Sois encourageante mais honnête. Ne valide jamais une non-réponse.\n- Tu dois TOUJOURS terminer par l'un des deux tags, sans exception.`;
 
             // Send to Ella with the system hint as context
             const result = await sendChatMessage({
-                message: `[NOTEBOOK_CHECKPOINT]\nQuestion posée à l'étudiant: "${question}"\n\nRéponse de l'étudiant: "${state.response}"\n\nConsigne pour l'évaluation (NE PAS RÉVÉLER À L'ÉTUDIANT): ${hint}${evaluationInstruction}`,
+                message: courseId === "aile"
+                    ? `[NOTEBOOK_CHECKPOINT]\nQuestion posée au participant: "${question}"\n\nRéponse du participant: "${state.response}"\n\nConsigne pour l'évaluation (NE PAS RÉVÉLER AU PARTICIPANT): ${hint}${evaluationInstruction}`
+                    : `[NOTEBOOK_CHECKPOINT]\nQuestion posée à l'étudiant: "${question}"\n\nRéponse de l'étudiant: "${state.response}"\n\nConsigne pour l'évaluation (NE PAS RÉVÉLER À L'ÉTUDIANT): ${hint}${evaluationInstruction}`,
                 context: {
                     page_id: moduleId,
                     page_title: `Module ${moduleId}`,
@@ -232,6 +236,8 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                     "très bien", "bravo", "excellent", "tu as compris", "bonne réponse",
                     "correct", "bien compris", "great", "well done", "you understood",
                     "good answer", "correct answer", "nicely done",
+                    "bien noté", "c'est pertinent", "tout à fait", "point intéressant",
+                    "bon point", "pertinent", "bien identifié", "noted", "relevant", "good point",
                 ];
                 const negativeSignals = [
                     "pas tout à fait", "pas correct", "incorrect", "réessaie",
@@ -547,10 +553,10 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                                     <div>
                                         <div className="flex items-center gap-2 mb-1">
                                             <span className="text-[10px] font-black uppercase tracking-widest text-ella-primary px-2 py-0.5 bg-ella-primary/10 rounded">Checkpoint</span>
-                                            <p className="text-sm font-black text-ella-gray-900">Ella te demande...</p>
+                                            <p className="text-sm font-black text-ella-gray-900">{courseId === "aile" ? "ELLA vous demande..." : "Ella te demande..."}</p>
                                         </div>
                                         <p className="text-base font-bold text-ella-gray-700 leading-relaxed">
-                                            {dynamicQuestions[cell.id] || (lang === "fr" ? "Ella prépare ta question..." : "Ella is preparing your question...")}
+                                            {dynamicQuestions[cell.id] || (lang === "fr" ? (courseId === "aile" ? "ELLA prépare votre question..." : "Ella prépare ta question...") : "Ella is preparing your question...")}
                                         </p>
                                     </div>
                                 </div>
@@ -599,10 +605,10 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                                         <div className="space-y-4 animate-fade-in">
                                             <div className="flex items-center justify-between mb-2">
                                                 <p className="text-[10px] font-black text-ella-gray-400 uppercase tracking-widest">
-                                                    {(checkpointState[cell.id]?.attempts || 0) > 0 ? `Tentative ${(checkpointState[cell.id]?.attempts || 0)}/3` : "Ta réponse"}
+                                                    {(checkpointState[cell.id]?.attempts || 0) > 0 ? `Tentative ${(checkpointState[cell.id]?.attempts || 0)}/3` : (courseId === "aile" ? "Votre réponse" : "Ta réponse")}
                                                 </p>
                                                 {checkpointState[cell.id]?.passed === false && checkpointState[cell.id]?.submitted && (
-                                                    <span className="text-[10px] font-bold text-ella-accent uppercase animate-pulse pr-2">Corrige ta réponse ci-dessous</span>
+                                                    <span className="text-[10px] font-bold text-ella-accent uppercase animate-pulse pr-2">{courseId === "aile" ? "Corrigez votre réponse ci-dessous" : "Corrige ta réponse ci-dessous"}</span>
                                                 )}
                                             </div>
                                             <textarea
@@ -631,7 +637,7 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                                                         if (similarity > 0.6) {
                                                             e.preventDefault();
                                                             alert(lang === "fr"
-                                                                ? "Tu ne peux pas copier-coller le feedback d'Ella. Reformule avec tes propres mots !"
+                                                                ? (courseId === "aile" ? "Vous ne pouvez pas copier-coller le feedback d'ELLA. Reformulez avec vos propres mots." : "Tu ne peux pas copier-coller le feedback d'Ella. Reformule avec tes propres mots !")
                                                                 : "You can't paste Ella's feedback. Use your own words!");
                                                             return;
                                                         }
@@ -645,7 +651,9 @@ export default function Notebook({ cells, moduleId, lang, courseId = "pe" }: Not
                                                         submitted: false // Reset submitted to "clean" view for next try
                                                     }
                                                 }))}
-                                                placeholder={checkpointState[cell.id]?.submitted ? "Améliore ta réponse ici..." : "Écris ta réponse ici pour débloquer la suite..."}
+                                                placeholder={courseId === "aile"
+                                                    ? (checkpointState[cell.id]?.submitted ? "Modifiez votre réponse ici..." : "Écrivez votre réponse ici pour débloquer la suite...")
+                                                    : (checkpointState[cell.id]?.submitted ? "Améliore ta réponse ici..." : "Écris ta réponse ici pour débloquer la suite...")}
                                                 className="w-full bg-ella-gray-50 border border-ella-gray-200 rounded-2xl p-5 text-sm font-medium focus:ring-4 focus:ring-ella-primary/10 focus:border-ella-primary outline-none transition-all min-h-[120px] placeholder-ella-gray-400"
                                                 rows={3}
                                                 disabled={checkpointState[cell.id]?.loading}

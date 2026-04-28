@@ -89,6 +89,19 @@ function localize(v: string | Record<string, string>, lang: string): string {
   return typeof v === "object" ? (v[lang] || v.fr || "") : v;
 }
 
+const TUNISIAN_SECTORS = [
+  { value: "banking_finance", label: { fr: "Banque & Finance", en: "Banking & Finance" } },
+  { value: "manufacturing", label: { fr: "Industrie & Manufacturing", en: "Industry & Manufacturing" } },
+  { value: "it_telecom", label: { fr: "IT & Télécoms", en: "IT & Telecom" } },
+  { value: "commerce_retail", label: { fr: "Commerce & Distribution", en: "Commerce & Retail" } },
+  { value: "btp", label: { fr: "BTP & Immobilier", en: "Construction & Real Estate" } },
+  { value: "health_pharma", label: { fr: "Santé & Pharma", en: "Health & Pharma" } },
+  { value: "agri_food", label: { fr: "Agriculture & Agroalimentaire", en: "Agriculture & Agrifood" } },
+  { value: "tourism", label: { fr: "Tourisme & Hôtellerie", en: "Tourism & Hospitality" } },
+  { value: "education", label: { fr: "Éducation & Formation", en: "Education & Training" } },
+  { value: "other", label: { fr: "Autre", en: "Other" } },
+];
+
 const LEVEL_COLORS: Record<number, string> = {
   1: "bg-red-100 text-red-800 border-red-300",
   2: "bg-orange-100 text-orange-800 border-orange-300",
@@ -403,7 +416,7 @@ export default function MaturityDiagnosticWizard({ lang }: { lang: "fr" | "en" }
                   className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition-all"
                 >
                   <option value="">—</option>
-                  {field.options.map((opt) => (
+                  {(field.id === "sector" && (!field.options || field.options.length === 0) ? TUNISIAN_SECTORS : field.options).map((opt) => (
                     <option key={opt.value} value={opt.value}>
                       {txt(opt.label, lang)}
                     </option>

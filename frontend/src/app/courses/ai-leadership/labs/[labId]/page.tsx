@@ -39,12 +39,12 @@ const NEXT_LESSONS: Record<string, { id: string; title: { fr: string; en: string
 };
 
 const AILE_PROFILE_LABELS: Record<string, { fr: string; en: string }> = {
-  engineering: { fr: "Industrie & Technologie", en: "Industry & Technology" },
-  business: { fr: "Direction Generale", en: "General Management" },
-  health: { fr: "Sante & Pharma", en: "Health & Pharma" },
-  finance: { fr: "Finance & Banque", en: "Finance & Banking" },
-  marketing: { fr: "Marketing & Commercial", en: "Marketing & Commercial" },
-  humanities: { fr: "Services & Education", en: "Services & Education" },
+  finance: { fr: "Banque & Finance", en: "Banking & Finance" },
+  engineering: { fr: "Industrie & Manufacturing", en: "Industry & Manufacturing" },
+  health: { fr: "Santé & Pharma", en: "Health & Pharma" },
+  business: { fr: "Commerce & Services", en: "Commerce & Services" },
+  marketing: { fr: "IT & Télécoms", en: "IT & Telecom" },
+  humanities: { fr: "Éducation & Formation", en: "Education & Training" },
 };
 
 const QUALITATIVE_BADGES: Record<string, { label: { fr: string; en: string }; color: string }> = {
@@ -357,8 +357,8 @@ function AILELabContent() {
             <h2 className="text-sm font-bold text-amber-700 mb-2 uppercase tracking-wider">
               {lang === "fr" ? "Votre Mission" : "Your Mission"}
             </h2>
-            <div className="text-sm text-ella-gray-800 leading-relaxed font-medium mb-4 whitespace-pre-line">
-              {selectedMission.instructions[lang]}
+            <div className="prose prose-sm max-w-none text-ella-gray-800 leading-relaxed font-medium mb-4">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{selectedMission.instructions[lang]}</ReactMarkdown>
             </div>
             {selectedMission.hints && selectedMission.hints.length > 0 && (
               <details className="group border-t border-ella-gray-100 pt-3">
@@ -370,8 +370,8 @@ function AILELabContent() {
                 </summary>
                 <div className="space-y-2">
                   {selectedMission.hints.map((hint, i) => (
-                    <div key={i} className="bg-amber-50 rounded-lg p-3 text-xs text-amber-900 leading-relaxed italic">
-                      {typeof hint === "object" ? hint[lang] : hint}
+                    <div key={i} className="bg-amber-50 rounded-lg p-3 text-xs text-amber-900 leading-relaxed italic prose prose-sm max-w-none">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{typeof hint === "object" ? hint[lang] : hint}</ReactMarkdown>
                     </div>
                   ))}
                 </div>
@@ -386,10 +386,12 @@ function AILELabContent() {
                 <summary className="text-sm font-semibold text-ella-gray-900 cursor-pointer mb-2">
                   {lang === "fr" ? "Donnees source" : "Source data"}
                 </summary>
-                <div className="text-sm text-ella-gray-700 leading-relaxed whitespace-pre-line bg-ella-gray-100 rounded-lg p-4 max-h-64 overflow-y-auto">
-                  {typeof selectedMission.input_text === "object"
-                    ? selectedMission.input_text[lang] || selectedMission.input_text["fr"]
-                    : selectedMission.input_text}
+                <div className="text-sm text-ella-gray-700 leading-relaxed bg-ella-gray-100 rounded-lg p-4 max-h-64 overflow-y-auto prose prose-sm max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {typeof selectedMission.input_text === "object"
+                      ? selectedMission.input_text[lang] || selectedMission.input_text["fr"]
+                      : selectedMission.input_text}
+                  </ReactMarkdown>
                 </div>
               </details>
             </div>

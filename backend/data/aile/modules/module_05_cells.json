@@ -34,12 +34,12 @@
             "id": "checkpoint_01",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "Self-assessment on the Gartner AI Maturity Model",
-                "section_context": "The participant learned the 5 Gartner AI Maturity levels: Awareness (interest, overhyping risk), Active (experimentation, PoCs), Operational (AI in production), Systemic (AI pervasive, new business models), Transformational (AI-native DNA). Most Tunisian companies are at Level 1-2.",
-                "question_type": "apply_to_personal_context",
+                "topic": "Gartner AI Maturity self-assessment",
+                "section_context": "5 levels: Awareness (1), Active (2), Operational (3), Systemic (4), Transformational (5). Most Tunisian companies are Level 1-2.",
+                "question_type": "self_assessment",
                 "difficulty": "intermediate",
-                "hint": "The executive should provide concrete evidence for their self-assessment, not just pick a number. Look for specific examples of AI initiatives (or lack thereof) that justify their rating.",
-                "anti_gpt_instructions": "Ask the executive: 'Without using a formal assessment tool, rate your organization's AI maturity on the Gartner scale (1-5). Justify your rating with 3 specific pieces of evidence. For example: if you rate yourself Level 2, cite the specific PoCs or experiments underway. Then identify the ONE thing that would need to change to move to the next level, and estimate how long that transition would take.'"
+                "hint": "Any level between 1-5 with a brief justification is acceptable. This is self-assessment, not a test.",
+                "anti_gpt_instructions": "Ask: '\u00c0 quel niveau du mod\u00e8le Gartner placeriez-vous votre entreprise ? (1) Awareness, (2) Active, (3) Operational, (4) Systemic, (5) Transformational.' Accept ANY level. Then ask: 'Pourquoi ?' Accept any justification, even brief. Respond by acknowledging their assessment and giving ONE suggestion for moving to the next level."
             }
         },
         {
@@ -70,12 +70,12 @@
             "id": "checkpoint_02",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "PoC design and change management planning",
-                "section_context": "The participant learned 7 rules for a good PoC (clear scope, data available, sponsor, success criteria, go/no-go, limited duration, mixed team) and 5 change management resistances with concrete responses. Budget rule: 50% tech, 50% change management.",
-                "question_type": "synthesis",
-                "difficulty": "advanced",
-                "hint": "The executive should design a specific PoC with all 7 elements AND identify the most likely resistance from their teams. Generic PoC descriptions without go/no-go criteria are insufficient.",
-                "anti_gpt_instructions": "Ask the executive: 'Design a PoC for your #1 priority AI use case. Fill in all 7 elements: (1) The specific problem, (2) Data sources available today, (3) Who is the executive sponsor, (4) Success criteria (quantified), (5) Go/no-go criteria, (6) Duration in weeks, (7) Team composition (names or roles). Then: which of the 5 resistances will be strongest in your organization, and what is your specific plan to address it in the first 2 weeks?'"
+                "topic": "PoC design essentials",
+                "section_context": "7 rules of a good PoC: clear scope, data available, sponsor, success criteria, go/no-go, limited duration, mixed team.",
+                "question_type": "recall",
+                "difficulty": "intermediate",
+                "hint": "The participant should name at least 3 out of 7 rules. Accept approximate formulations.",
+                "anti_gpt_instructions": "Ask: 'Citez 3 \u00e9l\u00e9ments essentiels pour qu\u2019un PoC IA ne finisse pas au cimeti\u00e8re des PoCs.' Accept ANY 3 of the 7 rules, even if worded differently (e.g., 'quelqu\u2019un qui porte le projet' = sponsor, 'd\u00e9finir quand on arr\u00eate' = go/no-go criteria, 'pas trop long' = limited duration). Congratulate and briefly mention the ones they missed."
             }
         },
         {
@@ -94,12 +94,12 @@
             "id": "checkpoint_03",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "Personal 12-month AI transformation plan",
-                "section_context": "The participant learned a 4-quarter plan: Q1 (foundations: vision, use cases, data assessment, policy), Q2 (first PoC, training), Q3 (industrialization, first production model, monitoring), Q4 (results measurement, acceleration, year 2 planning). Budget: 250-500K TND for a typical Tunisian company.",
-                "question_type": "apply_to_personal_context",
-                "difficulty": "advanced",
-                "hint": "The executive should produce a concrete, personalized plan — not a copy of the template. Look for specific use cases, specific team members or roles, and realistic budget estimates tied to their actual organization. A plan without budget or timeline is not actionable.",
-                "anti_gpt_instructions": "Ask the executive: 'Draft YOUR 12-month AI transformation plan. For each quarter, specify: (1) The main objective, (2) One concrete deliverable, (3) The person or role responsible, and (4) The estimated budget in TND. Your plan must reflect your actual starting point (what Gartner level you assessed earlier) and your specific sector constraints. At the end, state the ONE metric you will use to declare success or failure at Month 12.'"
+                "topic": "First action for AI transformation",
+                "section_context": "12-month plan: Q1 foundations, Q2 first PoC, Q3 industrialization, Q4 acceleration. Start with vision + use cases + data assessment.",
+                "question_type": "open_personal_short",
+                "difficulty": "intermediate",
+                "hint": "Any concrete first action is acceptable. This is about commitment, not perfection.",
+                "anti_gpt_instructions": "Ask: 'Quelle serait votre premi\u00e8re action concr\u00e8te lundi matin pour lancer votre programme IA ?' Accept ANY concrete action: 'parler au DSI', 'identifier un use case', 'demander un budget', 'lire le rapport McKinsey', 'nommer un responsable'. Even 'en discuter avec mon \u00e9quipe' is valid. The only invalid answer is 'I don\u2019t know' with no engagement. Respond by connecting their action to the Q1 phase of the 12-month plan."
             }
         },
         {

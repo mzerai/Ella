@@ -25,12 +25,12 @@
             "id": "checkpoint_01",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "The 5 converging pressures and their relative urgency",
-                "section_context": "The participant learned about 5 pressures: competitive disruption, growing regulation, talent crisis, investment risk, and organizational transformation. All converge simultaneously, creating urgency.",
-                "question_type": "apply_to_personal_context",
+                "topic": "The 5 converging pressures",
+                "section_context": "5 pressures: competitive disruption, growing regulation, talent crisis, investment risk, organizational transformation.",
+                "question_type": "ranking",
                 "difficulty": "intermediate",
-                "hint": "The executive should rank based on their specific sector and company, not generically. Look for concrete justifications tied to their business reality. A generic ranking without sector context is insufficient.",
-                "anti_gpt_instructions": "Ask the executive: 'Rank the 5 pressures by order of urgency for YOUR organization specifically (1 = most urgent). For your top 3, give one concrete example from your sector or company that illustrates why this pressure is urgent NOW. For example: if competitive disruption is #1, name the competitor or new entrant and what they are doing with AI.'"
+                "hint": "There is no single correct ranking \u2014 it depends on the participant's sector. Any ranking with a brief justification for #1 is acceptable.",
+                "anti_gpt_instructions": "Ask: 'Parmi les 5 pressions (disruption comp\u00e9titive, r\u00e9gulation, crise de talents, risque d\u2019investissement, transformation organisationnelle), laquelle est LA plus urgente pour votre secteur ? Pourquoi en une phrase ?' Accept ANY of the 5 as the answer, as long as the justification is related to their sector. This is a personal reflection, not a test with a correct answer."
             }
         },
         {
@@ -58,12 +58,12 @@
             "id": "checkpoint_02",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "AI-enhanced vs AI-native strategic choice",
-                "section_context": "The participant learned the difference between AI-enhanced (adding AI as a layer, 5-15% gains) and AI-native (redesigning processes around AI, 30-60% gains). 4 structural advantages: compressed decision cycles, near-zero marginal cost, personalization at scale, continuous learning.",
-                "question_type": "synthesis",
+                "topic": "AI-enhanced vs AI-native",
+                "section_context": "AI-enhanced = adding AI layer (5-15% gains). AI-native = redesigning processes around AI (30-60% gains).",
+                "question_type": "single_choice",
                 "difficulty": "intermediate",
-                "hint": "The executive should identify a specific process in their organization, explain why AI-native would be superior to AI-enhanced for that process, AND acknowledge the challenges of the transition. A generic answer without a specific process is insufficient.",
-                "anti_gpt_instructions": "Ask the executive: 'Choose ONE core process in your organization (e.g., customer onboarding, quality control, report generation, risk assessment). Describe in 3-4 sentences how this process works today (AI-enhanced or no AI at all). Then describe how it would work if redesigned as AI-native. Finally, identify the #1 obstacle to making this transition happen in your organization.'"
+                "hint": "Comprehension check on the two approaches.",
+                "anti_gpt_instructions": "Ask: 'Quelle approche produit les gains les plus importants ? (a) AI-enhanced : ajouter l\u2019IA sur les processus existants, (b) AI-native : reconcevoir les processus autour de l\u2019IA.' Correct answer is (b). Then ask: 'Citez un processus de votre entreprise qui pourrait \u00eatre repens\u00e9 en mode AI-native.' Accept any reasonable process mention."
             }
         },
         {
@@ -115,12 +115,12 @@
             "id": "checkpoint_03",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "AI strategy alignment framework applied to the executive's organization",
-                "section_context": "The participant learned a 4-step framework: (1) start from business objectives, (2) identify frictions, (3) assess AI potential (data? impact? ROI?), (4) build a balanced portfolio (quick wins + strategic projects). Also learned 5 classic strategic mistakes: AI without data, without sponsor, too ambitious, without change management, eternal PoC.",
-                "question_type": "apply_to_personal_context",
-                "difficulty": "advanced",
-                "hint": "The executive should apply the framework concretely: name real business objectives, real frictions, and propose at least 1 quick win and 1 strategic project. Generic answers like 'improve efficiency with AI' are insufficient. Look for specificity.",
-                "anti_gpt_instructions": "Ask the executive: 'Apply the 4-step framework to YOUR organization right now. (1) Name your top 2 business priorities for the next 12 months. (2) For each, identify the biggest friction. (3) For each friction, answer the 3 AI potential questions (data available? AI can help? ROI justified?). (4) Based on this analysis, propose 1 quick win (achievable in 2-3 months) and 1 strategic project (6-12 months). For each, estimate the investment and expected gain in concrete terms.'"
+                "topic": "AI strategy alignment",
+                "section_context": "4-step framework: business objectives \u2192 frictions \u2192 AI potential \u2192 portfolio (quick wins + strategic projects).",
+                "question_type": "open_personal_short",
+                "difficulty": "intermediate",
+                "hint": "The participant should name a real friction in their organization. Any honest answer is valid.",
+                "anti_gpt_instructions": "Ask: 'Nommez UN processus dans votre entreprise o\u00f9 vous perdez du temps, de l\u2019argent, ou de la qualit\u00e9 \u2014 et o\u00f9 l\u2019IA pourrait aider.' Accept ANY process or friction mention. This is not about getting it right \u2014 it\u2019s about getting the participant to think about their own organization. Respond by briefly connecting their answer to the 4-step framework."
             }
         },
         {

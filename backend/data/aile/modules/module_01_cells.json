@@ -25,12 +25,12 @@
             "id": "checkpoint_01",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "AI myths and their impact on executive decision-making",
-                "section_context": "The participant learned 5 dangerous AI myths: AI is intelligent (no, it's pattern recognition), AI replaces employees (it automates tasks not jobs), AI is objective (it amplifies data biases), you need millions to start (false in 2025), and the CIO handles it (AI strategy is a C-suite decision).",
-                "question_type": "apply_to_personal_context",
+                "topic": "AI myths identification",
+                "section_context": "The participant learned 5 dangerous AI myths: AI is intelligent, AI replaces employees, AI is objective, you need millions, the CIO handles it.",
+                "question_type": "true_false",
                 "difficulty": "beginner",
-                "hint": "The executive should show they understand the myth-reality distinction and connect it to a real situation they've witnessed or could face. A generic restatement of the myths is insufficient.",
-                "anti_gpt_instructions": "Present this scenario: 'Your HR Director sends you this email: We should invest in an AI tool for recruitment. The vendor says it eliminates human bias and will reduce our hiring costs by 50% in 6 months. I recommend we approve the 300K TND budget.' Write a 5-line response referencing at least 2 specific myths from this lesson that the HR Director has fallen for. Your response must explain WHY each claim is problematic, not just say it's a myth."
+                "hint": "Simple true/false. Accept the answer and explain briefly.",
+                "anti_gpt_instructions": "Ask: 'Vrai ou Faux ? \"L\u2019IA est objective et ne discrimine pas.\"' The correct answer is Faux (AI reproduces biases from training data). Accept 'Faux' or any equivalent ('Non', 'Faux, parce que...'). If they answer correctly, ask a brief follow-up: 'Pouvez-vous imaginer un cas dans votre secteur o\u00f9 ce biais serait probl\u00e9matique ?' Accept any reasonable answer to the follow-up."
             }
         },
         {
@@ -58,12 +58,12 @@
             "id": "checkpoint_02",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "ML vs DL vs GenAI — choosing the right technology for a business problem",
-                "section_context": "The participant learned: ML = structured data, prediction/classification. DL = complex data (images, text), recognition/analysis. GenAI = natural language, generation/synthesis. Each has specific strengths and limitations. Hallucinations are GenAI's #1 business risk.",
-                "question_type": "analysis",
-                "difficulty": "intermediate",
-                "hint": "The executive should correctly match each use case to the right technology AND explain why the alternatives wouldn't work. Mixing up ML and GenAI is a common error to watch for.",
-                "anti_gpt_instructions": "Present these 3 business scenarios and ask the executive to assign the correct AI type (ML, DL, or GenAI) to each, with a 1-sentence justification:\n\n1. Your factory needs to detect defective products on the assembly line using camera feeds.\n2. Your bank needs to predict which customers are likely to default on their loans next quarter, based on 5 years of transaction history.\n3. Your legal department spends 200 hours/month summarizing contract clauses for compliance review.\n\nThen ask: 'For scenario 3, what is the critical risk the legal team must manage, and what safeguard would you put in place?'"
+                "topic": "ML vs DL vs GenAI classification",
+                "section_context": "ML = structured data, prediction. DL = complex data, recognition. GenAI = content generation. Each has specific use cases.",
+                "question_type": "classification",
+                "difficulty": "beginner",
+                "hint": "Simple matching exercise. Accept 2 out of 3 correct.",
+                "anti_gpt_instructions": "Ask: 'Associez chaque t\u00e2che \u00e0 la bonne technologie (ML, Deep Learning, ou IA G\u00e9n\u00e9rative) : (A) Pr\u00e9dire quels clients vont r\u00e9silier leur abonnement, (B) R\u00e9diger automatiquement un r\u00e9sum\u00e9 de r\u00e9union, (C) D\u00e9tecter des d\u00e9fauts visuels sur une cha\u00eene de production.' Correct: A=ML, B=GenAI, C=Deep Learning. Accept if at least 2/3 correct. Brief correction for errors."
             }
         },
         {
@@ -103,12 +103,12 @@
             "id": "checkpoint_03",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "Executive vs CIO vs Data team responsibilities in AI",
-                "section_context": "The participant learned that AI strategy cannot be delegated: the CIO lacks business vision, the data scientist lacks strategic context, the consultant lacks company knowledge. The CEO/DG is the only one with the complete picture. The responsibility matrix shows that vision, budget, use case selection, and governance are CEO-level decisions.",
-                "question_type": "apply_to_personal_context",
-                "difficulty": "intermediate",
-                "hint": "The executive should demonstrate they understand the delegation trap and can articulate specific actions they would take to stay involved without micromanaging.",
-                "anti_gpt_instructions": "Ask the executive: 'In your organization today, who is de facto in charge of AI decisions? Describe the current situation in 2-3 sentences. Then explain what you would change in the first 30 days to ensure AI strategy is driven at the right level, with one specific action per week for 4 weeks. Your actions must be concrete and realistic — not generic statements like \"create an AI committee\".'"
+                "topic": "Who should lead AI strategy",
+                "section_context": "The CIO lacks business vision, the data scientist lacks strategic context. The CEO/DG is the only one with the complete picture.",
+                "question_type": "single_choice",
+                "difficulty": "beginner",
+                "hint": "Comprehension check on the responsibility matrix.",
+                "anti_gpt_instructions": "Ask: 'Qui devrait piloter la strat\u00e9gie IA dans votre organisation ? (a) Le DSI / CTO, (b) Le data scientist senior, (c) Le CEO / DG, (d) Un consultant externe.' Correct answer is (c). If correct, briefly reinforce why. If wrong, explain using the responsibility matrix. Do NOT require a detailed justification."
             }
         },
         {
@@ -127,12 +127,12 @@
             "id": "checkpoint_04",
             "type": "ella_checkpoint",
             "checkpoint_config": {
-                "topic": "Executive AI vocabulary applied to a real scenario",
-                "section_context": "The participant learned 15 key AI terms: LLM, prompt, hallucination, RAG, fine-tuning, API, token, PoC, MLOps, algorithmic bias, explainability, TCO, ROI, data governance, AI-native.",
-                "question_type": "synthesis",
+                "topic": "AI vocabulary applied to a scenario",
+                "section_context": "The participant learned 15 key AI terms including hallucination, RAG, TCO, PoC, MLOps.",
+                "question_type": "fill_in_the_blank",
                 "difficulty": "intermediate",
-                "hint": "The executive should correctly use at least 4 terms from the vocabulary in context, demonstrating they understand the meaning, not just the definition. Look for correct usage of terms like hallucination, TCO, PoC, RAG in a business context.",
-                "anti_gpt_instructions": "Ask the executive: 'You just left a meeting where your CTO proposed the following plan: Build a chatbot for customer service using an LLM API with RAG on your internal knowledge base. Budget: 80K TND for a 6-week PoC. Write 4 questions you would ask your CTO to challenge this proposal. Each question must use at least one term from the vocabulary you learned, and must reveal a specific risk or blind spot in the proposal.'"
+                "hint": "The participant should recognize the term from context. Accept approximate answers.",
+                "anti_gpt_instructions": "Ask: 'Compl\u00e9tez : Quand un LLM g\u00e9n\u00e8re une information fausse mais convaincante, on appelle \u00e7a une ___.' The correct answer is 'hallucination'. Accept: hallucination, hallucinations, une hallucination, halluciner, etc. Then ask: 'Pourquoi est-ce un risque pour un usage business ?' Accept any reasonable answer (decisions based on false info, legal risk, reputation, etc.)."
             }
         },
         {
