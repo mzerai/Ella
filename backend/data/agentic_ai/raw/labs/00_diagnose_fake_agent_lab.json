@@ -1,0 +1,47 @@
+{
+  "lab_id": "00_diagnose_fake_agent_lab",
+  "course_id": "ella_tech_agentic_ai_enterprise_workflows",
+  "title": {
+    "fr": "Lab 0 — Diagnostiquer un faux agent",
+    "en": "Lab 0 — Diagnose a Fake Agent"
+  },
+  "description": {
+    "fr": "L’apprenant classe plusieurs systèmes IA selon leur niveau réel d’agenticité.",
+    "en": "The learner classifies several AI systems according to their real level of agency."
+  },
+  "concept": {
+    "fr": "Distinguer chatbot, assistant, workflow automatisé, agent IA et système multi-agents.",
+    "en": "Distinguish chatbot, assistant, automated workflow, AI agent, and multi-agent system."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "classify_agentic_systems",
+      "title": {
+        "fr": "Classer cinq systèmes IA",
+        "en": "Classify five AI systems"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Classez chaque cas et justifiez votre choix selon les critères : réponse, action, outils, autonomie, validation humaine et traçabilité.",
+        "en": "Classify each case and justify your choice using these criteria: response, action, tools, autonomy, human validation, and traceability."
+      },
+      "hints": [
+        {
+          "fr": "Un système qui répond seulement n’est pas un agent.",
+          "en": "A system that only answers is not an agent."
+        },
+        {
+          "fr": "Un workflow fixe peut automatiser sans être agentique.",
+          "en": "A fixed workflow can automate without being agentic."
+        },
+        {
+          "fr": "Un agent agit dans un cadre, avec outils et garde-fous.",
+          "en": "An agent acts within a frame, with tools and guardrails."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "lab_id": "06_agentic_risk_review_lab",
+  "course_id": "ella_tech_agentic_ai_enterprise_workflows",
+  "title": {
+    "fr": "Lab 6 — Revue de risques agentiques",
+    "en": "Lab 6 — Agentic Risk Review"
+  },
+  "description": {
+    "fr": "L’apprenant réalise une revue de risques pour un agent d’entreprise et propose les garde-fous nécessaires.",
+    "en": "The learner performs a risk review for an enterprise agent and proposes the necessary guardrails."
+  },
+  "concept": {
+    "fr": "Sécurité, gouvernance, conformité, données personnelles, logs, secrets, human-in-the-loop, rollback.",
+    "en": "Security, governance, compliance, personal data, logs, secrets, human-in-the-loop, rollback."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "perform_agentic_risk_review",
+      "title": {
+        "fr": "Réaliser une revue de risques agentiques",
+        "en": "Perform an agentic risk review"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Analysez un agent RH, finance, support, CRM, admission ou conformité. Identifiez accès à refuser, sources autorisées, données sensibles, actions, validations, garde-fous, logs, secrets, mode observation, rollback et gouvernance.",
+        "en": "Analyze an HR, finance, support, CRM, admission, or compliance agent. Identify access to refuse, authorized sources, sensitive data, actions, validations, guardrails, logs, secrets, observation mode, rollback, and governance."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par réduire le périmètre acceptable de l’agent.",
+          "en": "Start by reducing the acceptable scope of the agent."
+        },
+        {
+          "fr": "Séparez les garde-fous techniques et organisationnels.",
+          "en": "Separate technical and organizational guardrails."
+        },
+        {
+          "fr": "La validation humaine doit être placée avant les actions sensibles.",
+          "en": "Human validation must be placed before sensitive actions."
+        },
+        {
+          "fr": "Les logs doivent être utiles, mais protégés.",
+          "en": "Logs must be useful, but protected."
+        }
+      ]
+    }
+  ]
+}

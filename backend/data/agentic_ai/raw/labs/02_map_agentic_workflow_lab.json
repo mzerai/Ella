@@ -1,0 +1,51 @@
+{
+  "lab_id": "02_map_agentic_workflow_lab",
+  "course_id": "ella_tech_agentic_ai_enterprise_workflows",
+  "title": {
+    "fr": "Lab 2 — Cartographier un workflow agentique",
+    "en": "Lab 2 — Map an Agentic Workflow"
+  },
+  "description": {
+    "fr": "L’apprenant transforme un processus métier en workflow agentique contrôlé.",
+    "en": "The learner transforms a business process into a controlled agentic workflow."
+  },
+  "concept": {
+    "fr": "Structurer déclencheur, qualification, contexte, outils, décisions, validations, actions, traces et suivi.",
+    "en": "Structure trigger, qualification, context, tools, decisions, validations, actions, traces, and follow-up."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "map_controlled_agentic_workflow",
+      "title": {
+        "fr": "Cartographier un workflow agentique prudent",
+        "en": "Map a cautious agentic workflow"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Choisissez un processus métier et produisez une cartographie structurée avec étapes, outils, décisions, validations, exceptions, logs et métriques.",
+        "en": "Choose a business process and produce a structured map with steps, tools, decisions, validations, exceptions, logs, and metrics."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par le processus réel, pas par l’agent.",
+          "en": "Start with the real process, not with the agent."
+        },
+        {
+          "fr": "Placez la validation humaine sur les actions sensibles.",
+          "en": "Place human validation on sensitive actions."
+        },
+        {
+          "fr": "Confiez les règles strictes au code.",
+          "en": "Assign strict rules to code."
+        },
+        {
+          "fr": "Définissez des sorties exploitables.",
+          "en": "Define usable outputs."
+        }
+      ]
+    }
+  ]
+}

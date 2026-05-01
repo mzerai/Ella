@@ -1,0 +1,51 @@
+{
+  "lab_id": "08_enterprise_agent_pilot_plan_lab",
+  "course_id": "ella_tech_agentic_ai_enterprise_workflows",
+  "title": {
+    "fr": "Lab 8 — Construire le plan pilote d’un agent d’entreprise",
+    "en": "Lab 8 — Build an Enterprise Agent Pilot Plan"
+  },
+  "description": {
+    "fr": "L’apprenant construit un plan pilote 60/90 jours pour un agent IA d’entreprise.",
+    "en": "The learner builds a 60/90-day pilot plan for an enterprise AI agent."
+  },
+  "concept": {
+    "fr": "Prototype, pilote, production, périmètre, rôles, communication, support, KPI, décision finale.",
+    "en": "Prototype, pilot, production, scope, roles, communication, support, KPIs, final decision."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "build_enterprise_agent_pilot_plan",
+      "title": {
+        "fr": "Construire un plan de pilote agentique",
+        "en": "Build an agentic pilot plan"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Proposez un pilote limité et gouverné avec périmètre, rôles, calendrier, communication, support, KPI, risques, garde-fous et critères de décision finale.",
+        "en": "Propose a limited and governed pilot with scope, roles, calendar, communication, support, KPIs, risks, guardrails, and final decision criteria."
+      },
+      "hints": [
+        {
+          "fr": "Refusez le déploiement large immédiat.",
+          "en": "Reject immediate wide deployment."
+        },
+        {
+          "fr": "Commencez par observation ou assistance.",
+          "en": "Start with observation or assistance."
+        },
+        {
+          "fr": "Les KPI doivent mesurer valeur et risque.",
+          "en": "KPIs must measure value and risk."
+        },
+        {
+          "fr": "La décision finale doit être documentée.",
+          "en": "The final decision must be documented."
+        }
+      ]
+    }
+  ]
+}

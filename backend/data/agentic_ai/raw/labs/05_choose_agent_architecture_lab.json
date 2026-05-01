@@ -1,0 +1,51 @@
+{
+  "lab_id": "05_choose_agent_architecture_lab",
+  "course_id": "ella_tech_agentic_ai_enterprise_workflows",
+  "title": {
+    "fr": "Lab 5 — Choisir l’architecture agentique",
+    "en": "Lab 5 — Choose the Agentic Architecture"
+  },
+  "description": {
+    "fr": "L’apprenant choisit l’architecture agentique adaptée à plusieurs cas d’entreprise.",
+    "en": "The learner chooses the suitable agentic architecture for several enterprise cases."
+  },
+  "concept": {
+    "fr": "Workflow déterministe, agent unique, routeur, superviseur, handoffs, orchestrator-workers, evaluator-optimizer.",
+    "en": "Deterministic workflow, single agent, router, supervisor, handoffs, orchestrator-workers, evaluator-optimizer."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "choose_architecture_for_enterprise_cases",
+      "title": {
+        "fr": "Choisir une architecture pour cinq cas",
+        "en": "Choose an architecture for five cases"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Pour chaque cas, choisissez une architecture, justifiez-la par la complexité et le risque, puis indiquez données sensibles, outils, validation humaine, logs et mode dégradé.",
+        "en": "For each case, choose an architecture, justify it through complexity and risk, then specify sensitive data, tools, human validation, logs, and degraded mode."
+      },
+      "hints": [
+        {
+          "fr": "Choisissez la solution minimale qui fonctionne.",
+          "en": "Choose the minimal solution that works."
+        },
+        {
+          "fr": "Plus il y a d’agents, plus la gouvernance doit être claire.",
+          "en": "The more agents you add, the clearer governance must be."
+        },
+        {
+          "fr": "Un handoff transfère la responsabilité.",
+          "en": "A handoff transfers responsibility."
+        },
+        {
+          "fr": "Un superviseur peut garder la responsabilité finale.",
+          "en": "A supervisor can keep final responsibility."
+        }
+      ]
+    }
+  ]
+}
