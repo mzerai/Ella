@@ -1,0 +1,51 @@
+{
+  "lab_id": "01_decompose_enterprise_agent_lab",
+  "course_id": "ella_tech_agentic_ai_enterprise_workflows",
+  "title": {
+    "fr": "Lab 1 — Décomposer un agent d’entreprise",
+    "en": "Lab 1 — Decompose an Enterprise Agent"
+  },
+  "description": {
+    "fr": "L’apprenant transforme une demande vague d’agent autonome en spécification agentique contrôlée.",
+    "en": "The learner turns a vague request for an autonomous agent into a controlled agentic specification."
+  },
+  "concept": {
+    "fr": "Décomposer un agent en objectif, données, outils, permissions, garde-fous, logs et métriques.",
+    "en": "Decompose an agent into objective, data, tools, permissions, guardrails, logs, and metrics."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "decompose_internal_support_agent",
+      "title": {
+        "fr": "Spécifier un agent de support interne",
+        "en": "Specify an internal support agent"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "### Scénario\nUne organisation veut créer un **agent de support interne** qui reçoit des demandes collaborateurs (IT, RH, logistique), cherche dans la base documentaire, propose une réponse et crée une note dans le système de ticketing. La direction demande que l'agent soit le plus 'autonome' possible.\n\n### Votre mission\nDécomposez cet agent en sections structurées : objectif précis, utilisateurs, données autorisées, outils nécessaires (lecture vs écriture), actions, validations humaines, logs à conserver, risques identifiés, garde-fous et métriques de succès.",
+        "en": "### Scenario\nAn organization wants to create an **internal support agent** that receives employee requests (IT, HR, logistics), searches the knowledge base, proposes a response, and creates a note in the ticketing system. Management wants the agent to be as 'autonomous' as possible.\n\n### Your Mission\nDecompose this agent into structured sections: precise objective, users, authorized data, necessary tools (read vs write), actions, human validations, logs to keep, identified risks, guardrails, and success metrics."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par limiter l’objectif. Un agent autonome sans périmètre est risqué.",
+          "en": "Start by limiting the objective. An autonomous agent without scope is risky."
+        },
+        {
+          "fr": "Séparez les outils de lecture et d’écriture.",
+          "en": "Separate read tools and write tools."
+        },
+        {
+          "fr": "Définissez ce qui nécessite une validation humaine.",
+          "en": "Define what requires human validation."
+        },
+        {
+          "fr": "Ajoutez des métriques mesurables : classification, escalade, erreurs, satisfaction, temps gagné.",
+          "en": "Add measurable metrics: classification, escalation, errors, satisfaction, time saved."
+        }
+      ]
+    }
+  ]
+}

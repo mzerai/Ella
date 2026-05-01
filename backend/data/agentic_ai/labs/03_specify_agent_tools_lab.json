@@ -1,0 +1,51 @@
+{
+  "lab_id": "03_specify_agent_tools_lab",
+  "course_id": "ella_tech_agentic_ai_enterprise_workflows",
+  "title": {
+    "fr": "Lab 3 — Spécifier les outils d’un agent",
+    "en": "Lab 3 — Specify Agent Tools"
+  },
+  "description": {
+    "fr": "L’apprenant remplace un outil trop large par cinq outils spécialisés, limités et auditables.",
+    "en": "The learner replaces an overly broad tool with five specialized, limited, and auditable tools."
+  },
+  "concept": {
+    "fr": "Tool calling, permissions, entrées, sorties, erreurs, logs, validation humaine.",
+    "en": "Tool calling, permissions, inputs, outputs, errors, logs, human validation."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "specify_five_agent_tools",
+      "title": {
+        "fr": "Spécifier cinq outils d’agent",
+        "en": "Specify five agent tools"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Refusez l’outil access_all_systems et proposez cinq outils spécialisés avec objectif, type, entrées, sorties, permissions, risques, garde-fous, erreurs, logs et validation humaine.",
+        "en": "Reject the access_all_systems tool and propose five specialized tools with objective, type, inputs, outputs, permissions, risks, guardrails, errors, logs, and human validation."
+      },
+      "hints": [
+        {
+          "fr": "Séparez lecture, écriture et envoi.",
+          "en": "Separate reading, writing, and sending."
+        },
+        {
+          "fr": "Prévoyez les erreurs d’outil.",
+          "en": "Plan tool errors."
+        },
+        {
+          "fr": "Limitez les données retournées par les outils.",
+          "en": "Limit the data returned by tools."
+        },
+        {
+          "fr": "Les permissions doivent être vérifiées côté système.",
+          "en": "Permissions must be checked on the system side."
+        }
+      ]
+    }
+  ]
+}

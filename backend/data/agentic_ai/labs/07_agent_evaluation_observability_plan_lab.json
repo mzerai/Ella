@@ -1,0 +1,51 @@
+{
+  "lab_id": "07_agent_evaluation_observability_plan_lab",
+  "course_id": "ella_tech_agentic_ai_enterprise_workflows",
+  "title": {
+    "fr": "Lab 7 — Plan d’évaluation et d’observabilité",
+    "en": "Lab 7 — Agent Evaluation and Observability Plan"
+  },
+  "description": {
+    "fr": "L’apprenant construit un plan d’évaluation, d’observabilité, de seuils de passage en pilote et de rollback pour un agent d’entreprise.",
+    "en": "The learner builds an evaluation, observability, pilot-threshold, and rollback plan for an enterprise agent."
+  },
+  "concept": {
+    "fr": "Évaluations, traces, graders, tests de régression, observabilité, feedback, seuils, rollback.",
+    "en": "Evals, traces, graders, regression tests, observability, feedback, thresholds, rollback."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "build_agent_eval_observability_plan",
+      "title": {
+        "fr": "Construire un plan d’évaluation d’agent",
+        "en": "Build an agent evaluation plan"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Produisez un plan complet avec dataset de tests, cas sensibles, cas hostiles, métriques, graders, traces, dashboard, feedback, tests de régression, seuils et rollback.",
+        "en": "Produce a full plan with test dataset, sensitive cases, hostile cases, metrics, graders, traces, dashboard, feedback, regression tests, thresholds, and rollback."
+      },
+      "hints": [
+        {
+          "fr": "Évaluez le chemin agentique, pas seulement la réponse.",
+          "en": "Evaluate the agentic path, not only the answer."
+        },
+        {
+          "fr": "Les traces doivent montrer outils, erreurs, validations et versions.",
+          "en": "Traces should show tools, errors, validations, and versions."
+        },
+        {
+          "fr": "Les seuils doivent bloquer le pilote si le risque reste élevé.",
+          "en": "Thresholds should block the pilot if risk remains high."
+        },
+        {
+          "fr": "Le rollback doit être testé.",
+          "en": "Rollback must be tested."
+        }
+      ]
+    }
+  ]
+}

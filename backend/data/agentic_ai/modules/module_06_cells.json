@@ -1,0 +1,85 @@
+{
+  "module_id": "06_security_governance_compliance",
+  "title": {"fr": "Sécurité, gouvernance et conformité des agents IA", "en": "Security, Governance, and Compliance for AI Agents"},
+  "description": {
+    "fr": "Identifier les risques d'un agent IA, définir les garde-fous techniques et organisationnels, et respecter le cadre tunisien de protection des données.",
+    "en": "Identify AI agent risks, define technical and organizational guardrails, and respect the Tunisian personal data protection framework."
+  },
+  "cells": [
+    {
+      "id": "intro_06",
+      "type": "content",
+      "title": {"fr": "Pourquoi les agents augmentent le risque", "en": "Why agents increase risk"},
+      "content": {
+        "fr": "Un chatbot classique répond à l'utilisateur. Un agent outillé peut agir. Cette différence change tout.\n\nUn agent peut : accéder à des données, choisir un outil, interpréter une règle, préparer une action, écrire dans un système, transmettre une information, demander une validation, laisser une trace, déclencher une suite de workflow.\n\nChaque étape peut créer une erreur :\n- l'agent lit une donnée qu'il ne devrait pas voir ;\n- il utilise une source obsolète ;\n- il appelle le mauvais outil ;\n- il oublie une validation humaine ;\n- il envoie une réponse non validée ;\n- il mémorise une donnée sensible ;\n- il expose une information personnelle ;\n- il modifie un statut par erreur.\n\nPlus l'agent agit, plus la gouvernance devient importante.\n\n> Ces risques doivent être traités avant le pilote, pas après l'incident.",
+        "en": "A classic chatbot answers the user. A tool-using agent can act. This difference changes everything.\n\nAn agent can: access data, choose a tool, interpret a rule, prepare an action, write into a system, transmit information, request validation, leave a trace, trigger the next workflow step.\n\nEach step can create an error:\n- the agent reads data it should not see;\n- it uses an obsolete source;\n- it calls the wrong tool;\n- it forgets human validation;\n- it sends an unapproved response;\n- it stores sensitive data in memory;\n- it exposes personal information;\n- it changes a status by mistake.\n\nThe more the agent acts, the more governance matters.\n\n> These risks must be handled before the pilot, not after an incident."
+      }
+    },
+    {
+      "id": "content_06_02",
+      "type": "content",
+      "title": {"fr": "Sécurité, gouvernance, conformité — trois niveaux à distinguer", "en": "Security, governance, compliance — three levels to distinguish"},
+      "content": {
+        "fr": "### Sécurité\nProtège les systèmes, données et accès.\n- Qui peut utiliser l'agent ?\n- À quelles données peut-il accéder ?\n- Quels outils peut-il appeler ?\n- Les secrets sont-ils protégés ?\n- Les logs sont-ils conservés ?\n\n### Gouvernance\nDéfinit les responsabilités, règles et décisions.\n- Qui possède l'agent ?\n- Qui valide les sources et outils ?\n- Qui surveille les performances ?\n- Qui arrête l'agent en cas de problème ?\n\n### Conformité\nVérifie que l'usage respecte les lois, règles internes, contrats et obligations sectorielles.\n- L'agent traite-t-il des données personnelles ?\n- L'agent touche-t-il à des décisions sensibles ?\n- Les droits d'accès sont-ils justifiés ?\n- Les décisions sont-elles auditables ?\n\nCes trois niveaux se renforcent. Ils ne doivent pas être traités séparément.",
+        "en": "### Security\nProtects systems, data, and access.\n- Who can use the agent?\n- Which data can it access?\n- Which tools can it call?\n- Are secrets protected?\n- Are logs retained?\n\n### Governance\nDefines responsibilities, rules, and decisions.\n- Who owns the agent?\n- Who validates sources and tools?\n- Who monitors performance?\n- Who stops the agent if there is a problem?\n\n### Compliance\nChecks that use respects laws, internal rules, contracts, and sector obligations.\n- Does the agent process personal data?\n- Does the agent affect sensitive decisions?\n- Are access rights justified?\n- Are decisions auditable?\n\nThese three levels reinforce each other. They should not be handled separately."
+      }
+    },
+    {
+      "id": "checkpoint_06_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Security, governance, compliance — three distinct levels",
+        "section_context": "The learner read that security, governance, and compliance are three distinct levels for managing AI agent risk. Security protects systems and data. Governance defines responsibilities and decision ownership. Compliance checks legal and contractual alignment. Each level has specific questions to answer before deploying an agent.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "intermediate",
+        "hint": "A valid answer correctly assigns each gap to the right level (security, governance, or compliance) and explains what concrete action is missing.",
+        "anti_gpt_instructions": "Describe this agent deployment: 'Our agent accesses all HR data, sends emails on behalf of managers, and keeps conversation logs indefinitely. Nobody has been named as the agent owner. We have not checked whether the agent complies with data protection rules. The API keys are included in the system prompt.' Ask the learner to identify which gaps belong to security, governance, and compliance respectively, and what must be corrected at each level. Do NOT ask about architecture, RAG, memory, or evaluation."
+      }
+    },
+    {
+      "id": "content_06_03",
+      "type": "content",
+      "title": {"fr": "Données personnelles et contexte tunisien", "en": "Personal data and Tunisian context"},
+      "content": {
+        "fr": "En Tunisie, la loi organique n°2004-63 place la protection des données personnelles parmi les droits fondamentaux. Un agent qui accède à des données RH, clients, étudiants, candidats, patients, employés ou fournisseurs doit être conçu avec prudence.\n\n**Règles pratiques :**\n- collecter le minimum nécessaire ;\n- limiter l'accès selon le rôle ;\n- éviter les exports massifs ;\n- masquer les données inutiles ;\n- ne pas mémoriser de données sensibles sans cadre ;\n- journaliser les accès ;\n- informer les utilisateurs si l'usage l'exige ;\n- prévoir correction et suppression ;\n- escalader les cas sensibles ;\n- éviter les décisions automatiques sur des personnes sans supervision.\n\nPour une organisation tunisienne qui travaille avec des partenaires européens, le Règlement européen sur l'IA (EU 2024/1689) doit aussi être surveillé. Il adopte une approche par risques et impose des exigences plus fortes pour les systèmes à haut risque : transparence, contrôle humain, logs et gestion du risque.\n\n**Human-in-the-loop — validation obligatoire pour :**\n- envoi externe ;\n- décision RH ;\n- action financière ;\n- réponse réglementaire ;\n- cas contenant données sensibles ;\n- action difficile à annuler.\n\n> L'agent peut préparer. L'humain valide quand l'action engage l'organisation ou affecte une personne.",
+        "en": "In Tunisia, Organic Law No. 2004-63 places personal data protection among fundamental rights. An agent that accesses HR, customer, student, candidate, patient, employee, or supplier data must be designed with care.\n\n**Practical rules:**\n- collect the minimum necessary;\n- limit access by role;\n- avoid massive exports;\n- mask unnecessary data;\n- do not memorize sensitive data without a framework;\n- log accesses;\n- inform users when required;\n- plan correction and deletion;\n- escalate sensitive cases;\n- avoid automatic decisions about people without supervision.\n\nFor a Tunisian organization working with European partners, EU Regulation (2024/1689) — the AI Act — should also be monitored. It follows a risk-based approach and imposes stronger requirements for high-risk systems: transparency, human oversight, logs, and risk management.\n\n**Human-in-the-loop — mandatory validation for:**\n- external sending;\n- HR decision;\n- financial action;\n- regulatory response;\n- case containing sensitive data;\n- hard-to-reverse action.\n\n> The agent can prepare. A human validates when the action commits the organization or affects a person."
+      }
+    },
+    {
+      "id": "diagram_06_risks",
+      "type": "diagram",
+      "title": {"fr": "Risques principaux et garde-fous", "en": "Main risks and guardrails"},
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 260\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"20\" width=\"350\" height=\"220\" rx=\"10\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"0.5\"/><text x=\"195\" y=\"48\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#4A1B0C\">Risques principaux</text><text x=\"40\" y=\"72\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#993C1D\">• Accès excessif aux données</text><text x=\"40\" y=\"94\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#993C1D\">• Action non autorisée</text><text x=\"40\" y=\"116\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#993C1D\">• Fuite de données personnelles</text><text x=\"40\" y=\"138\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#993C1D\">• Prompt injection</text><text x=\"40\" y=\"160\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#993C1D\">• Erreur d'outil cachée</text><text x=\"40\" y=\"182\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#993C1D\">• Mémoire incontrôlée</text><text x=\"40\" y=\"204\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#993C1D\">• Responsabilité floue</text><rect x=\"410\" y=\"20\" width=\"350\" height=\"220\" rx=\"10\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"0.5\"/><text x=\"585\" y=\"48\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#04342C\">Garde-fous</text><text x=\"430\" y=\"72\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">• Moindre privilège sur les outils</text><text x=\"430\" y=\"94\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">• Vérification permissions côté backend</text><text x=\"430\" y=\"116\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">• Filtrage données personnelles</text><text x=\"430\" y=\"138\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">• Blocage prompt injection</text><text x=\"430\" y=\"160\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">• Validation humaine actions sensibles</text><text x=\"430\" y=\"182\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">• Logs protégés et complets</text><text x=\"430\" y=\"204\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">• Propriétaire nommé + rollback</text></svg>"
+    },
+    {
+      "id": "checkpoint_06_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Agent risk review — identifying risks and proposing guardrails for a Tunisian HR agent",
+        "section_context": "The learner read about 7 main agent risks, Tunisian data protection law (2004-63), EU AI Act requirements, human-in-the-loop mandatory cases, and the distinction between technical guardrails (coded) and organizational guardrails (decided by the organization). The central rule: the agent can prepare; a human validates when the action commits the organization or affects a person.",
+        "question_type": "synthesis",
+        "difficulty": "advanced",
+        "hint": "A valid answer identifies risks (excessive access to employee files, sending official responses without validation, memorizing personal situations), proposes specific guardrails (read-only on validated procedures only, human validation on all sensitive topics, limited durable memory, logs), and mentions Tunisian data protection obligations.",
+        "anti_gpt_instructions": "Present this scenario: 'A Tunisian company wants to deploy an internal HR agent. The agent will have access to all HR emails, the employee database, and all HR procedures. It can respond directly to employees and remember useful information for future conversations.' Ask the learner to: (1) identify the main risks, (2) specify which data access should be refused, (3) list which actions require mandatory human validation, (4) describe what should be in the logs, and (5) mention at least one obligation from the Tunisian personal data law. Do NOT ask about architecture patterns, RAG, evaluation frameworks, or pilot planning."
+      }
+    },
+    {
+      "id": "content_06_04",
+      "type": "content",
+      "title": {"fr": "Mode observation avant action et registre des agents", "en": "Observation mode before action and agent registry"},
+      "content": {
+        "fr": "### Mode de déploiement progressif\n\nNe déployez pas un agent directement en mode action.\n\n- **Mode observation :** l'agent analyse, propose et journalise. Il n'agit pas.\n- **Mode assistance :** l'agent prépare des actions. Un humain valide.\n- **Mode action limitée :** l'agent exécute seulement des actions faibles risques.\n- **Mode action contrôlée :** plus d'actions, avec supervision et critères d'arrêt.\n\nCe passage doit être progressif, documenté et réversible.\n\n### Registre des agents\n\nToute organisation qui déploie plusieurs agents doit tenir un registre. Pour chaque agent :\n- nom, propriétaire, objectif ;\n- utilisateurs autorisés ;\n- données consultées et outils autorisés ;\n- actions autorisées et interdites ;\n- niveau de risque ;\n- statut : prototype, pilote, production, suspendu ;\n- date de revue, incidents, KPI.\n\nCe registre aide à répondre aux questions des dirigeants, auditeurs, DPO et équipes juridiques.\n\n**Références :**\n1. NIST AI RMF 1.0 : https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf\n2. NIST CSF 2.0 : https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf\n3. Loi organique n°2004-63 (Tunisie) : https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf\n4. EU AI Act (2024/1689) : https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202401689",
+        "en": "### Progressive deployment mode\n\nDo not deploy an agent directly in action mode.\n\n- **Observation mode:** the agent analyzes, proposes, and logs. It does not act.\n- **Assistance mode:** the agent prepares actions. A human validates.\n- **Limited action mode:** the agent executes only low-risk actions.\n- **Controlled action mode:** more actions, with supervision and stop criteria.\n\nThis progression must be decided, documented, and reversible.\n\n### Agent registry\n\nAny organization deploying multiple agents should keep a registry. For each agent:\n- name, owner, objective;\n- authorized users;\n- data consulted and authorized tools;\n- authorized and forbidden actions;\n- risk level;\n- status: prototype, pilot, production, suspended;\n- review date, incidents, KPIs.\n\nThis registry helps answer questions from executives, auditors, DPO, and legal teams.\n\n**References:**\n1. NIST AI RMF 1.0: https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf\n2. NIST CSF 2.0: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf\n3. Organic Law No. 2004-63 (Tunisia): https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf\n4. EU AI Act (2024/1689): https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202401689"
+      }
+    },
+    {
+      "id": "gate_06",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Tu maîtrises maintenant l'analyse des risques agentiques, les garde-fous techniques et organisationnels, et le cadre tunisien de protection des données. Passons au Lab 6 : tu vas réaliser une revue de risques complète pour un agent d'entreprise réel.",
+        "en": "You now master agentic risk analysis, technical and organizational guardrails, and the Tunisian personal data framework. Let's move to Lab 6: you will conduct a complete risk review for a real enterprise agent."
+      },
+      "next_url": "/courses/agentic-ai/labs/06_agentic_risk_review_lab"
+    }
+  ]
+}

@@ -134,6 +134,31 @@ _AILE_PAGE_TOPICS = {
     "06_maturity_diagnostic": {"roadmap", "roi", "strategy", "governance", "demystify", "wakeup", "resources"},
 }
 
+# Agentic AI topic filter mapping
+_AGENTIC_PAGE_TOPICS = {
+    # Modules
+    "00_course_positioning": {"positioning", "resources"},
+    "01_anatomy_of_enterprise_ai_agent": {"anatomy", "positioning", "resources"},
+    "02_design_agentic_workflow": {"workflow", "anatomy", "positioning", "resources"},
+    "03_tool_calling_api_enterprise_integration": {"tool_calling", "workflow", "anatomy", "resources"},
+    "04_rag_memory_context_management": {"rag_memory", "tool_calling", "anatomy", "resources"},
+    "05_single_agent_multi_agent_architectures": {"architectures", "workflow", "anatomy", "resources"},
+    "06_security_governance_compliance": {"security", "architectures", "tool_calling", "resources"},
+    "07_evaluation_observability_production_readiness": {"evaluation", "security", "architectures", "resources"},
+    "08_deploy_enterprise_ai_agent_pilot": {"pilot", "evaluation", "security", "architectures", "resources"},
+    # Labs
+    "00_diagnose_fake_agent_lab": {"positioning", "resources"},
+    "01_decompose_enterprise_agent_lab": {"anatomy", "positioning", "resources"},
+    "02_map_agentic_workflow_lab": {"workflow", "anatomy", "resources"},
+    "03_specify_agent_tools_lab": {"tool_calling", "workflow", "resources"},
+    "04_design_rag_memory_context_lab": {"rag_memory", "tool_calling", "anatomy", "resources"},
+    "05_choose_agent_architecture_lab": {"architectures", "workflow", "anatomy", "resources"},
+    "06_agentic_risk_review_lab": {"security", "architectures", "tool_calling", "resources"},
+    "07_agent_evaluation_observability_plan_lab": {"evaluation", "security", "architectures", "resources"},
+    "08_enterprise_agent_pilot_plan_lab": {"pilot", "evaluation", "security", "resources"},
+    "final_governed_enterprise_agent_design_lab": {"pilot", "evaluation", "security", "architectures", "rag_memory", "tool_calling", "workflow", "anatomy", "positioning", "resources"},
+}
+
 
 def retrieve_context(
     query: str,
@@ -174,6 +199,8 @@ def retrieve_context(
         relevant_topics = _PE_PAGE_TOPICS.get(page_id, set())
     elif course_id == "aile":
         relevant_topics = _AILE_PAGE_TOPICS.get(page_id, set())
+    elif course_id == "agentic":
+        relevant_topics = _AGENTIC_PAGE_TOPICS.get(page_id, set())
     else:
         relevant_topics = _PAGE_TOPICS.get(page_id, set())
     

@@ -1,0 +1,97 @@
+{
+  "module_id": "03_tool_calling_api_enterprise_integration",
+  "title": {"fr": "Tool calling, API et intégration SI", "en": "Tool Calling, APIs, and Enterprise Integration"},
+  "description": {
+    "fr": "Concevoir des outils d'agent fiables : spécification, permissions par type d'action, gestion des erreurs, secrets et gouvernance des outils.",
+    "en": "Design reliable agent tools: specification, permissions by action type, error handling, secrets, and tool governance."
+  },
+  "cells": [
+    {
+      "id": "intro_03",
+      "type": "content",
+      "title": {"fr": "Ce qu'est le tool calling", "en": "What tool calling is"},
+      "content": {
+        "fr": "Un agent sans outils ne peut que générer du texte.\n\nLe tool calling permet à l'agent d'interagir avec le monde réel : chercher un document, créer un ticket, appeler une API, lire une base de données, envoyer une notification.\n\nOpenAI décrit les outils comme des fonctions que l'agent peut appeler pour accomplir des tâches. Anthropic précise que les outils donnent à l'agent des capacités d'agir dans son environnement.\n\nLe mécanisme fonctionne ainsi :\n\n1. le LLM choisit un outil et spécifie ses paramètres ;\n2. le système exécute l'outil côté serveur ;\n3. le résultat est retourné au LLM comme nouveau contexte ;\n4. le LLM continue le traitement.\n\n**Ce que l'agent ne fait pas directement** : l'agent ne touche pas aux API, aux bases de données ou aux systèmes. C'est le backend qui exécute — en vérifiant les permissions avant d'agir.\n\n> Cette distinction est fondamentale pour la sécurité. Les secrets, les droits et l'exécution appartiennent au backend, pas au modèle.",
+        "en": "An agent without tools can only generate text.\n\nTool calling allows the agent to interact with the real world: search a document, create a ticket, call an API, read a database, send a notification.\n\nOpenAI describes tools as functions the agent can call to complete tasks. Anthropic clarifies that tools give the agent the ability to act in its environment.\n\nThe mechanism works like this:\n\n1. the LLM selects a tool and specifies its parameters;\n2. the system executes the tool server-side;\n3. the result is returned to the LLM as new context;\n4. the LLM continues processing.\n\n**What the agent does not do directly**: the agent does not touch APIs, databases, or systems. The backend executes — verifying permissions before acting.\n\n> This distinction is fundamental for security. Secrets, rights, and execution belong to the backend, not the model."
+      }
+    },
+    {
+      "id": "checkpoint_03_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "How tool calling works and why the backend holds the permissions",
+        "section_context": "The learner read that tool calling is a 4-step mechanism: LLM selects tool → backend executes → result returned as context → LLM continues. The agent does NOT directly touch APIs or systems. The backend verifies permissions before executing. Secrets, rights, and execution belong to the backend, not the model.",
+        "question_type": "comprehension",
+        "difficulty": "intermediate",
+        "hint": "A valid answer correctly separates the LLM role (selecting and parameterizing the tool) from the backend role (executing, permission checking, secrets management). It should also explain the security risk if this separation is not respected.",
+        "anti_gpt_instructions": "Ask the learner: 'Explain what happens between the moment the agent decides to call the search_policy tool and the moment it receives the result. Who does what?' Then ask: 'Why is it dangerous to put an API key directly in the agent's instructions or context?' Stay strictly within the tool calling mechanism described — do not introduce RAG, memory, architecture, or multi-agent patterns."
+      }
+    },
+    {
+      "id": "content_03_02",
+      "type": "content",
+      "title": {"fr": "Les trois types d'outils — lecture, écriture, envoi", "en": "The three tool types — read, write, send"},
+      "content": {
+        "fr": "Tous les outils ne se valent pas en matière de risque. La distinction fondamentale est : lecture, écriture, envoi.\n\n### Outils de lecture (risque faible)\n\nL'agent consulte des informations sans modifier l'état du système.\n\nExemples : `search_policy`, `read_ticket`, `get_user_profile`, `list_procedures`, `fetch_document`.\n\nRègles : limiter à des sources autorisées, filtrer les données selon le rôle, journaliser les accès.\n\n### Outils d'écriture (risque moyen à élevé)\n\nL'agent crée ou modifie des données dans un système.\n\nExemples : `create_internal_note`, `update_ticket_status`, `create_task`, `write_to_crm`.\n\nRègles : validation humaine selon le cas, idempotence, journalisation, rollback possible.\n\n### Outils d'envoi (risque élevé — validation obligatoire)\n\nL'agent déclenche une action externe avec un impact réel.\n\nExemples : `send_email`, `notify_manager`, `trigger_approval_workflow`, `post_to_portal`.\n\nRègles : **validation humaine obligatoire avant exécution**, confirmation explicite, log d'envoi, impossibilité de rappel.\n\n> Principe du moindre privilège : donnez à l'agent uniquement les outils dont il a besoin. Un outil d'écriture ne doit jamais être dans le catalogue si la tâche n'exige que de la lecture.",
+        "en": "Not all tools carry the same risk. The fundamental distinction is: read, write, send.\n\n### Read tools (low risk)\n\nThe agent consults information without modifying system state.\n\nExamples: `search_policy`, `read_ticket`, `get_user_profile`, `list_procedures`, `fetch_document`.\n\nRules: limit to authorized sources, filter data by role, log accesses.\n\n### Write tools (medium to high risk)\n\nThe agent creates or modifies data in a system.\n\nExamples: `create_internal_note`, `update_ticket_status`, `create_task`, `write_to_crm`.\n\nRules: human validation when appropriate, idempotency, logging, rollback possible.\n\n### Send tools (high risk — mandatory validation)\n\nThe agent triggers an external action with real impact.\n\nExamples: `send_email`, `notify_manager`, `trigger_approval_workflow`, `post_to_portal`.\n\nRules: **mandatory human validation before execution**, explicit confirmation, send log, no recall possible.\n\n> Least privilege principle: give the agent only the tools it needs. A write tool must never be in the catalog if the task only requires reading."
+      }
+    },
+    {
+      "id": "diagram_03_tool_types",
+      "type": "diagram",
+      "title": {"fr": "Lecture, écriture, envoi — niveaux de risque", "en": "Read, write, send — risk levels"},
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"30\" width=\"220\" height=\"140\" rx=\"10\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"0.5\"/><text x=\"130\" y=\"60\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#04342C\">Lecture</text><text x=\"130\" y=\"82\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">search_policy</text><text x=\"130\" y=\"100\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">read_ticket</text><text x=\"130\" y=\"118\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">fetch_document</text><text x=\"130\" y=\"148\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"10\" fill=\"#888780\">Risque faible</text><rect x=\"280\" y=\"30\" width=\"220\" height=\"140\" rx=\"10\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"0.5\"/><text x=\"390\" y=\"60\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#0C447C\">Écriture</text><text x=\"390\" y=\"82\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#185FA5\">create_internal_note</text><text x=\"390\" y=\"100\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#185FA5\">update_ticket_status</text><text x=\"390\" y=\"118\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#185FA5\">write_to_crm</text><text x=\"390\" y=\"148\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"10\" fill=\"#888780\">Risque moyen — validation selon cas</text><rect x=\"540\" y=\"30\" width=\"220\" height=\"140\" rx=\"10\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"0.5\"/><text x=\"650\" y=\"60\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#4A1B0C\">Envoi</text><text x=\"650\" y=\"82\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#993C1D\">send_email</text><text x=\"650\" y=\"100\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#993C1D\">notify_manager</text><text x=\"650\" y=\"118\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#993C1D\">trigger_approval</text><text x=\"650\" y=\"148\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"10\" fill=\"#888780\">Risque élevé — validation obligatoire</text></svg>"
+    },
+    {
+      "id": "checkpoint_03_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Classifying tools by risk and applying the least privilege principle",
+        "section_context": "The learner read that tools fall into 3 types by risk: read (low), write (medium-high), send (high — mandatory human validation). The least privilege principle means giving the agent only the tools it needs. A write or send tool should never be in the catalog if only reading is needed.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "A valid answer correctly classifies the tools by type, identifies which require human validation, and explains why giving all tools without restriction violates the least privilege principle.",
+        "anti_gpt_instructions": "Give the learner this agent catalog: 'Our HR agent has access to: get_employee_file, update_employment_status, send_official_letter, search_hr_procedures, create_internal_note, delete_employee_record.' Ask them to: (1) classify each tool as read/write/send, (2) identify which require mandatory human validation, (3) identify tools that should be removed based on the agent's mission of answering HR procedure questions. Do NOT introduce RAG, architecture patterns, or evaluation concepts."
+      }
+    },
+    {
+      "id": "content_03_03",
+      "type": "content",
+      "title": {"fr": "Spécifier un outil correctement", "en": "Specifying a tool correctly"},
+      "content": {
+        "fr": "Un outil mal spécifié crée des erreurs imprévisibles. Chaque outil doit être documenté avec précision.\n\n**Éléments d'une bonne spécification :**\n\n- **Nom** : explicite, sans ambiguïté (`search_validated_procedure`, pas `search`).\n- **Description** : ce que l'outil fait, ce qu'il ne fait pas, quand l'appeler.\n- **Paramètres d'entrée** : types stricts, valeurs permises, champs obligatoires vs optionnels.\n- **Résultat** : format de retour, champs fournis, cas de résultat vide.\n- **Permissions** : qui peut appeler cet outil, quelles données il peut accéder.\n- **Erreurs** : que retourne l'outil si la source est indisponible, si la permission manque, si l'entrée est invalide.\n- **Idempotence** : si l'outil est appelé deux fois avec les mêmes paramètres, le résultat est-il le même ? (critique pour les outils d'écriture)\n- **Log** : quelles informations sont journalisées automatiquement à chaque appel.\n\n**Un mauvais nom d'outil :** `process`\n**Un bon nom d'outil :** `search_validated_hr_procedure`\n\nOpenAI rappelle que les descriptions d'outils sont cruciales : elles guident le LLM dans le choix du bon outil au bon moment. Une description vague conduit à des appels incorrects.",
+        "en": "A poorly specified tool creates unpredictable errors. Each tool must be precisely documented.\n\n**Elements of a good specification:**\n\n- **Name**: explicit, unambiguous (`search_validated_procedure`, not `search`).\n- **Description**: what the tool does, what it does not do, when to call it.\n- **Input parameters**: strict types, permitted values, mandatory vs optional fields.\n- **Output**: return format, provided fields, empty result cases.\n- **Permissions**: who can call this tool, which data it can access.\n- **Errors**: what the tool returns if source is unavailable, permission is missing, or input is invalid.\n- **Idempotency**: if called twice with the same parameters, is the result the same? (critical for write tools)\n- **Log**: what information is automatically logged at each call.\n\n**Poor tool name:** `process`\n**Good tool name:** `search_validated_hr_procedure`\n\nOpenAI notes that tool descriptions are crucial: they guide the LLM to choose the right tool at the right time. A vague description leads to incorrect calls."
+      }
+    },
+    {
+      "id": "content_03_04",
+      "type": "content",
+      "title": {"fr": "Gestion des erreurs et des échecs d'outils", "en": "Error handling and tool failures"},
+      "content": {
+        "fr": "Un agent d'entreprise doit savoir quoi faire quand un outil échoue.\n\n**Comportements dangereux à éviter :**\n- prétendre que l'action a réussi alors que l'outil a échoué ;\n- réessayer infiniment ;\n- continuer sans tenir compte de l'échec ;\n- inventer un résultat si l'API ne répond pas.\n\n**Bons comportements à programmer :**\n- signaler clairement l'échec dans le message final ;\n- proposer une alternative (escalade, note de suivi, contact humain) ;\n- ne pas exécuter les étapes suivantes si une étape critique a échoué ;\n- journaliser l'erreur avec le code, l'heure et le contexte.\n\n**Erreurs à anticiper :**\n- API indisponible (timeout, erreur 500) ;\n- permission insuffisante (403) ;\n- ressource introuvable (404) ;\n- entrée invalide (400) ;\n- limite de quota atteinte ;\n- résultat vide (procédure inexistante).\n\n**Règle de conception :**\n> Si un outil critique échoue, l'agent doit déclarer l'échec, ne pas continuer vers une action sensible et escalader vers un humain.\n\n**Références :**\n1. OpenAI — Tool calling guide : https://platform.openai.com/docs/guides/function-calling\n2. Anthropic — Writing effective tools for AI agents (2025) : https://www.anthropic.com/engineering/writing-tools-for-agents\n3. NIST — AI RMF (2023) : https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf",
+        "en": "An enterprise agent must know what to do when a tool fails.\n\n**Dangerous behaviors to avoid:**\n- claiming the action succeeded when the tool failed;\n- retrying infinitely;\n- continuing without accounting for the failure;\n- inventing a result if the API does not respond.\n\n**Good behaviors to program:**\n- clearly state the failure in the final message;\n- propose an alternative (escalation, follow-up note, human contact);\n- do not execute following steps if a critical step failed;\n- log the error with code, time, and context.\n\n**Errors to anticipate:**\n- API unavailable (timeout, 500 error);\n- insufficient permission (403);\n- resource not found (404);\n- invalid input (400);\n- quota limit reached;\n- empty result (procedure does not exist).\n\n**Design rule:**\n> If a critical tool fails, the agent must declare the failure, not continue toward a sensitive action, and escalate to a human.\n\n**References:**\n1. OpenAI — Tool calling guide: https://platform.openai.com/docs/guides/function-calling\n2. Anthropic — Writing effective tools for AI agents (2025): https://www.anthropic.com/engineering/writing-tools-for-agents\n3. NIST — AI RMF (2023): https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf"
+      }
+    },
+    {
+      "id": "checkpoint_03_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Tool specification, error handling, and safe failure behavior",
+        "section_context": "The learner read about tool specification elements (name, description, parameters, output, permissions, errors, idempotency, log) and error handling rules. A critical rule: if a critical tool fails, the agent must declare the failure, not continue toward a sensitive action, and escalate to a human. Dangerous behaviors include claiming success when the tool failed, retrying infinitely, or inventing a result.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "advanced",
+        "hint": "A valid answer identifies the dangerous behaviors in the scenario (claiming success, continuing past a failure, inventing a result) and proposes specific corrections that align with the safe failure rules.",
+        "anti_gpt_instructions": "Describe this scenario: 'An agent calls update_ticket_status to mark a ticket as resolved. The API returns a 500 error. The agent then calls send_email to notify the user that their ticket has been resolved, and logs Success in the trace.' Ask the learner to identify every problem in this sequence and explain what the agent should have done instead. Do NOT introduce RAG, memory, or architecture patterns — stay within tool calling and error handling."
+      }
+    },
+    {
+      "id": "gate_03",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Tu maîtrises maintenant le tool calling : les trois types d'outils, la spécification correcte, la gestion des erreurs et le principe du moindre privilège. Passons au Lab 3 : tu vas spécifier les outils d'un agent pour un cas d'intégration SI réel.",
+        "en": "You now master tool calling: the three tool types, correct specification, error handling, and the least privilege principle. Let's move to Lab 3: you will specify the tools for an agent in a real enterprise integration case."
+      },
+      "next_url": "/courses/agentic-ai/labs/03_specify_agent_tools_lab"
+    }
+  ]
+}

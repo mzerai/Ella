@@ -1,0 +1,51 @@
+{
+  "lab_id": "04_design_rag_memory_context_lab",
+  "course_id": "ella_tech_agentic_ai_enterprise_workflows",
+  "title": {
+    "fr": "Lab 4 — Concevoir RAG, mémoire et contexte",
+    "en": "Lab 4 — Design RAG, Memory, and Context"
+  },
+  "description": {
+    "fr": "L’apprenant conçoit la stratégie de sources, mémoire, contexte, accès, citations et garde-fous d’un agent d’entreprise.",
+    "en": "The learner designs the source, memory, context, access, citation, and guardrail strategy of an enterprise agent."
+  },
+  "concept": {
+    "fr": "RAG, mémoire, contexte, métadonnées, minimisation des données, citations, prompt injection documentaire.",
+    "en": "RAG, memory, context, metadata, data minimization, citations, document prompt injection."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "design_rag_memory_context_strategy",
+      "title": {
+        "fr": "Concevoir la stratégie RAG et mémoire d’un agent",
+        "en": "Design an agent RAG and memory strategy"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Corrigez une approche risquée qui indexe tout le drive et définissez sources autorisées, métadonnées, chunking, citations, mémoire, droits d’accès, contradictions et garde-fous.",
+        "en": "Correct a risky approach that indexes the entire drive and define authorized sources, metadata, chunking, citations, memory, access rights, contradictions, and guardrails."
+      },
+      "hints": [
+        {
+          "fr": "Ne confondez pas RAG, état de workflow et mémoire.",
+          "en": "Do not confuse RAG, workflow state, and memory."
+        },
+        {
+          "fr": "Les sources doivent être validées, datées et filtrées par droits.",
+          "en": "Sources must be validated, dated, and filtered by rights."
+        },
+        {
+          "fr": "La mémoire durable doit rester limitée et corrigeable.",
+          "en": "Durable memory must remain limited and correctable."
+        },
+        {
+          "fr": "Un document récupéré est une donnée, pas une instruction.",
+          "en": "A retrieved document is data, not an instruction."
+        }
+      ]
+    }
+  ]
+}

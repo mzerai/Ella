@@ -1,0 +1,121 @@
+{
+  "module_id": "01_anatomy_of_enterprise_ai_agent",
+  "title": {"fr": "Anatomie d'un agent IA d'entreprise", "en": "Anatomy of an Enterprise AI Agent"},
+  "description": {
+    "fr": "Décomposer un agent d'entreprise en composants fondamentaux : objectif, instructions, outils, contexte, permissions, logs et garde-fous.",
+    "en": "Decompose an enterprise agent into fundamental components: objective, instructions, tools, context, permissions, logs, and guardrails."
+  },
+  "cells": [
+    {
+      "id": "intro_01",
+      "type": "content",
+      "title": {"fr": "Ce qu'est vraiment un agent IA", "en": "What an AI agent really is"},
+      "content": {
+        "fr": "Un agent IA est souvent présenté comme un assistant intelligent. Cette définition est trop vague pour être utile en entreprise.\n\nUn agent IA d'entreprise est un système qui :\n\n- reçoit un objectif ;\n- dispose d'instructions pour guider son comportement ;\n- utilise des outils pour interagir avec l'environnement ;\n- reçoit un contexte (données, historique, résultats d'outils) ;\n- agit dans les limites de permissions définies ;\n- laisse une trace de ses actions ;\n- est soumis à des garde-fous qui limitent ses erreurs.\n\nOpenAI décrit un agent comme un système qui accomplit des tâches de manière autonome en utilisant des outils. Anthropic souligne que les agents peuvent planifier des séquences d'actions et les exécuter avec ou sans intervention humaine.\n\n> Un agent sans périmètre, sans permissions et sans trace n'est pas un agent d'entreprise. C'est un risque.",
+        "en": "An AI agent is often described as an intelligent assistant. This definition is too vague to be useful in an enterprise.\n\nAn enterprise AI agent is a system that:\n\n- receives an objective;\n- has instructions to guide its behavior;\n- uses tools to interact with the environment;\n- receives context (data, history, tool results);\n- acts within defined permission limits;\n- leaves a trace of its actions;\n- is subject to guardrails that limit its errors.\n\nOpenAI describes an agent as a system that completes tasks autonomously using tools. Anthropic emphasizes that agents can plan sequences of actions and execute them with or without human intervention.\n\n> An agent without scope, without permissions, and without traceability is not an enterprise agent. It is a risk."
+      }
+    },
+    {
+      "id": "checkpoint_01_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "What defines an enterprise AI agent",
+        "section_context": "The learner just read that an enterprise AI agent is defined by 7 components: objective, instructions, tools, context, permissions, logs, and guardrails. A vague definition like 'intelligent assistant' is insufficient. An agent without scope, permissions, and traceability is a risk.",
+        "question_type": "comprehension",
+        "difficulty": "beginner",
+        "hint": "A good answer should name at least 3-4 of the 7 components and explain why the 'intelligent assistant' definition is insufficient for enterprise deployment.",
+        "anti_gpt_instructions": "Ask the learner: 'If someone tells you that an AI agent is just an intelligent assistant that answers questions, what is missing from that definition for an enterprise deployment?' Do NOT mention specific tools, architectures, RAG, or multi-agent systems. Stay strictly within the 7-component framing introduced in this opening section."
+      }
+    },
+    {
+      "id": "content_01_02",
+      "type": "content",
+      "title": {"fr": "Les 7 composants d'un agent d'entreprise", "en": "The 7 components of an enterprise agent"},
+      "content": {
+        "fr": "### 1. Objectif\n\nL'objectif décrit la mission de l'agent. Il doit être précis, limité et mesurable.\n\n**Mauvais objectif :** \"Aider les collaborateurs.\"\n**Bon objectif :** \"Classer les tickets support IT niveau 1, chercher la procédure applicable, préparer un brouillon de réponse et escalader les cas sensibles.\"\n\n### 2. Instructions\n\nLes instructions cadrent le comportement. Elles précisent ce que l'agent doit faire, comment, et surtout ce qu'il ne doit pas faire.\n\n### 3. Outils\n\nLes outils permettent à l'agent d'interagir avec l'environnement. Chaque outil doit avoir un périmètre limité, des permissions définies et une gestion des erreurs.\n\n### 4. Contexte\n\nLe contexte est ce que l'agent reçoit pour traiter une demande : conversation, documents, résultats d'outils, historique, état du workflow.\n\n### 5. Permissions\n\nLes permissions définissent ce que l'agent peut lire, écrire, envoyer ou déclencher. Elles doivent être vérifiées côté système, pas seulement côté agent.\n\n### 6. Logs\n\nLes logs permettent d'auditer ce que l'agent a fait. Outils appelés, données consultées, décisions prises, erreurs rencontrées, versions utilisées.\n\n### 7. Garde-fous\n\nLes garde-fous limitent les actions non autorisées : blocage d'outils sensibles, validation humaine obligatoire, limites d'itérations, détection de prompt injection.",
+        "en": "### 1. Objective\n\nThe objective describes the agent's mission. It must be precise, limited, and measurable.\n\n**Poor objective:** \"Help employees.\"\n**Good objective:** \"Classify level-1 IT support tickets, find the applicable procedure, prepare a draft response, and escalate sensitive cases.\"\n\n### 2. Instructions\n\nInstructions frame the behavior. They specify what the agent should do, how, and especially what it must not do.\n\n### 3. Tools\n\nTools allow the agent to interact with the environment. Each tool must have a limited scope, defined permissions, and error handling.\n\n### 4. Context\n\nContext is what the agent receives to process a request: conversation, documents, tool results, history, workflow state.\n\n### 5. Permissions\n\nPermissions define what the agent can read, write, send, or trigger. They must be checked by the system, not only by the agent.\n\n### 6. Logs\n\nLogs allow auditing what the agent did. Tools called, data consulted, decisions made, errors encountered, versions used.\n\n### 7. Guardrails\n\nGuardrails limit unauthorized actions: sensitive tool blocking, mandatory human validation, iteration limits, prompt injection detection."
+      }
+    },
+    {
+      "id": "diagram_01_anatomy",
+      "type": "diagram",
+      "title": {"fr": "Les 7 composants d'un agent d'entreprise", "en": "The 7 components of an enterprise agent"},
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 320\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"290\" y=\"20\" width=\"200\" height=\"50\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"0.5\"/><text x=\"390\" y=\"50\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#0C447C\">Objectif</text><rect x=\"20\" y=\"100\" width=\"160\" height=\"50\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"0.5\"/><text x=\"100\" y=\"130\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#04342C\">Instructions</text><rect x=\"200\" y=\"100\" width=\"160\" height=\"50\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"0.5\"/><text x=\"280\" y=\"130\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#04342C\">Outils</text><rect x=\"380\" y=\"100\" width=\"160\" height=\"50\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"0.5\"/><text x=\"460\" y=\"130\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#04342C\">Contexte</text><rect x=\"560\" y=\"100\" width=\"160\" height=\"50\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"0.5\"/><text x=\"640\" y=\"130\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#4A1B0C\">Permissions</text><rect x=\"120\" y=\"210\" width=\"200\" height=\"50\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"0.5\"/><text x=\"220\" y=\"240\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#4A1B0C\">Logs &amp; Traçabilité</text><rect x=\"440\" y=\"210\" width=\"200\" height=\"50\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\" stroke-width=\"0.5\"/><text x=\"540\" y=\"240\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#26215C\">Garde-fous</text><line x1=\"390\" y1=\"70\" x2=\"100\" y2=\"100\" stroke=\"#888780\" stroke-width=\"0.8\"/><line x1=\"390\" y1=\"70\" x2=\"280\" y2=\"100\" stroke=\"#888780\" stroke-width=\"0.8\"/><line x1=\"390\" y1=\"70\" x2=\"460\" y2=\"100\" stroke=\"#888780\" stroke-width=\"0.8\"/><line x1=\"390\" y1=\"70\" x2=\"640\" y2=\"100\" stroke=\"#888780\" stroke-width=\"0.8\"/><line x1=\"280\" y1=\"150\" x2=\"220\" y2=\"210\" stroke=\"#888780\" stroke-width=\"0.8\"/><line x1=\"460\" y1=\"150\" x2=\"540\" y2=\"210\" stroke=\"#888780\" stroke-width=\"0.8\"/><text x=\"390\" y=\"300\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#5F5E5A\">Chaque composant limite l'autonomie de l'agent</text></svg>"
+    },
+    {
+      "id": "checkpoint_01_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "The 7 components and their roles",
+        "section_context": "The learner read about the 7 components: objective, instructions, tools, context, permissions, logs, guardrails. Each has a specific role. Permissions must be checked by the system, not only the agent. Logs are for audit purposes. Guardrails prevent unauthorized actions.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "intermediate",
+        "hint": "A good answer identifies that the vague objective gives the agent no clear limits, and that without permissions and logs there is no control or audit trail.",
+        "anti_gpt_instructions": "Present this agent description: 'Our agent has access to all company systems and will help employees with anything they ask. It uses the company knowledge base and can send emails on behalf of managers.' Ask the learner to identify which of the 7 components are missing or dangerously vague. Do NOT ask about RAG, memory, architecture, or multi-agent systems — stay within the 7-component framework."
+      }
+    },
+    {
+      "id": "content_01_03",
+      "type": "content",
+      "title": {"fr": "Ce qui différencie un agent d'un chatbot", "en": "What distinguishes an agent from a chatbot"},
+      "content": {
+        "fr": "Un chatbot répond. Un agent agit.\n\nCette distinction change tout en matière de risque et de gouvernance.\n\n| Dimension | Chatbot classique | Agent IA |\n|---|---|---|\n| Action | Répondre au texte | Appeler des outils, écrire dans des systèmes |\n| Autonomie | Nulle | Partielle à élevée |\n| Mémoire | Session courte | Peut avoir une mémoire persistante |\n| Permissions | Aucune | Doit être limitée et vérifiée |\n| Traçabilité | Conversation | Logs d'outils, décisions, erreurs |\n| Risque | Réponse incorrecte | Action incorrecte, fuite, modification |\n\nAnthropoc résume ainsi : les agents peuvent exécuter des actions complexes multi-étapes. Cela crée de la valeur — et des risques nouveaux.\n\nUn agent qui peut modifier un ticket, envoyer un email ou créer une tâche doit être conçu comme un système à risque, pas comme un assistant conversationnel.",
+        "en": "A chatbot answers. An agent acts.\n\nThis distinction changes everything in terms of risk and governance.\n\n| Dimension | Classic chatbot | AI agent |\n|---|---|---|\n| Action | Respond in text | Call tools, write to systems |\n| Autonomy | None | Partial to high |\n| Memory | Short session | Can have persistent memory |\n| Permissions | None | Must be limited and verified |\n| Traceability | Conversation | Tool logs, decisions, errors |\n| Risk | Incorrect answer | Incorrect action, leakage, modification |\n\nAnthropic summarizes: agents can execute complex multi-step actions. This creates value — and new risks.\n\nAn agent that can modify a ticket, send an email, or create a task must be designed as a risk-bearing system, not a conversational assistant."
+      }
+    },
+    {
+      "id": "content_01_04",
+      "type": "content",
+      "title": {"fr": "Cas tunisien : agent support interne", "en": "Tunisian case: internal support agent"},
+      "content": {
+        "fr": "Imaginez une entreprise tunisienne — banque, école, administration, opérateur télécom — qui veut déployer un agent pour traiter les demandes internes.\n\nLes demandes arrivent par ticket, email ou formulaire. Elles portent sur l'IT, les RH, la finance, l'administration.\n\n### Mauvais design\n\n> Un agent qui accède à tous les systèmes, répond à toutes les questions et prend toutes les décisions.\n\nRisques : accès excessif, décision non autorisée, fuite de données, audit impossible.\n\n### Bon design\n\nUn agent avec :\n\n- **Objectif précis :** classer les tickets IT niveau 1, chercher la procédure, préparer un brouillon, escalader.\n- **Outils limités :** `read_ticket`, `search_policy`, `draft_response`, `create_internal_note`, `escalate`.\n- **Permissions minimales :** lecture seule sur la base documentaire, création de note interne, pas d'envoi externe.\n- **Validation humaine :** sur tout brouillon avant envoi, sur tout cas sensible.\n- **Logs :** outil appelé, document consulté, résultat produit, validation reçue.\n- **Garde-fous :** blocage de tout outil d'écriture externe, détection de prompt injection.\n\nCe design est limité. Il est aussi auditable, corrigeable et extensible.",
+        "en": "Imagine a Tunisian company — a bank, school, government office, or telecom operator — that wants to deploy an agent for internal requests.\n\nRequests arrive by ticket, email, or form. They concern IT, HR, finance, administration.\n\n### Poor design\n\n> An agent that accesses all systems, answers all questions, and makes all decisions.\n\nRisks: excessive access, unauthorized decision, data leakage, impossible audit.\n\n### Good design\n\nAn agent with:\n\n- **Precise objective:** classify level-1 IT tickets, search the procedure, prepare a draft, escalate.\n- **Limited tools:** `read_ticket`, `search_policy`, `draft_response`, `create_internal_note`, `escalate`.\n- **Minimal permissions:** read-only on the knowledge base, create internal note, no external sending.\n- **Human validation:** on any draft before sending, on any sensitive case.\n- **Logs:** tool called, document consulted, result produced, validation received.\n- **Guardrails:** block any external write tool, detect prompt injection.\n\nThis design is limited. It is also auditable, correctable, and extensible."
+      }
+    },
+    {
+      "id": "checkpoint_01_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Designing a safe enterprise agent — applying the 7 components",
+        "section_context": "The learner saw a concrete Tunisian example of poor vs good agent design. The good design has a precise objective, limited tools with specific names, minimal permissions (read-only, no external send), mandatory human validation on drafts and sensitive cases, complete logs, and guardrails including injection detection.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "A valid answer should define a clear objective for a specific enterprise context, name 3-5 tools with limited scope, mention permission restrictions, and include human validation and logs.",
+        "anti_gpt_instructions": "Ask the learner to apply the 7-component framework to a concrete situation from their own professional context. For example: 'Think of one repetitive task in your organization that could benefit from an AI agent. Define the objective, list 3-4 tools the agent would need, and specify one permission restriction and one validation point.' Evaluate whether they limit the scope and include control mechanisms — not whether the agent sounds powerful. Do NOT ask about RAG, memory, architecture choices, or evaluation frameworks."
+      }
+    },
+    {
+      "id": "content_01_05",
+      "type": "content",
+      "title": {"fr": "Garde-fous : techniques et organisationnels", "en": "Guardrails: technical and organizational"},
+      "content": {
+        "fr": "Un garde-fou technique est une contrainte codée dans le système.\n\nExemples :\n- blocage des outils d'écriture sans validation ;\n- limites d'itérations pour éviter les boucles ;\n- filtrage des données personnelles dans les sorties ;\n- schéma strict des entrées d'outils ;\n- détection de prompt injection.\n\nUn garde-fou organisationnel est une règle décidée par l'organisation.\n\nExemples :\n- liste des cas autorisés et interdits ;\n- procédure de validation humaine ;\n- canal de signalement des erreurs ;\n- responsable nommé ;\n- comité de revue périodique.\n\nLes deux types sont nécessaires. Un garde-fou technique sans gouvernance organisationnelle peut être contourné. Une politique sans garde-fou technique reste une intention.\n\n> OpenAI décrit les garde-fous comme des vérifications qui s'exécutent en parallèle du workflow agentique et peuvent l'interrompre si nécessaire.",
+        "en": "A technical guardrail is a constraint coded into the system.\n\nExamples:\n- blocking write tools without validation;\n- iteration limits to prevent loops;\n- filtering personal data from outputs;\n- strict tool input schemas;\n- prompt injection detection.\n\nAn organizational guardrail is a rule decided by the organization.\n\nExamples:\n- list of authorized and forbidden cases;\n- human validation procedure;\n- error reporting channel;\n- named owner;\n- periodic review committee.\n\nBoth types are needed. A technical guardrail without organizational governance can be bypassed. A policy without a technical guardrail remains an intention.\n\n> OpenAI describes guardrails as checks that run in parallel with the agentic workflow and can interrupt it when needed."
+      }
+    },
+    {
+      "id": "diagram_01_guardrails",
+      "type": "diagram",
+      "title": {"fr": "Garde-fous techniques vs organisationnels", "en": "Technical vs organizational guardrails"},
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 260\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"20\" width=\"360\" height=\"220\" rx=\"10\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"0.5\"/><text x=\"200\" y=\"50\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#0C447C\">Garde-fous techniques</text><text x=\"40\" y=\"80\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#185FA5\">• Blocage outils sans validation</text><text x=\"40\" y=\"105\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#185FA5\">• Limites d'itérations</text><text x=\"40\" y=\"130\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#185FA5\">• Filtrage données personnelles</text><text x=\"40\" y=\"155\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#185FA5\">• Schémas stricts des entrées</text><text x=\"40\" y=\"180\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#185FA5\">• Détection prompt injection</text><text x=\"40\" y=\"220\" font-family=\"sans-serif\" font-size=\"10\" fill=\"#888780\">Codés dans le système</text><rect x=\"400\" y=\"20\" width=\"360\" height=\"220\" rx=\"10\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"0.5\"/><text x=\"580\" y=\"50\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#4A1B0C\">Garde-fous organisationnels</text><text x=\"420\" y=\"80\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#993C1D\">• Liste cas autorisés / interdits</text><text x=\"420\" y=\"105\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#993C1D\">• Procédure validation humaine</text><text x=\"420\" y=\"130\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#993C1D\">• Canal signalement erreurs</text><text x=\"420\" y=\"155\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#993C1D\">• Responsable nommé</text><text x=\"420\" y=\"180\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#993C1D\">• Comité de revue périodique</text><text x=\"420\" y=\"220\" font-family=\"sans-serif\" font-size=\"10\" fill=\"#888780\">Décidés par l'organisation</text></svg>"
+    },
+    {
+      "id": "content_01_06",
+      "type": "content",
+      "title": {"fr": "À retenir", "en": "Key takeaways"},
+      "content": {
+        "fr": "Un agent d'entreprise est défini par 7 composants : objectif, instructions, outils, contexte, permissions, logs et garde-fous.\n\nChaque composant limite l'autonomie de l'agent au bon endroit.\n\nLa différence entre un chatbot et un agent, c'est la capacité d'agir. Cette capacité exige un design rigoureux.\n\n> Un bon agent d'entreprise n'est pas celui qui peut tout faire. C'est celui qui fait la bonne chose, dans le bon périmètre, avec les bonnes limites, et laisse une trace exploitable.\n\n**Références :**\n1. OpenAI — Agents SDK documentation : https://developers.openai.com/api/docs/guides/agents\n2. Anthropic — Building effective AI agents (2024) : https://www.anthropic.com/research/building-effective-agents\n3. NIST — AI Risk Management Framework (AI RMF 1.0) : https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf",
+        "en": "An enterprise agent is defined by 7 components: objective, instructions, tools, context, permissions, logs, and guardrails.\n\nEach component limits the agent's autonomy at the right place.\n\nThe difference between a chatbot and an agent is the ability to act. This ability requires rigorous design.\n\n> A good enterprise agent is not the one that can do everything. It is the one that does the right thing, in the right scope, with the right limits, and leaves a usable trace.\n\n**References:**\n1. OpenAI — Agents SDK documentation: https://developers.openai.com/api/docs/guides/agents\n2. Anthropic — Building effective AI agents (2024): https://www.anthropic.com/research/building-effective-agents\n3. NIST — AI Risk Management Framework (AI RMF 1.0): https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf"
+      }
+    },
+    {
+      "id": "gate_01",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Tu connais maintenant les 7 composants d'un agent d'entreprise. Objectif, instructions, outils, contexte, permissions, logs, garde-fous. C'est la base. Passons au Lab 1 : tu vas concevoir l'anatomie d'un agent pour un cas métier réel.",
+        "en": "You now know the 7 components of an enterprise agent. Objective, instructions, tools, context, permissions, logs, guardrails. That is the foundation. Let's move to Lab 1: you will design the anatomy of an agent for a real business case."
+      },
+      "next_url": "/courses/agentic-ai/labs/01_decompose_enterprise_agent_lab"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "course": "agentic_ai",
+  "resources": [
+    {
+      "title": "OpenAI Agents SDK Documentation",
+      "author": "OpenAI",
+      "url": "https://openai.github.io/openai-agents-python/",
+      "description_en": "Official SDK for building agentic systems with tool calling, handoffs, and guardrails.",
+      "description_fr": "SDK officiel pour construire des systèmes agentiques avec tool calling, handoffs et garde-fous."
+    },
+    {
+      "title": "Anthropic — Building Effective Agents",
+      "author": "Anthropic",
+      "url": "https://www.anthropic.com/research/building-effective-agents",
+      "description_en": "Anthropic's guidelines for building agentic systems progressively and safely.",
+      "description_fr": "Recommandations d'Anthropic pour construire des systèmes agentiques progressivement et en sécurité."
+    },
+    {
+      "title": "NIST AI Risk Management Framework (AI RMF 1.0)",
+      "author": "NIST",
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf",
+      "description_en": "Framework for managing AI risks: Map, Measure, Manage, Govern.",
+      "description_fr": "Cadre de gestion des risques IA : Map, Measure, Manage, Govern."
+    },
+    {
+      "title": "NIST Cybersecurity Framework (CSF) 2.0",
+      "author": "NIST",
+      "url": "https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf",
+      "description_en": "Cybersecurity framework applicable to AI agent deployments.",
+      "description_fr": "Cadre de cybersécurité applicable aux déploiements d'agents IA."
+    },
+    {
+      "title": "Loi organique n° 2004-63 relative à la protection des données personnelles",
+      "author": "République Tunisienne",
+      "url": "https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf",
+      "description_en": "Tunisian personal data protection law (2004), currently under reform.",
+      "description_fr": "Loi tunisienne sur la protection des données personnelles (2004), en cours de réforme."
+    }
+  ]
+}

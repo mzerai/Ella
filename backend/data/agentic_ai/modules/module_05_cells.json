@@ -1,0 +1,76 @@
+{
+  "module_id": "05_single_agent_multi_agent_architectures",
+  "title": {"fr": "Architectures mono-agent et multi-agents", "en": "Single-Agent and Multi-Agent Architectures"},
+  "description": {
+    "fr": "Connaître les cinq patterns d'architecture agentique et choisir la plus simple qui résout le problème avec un niveau de risque acceptable.",
+    "en": "Know the five agentic architecture patterns and choose the simplest one that solves the problem with an acceptable risk level."
+  },
+  "cells": [
+    {
+      "id": "intro_05",
+      "type": "content",
+      "title": {"fr": "Le piège : choisir une architecture trop complexe", "en": "The trap: choosing an architecture that is too complex"},
+      "content": {
+        "fr": "Le marché parle beaucoup de systèmes multi-agents. Cela donne l'impression qu'un vrai projet agentique doit forcément combiner plusieurs agents.\n\nCe n'est pas vrai.\n\nUne architecture complexe ajoute : plus de prompts, plus d'outils, plus de chemins possibles, plus de coûts, plus de latence, plus de risques d'erreur, plus de logs à interpréter, plus de tests, plus de maintenance.\n\nLa bonne question n'est pas :\n> Combien d'agents pouvons-nous créer ?\n\nLa bonne question est :\n> Quelle est l'architecture minimale qui permet d'atteindre l'objectif, avec contrôle, traçabilité et qualité ?\n\nAnthropic recommande de commencer par des workflows simples et composables. OpenAI recommande aussi de configurer proprement un agent avant de faire grandir le workflow vers des patterns plus avancés.\n\n> Workflow d'abord. Agent ensuite. Multi-agents seulement si la complexité le justifie.",
+        "en": "The market talks a lot about multi-agent systems. This makes it seem that a real agentic project must combine several agents.\n\nThat is false.\n\nA complex architecture adds: more prompts, more tools, more possible paths, more cost, more latency, more error risk, more logs to interpret, more tests, more maintenance.\n\nThe right question is not:\n> How many agents can we create?\n\nThe right question is:\n> What is the minimal architecture that achieves the objective, with control, traceability, and quality?\n\nAnthropic recommends starting with simple, composable workflows. OpenAI also recommends configuring a single agent cleanly before growing the workflow into more advanced patterns.\n\n> Workflow first. Agent second. Multi-agent only when complexity justifies it."
+      }
+    },
+    {
+      "id": "content_05_02",
+      "type": "content",
+      "title": {"fr": "Les cinq architectures à connaître", "en": "The five architectures to know"},
+      "content": {
+        "fr": "### 1. Workflow déterministe avec étapes LLM\nLe workflow suit des étapes fixes. Le LLM intervient sur certaines tâches : classification, résumé, extraction, brouillon.\n\n**Exemple :** Ticket reçu → classification LLM → recherche procédure → brouillon LLM → validation humaine → note interne.\n\nC'est souvent le meilleur point de départ.\n\n### 2. Agent unique avec outils\nUn seul agent reçoit un objectif et choisit parmi un petit ensemble d'outils.\n\n**Exemple :** Agent support interne avec `read_ticket`, `search_policy`, `draft_response`, `create_note`, `escalate`.\n\n### 3. Routeur vers agents spécialisés\nUn premier composant classe la demande et l'envoie vers un spécialiste.\n\n**Exemple :** Routeur → agent RH, agent IT, agent finance, agent admission.\n\n### 4. Superviseur avec agents comme outils\nUn agent principal garde la responsabilité du résultat. Il appelle des agents spécialisés comme des outils.\n\n**Exemple :** Superviseur support → agent recherche documentaire → agent conformité → agent rédaction.\n\n### 5. Handoffs entre agents\nUn agent transfère la tâche à un autre agent. Le nouvel agent prend le relais.\n\n**Exemple :** Agent support général → transfert vers agent remboursement → transfert vers agent litige.",
+        "en": "### 1. Deterministic workflow with LLM steps\nThe workflow follows fixed steps. The LLM is used for specific tasks: classification, summary, extraction, draft.\n\n**Example:** Ticket received → LLM classification → procedure search → LLM draft → human validation → internal note.\n\nThis is often the best starting point.\n\n### 2. Single agent with tools\nOne agent receives an objective and chooses from a small set of tools.\n\n**Example:** Internal support agent with `read_ticket`, `search_policy`, `draft_response`, `create_note`, `escalate`.\n\n### 3. Router to specialized agents\nA first component classifies the request and sends it to a specialist.\n\n**Example:** Router → HR agent, IT agent, finance agent, admission agent.\n\n### 4. Supervisor with agents as tools\nA main agent remains responsible for the result. It calls specialized agents as tools.\n\n**Example:** Support supervisor → document-search agent → compliance agent → drafting agent.\n\n### 5. Handoffs between agents\nAn agent transfers the task to another agent. The new agent takes over.\n\n**Example:** General support agent → transfer to refund agent → transfer to dispute agent."
+      }
+    },
+    {
+      "id": "diagram_05_architectures",
+      "type": "diagram",
+      "title": {"fr": "Choisir l'architecture selon le risque", "en": "Choose architecture according to risk"},
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 320\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"20\" width=\"340\" height=\"55\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"0.5\"/><text x=\"190\" y=\"42\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" font-weight=\"500\" fill=\"#04342C\">Processus stable, règles claires</text><text x=\"190\" y=\"60\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">→ Workflow déterministe + étapes LLM</text><rect x=\"20\" y=\"90\" width=\"340\" height=\"55\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"0.5\"/><text x=\"190\" y=\"112\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" font-weight=\"500\" fill=\"#04342C\">Demandes variées, outils limités</text><text x=\"190\" y=\"130\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#0F6E56\">→ Agent unique avec outils</text><rect x=\"20\" y=\"160\" width=\"340\" height=\"55\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"0.5\"/><text x=\"190\" y=\"182\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" font-weight=\"500\" fill=\"#0C447C\">Domaines séparés</text><text x=\"190\" y=\"200\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#185FA5\">→ Routeur vers spécialistes</text><rect x=\"400\" y=\"20\" width=\"360\" height=\"55\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"0.5\"/><text x=\"580\" y=\"42\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" font-weight=\"500\" fill=\"#4A1B0C\">Expertise multiple, sortie unique cohérente</text><text x=\"580\" y=\"60\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#993C1D\">→ Superviseur avec agents comme outils</text><rect x=\"400\" y=\"90\" width=\"360\" height=\"55\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"0.5\"/><text x=\"580\" y=\"112\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" font-weight=\"500\" fill=\"#4A1B0C\">Transfert réel de domaine</text><text x=\"580\" y=\"130\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#993C1D\">→ Handoffs entre agents</text><rect x=\"400\" y=\"160\" width=\"360\" height=\"55\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\" stroke-width=\"0.5\"/><text x=\"580\" y=\"182\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" font-weight=\"500\" fill=\"#26215C\">Tâche complexe à décomposer</text><text x=\"580\" y=\"200\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#534AB7\">→ Orchestrator-workers</text><rect x=\"150\" y=\"250\" width=\"460\" height=\"50\" rx=\"10\" fill=\"#F1EFE8\" stroke=\"#888780\" stroke-width=\"0.5\"/><text x=\"380\" y=\"272\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#2C2C2A\">Ne choisissez pas pour le prestige.</text><text x=\"380\" y=\"290\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" fill=\"#5F5E5A\">Choisissez pour l'adéquation au risque et à la décision.</text></svg>"
+    },
+    {
+      "id": "checkpoint_05_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Choosing the right architecture — minimal complexity principle",
+        "section_context": "The learner read about 5 architecture patterns and the selection table. The guiding principle is minimal complexity: choose the simplest architecture that achieves the objective with acceptable risk. A deterministic workflow is a strong option, not a less advanced solution. Multi-agent is justified only when complexity truly requires it.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "A valid answer matches each case to the right architecture using the risk/complexity criteria — not based on which sounds most impressive. It should explain why a simpler architecture may be preferable.",
+        "anti_gpt_instructions": "Present three enterprise scenarios: (1) A stable process that creates a support ticket from a form and routes it. (2) An internal support agent that receives varied requests but remains within one domain (IT). (3) An assistance platform that covers HR, finance, IT, and compliance with separate sources and permissions. Ask the learner to choose the most appropriate architecture for each case from the 5 patterns and justify the choice using complexity, risk, data sensitivity, and responsibility criteria. Penalize responses that choose multi-agent for all cases. Do NOT ask about RAG, memory, evaluation, or pilot planning."
+      }
+    },
+    {
+      "id": "content_05_03",
+      "type": "content",
+      "title": {"fr": "Garde-fous et responsabilité dans les systèmes multi-agents", "en": "Guardrails and responsibility in multi-agent systems"},
+      "content": {
+        "fr": "Plus il y a d'agents, plus la responsabilité doit être explicite.\n\nVous devez définir :\n- qui possède le système ;\n- qui possède chaque agent ;\n- qui valide les sources ;\n- qui lit les logs ;\n- qui arrête le système ;\n- qui met à jour les prompts.\n\n**Traces obligatoires dans une architecture multi-agents :**\n- agent appelé ;\n- raison de l'appel ;\n- entrée transmise ;\n- sortie produite ;\n- handoff réalisé ;\n- validation humaine ;\n- erreurs ;\n- coût ; latence ; version prompt.\n\n**Anti-patterns à éviter :**\n- agent universel (tout lire, tout modifier) ;\n- multi-agents pour impressionner ;\n- handoff sans trace claire ;\n- spécialistes sans frontières de domaine ;\n- superviseur qui concatène sans synthétiser ;\n- pas de mode dégradé.\n\n> Un système multi-agents opaque ne doit pas passer en production.\n\n**Références :**\n1. OpenAI — Orchestration and handoffs : https://developers.openai.com/api/docs/guides/agents/orchestration\n2. Anthropic — Building effective AI agents (2024) : https://www.anthropic.com/research/building-effective-agents\n3. NIST AI RMF 1.0 : https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf",
+        "en": "The more agents you add, the more responsibility must be explicit.\n\nYou must define:\n- who owns the system;\n- who owns each agent;\n- who validates sources;\n- who reads logs;\n- who stops the system;\n- who updates prompts.\n\n**Mandatory traces in a multi-agent architecture:**\n- agent called;\n- reason for call;\n- input transferred;\n- output produced;\n- handoff performed;\n- human validation;\n- errors;\n- cost; latency; prompt version.\n\n**Anti-patterns to avoid:**\n- universal agent (read everything, modify everything);\n- multi-agents for show;\n- handoff without clear trace;\n- specialists without domain boundaries;\n- supervisor that concatenates without synthesizing;\n- no degraded mode.\n\n> An opaque multi-agent system should not go to production.\n\n**References:**\n1. OpenAI — Orchestration and handoffs: https://developers.openai.com/api/docs/guides/agents/orchestration\n2. Anthropic — Building effective AI agents (2024): https://www.anthropic.com/research/building-effective-agents\n3. NIST AI RMF 1.0: https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf"
+      }
+    },
+    {
+      "id": "checkpoint_05_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Multi-agent responsibility, traceability, and anti-patterns",
+        "section_context": "The learner read about mandatory elements in multi-agent systems: explicit ownership for each agent, mandatory traces (agent called, reason, input, output, handoff, validation, errors, cost, latency, prompt version), and 6 anti-patterns (universal agent, multi-agents for show, handoff without trace, specialists without boundaries, weak supervisor, no degraded mode).",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "advanced",
+        "hint": "A valid answer identifies specific anti-patterns from the list, explains why each is dangerous, and proposes concrete corrections aligned with the responsibility and traceability rules.",
+        "anti_gpt_instructions": "Describe this multi-agent system: 'We have 5 agents: a router, an HR agent, an IT agent, a finance agent, and a general agent that handles anything the others cannot. All agents can write to the shared CRM. The supervisor collects all outputs and sends the concatenated text to the user. There is no handoff log. The general agent has no domain restriction.' Ask the learner to identify at least 3 anti-patterns from the list and explain what must be corrected. Do NOT introduce RAG, memory strategies, evaluation frameworks, or pilot planning."
+      }
+    },
+    {
+      "id": "gate_05",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Tu maîtrises maintenant les cinq architectures agentiques et le principe de complexité minimale. Passons au Lab 5 : tu vas choisir l'architecture adaptée pour plusieurs cas d'entreprise et justifier par le risque, la complexité et la gouvernance.",
+        "en": "You now master the five agentic architectures and the minimal complexity principle. Let's move to Lab 5: you will choose the right architecture for several enterprise cases and justify by risk, complexity, and governance."
+      },
+      "next_url": "/courses/agentic-ai/labs/05_choose_agent_architecture_lab"
+    }
+  ]
+}

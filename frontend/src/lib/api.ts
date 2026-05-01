@@ -528,3 +528,31 @@ export async function verifyAccessCode(code: string, courseId: string): Promise<
     body: JSON.stringify({ code, course_id: courseId }),
   });
 }
+// ============================================
+// Agentic AI API
+// ============================================
+
+export async function getAgenticModuleCells(moduleId: string): Promise<ModuleData> {
+  return apiFetch<ModuleData>(`/api/labs/agentic/modules/${moduleId}`);
+}
+
+export async function getAgenticLabDetail(labId: string): Promise<PELabDetail> {
+  return apiFetch<PELabDetail>(`/api/labs/agentic/labs/${labId}`);
+}
+
+export interface AgenticEvalResponse {
+  feedback: string;
+  score_qualitative: "excellent" | "good" | "needs_improvement";
+}
+
+export async function evaluateAgenticResponse(params: {
+  lab_id: string;
+  mission_id: string;
+  student_response: string;
+  language: string;
+}): Promise<AgenticEvalResponse> {
+  return apiFetch<AgenticEvalResponse>("/api/labs/agentic/evaluate", {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+}

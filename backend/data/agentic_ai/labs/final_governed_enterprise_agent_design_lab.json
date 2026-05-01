@@ -1,0 +1,51 @@
+{
+  "lab_id": "final_governed_enterprise_agent_design_lab",
+  "course_id": "ella_tech_agentic_ai_enterprise_workflows",
+  "title": {
+    "fr": "Lab final — Concevoir un agent d’entreprise gouverné",
+    "en": "Final Lab — Design a Governed Enterprise Agent"
+  },
+  "description": {
+    "fr": "L’apprenant conçoit une spécification complète d’agent IA d’entreprise gouverné, sécurisé, évaluable et pilotable.",
+    "en": "The learner designs a complete specification for a governed, secure, evaluable, and pilot-ready enterprise AI agent."
+  },
+  "concept": {
+    "fr": "Synthèse du cours : workflow, outils, RAG, mémoire, architecture, sécurité, gouvernance, évaluation, observabilité, pilote.",
+    "en": "Course synthesis: workflow, tools, RAG, memory, architecture, security, governance, evaluation, observability, pilot."
+  },
+  "target_score": 16,
+  "max_score": 20,
+  "missions": [
+    {
+      "mission_id": "design_governed_enterprise_agent",
+      "title": {
+        "fr": "Concevoir un agent d’entreprise gouverné",
+        "en": "Design a governed enterprise agent"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Choisissez un cas d’usage et produisez une spécification complète en 18 sections couvrant objectif, workflow, outils, RAG, mémoire, architecture, permissions, garde-fous, risques, tests, observabilité, pilote et décision finale.",
+        "en": "Choose a use case and produce a complete 18-section specification covering objective, workflow, tools, RAG, memory, architecture, permissions, guardrails, risks, tests, observability, pilot, and final decision."
+      },
+      "hints": [
+        {
+          "fr": "Limitez le périmètre avant d’ajouter des outils.",
+          "en": "Limit the scope before adding tools."
+        },
+        {
+          "fr": "Séparez lecture, écriture et action externe.",
+          "en": "Separate reading, writing, and external action."
+        },
+        {
+          "fr": "Une action sensible exige une validation humaine.",
+          "en": "A sensitive action requires human validation."
+        },
+        {
+          "fr": "Le passage à l’échelle doit dépendre de seuils mesurés.",
+          "en": "Scaling must depend on measured thresholds."
+        }
+      ]
+    }
+  ]
+}

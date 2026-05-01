@@ -1,0 +1,115 @@
+{
+  "module_id": "00_course_positioning",
+  "title": {"fr": "Positionnement du cours", "en": "Course Positioning"},
+  "description": {
+    "fr": "Comprendre pourquoi ce cours existe, à qui il s'adresse, ce qu'il ne fait pas et comment il est organisé.",
+    "en": "Understand why this course exists, who it is for, what it does not cover, and how it is structured."
+  },
+  "cells": [
+    {
+      "id": "intro_00",
+      "type": "content",
+      "title": {"fr": "Pourquoi ce cours existe", "en": "Why this course exists"},
+      "content": {
+        "fr": "Les outils agentiques — agents IA, orchestrateurs, assistants outillés — sont passés du statut de prototype de laboratoire à des déploiements réels en entreprise.\n\nCela change ce que vous devez savoir.\n\nIl ne suffit plus de savoir rédiger un bon prompt. Vous devez comprendre comment concevoir un agent, comment le placer dans un workflow, comment lui donner des outils utiles et limités, comment gérer le contexte qu'il reçoit, comment choisir la bonne architecture et comment gouverner le système en production.\n\nCe cours existe parce que les organisations tunisiennes et régionales ont besoin de professionnels capables de piloter ces projets avec méthode et responsabilité.\n\n> L'objectif n'est pas de faire des démos impressionnantes. C'est de déployer des agents fiables, contrôlés et utiles dans des workflows réels.",
+        "en": "Agentic tools — AI agents, orchestrators, tool-using assistants — have moved from lab prototypes to real enterprise deployments.\n\nThis changes what you need to know.\n\nKnowing how to write a good prompt is no longer enough. You need to understand how to design an agent, place it inside a workflow, give it useful and limited tools, manage the context it receives, choose the right architecture, and govern the system in production.\n\nThis course exists because Tunisian and regional organizations need professionals who can lead these projects with method and responsibility.\n\n> The objective is not to build impressive demos. It is to deploy reliable, controlled, and useful agents inside real workflows."
+      }
+    },
+    {
+      "id": "checkpoint_00_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Why agentic AI requires a different skill set",
+        "section_context": "The learner just read that agentic AI has moved from prototypes to real enterprise deployments, and that this requires skills beyond prompt writing: agent design, workflow integration, tool specification, context management, architecture choice, and governance.",
+        "question_type": "comprehension",
+        "difficulty": "beginner",
+        "hint": "A valid answer should distinguish agentic AI from simple chatbot usage, and mention at least one new skill area beyond prompting.",
+        "anti_gpt_instructions": "Ask the learner a simple question such as: 'In one or two sentences, why is knowing how to write a prompt not enough when working with enterprise AI agents?' Do NOT mention specific topics from later lessons such as RAG, multi-agent systems, guardrails, or evaluation frameworks. Stay strictly within the introductory framing: agents act in real workflows and require more than prompting skills."
+      }
+    },
+    {
+      "id": "content_00_02",
+      "type": "content",
+      "title": {"fr": "Ce que ce cours couvre — et ce qu'il ne couvre pas", "en": "What this course covers — and what it does not"},
+      "content": {
+        "fr": "### Ce que vous allez apprendre\n\n- Anatomie d'un agent d'entreprise\n- Conception d'un workflow agentique\n- Tool calling, API et intégration SI\n- RAG, mémoire et gestion du contexte\n- Architectures mono-agent et multi-agents\n- Sécurité, gouvernance et conformité\n- Évaluation, observabilité et préparation à la production\n- Déploiement d'un agent en pilote\n\n### Ce que ce cours ne fait pas\n\nCe cours n'est pas une introduction aux LLM. Il suppose que vous savez ce qu'est un modèle de langage et que vous avez déjà utilisé un outil IA.\n\nCe cours ne vous apprend pas à coder un agent from scratch. Il vous apprend à concevoir, spécifier, gouverner et déployer.\n\nCe cours n'est pas une étude de cas d'un seul outil. Les principes s'appliquent à OpenAI, Anthropic, des frameworks open source et des plateformes enterprise.",
+        "en": "### What you will learn\n\n- Anatomy of an enterprise AI agent\n- Designing an agentic workflow\n- Tool calling, APIs, and enterprise systems integration\n- RAG, memory, and context management\n- Single-agent and multi-agent architectures\n- Security, governance, and compliance\n- Evaluation, observability, and production readiness\n- Deploying an agent pilot\n\n### What this course does not do\n\nThis course is not an introduction to LLMs. It assumes you know what a language model is and that you have already used an AI tool.\n\nThis course does not teach you to code an agent from scratch. It teaches you to design, specify, govern, and deploy.\n\nThis course is not a study of a single tool. The principles apply to OpenAI, Anthropic, open-source frameworks, and enterprise platforms."
+      }
+    },
+    {
+      "id": "diagram_00_structure",
+      "type": "diagram",
+      "title": {
+        "fr": "Structure du cours en 8 leçons",
+        "en": "Course structure — 8 lessons"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 380\" xmlns=\"http://www.w3.org/2000/svg\"><defs><marker id=\"arr00\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M2 1L8 5L2 9\" fill=\"none\" stroke=\"context-stroke\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></marker></defs><rect x=\"20\" y=\"20\" width=\"220\" height=\"50\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"0.5\"/><text x=\"130\" y=\"45\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#0C447C\">L1 — Anatomie d'un agent</text><rect x=\"260\" y=\"20\" width=\"220\" height=\"50\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"0.5\"/><text x=\"370\" y=\"45\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#0C447C\">L2 — Workflow agentique</text><rect x=\"500\" y=\"20\" width=\"220\" height=\"50\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"0.5\"/><text x=\"610\" y=\"45\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#0C447C\">L3 — Tool calling &amp; API</text><rect x=\"20\" y=\"100\" width=\"220\" height=\"50\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"0.5\"/><text x=\"130\" y=\"125\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#04342C\">L4 — RAG &amp; mémoire</text><rect x=\"260\" y=\"100\" width=\"220\" height=\"50\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"0.5\"/><text x=\"370\" y=\"125\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#04342C\">L5 — Architectures</text><rect x=\"500\" y=\"100\" width=\"220\" height=\"50\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"0.5\"/><text x=\"610\" y=\"125\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#4A1B0C\">L6 — Sécurité &amp; gouvernance</text><rect x=\"20\" y=\"180\" width=\"220\" height=\"50\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"0.5\"/><text x=\"130\" y=\"205\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#4A1B0C\">L7 — Évaluation &amp; observabilité</text><rect x=\"260\" y=\"180\" width=\"220\" height=\"50\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\" stroke-width=\"0.5\"/><text x=\"370\" y=\"205\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#26215C\">L8 — Pilote &amp; déploiement</text><rect x=\"150\" y=\"280\" width=\"380\" height=\"60\" rx=\"12\" fill=\"#F1EFE8\" stroke=\"#888780\" stroke-width=\"0.5\"/><text x=\"340\" y=\"305\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#2C2C2A\">8 Labs pratiques</text><text x=\"340\" y=\"325\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"11\" fill=\"#5F5E5A\">Un lab par leçon + Lab final de synthèse</text></svg>"
+    },
+    {
+      "id": "content_00_03",
+      "type": "content",
+      "title": {"fr": "À qui s'adresse ce cours", "en": "Who this course is for"},
+      "content": {
+        "fr": "Ce cours est conçu pour trois profils.\n\n### Profil Tech\n\nVous êtes développeur, architecte, data engineer ou tech lead. Vous voulez comprendre comment concevoir et déployer un agent fiable dans un système d'information d'entreprise.\n\n### Profil Leadership\n\nVous êtes manager, directeur, chef de projet ou responsable transformation. Vous voulez comprendre ce qu'un agent peut faire, ce qu'il ne peut pas faire, et comment piloter un projet agentique avec méthode.\n\n### Prérequis\n\n- Avoir utilisé un outil IA (ChatGPT, Claude, Gemini, ou équivalent)\n- Comprendre ce qu'est un LLM à un niveau fonctionnel\n- Avoir une expérience en entreprise ou en organisation\n\nIl n'est pas nécessaire de savoir coder pour suivre la majorité du cours. Mais les labs techniques exigent une capacité à lire et comprendre du code.",
+        "en": "This course is designed for three profiles.\n\n### Tech profile\n\nYou are a developer, architect, data engineer, or tech lead. You want to understand how to design and deploy a reliable agent inside an enterprise information system.\n\n### Leadership profile\n\nYou are a manager, director, project lead, or transformation owner. You want to understand what an agent can do, what it cannot do, and how to lead an agentic project with method.\n\n### Prerequisites\n\n- Have used an AI tool (ChatGPT, Claude, Gemini, or equivalent)\n- Understand what an LLM is at a functional level\n- Have experience in an enterprise or organizational setting\n\nYou do not need to know how to code to follow most of the course. But the technical labs require the ability to read and understand code."
+      }
+    },
+    {
+      "id": "content_00_04",
+      "type": "content",
+      "title": {"fr": "Comment le cours est construit", "en": "How the course is built"},
+      "content": {
+        "fr": "Chaque leçon suit la même structure.\n\n1. **Objectif** — Ce que vous allez savoir faire à la fin de la leçon.\n2. **Contenu** — Les concepts, exemples, distinctions et règles pratiques.\n3. **Checkpoint Ella** — Une question de compréhension ou d'application générée dynamiquement par Ella.\n4. **Diagramme** — Une représentation visuelle du concept principal.\n5. **Lab** — Un exercice pratique à réaliser dans votre contexte professionnel.\n\nLe cours intègre des exemples tunisiens et régionaux pour rendre les cas d'usage concrets.\n\n> Le fil directeur du cours est le suivant : un agent ne doit pas improviser. Il doit opérer dans un cadre contrôlé, avec des outils limités, des permissions vérifiées, des sources validées, des validations humaines et des logs exploitables.",
+        "en": "Each lesson follows the same structure.\n\n1. **Objective** — What you will know how to do at the end of the lesson.\n2. **Content** — Concepts, examples, distinctions, and practical rules.\n3. **Ella Checkpoint** — A comprehension or application question generated dynamically by Ella.\n4. **Diagram** — A visual representation of the main concept.\n5. **Lab** — A practical exercise to complete in your professional context.\n\nThe course includes Tunisian and regional examples to make use cases concrete.\n\n> The course's guiding principle is: an agent must not improvise. It must operate inside a controlled frame, with limited tools, verified permissions, validated sources, human validations, and usable logs."
+      }
+    },
+    {
+      "id": "checkpoint_00_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Course structure and guiding principle",
+        "section_context": "The learner read that each lesson has 5 parts (objective, content, checkpoint, diagram, lab) and that the course guiding principle is: an agent must not improvise — it must operate in a controlled frame with limited tools, verified permissions, validated sources, human validations, and usable logs.",
+        "question_type": "synthesis",
+        "difficulty": "beginner",
+        "hint": "A valid answer restates the guiding principle in the learner's own words, showing they understand that agent control is the central theme — not capability or performance.",
+        "anti_gpt_instructions": "Ask the learner to explain in their own words what the course's guiding principle means in practice. For example: 'The course says that an agent must not improvise. What does this mean concretely for someone deploying an agent in a real organization?' Do NOT ask about specific techniques, tools, or frameworks. Stay within the framing of controlled operation, permissions, and human oversight as introduced in this positioning lesson."
+      }
+    },
+    {
+      "id": "content_00_05",
+      "type": "content",
+      "title": {"fr": "Contexte tunisien et régional", "en": "Tunisian and regional context"},
+      "content": {
+        "fr": "Les entreprises tunisiennes opèrent dans un contexte spécifique.\n\nBeaucoup de processus passent encore par des canaux informels : emails, fichiers partagés, formulaires papier, appels téléphoniques, messages WhatsApp. Les systèmes d'information sont souvent hétérogènes.\n\nDans ce contexte, un agent IA ne peut pas supposer que les données sont structurées, que les APIs existent ou que les procédures sont documentées.\n\nCe cours prend en compte :\n\n- la loi organique tunisienne n°2004-63 sur la protection des données personnelles ;\n- les pratiques de gouvernance des organisations privées et publiques tunisiennes ;\n- les défis d'intégration SI dans des environnements hétérogènes ;\n- la réalité des pilotes IA dans un contexte de ressources limitées.\n\nLes principes du cours sont universels. Les exemples sont ancrés dans la réalité régionale.",
+        "en": "Tunisian organizations operate in a specific context.\n\nMany processes still rely on informal channels: emails, shared files, paper forms, phone calls, WhatsApp messages. Information systems are often heterogeneous.\n\nIn this context, an AI agent cannot assume that data is structured, that APIs exist, or that procedures are documented.\n\nThis course takes into account:\n\n- Tunisian Organic Law No. 2004-63 on personal data protection;\n- governance practices of Tunisian private and public organizations;\n- enterprise system integration challenges in heterogeneous environments;\n- the realities of AI pilots in resource-constrained contexts.\n\nThe course principles are universal. The examples are grounded in the regional reality."
+      }
+    },
+    {
+      "id": "diagram_00_agent_spectrum",
+      "type": "diagram",
+      "title": {
+        "fr": "Du chatbot à l'agent autonome",
+        "en": "From chatbot to autonomous agent"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 200\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"20\" y=\"60\" width=\"740\" height=\"80\" rx=\"8\" fill=\"#F1EFE8\" stroke=\"#888780\" stroke-width=\"0.5\"/><rect x=\"30\" y=\"70\" width=\"140\" height=\"60\" rx=\"6\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"0.5\"/><text x=\"100\" y=\"97\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#0C447C\">Chatbot classique</text><text x=\"100\" y=\"115\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"10\" fill=\"#185FA5\">Répond seulement</text><rect x=\"190\" y=\"70\" width=\"140\" height=\"60\" rx=\"6\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"0.5\"/><text x=\"260\" y=\"97\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#04342C\">Agent avec outils</text><text x=\"260\" y=\"115\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"10\" fill=\"#0F6E56\">Cherche, classe, crée</text><rect x=\"350\" y=\"70\" width=\"160\" height=\"60\" rx=\"6\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"0.5\"/><text x=\"430\" y=\"97\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#4A1B0C\">Agent dans workflow</text><text x=\"430\" y=\"115\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"10\" fill=\"#993C1D\">Séquence contrôlée</text><rect x=\"530\" y=\"70\" width=\"160\" height=\"60\" rx=\"6\" fill=\"#EEEDFE\" stroke=\"#534AB7\" stroke-width=\"0.5\"/><text x=\"610\" y=\"97\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"12\" font-weight=\"500\" fill=\"#26215C\">Multi-agents</text><text x=\"610\" y=\"115\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"10\" fill=\"#534AB7\">Spécialistes coordonnés</text><text x=\"400\" y=\"25\" text-anchor=\"middle\" font-family=\"sans-serif\" font-size=\"13\" font-weight=\"500\" fill=\"#2C2C2A\">Autonomie croissante → gouvernance croissante</text><text x=\"30\" y=\"175\" font-family=\"sans-serif\" font-size=\"10\" fill=\"#888780\">Risque faible</text><text x=\"700\" y=\"175\" text-anchor=\"end\" font-family=\"sans-serif\" font-size=\"10\" fill=\"#888780\">Risque élevé</text></svg>"
+    },
+    {
+      "id": "content_00_06",
+      "type": "content",
+      "title": {"fr": "Ce que vous saurez faire à la fin du cours", "en": "What you will know how to do at the end of the course"},
+      "content": {
+        "fr": "À la fin de ce cours, vous serez capable de :\n\n- **Concevoir un agent** : objectif, instructions, outils, contexte, permissions, logs et garde-fous.\n- **Modéliser un workflow agentique** : déclencheur, qualification, contexte, décision, validation, action, trace et suivi.\n- **Spécifier des outils** : entrées, sorties, permissions, erreurs, idempotence, logs.\n- **Concevoir la stratégie RAG et mémoire** : sources autorisées, chunking, métadonnées, citations, mémoire contrôlée.\n- **Choisir une architecture** : déterministe, agent unique, routeur, superviseur, handoffs, orchestrator-workers.\n- **Analyser les risques** : sécurité, gouvernance, conformité, données personnelles, garde-fous techniques et organisationnels.\n- **Construire un plan d'évaluation** : dataset, métriques, traces, graders, seuils, observabilité, rollback.\n- **Piloter un déploiement** : périmètre, rôles, mode progressif, KPI, support, communication, décision finale.\n\nLe lab final vous demandera de produire le design complet d'un agent d'entreprise gouverné, prêt pour un pilote réel.",
+        "en": "By the end of this course, you will be able to:\n\n- **Design an agent**: objective, instructions, tools, context, permissions, logs, and guardrails.\n- **Model an agentic workflow**: trigger, qualification, context, decision, validation, action, trace, and follow-up.\n- **Specify tools**: inputs, outputs, permissions, errors, idempotency, logs.\n- **Design a RAG and memory strategy**: authorized sources, chunking, metadata, citations, controlled memory.\n- **Choose an architecture**: deterministic, single agent, router, supervisor, handoffs, orchestrator-workers.\n- **Analyze risks**: security, governance, compliance, personal data, technical and organizational guardrails.\n- **Build an evaluation plan**: dataset, metrics, traces, graders, thresholds, observability, rollback.\n- **Lead a deployment**: scope, roles, progressive mode, KPIs, support, communication, final decision.\n\nThe final lab will ask you to produce the complete design of a governed enterprise agent, ready for a real pilot."
+      }
+    },
+    {
+      "id": "gate_00",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Tu connais maintenant le cadre de ce cours. Huit leçons, huit labs, un fil directeur : l'agent ne doit pas improviser. Il opère dans un cadre contrôlé. Passons à la Leçon 1 : l'anatomie d'un agent d'entreprise. Tu vas découvrir ce qui le compose vraiment.",
+        "en": "You now know the frame of this course. Eight lessons, eight labs, one guiding principle: the agent must not improvise. It operates inside a controlled frame. Let's move to Lesson 1: the anatomy of an enterprise AI agent. You will discover what truly makes it up."
+      },
+      "next_url": "/courses/agentic-ai/modules/01_anatomy_of_enterprise_ai_agent"
+    }
+  ]
+}
