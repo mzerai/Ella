@@ -1,0 +1,51 @@
+{
+  "lab_id": "01_medical_cv_diagnostic_support_lab",
+  "course_id": "ella_industry_ai_for_healthcare",
+  "title": {
+    "fr": "Lab 1 — Concevoir un pipeline de vision médicale",
+    "en": "Lab 1 — Design a Medical Vision Pipeline"
+  },
+  "description": {
+    "fr": "L’apprenant conçoit un pipeline de computer vision médicale pour un cas d’aide au diagnostic, avec données, annotations, évaluation, risques et intégration clinique.",
+    "en": "The learner designs a medical computer vision pipeline for an assisted-diagnosis case, with data, annotations, evaluation, risks, and clinical integration."
+  },
+  "concept": {
+    "fr": "DICOM, qualité d’image, annotation médicale, classification/détection/segmentation, évaluation clinique, revue humaine.",
+    "en": "DICOM, image quality, medical annotation, classification/detection/segmentation, clinical evaluation, human review."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "design_medical_cv_pipeline",
+      "title": {
+        "fr": "Spécifier un pipeline de computer vision médicale",
+        "en": "Specify a medical computer vision pipeline"
+      },
+      "audience": "healthcare",
+      "difficulty": "advanced",
+      "instructions": {
+        "fr": "Choisissez un cas d’imagerie médicale réel ou plausible : radiographie, scanner, IRM, mammographie, échographie, dermatologie ou pathologie numérique. Définissez la tâche IA, les données nécessaires, les métadonnées utiles, la stratégie d’anonymisation, le type d’annotation, les métriques, les risques cliniques, les garde-fous et la forme de sortie clinique supervisée. Votre réponse doit montrer que le modèle assiste un professionnel de santé sans produire de diagnostic autonome.",
+        "en": "Choose a real or plausible medical imaging case: X-ray, CT, MRI, mammography, ultrasound, dermatology, or digital pathology. Define the AI task, required data, useful metadata, anonymization strategy, annotation type, metrics, clinical risks, guardrails, and supervised clinical output. Your answer must show that the model supports a healthcare professional without producing an autonomous diagnosis."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par choisir la tâche : classification, détection, segmentation ou priorisation.",
+          "en": "Start by choosing the task: classification, detection, segmentation, or prioritization."
+        },
+        {
+          "fr": "Précisez les données DICOM ou images nécessaires, ainsi que les métadonnées utiles et celles à supprimer.",
+          "en": "Specify required DICOM or image data, useful metadata, and metadata to remove."
+        },
+        {
+          "fr": "Décrivez l’annotation : qui annote, comment les désaccords sont gérés, et quel niveau de preuve est nécessaire.",
+          "en": "Describe annotation: who annotates, how disagreements are handled, and what level of evidence is required."
+        },
+        {
+          "fr": "Ajoutez une évaluation clinique : faux négatifs, faux positifs, sous-groupes, seuil, revue humaine et audit.",
+          "en": "Add clinical evaluation: false negatives, false positives, subgroups, threshold, human review, and audit."
+        }
+      ]
+    }
+  ]
+}

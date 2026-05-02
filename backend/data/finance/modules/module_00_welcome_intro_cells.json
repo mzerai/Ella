@@ -1,0 +1,139 @@
+{
+  "module_id": "00_welcome_intro",
+  "title": {
+    "fr": "Bienvenue dans AI for Finance & Banking",
+    "en": "Welcome to AI for Finance & Banking"
+  },
+  "description": {
+    "fr": "Positionnement du parcours, usages clés, méthode de travail avec Ella et exigences de performance, risque et conformité.",
+    "en": "Course positioning, key use cases, how to work with Ella, and the performance, risk, and compliance requirements."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Ce cours va droit au but",
+        "en": "This course gets straight to the point"
+      },
+      "content": {
+        "fr": "# Leçon 0 — Bienvenue dans AI for Finance & Banking\n## Intelligence artificielle appliquée aux services financiers\n\n### Ce cours va droit au but\n\nVous travaillez dans une banque, une assurance, une fintech ou une direction financière. Vous entendez parler d’IA partout : scoring crédit, fraude, KYC, chatbots, conformité, automatisation.\n\nMais dans la finance, l’IA n’est jamais un simple outil. Elle peut influencer une décision de crédit, bloquer une transaction, orienter un client, analyser un dossier sensible ou produire une alerte de conformité.\n\nDonc vous devez apprendre à poser les bonnes questions :\n\n- Est-ce utile ?\n- Est-ce fiable ?\n- Est-ce explicable ?\n- Est-ce conforme ?\n- Est-ce acceptable pour le client et pour l’institution ?\n\nC’est exactement l’objectif de ce cours.\n\n---\n\n### Pourquoi ce cours est important maintenant\n\nLes institutions financières disposent de volumes importants de données : transactions, historiques de remboursement, dossiers KYC, contrats, réclamations, justificatifs, rapports internes et échanges clients.\n\nL’IA peut aider à exploiter ces données pour mieux décider, détecter les anomalies, réduire les délais et automatiser certaines tâches.\n\nMais attention : un modèle performant peut créer du risque s’il est opaque, biaisé, mal contrôlé ou mal documenté.\n\nDans le contexte tunisien, cette question est stratégique. Les banques et établissements financiers sont déjà soumis à des exigences fortes de gouvernance, de contrôle interne, de gestion des risques et de conformité. La circulaire BCT n°2021-05 définit un cadre de gouvernance applicable aux banques et établissements financiers tunisiens. [R1]\n\nLa protection des données personnelles est aussi centrale. En Tunisie, la loi organique n°2004-63 reconnaît la protection des données à caractère personnel comme un droit fondamental. [R2]\n\nÀ l’international, les cadres de référence vont dans le même sens. Le NIST AI Risk Management Framework propose une approche structurée pour gérer les risques liés à l’IA autour de quatre fonctions : Govern, Map, Measure et Manage. [R3]\n\n---",
+        "en": "# Lesson 0 — Welcome to AI for Finance & Banking\n## Artificial Intelligence Applied to Financial Services\n\n### This course gets straight to the point\n\nYou work in a bank, an insurance company, a fintech, or a finance department. You hear about AI everywhere: credit scoring, fraud detection, KYC, chatbots, compliance, and automation.\n\nBut in finance, AI is never just a simple tool. It can influence a credit decision, block a transaction, guide a customer, analyze a sensitive file, or generate a compliance alert.\n\nSo you need to ask the right questions:\n\n- Is it useful?\n- Is it reliable?\n- Is it explainable?\n- Is it compliant?\n- Is it acceptable for the customer and for the institution?\n\nThat is the purpose of this course.\n\n---\n\n### Why this course matters now\n\nFinancial institutions hold large volumes of data: transactions, repayment histories, KYC files, contracts, claims, supporting documents, internal reports, and customer conversations.\n\nAI can help use this data to improve decisions, detect anomalies, reduce delays, and automate selected tasks.\n\nBut be careful: a high-performing model can create risk if it is opaque, biased, poorly controlled, or poorly documented.\n\nIn Tunisia, this topic is strategic. Banks and financial institutions already operate under strong expectations for governance, internal control, risk management, and compliance. BCT Circular No. 2021-05 defines a governance framework for Tunisian banks and financial institutions. [R1]\n\nPersonal data protection is also central. In Tunisia, Organic Law No. 2004-63 recognizes personal data protection as a fundamental right. [R2]\n\nInternationally, the direction is similar. The NIST AI Risk Management Framework provides a structured approach to AI risk management around four functions: Govern, Map, Measure, and Manage. [R3]\n\n---"
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "Ce que vous allez apprendre",
+        "en": "What you will learn"
+      },
+      "content": {
+        "fr": "### Ce que vous allez apprendre\n\nVous allez travailler sur cinq usages clés de l’IA dans les services financiers.\n\n**1. Scoring crédit et analyse de risque**  \nVous allez comprendre comment un modèle peut aider à estimer le risque d’un dossier crédit. Vous apprendrez aussi pourquoi un score doit rester explicable.\n\n**2. Détection de fraude**  \nVous allez apprendre à repérer des transactions suspectes, à gérer les faux positifs et à choisir des métriques adaptées au risque.\n\n**3. NLP pour les documents financiers**  \nVous allez utiliser l’IA pour analyser des documents KYC, contrats, justificatifs, procédures et textes de conformité.\n\n**4. Chatbots bancaires**  \nVous allez concevoir un assistant client qui répond utilement, sans inventer, sans exposer de données sensibles et sans dépasser son rôle.\n\n**5. Gouvernance, conformité et IA responsable**  \nVous allez apprendre à documenter un cas d’usage IA, identifier les risques, proposer des contrôles et préparer une fiche pour un comité risque ou conformité.\n\n---",
+        "en": "### What you will learn\n\nYou will work on five key AI use cases in financial services.\n\n**1. Credit scoring and risk analysis**  \nYou will understand how a model can help estimate the risk of a credit application. You will also learn why a score must remain explainable.\n\n**2. Fraud detection**  \nYou will learn how to detect suspicious transactions, manage false positives, and choose metrics that fit financial risk.\n\n**3. NLP for financial documents**  \nYou will use AI to analyze KYC documents, contracts, supporting documents, procedures, and compliance texts.\n\n**4. Banking chatbots**  \nYou will design a customer assistant that gives useful answers without inventing facts, exposing sensitive data, or exceeding its role.\n\n**5. Governance, compliance, and responsible AI**  \nYou will learn how to document an AI use case, identify risks, propose controls, and prepare a sheet for a risk or compliance committee.\n\n---"
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Performance, risque, conformité / Performance, risk, compliance",
+        "section_context": "L'apprenant vient de voir que l'IA financière ne se juge pas seulement par la performance. Elle influence des décisions, des clients, des données sensibles et des obligations de contrôle. / The learner has seen that financial AI cannot be judged by performance alone. It affects decisions, clients, sensitive data, and control obligations.",
+        "question_type": "comprehension",
+        "difficulty": "beginner",
+        "hint": "Une bonne réponse relie l'utilité du modèle à l'exposition au risque et à la conformité. / A good answer connects model usefulness with risk exposure and compliance.",
+        "anti_gpt_instructions": "Demander à l'apprenant de choisir un usage IA financier lié à son contexte ou à une banque tunisienne fictive, puis d'expliquer pourquoi performance, risque et conformité doivent être traités ensemble. Interdire les notions des modules suivants."
+      }
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "À la fin, vous serez capable de faire quoi ?",
+        "en": "What you will be able to do"
+      },
+      "content": {
+        "fr": "### À la fin, vous serez capable de faire quoi ?\n\nÀ la fin de ce parcours, vous devrez pouvoir :\n\n1. Identifier un cas d’usage IA pertinent dans la finance.\n2. Choisir une approche IA adaptée au problème.\n3. Lire les résultats d’un modèle sans vous laisser impressionner par un seul score.\n4. Expliquer les risques liés aux données, au biais, à l’explicabilité et à la conformité.\n5. Concevoir un chatbot bancaire avec des garde-fous.\n6. Utiliser le NLP pour analyser un dossier documentaire.\n7. Préparer une fiche de gouvernance IA utilisable par une direction métier, risque ou conformité.\n\nL’objectif n’est pas que vous deviennes data scientist en quatre jours.\n\nL’objectif est plus important : **savoir piloter, évaluer et intégrer l’IA dans un environnement financier réel.**\n\n---",
+        "en": "### What you will be able to do\n\nBy the end of this course, you should be able to:\n\n1. Identify a relevant AI use case in finance.\n2. Choose an AI approach that fits the problem.\n3. Read model results without being impressed by a single score.\n4. Explain risks related to data, bias, explainability, and compliance.\n5. Design a banking chatbot with guardrails.\n6. Use NLP to analyze a document file.\n7. Prepare an AI governance sheet for business, risk, or compliance teams.\n\nThe goal is not to turn you into a data scientist in four days.\n\nThe goal is more important: **you will learn how to guide, evaluate, and integrate AI in a real financial environment.**\n\n---"
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Schéma clé — Bienvenue dans AI for Finance & Banking",
+        "en": "Key diagram — Welcome to AI for Finance & Banking"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 360\" xmlns=\"http://www.w3.org/2000/svg\"><defs><marker id=\"arr_00\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/></marker></defs><rect x=\"0\" y=\"0\" width=\"780\" height=\"360\" rx=\"8\" fill=\"#F1EFE8\"/><rect x=\"300\" y=\"35\" width=\"180\" height=\"58\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\"/><text x=\"390\" y=\"70\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"18\">Financial AI</text><rect x=\"80\" y=\"145\" width=\"170\" height=\"70\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\"/><text x=\"165\" y=\"174\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"16\">Performance</text><text x=\"165\" y=\"196\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"13\">useful models</text><rect x=\"305\" y=\"145\" width=\"170\" height=\"70\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\"/><text x=\"390\" y=\"174\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"16\">Risk</text><text x=\"390\" y=\"196\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"13\">controlled exposure</text><rect x=\"530\" y=\"145\" width=\"170\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"615\" y=\"174\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"16\">Compliance</text><text x=\"615\" y=\"196\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"13\">lawful use</text><line x1=\"390\" y1=\"93\" x2=\"165\" y2=\"145\" stroke=\"#5F5E5A\" marker-end=\"url(#arr_00)\"/><line x1=\"390\" y1=\"93\" x2=\"390\" y2=\"145\" stroke=\"#5F5E5A\" marker-end=\"url(#arr_00)\"/><line x1=\"390\" y1=\"93\" x2=\"615\" y2=\"145\" stroke=\"#5F5E5A\" marker-end=\"url(#arr_00)\"/><rect x=\"140\" y=\"270\" width=\"500\" height=\"45\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#5F5E5A\"/><text x=\"390\" y=\"298\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"15\">Credit • Fraud • NLP • Chatbots • Governance</text></svg>"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "Comment vous allez travailler avec Ella",
+        "en": "How you will work with Ella"
+      },
+      "content": {
+        "fr": "### Comment vous allez travailler avec Ella\n\nVous n’allez pas suivre ce cours passivement.\n\nDans chaque module, vous allez alterner entre :\n\n📖 **des leçons courtes**  \nVous découvrez un concept, un cas d’usage ou une méthode.\n\n💬 **des checkpoints Ella**  \nElla vous pose une question. Elle vérifie si vous avez compris. Elle ne valide pas les réponses floues.\n\n🧪 **des labs pratiques**  \nVous appliquez sur un cas concret : scoring, fraude, KYC, chatbot, gouvernance.\n\n✅ **des gates de progression**  \nQuand votre compréhension est suffisante, vous passez à l’étape suivante.\n\nLe principe ELLA est clair : apprendre en faisant, avec un coach IA qui guide, questionne et évalue sans donner directement les réponses. [R5]\n\n---",
+        "en": "### How you will work with Ella\n\nYou will not take this course passively.\n\nIn each module, you will move through:\n\n📖 **short lessons**  \nYou discover one concept, use case, or method at a time.\n\n💬 **Ella checkpoints**  \nElla asks you a question. She checks whether you understand. She does not validate vague answers.\n\n🧪 **practical labs**  \nYou apply the ideas to real-style cases: scoring, fraud, KYC, chatbot, and governance.\n\n✅ **progression gates**  \nWhen your understanding is strong enough, you move to the next step.\n\nThe ELLA principle is clear: learn by doing, with an AI coach that guides, questions, and evaluates without giving the answer directly. [R5]\n\n---"
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Usages IA financiers / Financial AI use cases",
+        "section_context": "L'apprenant vient d'identifier les usages du parcours : scoring crédit, fraude, NLP documentaire, chatbots bancaires et gouvernance IA. Il doit comprendre que chaque usage a ses propres risques métier. / The learner has identified the course use cases: credit scoring, fraud, document NLP, banking chatbots, and AI governance.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse compare au moins deux usages et montre que les risques ne sont pas identiques. / A good answer compares at least two use cases and shows that their risks differ.",
+        "anti_gpt_instructions": "Proposer deux départements fictifs d'une institution financière et demander à l'apprenant de choisir l'usage IA prioritaire pour chacun, avec une justification métier. Ne pas demander de détails techniques avancés."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "Point d’attention",
+        "en": "Watch this carefully"
+      },
+      "content": {
+        "fr": "### Point d’attention\n\n❌ **Erreur fréquente**  \nCroire que l’IA bancaire se juge seulement avec un taux de précision ou un gain de productivité.\n\n✅ **Bonne approche**  \nÉvaluer chaque cas d’usage avec trois questions : performance, risque et conformité.\n\n---",
+        "en": "### Watch this carefully\n\n❌ **Common mistake**  \nJudging banking AI only by accuracy or productivity gain.\n\n✅ **Better approach**  \nEvaluate each use case through three questions: performance, risk, and compliance.\n\n---"
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "Références",
+        "en": "References"
+      },
+      "content": {
+        "fr": "## Références\n\n[R1] Banque Centrale de Tunisie / Conseil Bancaire et Financier. **Circulaire aux banques et aux établissements financiers n°2021-05 du 19 août 2021 relative au cadre de gouvernance des banques et des établissements financiers.**  \nURL : https://www.cbf.org.tn/wp-content/uploads/2023/01/05-Circulaire-aux-banques-et-aux-etablissements-financiers-n%C2%B02021-05-du-19-Aout-2021.pdf  \nConsulté le 30 avril 2026.\n\n[R2] République Tunisienne. **Loi organique n°2004-63 du 27 juillet 2004 portant sur la protection des données à caractère personnel.**  \nURL : https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf  \nConsulté le 30 avril 2026.\n\n[R3] National Institute of Standards and Technology. **Artificial Intelligence Risk Management Framework (AI RMF 1.0).** NIST AI 100-1, 2023.  \nURL : https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf  \nConsulté le 30 avril 2026.\n\n[R4] European Parliament and Council. **Regulation (EU) 2024/1689, Artificial Intelligence Act, Annex III — High-risk AI systems.** Creditworthiness evaluation and credit scoring of natural persons are listed as high-risk uses, with an exception for financial fraud detection.  \nURL : https://artificialintelligenceact.eu/annex/3/  \nConsulté le 30 avril 2026.\n\n[R5] ESPRIT LearnLab Arena. **ELLA — Platform Context for Course Content Creation.** Internal course-design context provided by ESPRIT.  \nSource : user-provided platform context.",
+        "en": "## References\n\n[R1] Central Bank of Tunisia / Conseil Bancaire et Financier. **Circular to banks and financial institutions No. 2021-05 of 19 August 2021 on the governance framework for banks and financial institutions.**  \nURL: https://www.cbf.org.tn/wp-content/uploads/2023/01/05-Circulaire-aux-banques-et-aux-etablissements-financiers-n%C2%B02021-05-du-19-Aout-2021.pdf  \nAccessed on 30 April 2026.\n\n[R2] Republic of Tunisia. **Organic Law No. 2004-63 of 27 July 2004 on the protection of personal data.**  \nURL: https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf  \nAccessed on 30 April 2026.\n\n[R3] National Institute of Standards and Technology. **Artificial Intelligence Risk Management Framework (AI RMF 1.0).** NIST AI 100-1, 2023.  \nURL: https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf  \nAccessed on 30 April 2026.\n\n[R4] European Parliament and Council. **Regulation (EU) 2024/1689, Artificial Intelligence Act, Annex III — High-risk AI systems.** Creditworthiness evaluation and credit scoring of natural persons are listed as high-risk uses, with an exception for financial fraud detection.  \nURL: https://artificialintelligenceact.eu/annex/3/  \nAccessed on 30 April 2026.\n\n[R5] ESPRIT LearnLab Arena. **ELLA — Platform Context for Course Content Creation.** Internal course-design context provided by ESPRIT.  \nSource: user-provided platform context."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Mauvais cadrage IA / Flawed AI framing",
+        "section_context": "L'apprenant a vu comment travailler avec Ella et pourquoi le cours demande des réponses contextualisées. Il doit reconnaître une initiative IA financière mal cadrée. / The learner has seen how to work with Ella and why contextual answers matter.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse signale l'absence de contrôle, d'explicabilité, de périmètre ou de validation humaine. / A good answer flags missing control, explainability, scope, or human validation.",
+        "anti_gpt_instructions": "Présenter un projet fictif où une banque veut déployer un chatbot, un scoring ou une alerte fraude sans cadrage clair. Demander à l'apprenant d'identifier trois failles de cadrage sans utiliser les concepts détaillés des futurs modules."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous avez maintenant structuré l'essentiel du module « Bienvenue dans AI for Finance & Banking ». Le lab qui suit vous demande d'appliquer ces concepts dans une situation financière concrète, avec un raisonnement défendable pour une équipe risque, conformité ou innovation.",
+        "en": "You have now structured the core ideas of “Welcome to AI for Finance & Banking”. The next lab asks you to apply these concepts to a concrete financial situation, with reasoning that a risk, compliance, or innovation team can defend."
+      },
+      "next_url": "/courses/ai-finance-banking/labs/00_course_orientation_lab"
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "lab_id": "final_healthcare_ai_governed_solution_lab",
+  "course_id": "ella_industry_ai_for_healthcare",
+  "title": {
+    "fr": "Lab final — Concevoir une solution IA santé gouvernée",
+    "en": "Final Lab — Design a Governed Healthcare AI Solution"
+  },
+  "description": {
+    "fr": "L’apprenant conçoit une solution IA santé complète, du cas d’usage au pilote, avec données, modèle, éthique, conformité, évaluation et gouvernance.",
+    "en": "The learner designs a complete healthcare AI solution, from use case to pilot, with data, model, ethics, compliance, evaluation, and governance."
+  },
+  "concept": {
+    "fr": "Computer vision médicale, NLP clinique, anonymisation, modèles prédictifs, conformité tunisienne, gouvernance, évaluation clinique et pilote.",
+    "en": "Medical computer vision, clinical NLP, anonymization, predictive models, Tunisian compliance, governance, clinical evaluation, and pilot."
+  },
+  "target_score": 16,
+  "max_score": 20,
+  "missions": [
+    {
+      "mission_id": "design_governed_healthcare_ai_solution",
+      "title": {
+        "fr": "Spécifier une solution IA santé complète et gouvernée",
+        "en": "Specify a complete and governed healthcare AI solution"
+      },
+      "audience": "healthcare",
+      "difficulty": "advanced",
+      "instructions": {
+        "fr": "Choisissez un cas d’usage IA santé réel ou plausible : imagerie médicale, NLP clinique, prédiction de risque, recherche clinique, suivi patient, ou outil HealthTech. Produisez une spécification complète prête pour discussion avec une équipe médicale, technique, juridique et direction. Votre livrable doit contenir : 1) problème clinique ou scientifique, 2) décision humaine aidée, 3) utilisateurs et parties prenantes, 4) données utilisées et données exclues, 5) stratégie d’anonymisation ou pseudonymisation, 6) pipeline IA choisi, 7) modèle ou approche technique, 8) métriques et validation clinique, 9) risques patients, 10) risques de données, 11) biais et sous-groupes à auditer, 12) conformité tunisienne, 13) responsabilités et gouvernance, 14) intégration dans le workflow, 15) supervision humaine, 16) monitoring après déploiement, 17) plan pilote, 18) critères go/no-go. La solution doit aider une décision humaine, sans remplacer le médecin, le chercheur ou l’institution.",
+        "en": "Choose a real or plausible healthcare AI use case: medical imaging, clinical NLP, risk prediction, clinical research, patient monitoring, or HealthTech tool. Produce a complete specification ready for discussion with medical, technical, legal, and leadership teams. Your deliverable must include: 1) clinical or scientific problem, 2) supported human decision, 3) users and stakeholders, 4) data used and data excluded, 5) anonymization or pseudonymization strategy, 6) chosen AI pipeline, 7) model or technical approach, 8) metrics and clinical validation, 9) patient risks, 10) data risks, 11) bias and subgroups to audit, 12) Tunisian compliance, 13) responsibilities and governance, 14) workflow integration, 15) human oversight, 16) post-deployment monitoring, 17) pilot plan, 18) go/no-go criteria. The solution must support a human decision without replacing the physician, researcher, or institution."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par la décision humaine aidée : diagnostic assisté, tri, extraction, prédiction, recherche ou suivi.",
+          "en": "Start with the supported human decision: assisted diagnosis, triage, extraction, prediction, research, or follow-up."
+        },
+        {
+          "fr": "Séparez clairement données nécessaires, données exclues, identifiants directs et quasi-identifiants.",
+          "en": "Clearly separate necessary data, excluded data, direct identifiers, and quasi-identifiers."
+        },
+        {
+          "fr": "Reliez les métriques au risque clinique : faux négatifs, faux positifs, calibration, sous-groupes et validation externe.",
+          "en": "Connect metrics to clinical risk: false negatives, false positives, calibration, subgroups, and external validation."
+        },
+        {
+          "fr": "Terminez par un plan pilote gouverné avec rôles, accès, logs, supervision humaine, monitoring et décision go/no-go.",
+          "en": "End with a governed pilot plan with roles, access, logs, human oversight, monitoring, and go/no-go decision."
+        }
+      ]
+    }
+  ],
+  "expected_output_schema": {
+    "fr": {
+      "sections_obligatoires": [
+        "Cas d’usage et problème",
+        "Décision humaine aidée",
+        "Population et données",
+        "Anonymisation et protection des données",
+        "Pipeline IA",
+        "Validation clinique",
+        "Risques patients",
+        "Risques données",
+        "Biais et équité",
+        "Conformité tunisienne",
+        "Gouvernance",
+        "Intégration workflow",
+        "Supervision humaine",
+        "Monitoring",
+        "Plan pilote",
+        "Critères go/no-go"
+      ]
+    },
+    "en": {
+      "required_sections": [
+        "Use case and problem",
+        "Supported human decision",
+        "Population and data",
+        "Anonymization and data protection",
+        "AI pipeline",
+        "Clinical validation",
+        "Patient risks",
+        "Data risks",
+        "Bias and fairness",
+        "Tunisian compliance",
+        "Governance",
+        "Workflow integration",
+        "Human oversight",
+        "Monitoring",
+        "Pilot plan",
+        "Go/no-go criteria"
+      ]
+    }
+  }
+}

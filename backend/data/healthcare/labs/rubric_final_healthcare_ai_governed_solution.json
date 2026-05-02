@@ -1,0 +1,93 @@
+{
+  "rubric_id": "rubric_final_healthcare_ai_governed_solution",
+  "course_id": "ella_industry_ai_for_healthcare",
+  "lab_id": "final_healthcare_ai_governed_solution_lab",
+  "max_score": 20,
+  "target_score": 16,
+  "criteria": [
+    {
+      "id": "clinical_problem_and_decision",
+      "max_points": 3,
+      "label": {
+        "fr": "Problème et décision clinique",
+        "en": "Clinical problem and decision"
+      },
+      "description": {
+        "fr": "Le cas d’usage est précis, relié à une décision humaine claire, avec population, horizon et action associée.",
+        "en": "The use case is precise, connected to a clear human decision, with population, horizon, and associated action."
+      }
+    },
+    {
+      "id": "data_and_privacy",
+      "max_points": 4,
+      "label": {
+        "fr": "Données, anonymisation et confidentialité",
+        "en": "Data, anonymization, and privacy"
+      },
+      "description": {
+        "fr": "Les données nécessaires, exclues, identifiantes, quasi-identifiantes, méthodes d’anonymisation, accès, conservation et transferts sont traités.",
+        "en": "Necessary data, excluded data, identifiers, quasi-identifiers, anonymization methods, access, retention, and transfers are addressed."
+      }
+    },
+    {
+      "id": "ai_pipeline_and_metrics",
+      "max_points": 4,
+      "label": {
+        "fr": "Pipeline IA et évaluation",
+        "en": "AI pipeline and evaluation"
+      },
+      "description": {
+        "fr": "Le pipeline technique est cohérent avec le cas d’usage, et les métriques couvrent performance, erreurs critiques, calibration, sous-groupes et validation externe.",
+        "en": "The technical pipeline fits the use case, and metrics cover performance, critical errors, calibration, subgroups, and external validation."
+      }
+    },
+    {
+      "id": "ethics_and_bias",
+      "max_points": 3,
+      "label": {
+        "fr": "Éthique, biais et équité",
+        "en": "Ethics, bias, and fairness"
+      },
+      "description": {
+        "fr": "Les risques de biais, d’injustice, de surconfiance et d’impact patient sont identifiés avec des mesures de réduction.",
+        "en": "Bias, unfairness, overconfidence, and patient-impact risks are identified with mitigation measures."
+      }
+    },
+    {
+      "id": "compliance_and_governance",
+      "max_points": 3,
+      "label": {
+        "fr": "Conformité et gouvernance",
+        "en": "Compliance and governance"
+      },
+      "description": {
+        "fr": "Le cadre tunisien, les responsabilités, la documentation, les logs, la validation médicale et les droits des personnes sont intégrés.",
+        "en": "The Tunisian frame, responsibilities, documentation, logs, medical validation, and data-subject rights are integrated."
+      }
+    },
+    {
+      "id": "pilot_and_monitoring",
+      "max_points": 3,
+      "label": {
+        "fr": "Pilote et suivi",
+        "en": "Pilot and monitoring"
+      },
+      "description": {
+        "fr": "Le plan pilote inclut rôles, accès, supervision humaine, monitoring, critères go/no-go, incident response et rollback.",
+        "en": "The pilot plan includes roles, access, human oversight, monitoring, go/no-go criteria, incident response, and rollback."
+      }
+    }
+  ],
+  "score_interpretation": {
+    "fr": {
+      "16_20": "Prêt pour discussion projet avec corrections mineures.",
+      "12_15": "Base solide mais des éléments critiques doivent être renforcés.",
+      "0_11": "Cadrage insuffisant pour un projet IA santé responsable."
+    },
+    "en": {
+      "16_20": "Ready for project discussion with minor corrections.",
+      "12_15": "Solid base but critical elements need strengthening.",
+      "0_11": "Insufficient framing for a responsible healthcare AI project."
+    }
+  }
+}

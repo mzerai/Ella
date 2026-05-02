@@ -556,3 +556,60 @@ export async function evaluateAgenticResponse(params: {
     body: JSON.stringify(params),
   });
 }
+
+// ============================================
+// AI Finance & Banking API
+// ============================================
+
+export async function getFinanceModuleCells(moduleId: string): Promise<ModuleData> {
+  return apiFetch<ModuleData>(`/api/labs/finance/modules/${moduleId}`);
+}
+
+export async function getFinanceLabDetail(labId: string): Promise<PELabDetail> {
+  return apiFetch<PELabDetail>(`/api/labs/finance/labs/${labId}`);
+}
+
+export interface FinanceEvalResponse {
+  feedback: string;
+  score_qualitative: "excellent" | "good" | "needs_improvement";
+}
+
+export async function evaluateFinanceResponse(params: {
+  lab_id: string;
+  mission_id: string;
+  student_response: string;
+  language: string;
+}): Promise<FinanceEvalResponse> {
+  return apiFetch<FinanceEvalResponse>("/api/labs/finance/evaluate", {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+}
+// ============================================
+// AI Healthcare API
+// ============================================
+
+export async function getHealthcareSequenceCells(sequenceId: string): Promise<ModuleData> {
+  return apiFetch<ModuleData>(`/api/labs/healthcare/sequences/${sequenceId}`);
+}
+
+export async function getHealthcareWorkshopDetail(workshopId: string): Promise<PELabDetail> {
+  return apiFetch<PELabDetail>(`/api/labs/healthcare/workshops/${workshopId}`);
+}
+
+export interface HealthcareEvalResponse {
+  feedback: string;
+  score_qualitative: "excellent" | "good" | "needs_improvement";
+}
+
+export async function evaluateHealthcareResponse(params: {
+  workshop_id: string;
+  mission_id: string;
+  student_response: string;
+  language: string;
+}): Promise<HealthcareEvalResponse> {
+  return apiFetch<HealthcareEvalResponse>("/api/labs/healthcare/evaluate", {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+}

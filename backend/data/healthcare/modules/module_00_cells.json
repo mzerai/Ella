@@ -1,0 +1,163 @@
+{
+  "module_id": "00_ai_healthcare_positioning",
+  "title": {
+    "fr": "Module 0 — Positionner l’IA en santé",
+    "en": "Module 0 — Positioning AI in Healthcare"
+  },
+  "description": {
+    "fr": "Ce module positionne l’IA appliquée à la santé, du diagnostic assisté à la recherche clinique, avec attention aux risques patients et aux données sensibles.",
+    "en": "This module positions AI in healthcare, from assisted diagnosis to clinical research, with attention to patient risks and sensitive data."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Pourquoi l’IA en santé exige un cadre strict",
+        "en": "Why healthcare AI needs a strict frame"
+      },
+      "content": {
+        "fr": "L’IA appliquée à la santé ne se limite pas à automatiser une tâche. Elle peut influencer un diagnostic assisté, une décision de tri, une alerte de risque, une priorisation de patients, une synthèse de dossier ou une recherche clinique. Vous devez donc la concevoir comme un **système d’aide encadré**, jamais comme un substitut au jugement médical.\n\nDans ce cours, vous travaillerez sur cinq familles d’usages : computer vision médicale, NLP clinique, anonymisation et éthique, modèles prédictifs, et cadre réglementaire tunisien. Le principe restera constant : une solution IA santé doit être utile cliniquement, robuste techniquement, explicable quand c’est nécessaire, traçable, validée par des professionnels et conforme à la protection des données patients.",
+        "en": "AI applied to healthcare is not just task automation. It can influence assisted diagnosis, triage, risk alerts, patient prioritization, record summarization, or clinical research. You must therefore design it as a **governed support system**, never as a substitute for medical judgment.\n\nIn this course, you will work on five use-case families: medical computer vision, clinical NLP, anonymization and ethics, predictive models, and the Tunisian regulatory frame. The principle remains constant: a healthcare AI solution must be clinically useful, technically robust, explainable when needed, traceable, validated by professionals, and compliant with patient-data protection."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "Les quatre modes d’action de l’IA santé",
+        "en": "The four action modes of healthcare AI"
+      },
+      "content": {
+        "fr": "Vous pouvez classer la plupart des cas d’usage IA santé en quatre modes.\n\n| Mode | Exemple | Valeur | Risque principal |\n|---|---|---|---|\n| Voir | repérer une anomalie sur une image | accélérer la lecture ou le tri | faux positif ou faux négatif |\n| Lire | extraire une comorbidité d’un dossier | structurer l’information clinique | extraction erronée ou fuite de données |\n| Prédire | estimer un risque de complication | anticiper une surveillance | biais ou mauvaise calibration |\n| Assister | proposer une synthèse ou une alerte | aider le clinicien à décider | confusion entre aide et décision |\n\nLe bon cadrage commence par une question : **quelle décision humaine l’IA aide-t-elle exactement ?**",
+        "en": "Most healthcare AI use cases can be classified into four modes.\n\n| Mode | Example | Value | Main risk |\n|---|---|---|---|\n| See | detect an abnormality in an image | speed up reading or triage | false positive or false negative |\n| Read | extract a comorbidity from a record | structure clinical information | wrong extraction or data leakage |\n| Predict | estimate complication risk | anticipate monitoring | bias or poor calibration |\n| Support | propose a summary or alert | help the clinician decide | confusion between support and decision |\n\nGood framing starts with one question: **which human decision does AI support exactly?**"
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Modes d’action IA santé",
+        "section_context": "L’étudiant vient de distinguer les quatre modes d’action de l’IA en santé : voir, lire, prédire et assister. Il a aussi vu que chaque cas d’usage doit être relié à une décision humaine précise.",
+        "question_type": "comprehension",
+        "difficulty": "beginner",
+        "hint": "Une bonne réponse doit nommer le mode d’action, la décision humaine aidée et un risque associé.",
+        "anti_gpt_instructions": "Propose un mini-cas fictif situé dans une clinique tunisienne, avec un exemple précis d’image, dossier ou score de risque. Demande à l’étudiant de classer le cas en voir/lire/prédire/assister et d’indiquer quelle décision reste humaine. Interdire de mentionner les modules techniques suivants."
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "De la donnée médicale à la décision supervisée",
+        "en": "From medical data to supervised decision"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 360\" xmlns=\"http://www.w3.org/2000/svg\"><defs><marker id=\"arr_hc_00\" markerWidth=\"10\" markerHeight=\"10\" refX=\"9\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/></marker></defs><rect x=\"0\" y=\"0\" width=\"780\" height=\"360\" fill=\"#F1EFE8\"/><text x=\"390\" y=\"35\" text-anchor=\"middle\" font-size=\"22\" fill=\"#2C2C2A\" font-family=\"Arial\">Healthcare AI: governed clinical support</text><rect x=\"35\" y=\"95\" width=\"130\" height=\"78\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"2\"/><text x=\"100\" y=\"123\" text-anchor=\"middle\" font-size=\"15\" fill=\"#185FA5\" font-family=\"Arial\">Health data</text><text x=\"100\" y=\"146\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5F5E5A\" font-family=\"Arial\">Images, records, labs</text><line x1=\"165\" y1=\"134\" x2=\"225\" y2=\"134\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_hc_00)\"/><rect x=\"225\" y=\"95\" width=\"130\" height=\"78\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\" stroke-width=\"2\"/><text x=\"290\" y=\"123\" text-anchor=\"middle\" font-size=\"15\" fill=\"#534AB7\" font-family=\"Arial\">AI model</text><text x=\"290\" y=\"146\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5F5E5A\" font-family=\"Arial\">CV, NLP, risk</text><line x1=\"355\" y1=\"134\" x2=\"415\" y2=\"134\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_hc_00)\"/><rect x=\"415\" y=\"95\" width=\"130\" height=\"78\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"2\"/><text x=\"480\" y=\"123\" text-anchor=\"middle\" font-size=\"15\" fill=\"#0F6E56\" font-family=\"Arial\">Clinical support</text><text x=\"480\" y=\"146\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5F5E5A\" font-family=\"Arial\">Triage, alert, draft</text><line x1=\"545\" y1=\"134\" x2=\"605\" y2=\"134\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_hc_00)\"/><rect x=\"605\" y=\"95\" width=\"130\" height=\"78\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"2\"/><text x=\"670\" y=\"123\" text-anchor=\"middle\" font-size=\"15\" fill=\"#993C1D\" font-family=\"Arial\">Human decision</text><text x=\"670\" y=\"146\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5F5E5A\" font-family=\"Arial\">Clinician validates</text><rect x=\"110\" y=\"235\" width=\"160\" height=\"58\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"2\"/><text x=\"190\" y=\"260\" text-anchor=\"middle\" font-size=\"14\" fill=\"#993C1D\" font-family=\"Arial\">Risks</text><text x=\"190\" y=\"280\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5F5E5A\" font-family=\"Arial\">Bias, leakage, false trust</text><rect x=\"310\" y=\"235\" width=\"160\" height=\"58\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"2\"/><text x=\"390\" y=\"260\" text-anchor=\"middle\" font-size=\"14\" fill=\"#185FA5\" font-family=\"Arial\">Controls</text><text x=\"390\" y=\"280\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5F5E5A\" font-family=\"Arial\">Validation, audit, tests</text><rect x=\"510\" y=\"235\" width=\"160\" height=\"58\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"2\"/><text x=\"590\" y=\"260\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0F6E56\" font-family=\"Arial\">Value</text><text x=\"590\" y=\"280\" text-anchor=\"middle\" font-size=\"12\" fill=\"#5F5E5A\" font-family=\"Arial\">Safer pathways</text></svg>"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "Contexte tunisien : potentiel et prudence",
+        "en": "Tunisian context: potential and caution"
+      },
+      "content": {
+        "fr": "En Tunisie, l’IA santé peut aider les cliniques, CHU, startups HealthTech et équipes de recherche : tri d’images, aide à la lecture, structuration de dossiers médicaux, suivi de maladies chroniques, recherche clinique, amélioration des parcours patients. Le potentiel est fort, surtout quand les équipes font face à des volumes de données, des contraintes de temps ou des systèmes d’information hétérogènes.\n\nMais les données de santé sont sensibles. Un projet IA santé doit donc intégrer la protection des données dès la conception : minimisation, anonymisation, contrôle d’accès, traçabilité, validation médicale et audit. Le cadre tunisien de protection des données personnelles, notamment la loi organique n°2004-63, doit être pris en compte dès le cadrage.",
+        "en": "In Tunisia, healthcare AI can help clinics, university hospitals, HealthTech startups, and research teams: image triage, assisted reading, medical-record structuring, chronic-disease follow-up, clinical research, and better patient pathways. The potential is high, especially when teams face data volume, time pressure, or heterogeneous information systems.\n\nBut health data is sensitive. A healthcare AI project must therefore include data protection by design: minimization, anonymization, access control, traceability, medical validation, and audit. Tunisia’s personal-data protection framework, including Organic Law No. 2004-63, must be considered from the framing stage."
+      }
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "Capacités attendues à la fin du cours",
+        "en": "Expected capabilities by the end"
+      },
+      "content": {
+        "fr": "À la fin du cours, vous devrez pouvoir :\n\n- cadrer un cas d’usage IA santé autour d’une décision clinique ou de recherche ;\n- concevoir un pipeline de computer vision pour l’imagerie médicale ;\n- concevoir un pipeline NLP pour des dossiers, comptes rendus ou notes cliniques ;\n- identifier les risques éthiques : biais, explicabilité, surconfiance, équité, consentement ;\n- appliquer des principes d’anonymisation et de minimisation ;\n- évaluer un modèle prédictif selon performance, calibration, sécurité et impact clinique ;\n- préparer un plan de conformité pour la protection des données patients en Tunisie.",
+        "en": "By the end of the course, you should be able to:\n\n- frame a healthcare AI use case around a clinical or research decision;\n- design a computer vision pipeline for medical imaging;\n- design an NLP pipeline for records, reports, or clinical notes;\n- identify ethical risks: bias, explainability, overconfidence, fairness, consent;\n- apply anonymization and minimization principles;\n- evaluate a predictive model through performance, calibration, safety, and clinical impact;\n- prepare a compliance plan for patient-data protection in Tunisia."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Objectifs du cours",
+        "section_context": "L’étudiant vient de voir les capacités attendues : cadrage clinique, computer vision, NLP clinique, éthique, anonymisation, modèles prédictifs et conformité tunisienne.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse doit relier un objectif du cours à un cas d’usage santé concret et expliquer pourquoi la validation médicale ou la protection des données est nécessaire.",
+        "anti_gpt_instructions": "Demande à l’étudiant de choisir un contexte de santé réel ou plausible dans son environnement professionnel et de citer deux compétences du cours qui seraient critiques. Exiger une justification liée au patient, aux données ou à la décision clinique."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "Le médecin et le chercheur restent responsables",
+        "en": "The physician and researcher remain responsible"
+      },
+      "content": {
+        "fr": "L’IA santé doit être présentée comme une assistance. Elle peut signaler, prioriser, segmenter, extraire, résumer ou prédire. Elle ne doit pas se substituer à la responsabilité médicale, scientifique ou institutionnelle.\n\nEn imagerie, un modèle peut signaler une zone suspecte, mais le médecin interprète dans le contexte clinique. En NLP, un modèle peut extraire des antécédents ou traitements, mais un professionnel vérifie la pertinence. En prédiction de risque, un score peut déclencher une vigilance, mais la décision dépend du patient, du protocole, du service et de l’équipe.\n\nVotre réflexe : préciser **qui valide**, **sur quelle base**, **avec quelle trace**, et **avec quel mécanisme de correction**.",
+        "en": "Healthcare AI must be presented as support. It can flag, prioritize, segment, extract, summarize, or predict. It must not replace medical, scientific, or institutional responsibility.\n\nIn imaging, a model can flag a suspicious region, but the physician interprets it in the clinical context. In NLP, a model can extract history or treatments, but a professional checks relevance. In risk prediction, a score can trigger attention, but the decision depends on the patient, protocol, department, and care team.\n\nYour reflex: specify **who validates**, **on what basis**, **with what trace**, and **with what correction mechanism**."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "Risques à surveiller dès le cadrage",
+        "en": "Risks to watch from framing"
+      },
+      "content": {
+        "fr": "Les risques apparaissent avant même le modèle.\n\n| Risque | Exemple | Garde-fou |\n|---|---|---|\n| Biais | patients sous-représentés | audit de cohorte |\n| Mauvaise annotation | diagnostic historique incertain | revue médicale |\n| Fuite de données | identifiants dans un compte rendu | anonymisation et contrôle d’accès |\n| Surconfiance | score utilisé comme diagnostic | validation humaine |\n| Mauvaise généralisation | test dans un seul établissement | validation externe |\n| Non-conformité | données sans base claire | gouvernance et traçabilité |\n\nUn projet IA santé sérieux commence par la décision, la donnée, le risque et la responsabilité.",
+        "en": "Risks appear before the model itself.\n\n| Risk | Example | Guardrail |\n|---|---|---|\n| Bias | under-represented patients | cohort audit |\n| Poor annotation | uncertain historical diagnosis | medical review |\n| Data leakage | identifiers inside a report | anonymization and access control |\n| Overconfidence | score used as diagnosis | human validation |\n| Poor generalization | tested in one institution only | external validation |\n| Non-compliance | data without clear basis | governance and traceability |\n\nA serious healthcare AI project starts with the decision, data, risk, and responsibility."
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "Repères internationaux et réglementaires",
+        "en": "International and regulatory anchors"
+      },
+      "content": {
+        "fr": "Ce cours s’appuie sur plusieurs repères de conception.\n\nL’OMS rappelle que l’IA en santé peut toucher le diagnostic, les soins, la recherche, la santé publique, le développement de médicaments et l’administration. Elle insiste aussi sur la gouvernance, la sécurité, la transparence et la supervision humaine. Le NIST AI Risk Management Framework structure la gestion du risque IA autour de **Govern, Map, Measure, Manage**. Le règlement européen sur l’IA, Regulation (EU) 2024/1689, suit une approche par niveau de risque, ce qui est important si une solution vise des partenaires, marchés ou patients liés à l’Europe.\n\nCes cadres vous aident à raisonner. Ils ne remplacent pas une validation médicale, juridique ou institutionnelle.",
+        "en": "This course relies on several design anchors.\n\nWHO notes that AI in health may affect diagnosis, care, research, public health, drug development, and administration. It also stresses governance, safety, transparency, and human oversight. The NIST AI Risk Management Framework structures AI risk management around **Govern, Map, Measure, Manage**. The European AI Act, Regulation (EU) 2024/1689, follows a risk-based approach, which matters if a solution targets partners, markets, or patients connected to Europe.\n\nThese frameworks help you reason. They do not replace medical, legal, or institutional validation."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Analyse d’un cas risqué",
+        "section_context": "L’étudiant vient d’apprendre que les risques IA santé incluent biais, mauvaise annotation, fuite de données, surconfiance, mauvaise généralisation et non-conformité. Il a aussi vu que le médecin ou chercheur garde la responsabilité finale.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse doit identifier au moins deux erreurs de conception et proposer un garde-fou concret pour chacune.",
+        "anti_gpt_instructions": "Présente un cas fictif d’outil IA santé mal conçu : données d’un seul établissement, absence d’anonymisation explicite, score présenté comme diagnostic final, aucun audit. Demande à l’étudiant d’identifier les erreurs et de proposer des garde-fous. Interdire de traiter les détails techniques des modules suivants."
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "Méthode de travail dans ce cours",
+        "en": "How to work through this course"
+      },
+      "content": {
+        "fr": "À chaque module, utilisez quatre questions.\n\n1. **Quelle décision est aidée ?** Diagnostic assisté, tri, extraction, alerte, suivi ou recherche.\n2. **Quelle donnée est utilisée ?** Image, texte clinique, résultat biologique, historique patient, protocole.\n3. **Quel risque existe ?** Patient, donnée, biais, conformité, généralisation ou surconfiance.\n4. **Quel garde-fou rend l’usage acceptable ?** Validation médicale, anonymisation, audit, test externe, contrôle d’accès ou escalade.\n\nCette grille prépare le lab final : concevoir un cas d’usage IA santé complet, gouverné et conforme.",
+        "en": "In each module, use four questions.\n\n1. **Which decision is supported?** Assisted diagnosis, triage, extraction, alert, follow-up, or research.\n2. **Which data is used?** Image, clinical text, lab result, patient history, protocol.\n3. **Which risk exists?** Patient, data, bias, compliance, generalization, or overconfidence.\n4. **Which guardrail makes the use acceptable?** Medical validation, anonymization, audit, external testing, access control, or escalation.\n\nThis grid prepares the final lab: designing a complete, governed, and compliant healthcare AI use case."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous savez maintenant cadrer l’IA en santé comme une aide encadrée à une décision clinique ou de recherche, avec risques patients, données sensibles et responsabilité humaine. Le lab qui suit vous demande de cadrer un premier cas d’usage IA santé avant toute modélisation technique.",
+        "en": "You now know how to frame healthcare AI as governed support for a clinical or research decision, with patient risks, sensitive data, and human responsibility. The next lab asks you to frame a first healthcare AI use case before any technical modeling."
+      },
+      "next_url": "/courses/ai-healthcare/labs/00_healthcare_ai_use_case_framing_lab"
+    }
+  ]
+}

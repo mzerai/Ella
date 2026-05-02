@@ -1,0 +1,51 @@
+{
+  "lab_id": "03_healthcare_ai_ethics_anonymization_lab",
+  "course_id": "ella_industry_ai_for_healthcare",
+  "title": {
+    "fr": "Lab 3 — Construire un plan éthique et anonymisation",
+    "en": "Lab 3 — Build an Ethics and Anonymization Plan"
+  },
+  "description": {
+    "fr": "L’apprenant construit un plan éthique et données pour un projet IA santé, avec finalité, minimisation, anonymisation, accès, biais, audit et validation médicale.",
+    "en": "The learner builds an ethics and data plan for a healthcare AI project, with purpose, minimization, anonymization, access, bias, audit, and medical validation."
+  },
+  "concept": {
+    "fr": "Éthique IA santé, anonymisation, pseudonymisation, minimisation, biais, données patients, gouvernance, audit.",
+    "en": "Healthcare AI ethics, anonymization, pseudonymization, minimization, bias, patient data, governance, audit."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "design_healthcare_ai_ethics_anonymization_plan",
+      "title": {
+        "fr": "Spécifier un plan éthique et données patients",
+        "en": "Specify a patient-data ethics plan"
+      },
+      "audience": "healthcare",
+      "difficulty": "advanced",
+      "instructions": {
+        "fr": "Choisissez un projet IA santé réel ou plausible : imagerie, NLP clinique, prédiction de risque, recherche clinique ou suivi patient. Produisez un plan éthique et anonymisation : finalité, données nécessaires, données à exclure, méthode de dé-identification ou pseudonymisation, contrôle d’accès, risques de ré-identification, biais à auditer, validation médicale, logs, conservation, partage contrôlé et gouvernance. Votre réponse doit montrer comment protéger les patients sans bloquer la valeur clinique ou scientifique du projet.",
+        "en": "Choose a real or plausible healthcare AI project: imaging, clinical NLP, risk prediction, clinical research, or patient monitoring. Produce an ethics and anonymization plan: purpose, necessary data, data to exclude, de-identification or pseudonymization method, access control, re-identification risks, bias audits, medical validation, logs, retention, controlled sharing, and governance. Your answer must show how to protect patients without blocking the clinical or scientific value of the project."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par la finalité : soin, recherche, qualité, innovation ou pilotage.",
+          "en": "Start with the purpose: care, research, quality, innovation, or management."
+        },
+        {
+          "fr": "Séparez identifiants directs, quasi-identifiants et données cliniques utiles.",
+          "en": "Separate direct identifiers, quasi-identifiers, and useful clinical data."
+        },
+        {
+          "fr": "Ajoutez des contrôles : accès, logs, durée de conservation, environnement sécurisé et revue médicale.",
+          "en": "Add controls: access, logs, retention period, secure environment, and medical review."
+        },
+        {
+          "fr": "Prévoyez un audit des biais par sous-groupe avant tout pilote ou extension.",
+          "en": "Plan subgroup bias auditing before any pilot or scaling."
+        }
+      ]
+    }
+  ]
+}

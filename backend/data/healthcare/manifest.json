@@ -1,0 +1,34 @@
+{
+  "course_id": "ella_industry_ai_for_healthcare",
+  "course_slug": "ai-for-healthcare",
+  "title": {
+    "fr": "IA appliquée à la santé : du diagnostic à la recherche clinique",
+    "en": "AI for Healthcare: from Diagnosis to Clinical Research"
+  },
+  "pathway": "Industry",
+  "secondary_pathway": "Tech",
+  "level": "Advanced",
+  "status": "complete_package_ready",
+  "latest_module": 5,
+  "final_lab": "final_healthcare_ai_governed_solution_lab",
+  "files": [
+    "course_spec.json",
+    "lab_00_healthcare_ai_use_case_framing_lab.json",
+    "lab_01_medical_cv_diagnostic_support_lab.json",
+    "lab_02_clinical_nlp_information_extraction_lab.json",
+    "lab_03_healthcare_ai_ethics_anonymization_lab.json",
+    "lab_04_predictive_risk_decision_support_lab.json",
+    "lab_05_healthcare_ai_regulatory_compliance_tunisia_lab.json",
+    "lab_final_healthcare_ai_governed_solution_lab.json",
+    "manifest.json",
+    "module_00_cells.json",
+    "module_01_cells.json",
+    "module_02_cells.json",
+    "module_03_cells.json",
+    "module_04_cells.json",
+    "module_05_cells.json",
+    "rubric_final_healthcare_ai_governed_solution.json"
+  ],
+  "target_folder": "backend/data/ella_industry_ai_for_healthcare/",
+  "format": "ELLA notebook JSON + lab JSON"
+}

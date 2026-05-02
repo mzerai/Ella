@@ -1,0 +1,51 @@
+{
+  "lab_id": "02_clinical_nlp_information_extraction_lab",
+  "course_id": "ella_industry_ai_for_healthcare",
+  "title": {
+    "fr": "Lab 2 — Spécifier un pipeline NLP clinique",
+    "en": "Lab 2 — Specify a Clinical NLP Pipeline"
+  },
+  "description": {
+    "fr": "L’apprenant conçoit un pipeline NLP clinique pour extraire de l’information médicale à partir de textes, avec dé-identification, qualification, normalisation, évaluation et validation humaine.",
+    "en": "The learner designs a clinical NLP pipeline to extract medical information from text, with de-identification, qualification, normalization, evaluation, and human validation."
+  },
+  "concept": {
+    "fr": "NLP clinique, dé-identification, extraction d’entités, négation, temporalité, normalisation, FHIR, SNOMED CT, ICD-11.",
+    "en": "Clinical NLP, de-identification, entity extraction, negation, temporality, normalization, FHIR, SNOMED CT, ICD-11."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "design_clinical_nlp_pipeline",
+      "title": {
+        "fr": "Concevoir un pipeline NLP clinique validable",
+        "en": "Design a validatable clinical NLP pipeline"
+      },
+      "audience": "healthcare",
+      "difficulty": "advanced",
+      "instructions": {
+        "fr": "Choisissez un type de document clinique : compte rendu, lettre de sortie, note de consultation, prescription, résultat biologique, dossier de recherche ou formulaire. Spécifiez le pipeline NLP : ingestion, dé-identification, segmentation, entités à extraire, négation, temporalité, normalisation, standard de sortie, validation humaine, métriques, risques et garde-fous. Votre réponse doit montrer comment éviter de transformer une hypothèse, une négation ou un antécédent familial en fait clinique confirmé.",
+        "en": "Choose a clinical document type: report, discharge letter, consultation note, prescription, lab result, research file, or form. Specify the NLP pipeline: ingestion, de-identification, segmentation, entities to extract, negation, temporality, normalization, output standard, human validation, metrics, risks, and guardrails. Your answer must show how to avoid turning a hypothesis, negation, or family history into a confirmed clinical fact."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par le type de document et la décision ou analyse que le pipeline doit aider.",
+          "en": "Start with the document type and the decision or analysis the pipeline must support."
+        },
+        {
+          "fr": "Incluez une étape de dé-identification avant toute extraction ou réutilisation.",
+          "en": "Include a de-identification step before extraction or reuse."
+        },
+        {
+          "fr": "Traitez la négation, la temporalité, l’incertitude et le statut patient/famille.",
+          "en": "Handle negation, temporality, uncertainty, and patient/family status."
+        },
+        {
+          "fr": "Prévoyez des métriques et une validation médicale sur les sorties sensibles.",
+          "en": "Plan metrics and medical validation for sensitive outputs."
+        }
+      ]
+    }
+  ]
+}

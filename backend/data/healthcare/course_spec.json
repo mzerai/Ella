@@ -1,0 +1,107 @@
+{
+  "course_id": "ella_industry_ai_for_healthcare",
+  "course_slug": "ai-for-healthcare",
+  "title": {
+    "fr": "IA appliquée à la santé : du diagnostic à la recherche clinique",
+    "en": "AI for Healthcare: from Diagnosis to Clinical Research"
+  },
+  "pathway": "Industry",
+  "secondary_pathway": "Tech",
+  "level": "Advanced",
+  "duration": {
+    "instructor_led": "4 days / 32h",
+    "self_paced_estimate": "18-24h"
+  },
+  "target_audience": {
+    "fr": [
+      "Cliniques",
+      "CHU",
+      "Startups HealthTech",
+      "Médecins chercheurs",
+      "Équipes data santé"
+    ],
+    "en": [
+      "Clinics",
+      "University hospitals",
+      "HealthTech startups",
+      "Physician-researchers",
+      "Healthcare data teams"
+    ]
+  },
+  "learning_outcomes": {
+    "fr": [
+      "Déployer des solutions de computer vision pour l’imagerie médicale avec validation clinique.",
+      "Implémenter des pipelines NLP pour les données cliniques avec dé-identification et qualification.",
+      "Construire un cadre éthique et d’anonymisation pour les données patients.",
+      "Concevoir des modèles prédictifs de risque avec calibration, seuils et supervision humaine.",
+      "Préparer la conformité réglementaire d’un projet IA santé en Tunisie."
+    ],
+    "en": [
+      "Deploy computer vision solutions for medical imaging with clinical validation.",
+      "Implement NLP pipelines for clinical data with de-identification and qualification.",
+      "Build an ethics and anonymization frame for patient data.",
+      "Design risk prediction models with calibration, thresholds, and human oversight.",
+      "Prepare regulatory compliance for a healthcare AI project in Tunisia."
+    ]
+  },
+  "modules": [
+    {
+      "module_id": "00_ai_healthcare_positioning",
+      "file": "module_00_cells.json"
+    },
+    {
+      "module_id": "01_medical_computer_vision_imaging_diagnosis",
+      "file": "module_01_cells.json"
+    },
+    {
+      "module_id": "02_clinical_nlp_information_extraction",
+      "file": "module_02_cells.json"
+    },
+    {
+      "module_id": "03_healthcare_ai_ethics_patient_data_anonymization",
+      "file": "module_03_cells.json"
+    },
+    {
+      "module_id": "04_predictive_models_risk_prediction_decision_support",
+      "file": "module_04_cells.json"
+    },
+    {
+      "module_id": "05_healthcare_ai_regulatory_framework_tunisia",
+      "file": "module_05_cells.json"
+    }
+  ],
+  "labs": [
+    {
+      "lab_id": "00_healthcare_ai_use_case_framing_lab",
+      "file": "lab_00_healthcare_ai_use_case_framing_lab.json"
+    },
+    {
+      "lab_id": "01_medical_cv_diagnostic_support_lab",
+      "file": "lab_01_medical_cv_diagnostic_support_lab.json"
+    },
+    {
+      "lab_id": "02_clinical_nlp_information_extraction_lab",
+      "file": "lab_02_clinical_nlp_information_extraction_lab.json"
+    },
+    {
+      "lab_id": "03_healthcare_ai_ethics_anonymization_lab",
+      "file": "lab_03_healthcare_ai_ethics_anonymization_lab.json"
+    },
+    {
+      "lab_id": "04_predictive_risk_decision_support_lab",
+      "file": "lab_04_predictive_risk_decision_support_lab.json"
+    },
+    {
+      "lab_id": "05_healthcare_ai_regulatory_compliance_tunisia_lab",
+      "file": "lab_05_healthcare_ai_regulatory_compliance_tunisia_lab.json"
+    },
+    {
+      "lab_id": "final_healthcare_ai_governed_solution_lab",
+      "file": "lab_final_healthcare_ai_governed_solution_lab.json"
+    }
+  ],
+  "final_lab": "final_healthcare_ai_governed_solution_lab",
+  "rubric": "rubric_final_healthcare_ai_governed_solution.json",
+  "format": "ELLA notebook JSON + lab JSON",
+  "created_at": "2026-05-01T20:43:00Z"
+}

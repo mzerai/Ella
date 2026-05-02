@@ -1,0 +1,51 @@
+{
+  "lab_id": "04_credit_scoring_metrics_thresholds_lab",
+  "course_id": "ella_industry_ai_finance_banking",
+  "title": {
+    "fr": "Lab 4 — Définir les métriques et le seuil de décision",
+    "en": "Lab 4 — Define Metrics and the Decision Threshold"
+  },
+  "description": {
+    "fr": "Vous concevez un plan d’évaluation métier pour un modèle de scoring crédit.",
+    "en": "You design a business evaluation plan for a credit scoring model."
+  },
+  "concept": {
+    "fr": "Matrice de confusion, precision, recall, F1, AUC, seuil, calibration et coût métier.",
+    "en": "Confusion matrix, precision, recall, F1, AUC, threshold, calibration, and business cost."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "define_credit_scoring_evaluation_plan",
+      "title": {
+        "fr": "Définir le plan d’évaluation",
+        "en": "Define the evaluation plan"
+      },
+      "audience": "enterprise",
+      "difficulty": "advanced",
+      "instructions": {
+        "fr": "Un modèle de scoring crédit affiche une AUC élevée, mais le comité risque demande une validation métier. Proposez un plan d’évaluation qui couvre la matrice de confusion, les métriques à suivre, le choix du seuil, la calibration, le coût des erreurs et la revue humaine. Votre réponse doit expliquer pourquoi l’AUC seule ne suffit pas.",
+        "en": "A credit scoring model shows a high AUC, but the risk committee requests business validation. Propose an evaluation plan that covers the confusion matrix, metrics to track, threshold choice, calibration, error cost, and human review. Your answer must explain why AUC alone is insufficient."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par identifier quelle erreur coûte le plus cher dans le cas étudié.",
+          "en": "Start by identifying which error is more costly in the case."
+        },
+        {
+          "fr": "Reliez precision et recall à des conséquences métier concrètes.",
+          "en": "Connect precision and recall to concrete business consequences."
+        },
+        {
+          "fr": "Traitez le seuil comme une politique de décision, pas comme une sortie automatique du modèle.",
+          "en": "Treat the threshold as a decision policy, not as an automatic model output."
+        },
+        {
+          "fr": "Ajoutez la calibration si les probabilités servent à prioriser ou décider.",
+          "en": "Add calibration if probabilities are used to prioritize or decide."
+        }
+      ]
+    }
+  ]
+}

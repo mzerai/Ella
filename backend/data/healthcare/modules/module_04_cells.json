@@ -1,0 +1,163 @@
+{
+  "module_id": "04_predictive_models_risk_prediction_decision_support",
+  "title": {
+    "fr": "Module 4 — Modèles prédictifs : prédiction de risques et aide à la décision",
+    "en": "Module 4 — Predictive Models: Risk Prediction and Decision Support"
+  },
+  "description": {
+    "fr": "Ce module apprend à concevoir un modèle prédictif santé relié à une décision clinique, avec label clair, calibration, seuils, validation externe et suivi.",
+    "en": "This module teaches how to design a healthcare predictive model connected to a clinical decision, with clear label, calibration, thresholds, external validation, and monitoring."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Objectif du module",
+        "en": "Module objective"
+      },
+      "content": {
+        "fr": "Dans ce module, vous concevez un modèle prédictif en santé comme **aide supervisée à la décision**, pas comme décision automatique. Le modèle estime un risque : réadmission, complication, détérioration, sepsis, non-observance ou réponse probable à un traitement.\n\nLa question centrale n’est pas seulement “le modèle prédit-il bien ?”. La vraie question est : **quelle action clinique devient meilleure grâce au score ?** Surveillance, appel de suivi, revue médicale, examen complémentaire, alerte ou changement de parcours.\n\nUn bon modèle prédictif se juge par sa calibration, ses seuils, ses erreurs critiques, son impact sur le workflow, sa validation externe, son suivi après déploiement et la place claire de la décision humaine.",
+        "en": "In this module, you design a healthcare predictive model as **supervised decision support**, not as an automatic decision. The model estimates a risk: readmission, complication, deterioration, sepsis, non-adherence, or likely treatment response.\n\nThe central question is not only “does the model predict well?” The real question is: **which clinical action becomes better because of the score?** Monitoring, follow-up call, medical review, extra exam, alert, or pathway change.\n\nA good predictive model is judged by calibration, thresholds, critical errors, workflow impact, external validation, post-deployment monitoring, and a clear place for human decision."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "Prédire quoi, pour quelle action ?",
+        "en": "Predict what, for which action?"
+      },
+      "content": {
+        "fr": "Le cadrage commence par l’événement prédit, l’horizon temporel et l’action associée.\n\n| Prédiction | Horizon | Action possible |\n|---|---|---|\n| Réadmission | 30 jours | appel de suivi ou consultation précoce |\n| Détérioration | 24-48h | surveillance renforcée |\n| Sepsis | heures | évaluation médicale urgente |\n| Complication | postopératoire | protocole de prévention |\n| Non-observance | semaines | accompagnement patient |\n\nSi aucune action ne suit le score, le modèle ajoute du bruit. Si l’action est lourde, les faux positifs peuvent saturer les équipes. Si l’action est critique, les faux négatifs peuvent nuire au patient.",
+        "en": "Framing starts with the predicted event, time horizon, and associated action.\n\n| Prediction | Horizon | Possible action |\n|---|---|---|\n| Readmission | 30 days | follow-up call or early consultation |\n| Deterioration | 24-48h | reinforced monitoring |\n| Sepsis | hours | urgent medical assessment |\n| Complication | postoperative | prevention protocol |\n| Non-adherence | weeks | patient support |\n\nIf no action follows the score, the model adds noise. If the action is heavy, false positives can overload teams. If the action is critical, false negatives can harm patients."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Prédiction et action clinique",
+        "section_context": "L’étudiant vient de voir qu’un modèle prédictif doit être relié à une action clinique précise, avec événement, horizon temporel et décision humaine associée.",
+        "question_type": "clinical_framing",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse doit préciser événement, horizon, action et risque d’erreur.",
+        "anti_gpt_instructions": "Présente un cas fictif de prédiction de réadmission ou détérioration dans un CHU tunisien. Demande à l’étudiant de formuler l’événement, l’horizon, l’action clinique et un risque de faux positif ou faux négatif."
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Du score de risque à la décision supervisée",
+        "en": "From risk score to supervised decision"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 880 440\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs><marker id=\"a\" markerWidth=\"10\" markerHeight=\"10\" refX=\"9\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/></marker></defs>\n<rect width=\"880\" height=\"440\" fill=\"#F1EFE8\"/>\n<text x=\"440\" y=\"38\" text-anchor=\"middle\" font-size=\"22\" fill=\"#2C2C2A\" font-family=\"Arial\">Clinical prediction model pathway</text>\n<rect x=\"35\" y=\"95\" width=\"130\" height=\"80\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"2\"/><text x=\"100\" y=\"126\" text-anchor=\"middle\" font-size=\"15\" fill=\"#185FA5\" font-family=\"Arial\">Clinical data</text><text x=\"100\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">history, labs, vitals</text>\n<line x1=\"165\" y1=\"135\" x2=\"225\" y2=\"135\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#a)\"/>\n<rect x=\"225\" y=\"95\" width=\"130\" height=\"80\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\" stroke-width=\"2\"/><text x=\"290\" y=\"126\" text-anchor=\"middle\" font-size=\"15\" fill=\"#534AB7\" font-family=\"Arial\">Risk model</text><text x=\"290\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">prediction score</text>\n<line x1=\"355\" y1=\"135\" x2=\"415\" y2=\"135\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#a)\"/>\n<rect x=\"415\" y=\"95\" width=\"130\" height=\"80\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"2\"/><text x=\"480\" y=\"126\" text-anchor=\"middle\" font-size=\"15\" fill=\"#0F6E56\" font-family=\"Arial\">Calibration</text><text x=\"480\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">risk matches reality</text>\n<line x1=\"545\" y1=\"135\" x2=\"605\" y2=\"135\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#a)\"/>\n<rect x=\"605\" y=\"95\" width=\"130\" height=\"80\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"2\"/><text x=\"670\" y=\"126\" text-anchor=\"middle\" font-size=\"15\" fill=\"#993C1D\" font-family=\"Arial\">Threshold</text><text x=\"670\" y=\"150\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">clinical action</text>\n<line x1=\"735\" y1=\"135\" x2=\"785\" y2=\"135\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#a)\"/>\n<rect x=\"785\" y=\"95\" width=\"75\" height=\"80\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#2C2C2A\" stroke-width=\"2\"/><text x=\"822\" y=\"126\" text-anchor=\"middle\" font-size=\"13\" fill=\"#2C2C2A\" font-family=\"Arial\">Human</text><text x=\"822\" y=\"150\" text-anchor=\"middle\" font-size=\"10\" fill=\"#5F5E5A\" font-family=\"Arial\">validates</text>\n<rect x=\"115\" y=\"260\" width=\"170\" height=\"82\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"2\"/><text x=\"200\" y=\"290\" text-anchor=\"middle\" font-size=\"14\" fill=\"#993C1D\" font-family=\"Arial\">Risk of harm</text><text x=\"200\" y=\"312\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">FN, FP, overload</text>\n<rect x=\"355\" y=\"260\" width=\"170\" height=\"82\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"2\"/><text x=\"440\" y=\"290\" text-anchor=\"middle\" font-size=\"14\" fill=\"#185FA5\" font-family=\"Arial\">Validation</text><text x=\"440\" y=\"312\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">external, subgroup</text>\n<rect x=\"595\" y=\"260\" width=\"170\" height=\"82\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"2\"/><text x=\"680\" y=\"290\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0F6E56\" font-family=\"Arial\">Clinical value</text><text x=\"680\" y=\"312\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">better pathway</text>\n</svg>"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "Population, variables et label",
+        "en": "Population, variables, and label"
+      },
+      "content": {
+        "fr": "Un modèle prédictif dépend de trois choix.\n\n**Population** : qui est inclus ? Tous les patients, un service, une pathologie, une période, une clinique ou plusieurs établissements ?\n\n**Variables** : les variables doivent être disponibles au moment de la décision. Une information connue après l’événement crée une fuite temporelle.\n\n**Label** : le label doit être clinique et mesurable. “Complication” est trop vague. “Ré-hospitalisation non programmée dans les 30 jours” est testable.\n\nAttention aux labels historiques : ils peuvent refléter des pratiques, des contraintes d’accès ou des biais de documentation.",
+        "en": "A predictive model depends on three choices.\n\n**Population**: who is included? All patients, one department, one condition, one period, one clinic, or several institutions?\n\n**Variables**: variables must be available at decision time. Information known after the event creates temporal leakage.\n\n**Label**: the label must be clinical and measurable. “Complication” is too vague. “Unplanned readmission within 30 days” is testable.\n\nBe careful with historical labels: they can reflect practices, access constraints, or documentation bias."
+      }
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "Séparer les données sans tromper l’évaluation",
+        "en": "Split data without misleading evaluation"
+      },
+      "content": {
+        "fr": "La séparation des données est critique. Séparez par patient, pas par ligne de dossier. Évitez que les visites du même patient soient à la fois dans train et test. Gardez un test temporel si le modèle sera utilisé dans le futur. Prévoyez une validation externe si le modèle doit être utilisé dans un autre établissement.\n\nDans le contexte tunisien, un modèle entraîné dans une seule clinique urbaine ou un seul CHU peut échouer ailleurs si les profils patients, les équipements, les protocoles ou les pratiques de saisie diffèrent.\n\nUn bon split teste la généralisation. Un mauvais split donne une illusion de performance.",
+        "en": "Data splitting is critical. Split by patient, not by record row. Avoid having visits from the same patient in both train and test. Keep a temporal test set if the model will be used in the future. Plan external validation if the model will be used in another institution.\n\nIn the Tunisian context, a model trained in one urban clinic or one university hospital may fail elsewhere if patient profiles, equipment, protocols, or data-entry practices differ.\n\nA good split tests generalization. A poor split gives an illusion of performance."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Données et validation",
+        "section_context": "L’étudiant vient de voir population, variables disponibles au moment de la décision, label clinique, split par patient, test temporel et validation externe.",
+        "question_type": "diagnose_model_design",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse doit identifier une fuite temporelle, une erreur de split ou un label mal défini, puis proposer une correction.",
+        "anti_gpt_instructions": "Présente un cas où une équipe prédit la réadmission avec une variable connue seulement après la sortie et où plusieurs visites du même patient sont réparties entre train et test. Demande d’identifier les erreurs et de corriger le design."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "Performance, calibration et seuils",
+        "en": "Performance, calibration, and thresholds"
+      },
+      "content": {
+        "fr": "La performance globale ne suffit pas. Un modèle peut avoir une bonne AUC et produire des risques mal calibrés. Si le modèle annonce 30 % de risque, il faut vérifier que des patients comparables ont environ 30 % d’événements observés.\n\nÉvaluez discrimination, calibration, sensibilité, spécificité, valeur prédictive positive, valeur prédictive négative et bénéfice net selon le seuil.\n\nLe seuil dépend de l’action clinique. Un seuil pour renforcer la surveillance n’est pas le même qu’un seuil pour alerter en urgence. Les faux positifs peuvent saturer les équipes. Les faux négatifs peuvent laisser passer un patient à risque.",
+        "en": "Global performance is not enough. A model can have good AUC and still produce poorly calibrated risks. If the model predicts 30% risk, you must check whether comparable patients have about 30% observed events.\n\nEvaluate discrimination, calibration, sensitivity, specificity, positive predictive value, negative predictive value, and net benefit at the threshold.\n\nThe threshold depends on the clinical action. A threshold for reinforced monitoring is not the same as a threshold for urgent alerting. False positives can overload teams. False negatives can miss high-risk patients."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "Le score ne décide pas",
+        "en": "The score does not decide"
+      },
+      "content": {
+        "fr": "Un score de risque doit être relié à une règle d’aide à la décision : risque faible = suivi standard ; risque modéré = appel de suivi ; risque élevé = revue médicale ; risque très élevé = alerte au service.\n\nLa règle reste supervisée. Le professionnel doit voir les facteurs importants, le seuil utilisé, les limites du modèle, la date de calcul, les données manquantes et l’action recommandée.\n\nÉvitez les interfaces qui affichent seulement un nombre. Un score isolé crée de la surconfiance ou de l’indifférence. Le bon design aide l’équipe à agir mieux.",
+        "en": "A risk score must connect to a decision-support rule: low risk = standard follow-up; moderate risk = follow-up call; high risk = medical review; very high risk = department alert.\n\nThe rule remains supervised. The professional should see important factors, threshold used, model limits, calculation date, missing data, and recommended action.\n\nAvoid interfaces that show only a number. An isolated score creates overconfidence or indifference. Good design helps the team act better."
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "Biais, dérive et suivi",
+        "en": "Bias, drift, and monitoring"
+      },
+      "content": {
+        "fr": "Après déploiement, les patients, les pratiques, les protocoles, les appareils et les habitudes de saisie changent. Le modèle peut perdre sa calibration ou générer plus d’alertes inutiles.\n\nSurveillez : dérive des variables, dérive du label, calibration, faux positifs, faux négatifs, performances par sous-groupe, taux d’alertes ignorées, surcharge des équipes et décisions humaines après alerte.\n\nUn modèle prédictif santé doit avoir un propriétaire, une fréquence de revue, une procédure de retrait, une méthode de recalibration et un audit par sous-groupe.",
+        "en": "After deployment, patients, practices, protocols, devices, and data-entry habits change. The model can lose calibration or generate more useless alerts.\n\nMonitor feature drift, label drift, calibration, false positives, false negatives, subgroup performance, ignored-alert rate, team overload, and human decisions after alerts.\n\nA healthcare predictive model must have an owner, review frequency, withdrawal procedure, recalibration method, and subgroup audit."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Seuils, calibration et suivi",
+        "section_context": "L’étudiant vient de voir que l’AUC ne suffit pas, que la calibration et les seuils dépendent de l’action clinique, et que le modèle doit être suivi après déploiement.",
+        "question_type": "critical_evaluation",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse doit mentionner calibration, seuil, faux positifs/faux négatifs et suivi après déploiement.",
+        "anti_gpt_instructions": "Présente un cas où un modèle de sepsis a une AUC élevée mais génère trop d’alertes, puis se dégrade après changement de protocole de biologie. Demande d’expliquer les problèmes et les mesures à prendre."
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "Repères méthodologiques",
+        "en": "Methodological anchors"
+      },
+      "content": {
+        "fr": "Plusieurs repères structurent les modèles prédictifs santé.\n\n- **TRIPOD+AI** guide le reporting des modèles de prédiction clinique utilisant régression ou machine learning.\n- **PROBAST+AI** aide à évaluer qualité, risque de biais et applicabilité des modèles de prédiction utilisant régression ou IA.\n- **DECIDE-AI** guide le reporting de l’évaluation clinique précoce des systèmes d’aide à la décision IA.\n- Le **NIST AI RMF** rappelle que le risque doit être gouverné, cartographié, mesuré et géré.\n\nCes repères doivent devenir des livrables : protocole, test externe, calibration, analyse par sous-groupe, seuils, revue humaine, logs et plan de suivi.",
+        "en": "Several anchors structure healthcare prediction models.\n\n- **TRIPOD+AI** guides reporting for clinical prediction models using regression or machine learning.\n- **PROBAST+AI** helps assess quality, risk of bias, and applicability of prediction models using regression or AI.\n- **DECIDE-AI** guides reporting of early clinical evaluation of AI decision-support systems.\n- The **NIST AI RMF** reminds that risk must be governed, mapped, measured, and managed.\n\nThese anchors must become deliverables: protocol, external test, calibration, subgroup analysis, thresholds, human review, logs, and monitoring plan."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous savez maintenant concevoir un modèle prédictif santé comme une aide supervisée à une décision clinique, avec label clair, calibration, seuils, analyse des erreurs et suivi post-déploiement. Le lab suivant vous demande de spécifier un modèle de prédiction de risque complet.",
+        "en": "You now know how to design a healthcare predictive model as supervised support for a clinical decision, with clear label, calibration, thresholds, error analysis, and post-deployment monitoring. The next lab asks you to specify a complete risk prediction model."
+      },
+      "next_url": "/courses/ai-healthcare/labs/04_predictive_risk_decision_support_lab"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "module_id": "03_healthcare_ai_ethics_patient_data_anonymization",
+  "title": {
+    "fr": "Module 3 — Éthique de l’IA en santé et anonymisation des données patients",
+    "en": "Module 3 — Healthcare AI Ethics and Patient Data Anonymization"
+  },
+  "description": {
+    "fr": "Ce module apprend à construire un cadre éthique et données pour un projet IA santé, avec minimisation, anonymisation, biais, accès, audit et gouvernance.",
+    "en": "This module teaches how to build an ethical and data frame for a healthcare AI project, with minimization, anonymization, bias, access, audit, and governance."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Objectif du module",
+        "en": "Module objective"
+      },
+      "content": {
+        "fr": "Dans ce module, vous allez construire le cadre éthique et données d’un projet IA santé. Vous allez apprendre à passer d’une idée générale — “utilisons les dossiers patients pour entraîner un modèle” — à un dispositif responsable : finalité claire, données minimales, anonymisation ou pseudonymisation, contrôle d’accès, audit, validation médicale et suivi des biais.\n\nL’enjeu est direct : l’IA santé peut créer de la valeur, mais elle peut aussi nuire à un patient, révéler une information sensible, renforcer une inégalité ou créer une confiance excessive dans une prédiction. Votre rôle est de concevoir l’usage de manière défendable avant d’écrire une ligne de code.",
+        "en": "In this module, you will build the ethical and data frame for a healthcare AI project. You will learn how to move from a general idea — “let’s use patient records to train a model” — to a responsible setup: clear purpose, minimal data, anonymization or pseudonymization, access control, audit, medical validation, and bias monitoring.\n\nThe stakes are direct: healthcare AI can create value, but it can also harm a patient, reveal sensitive information, reinforce inequality, or create excessive trust in a prediction. Your role is to design the use case defensibly before writing a single line of code."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "Les principes éthiques appliqués à l’IA santé",
+        "en": "Ethical principles applied to healthcare AI"
+      },
+      "content": {
+        "fr": "L’OMS propose des principes de référence pour l’IA en santé : autonomie humaine, bien-être et sécurité, transparence, responsabilité, inclusivité et durabilité. Dans un projet réel, ces principes doivent devenir des décisions concrètes.\n\n| Principe | Question pratique |\n|---|---|\n| Autonomie humaine | Le patient et le professionnel gardent-ils un contrôle réel ? |\n| Bien-être et sécurité | Quel risque clinique est réduit ou créé ? |\n| Transparence | Peut-on expliquer ce que fait le système et ses limites ? |\n| Responsabilité | Qui valide, qui surveille, qui répond en cas d’erreur ? |\n| Équité | Le modèle fonctionne-t-il pour les sous-groupes de patients ? |\n| Durabilité | Le système peut-il être maintenu sans dégrader le soin ? |\n\nUne solution éthique n’est pas une solution qui ajoute une phrase “responsable” dans une présentation. C’est une solution dont le workflow, les données, les tests et les responsabilités traduisent ces principes.",
+        "en": "WHO proposes reference principles for AI in health: human autonomy, well-being and safety, transparency, responsibility, inclusiveness, and sustainability. In a real project, these principles must become concrete decisions.\n\n| Principle | Practical question |\n|---|---|\n| Human autonomy | Do the patient and professional keep real control? |\n| Well-being and safety | Which clinical risk is reduced or created? |\n| Transparency | Can we explain what the system does and its limits? |\n| Responsibility | Who validates, monitors, and responds if there is an error? |\n| Equity | Does the model work for patient subgroups? |\n| Sustainability | Can the system be maintained without degrading care? |\n\nAn ethical solution is not a solution that adds a “responsible” sentence to a presentation. It is a solution whose workflow, data, tests, and responsibilities translate these principles."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Principes éthiques en IA santé",
+        "section_context": "L’étudiant vient de voir que les principes éthiques doivent devenir des décisions concrètes : autonomie humaine, sécurité, transparence, responsabilité, équité et durabilité.",
+        "question_type": "applied_ethics",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse doit relier un principe éthique à une décision concrète de conception.",
+        "anti_gpt_instructions": "Présente un mini-cas fictif où une clinique veut déployer un score IA de risque sans expliquer ses limites aux médecins. Demande à l’étudiant de choisir deux principes éthiques menacés et de proposer une décision concrète pour chacun."
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Chemin éthique des données patients",
+        "en": "Ethical patient-data pathway"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 860 430\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <marker id=\"arr_ethics_03\" markerWidth=\"10\" markerHeight=\"10\" refX=\"9\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/>\n    </marker>\n  </defs>\n  <rect x=\"0\" y=\"0\" width=\"860\" height=\"430\" fill=\"#F1EFE8\"/>\n  <text x=\"430\" y=\"38\" text-anchor=\"middle\" font-size=\"22\" fill=\"#2C2C2A\" font-family=\"Arial\">Ethical Healthcare AI Data Pathway</text>\n\n  <rect x=\"35\" y=\"90\" width=\"125\" height=\"78\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"2\"/>\n  <text x=\"97\" y=\"118\" text-anchor=\"middle\" font-size=\"14\" fill=\"#185FA5\" font-family=\"Arial\">Purpose</text>\n  <text x=\"97\" y=\"140\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Clinical or research goal</text>\n\n  <line x1=\"160\" y1=\"129\" x2=\"215\" y2=\"129\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_ethics_03)\"/>\n\n  <rect x=\"215\" y=\"90\" width=\"125\" height=\"78\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"2\"/>\n  <text x=\"277\" y=\"118\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0F6E56\" font-family=\"Arial\">Minimize</text>\n  <text x=\"277\" y=\"140\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Use only needed data</text>\n\n  <line x1=\"340\" y1=\"129\" x2=\"395\" y2=\"129\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_ethics_03)\"/>\n\n  <rect x=\"395\" y=\"90\" width=\"125\" height=\"78\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"2\"/>\n  <text x=\"457\" y=\"118\" text-anchor=\"middle\" font-size=\"14\" fill=\"#993C1D\" font-family=\"Arial\">De-identify</text>\n  <text x=\"457\" y=\"140\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Mask, pseudonymize</text>\n\n  <line x1=\"520\" y1=\"129\" x2=\"575\" y2=\"129\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_ethics_03)\"/>\n\n  <rect x=\"575\" y=\"90\" width=\"125\" height=\"78\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\" stroke-width=\"2\"/>\n  <text x=\"637\" y=\"118\" text-anchor=\"middle\" font-size=\"14\" fill=\"#534AB7\" font-family=\"Arial\">Control</text>\n  <text x=\"637\" y=\"140\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Access, logs, audit</text>\n\n  <line x1=\"700\" y1=\"129\" x2=\"755\" y2=\"129\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_ethics_03)\"/>\n\n  <rect x=\"755\" y=\"90\" width=\"80\" height=\"78\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#2C2C2A\" stroke-width=\"2\"/>\n  <text x=\"795\" y=\"118\" text-anchor=\"middle\" font-size=\"13\" fill=\"#2C2C2A\" font-family=\"Arial\">Validate</text>\n  <text x=\"795\" y=\"140\" text-anchor=\"middle\" font-size=\"10\" fill=\"#5F5E5A\" font-family=\"Arial\">Human review</text>\n\n  <rect x=\"80\" y=\"245\" width=\"170\" height=\"86\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"2\"/>\n  <text x=\"165\" y=\"274\" text-anchor=\"middle\" font-size=\"14\" fill=\"#993C1D\" font-family=\"Arial\">Patient risk</text>\n  <text x=\"165\" y=\"296\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Harm, bias, false trust</text>\n\n  <rect x=\"345\" y=\"245\" width=\"170\" height=\"86\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"2\"/>\n  <text x=\"430\" y=\"274\" text-anchor=\"middle\" font-size=\"14\" fill=\"#185FA5\" font-family=\"Arial\">Data risk</text>\n  <text x=\"430\" y=\"296\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Re-identification, leakage</text>\n\n  <rect x=\"610\" y=\"245\" width=\"170\" height=\"86\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"2\"/>\n  <text x=\"695\" y=\"274\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0F6E56\" font-family=\"Arial\">Trust</text>\n  <text x=\"695\" y=\"296\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Transparency, accountability</text>\n</svg>"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "Le cycle de vie des données patients",
+        "en": "The patient-data lifecycle"
+      },
+      "content": {
+        "fr": "L’éthique des données ne commence pas au moment de l’entraînement. Elle commence à la collecte.\n\nUn cycle de vie responsable pose ces questions :\n\n1. **Finalité** : pourquoi ces données sont-elles utilisées ?\n2. **Collecte** : quelles données sont nécessaires, et lesquelles sont excessives ?\n3. **Base d’usage** : soin, recherche, qualité, innovation, formation ?\n4. **Préparation** : anonymisation, pseudonymisation, nettoyage, contrôle qualité.\n5. **Accès** : qui peut voir quoi, dans quel environnement ?\n6. **Traitement** : quels modèles, quels logs, quelles copies ?\n7. **Sortie** : quelles informations retournent aux équipes ?\n8. **Conservation** : combien de temps, où, avec quel contrôle ?\n9. **Destruction ou archivage** : que devient la donnée à la fin ?\n\nUn projet IA santé mal cadré accumule des données “au cas où”. Un projet responsable commence par la finalité et retire tout ce qui n’est pas nécessaire.",
+        "en": "Data ethics does not start at training time. It starts at collection.\n\nA responsible lifecycle asks these questions:\n\n1. **Purpose**: why are these data used?\n2. **Collection**: which data are necessary, and which are excessive?\n3. **Use basis**: care, research, quality, innovation, training?\n4. **Preparation**: anonymization, pseudonymization, cleaning, quality control.\n5. **Access**: who can see what, in which environment?\n6. **Processing**: which models, which logs, which copies?\n7. **Output**: which information returns to teams?\n8. **Retention**: how long, where, with what control?\n9. **Destruction or archiving**: what happens to the data at the end?\n\nA poorly framed healthcare AI project accumulates data “just in case.” A responsible project starts with purpose and removes what is not necessary."
+      }
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "Anonymisation, pseudonymisation, dé-identification",
+        "en": "Anonymization, pseudonymization, de-identification"
+      },
+      "content": {
+        "fr": "Ces termes ne sont pas interchangeables.\n\n| Terme | Sens pratique | Risque restant |\n|---|---|---|\n| Dé-identification | retirer ou masquer des identifiants directs | ré-identification possible par contexte |\n| Pseudonymisation | remplacer l’identité par un code contrôlé | lien possible si la clé existe |\n| Anonymisation | rendre l’identification raisonnablement impossible | difficile à garantir sur données riches |\n| Agrégation | publier des statistiques de groupe | risque si groupe trop petit |\n| Minimisation | ne garder que ce qui est nécessaire | dépend de la finalité réelle |\n\nEn santé, l’anonymisation forte est difficile. Une pathologie rare, une date, un service, un âge précis et une zone géographique peuvent réidentifier une personne. Vous devez donc raisonner en risque résiduel, pas en promesse absolue.\n\nLe bon réflexe : supprimer les identifiants directs, réduire les quasi-identifiants, limiter les accès, tracer les usages et vérifier si le niveau d’anonymisation est suffisant pour la finalité.",
+        "en": "These terms are not interchangeable.\n\n| Term | Practical meaning | Remaining risk |\n|---|---|---|\n| De-identification | remove or mask direct identifiers | re-identification possible through context |\n| Pseudonymization | replace identity with a controlled code | link possible if the key exists |\n| Anonymization | make identification reasonably impossible | hard to guarantee on rich data |\n| Aggregation | publish group statistics | risk if the group is too small |\n| Minimization | keep only what is necessary | depends on the real purpose |\n\nIn healthcare, strong anonymization is difficult. A rare condition, a date, a department, a precise age, and a geographic area can re-identify a person. You must reason in residual risk, not absolute promise.\n\nThe right reflex: remove direct identifiers, reduce quasi-identifiers, limit access, trace usage, and check whether the anonymization level fits the purpose."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "Cadre tunisien et gouvernance locale",
+        "en": "Tunisian frame and local governance"
+      },
+      "content": {
+        "fr": "En Tunisie, la loi organique n°2004-63 reconnaît la protection des données personnelles comme un droit fondamental. Elle encadre le traitement des données à caractère personnel, avec une attention particulière pour certaines catégories sensibles, dont les données de santé.\n\nDans un projet IA santé, vous devez donc préciser :\n\n- la finalité du traitement ;\n- les catégories de données utilisées ;\n- les personnes ou équipes autorisées ;\n- les mesures de sécurité ;\n- la durée de conservation ;\n- les modalités d’accès, de correction ou de suppression lorsque le cadre l’exige ;\n- la traçabilité des traitements ;\n- le rôle d’une revue éthique, médicale, juridique ou institutionnelle.\n\nSi le projet vise aussi des partenaires européens ou un produit destiné au marché européen, il faut surveiller les obligations du règlement européen sur l’IA et des cadres de protection des données applicables.",
+        "en": "In Tunisia, Organic Law No. 2004-63 recognizes personal-data protection as a fundamental right. It governs the processing of personal data, with special attention to certain sensitive categories, including health data.\n\nIn a healthcare AI project, you must specify:\n\n- the purpose of processing;\n- the categories of data used;\n- authorized people or teams;\n- security measures;\n- retention duration;\n- access, correction, or deletion mechanisms when required by the frame;\n- traceability of processing;\n- the role of ethical, medical, legal, or institutional review.\n\nIf the project also targets European partners or a product intended for the European market, obligations under the European AI Act and applicable data-protection frameworks must be monitored."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Anonymisation et gouvernance des données",
+        "section_context": "L’étudiant vient de distinguer anonymisation, pseudonymisation, dé-identification, agrégation et minimisation. Il a aussi vu les exigences pratiques de gouvernance dans le contexte tunisien.",
+        "question_type": "risk_analysis",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse doit distinguer identifiants directs, quasi-identifiants, accès et finalité.",
+        "anti_gpt_instructions": "Présente un cas où une équipe veut partager un fichier de patients avec âge exact, date d’hospitalisation, service, diagnostic rare et ville, mais sans noms. Demande à l’étudiant pourquoi ce n’est pas nécessairement anonyme et quelles mesures appliquer."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "Biais, équité et représentativité",
+        "en": "Bias, fairness, and representativeness"
+      },
+      "content": {
+        "fr": "Un modèle IA santé peut être performant en moyenne et injuste pour certains groupes. Le biais peut venir de la collecte, de l’accès aux soins, du choix des établissements, de la qualité des annotations, du protocole d’imagerie, de la langue des dossiers ou de l’échantillon de recherche.\n\nQuestions à poser :\n\n- Quels groupes sont sous-représentés ?\n- Le modèle fonctionne-t-il selon âge, sexe, région, type d’établissement ou comorbidités ?\n- Les données viennent-elles d’un seul service ou d’une seule clinique ?\n- Les labels reflètent-ils une vérité clinique ou des habitudes historiques ?\n- Les erreurs ont-elles le même impact pour tous ?\n- Le seuil choisi aggrave-t-il les faux négatifs pour un groupe ?\n\nL’équité n’est pas un slogan. Elle se mesure, se documente et se surveille après déploiement.",
+        "en": "A healthcare AI model can perform well on average and be unfair to some groups. Bias can come from collection, access to care, institution choice, annotation quality, imaging protocol, record language, or research sample.\n\nAsk:\n\n- Which groups are under-represented?\n- Does the model work by age, sex, region, institution type, or comorbidities?\n- Do data come from one department or one clinic only?\n- Do labels reflect clinical truth or historical habits?\n- Do errors have the same impact for everyone?\n- Does the chosen threshold worsen false negatives for one group?\n\nFairness is not a slogan. It must be measured, documented, and monitored after deployment."
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "Documentation, audit et partage contrôlé",
+        "en": "Documentation, audit, and controlled sharing"
+      },
+      "content": {
+        "fr": "Un projet IA santé doit être documenté. La documentation protège le patient, l’équipe médicale, l’institution et le projet.\n\nDocumentez :\n\n- finalité ;\n- source des données ;\n- critères d’inclusion et d’exclusion ;\n- transformations et anonymisation ;\n- accès accordés ;\n- versions des jeux de données ;\n- métriques par sous-groupe ;\n- limites connues ;\n- validations médicales ;\n- incidents ou corrections ;\n- conditions de réutilisation.\n\nPour le partage de données, préférez des environnements contrôlés : accès limité, journalisation, extraction minimale, contrats, comité de revue, et interdiction de réutilisation hors finalité. Les approches comme apprentissage fédéré ou données synthétiques peuvent réduire certains risques, mais elles ne suppriment pas la gouvernance.",
+        "en": "A healthcare AI project must be documented. Documentation protects the patient, medical team, institution, and project.\n\nDocument:\n\n- purpose;\n- data source;\n- inclusion and exclusion criteria;\n- transformations and anonymization;\n- granted access;\n- dataset versions;\n- subgroup metrics;\n- known limits;\n- medical validations;\n- incidents or corrections;\n- reuse conditions.\n\nFor data sharing, prefer controlled environments: limited access, logging, minimal extraction, contracts, review committee, and prohibition of reuse outside purpose. Approaches such as federated learning or synthetic data can reduce some risks, but they do not remove governance."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Biais et audit",
+        "section_context": "L’étudiant vient de voir que les biais peuvent venir des données, des labels, des établissements, des sous-groupes et des seuils. Il a aussi vu l’importance de documenter finalité, sources, accès, transformations, métriques et limites.",
+        "question_type": "critical_evaluation",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse doit proposer un contrôle de représentativité, un audit par sous-groupe et une documentation des limites.",
+        "anti_gpt_instructions": "Présente un projet IA entraîné dans une seule clinique urbaine puis proposé à des CHU et cliniques régionales. Demande à l’étudiant d’identifier les risques de biais et les tests à exiger avant extension."
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "Checklist pratique avant d’utiliser des données patients",
+        "en": "Practical checklist before using patient data"
+      },
+      "content": {
+        "fr": "Avant d’utiliser des données patients dans un projet IA santé, vérifiez cette checklist.\n\n| Question | Réponse attendue |\n|---|---|\n| Finalité claire ? | oui, formulée et validée |\n| Données nécessaires ? | seules les données utiles sont retenues |\n| Données sensibles identifiées ? | oui, avec mesures de protection |\n| Anonymisation ou pseudonymisation ? | méthode documentée |\n| Accès contrôlé ? | rôles, environnement, logs |\n| Consentement ou base d’usage ? | clarifié selon le cadre applicable |\n| Biais évalués ? | sous-groupes et représentativité testés |\n| Validation médicale ? | prévue pour les sorties sensibles |\n| Conservation limitée ? | durée et suppression définies |\n| Audit possible ? | versions, traces et responsabilités documentées |\n\nRéférences de cadrage : OMS sur l’éthique et la gouvernance de l’IA en santé, NIST AI RMF, règlement européen sur l’IA, et loi tunisienne n°2004-63 sur les données personnelles.",
+        "en": "Before using patient data in a healthcare AI project, check this list.\n\n| Question | Expected answer |\n|---|---|\n| Clear purpose? | yes, formulated and validated |\n| Necessary data? | only useful data are kept |\n| Sensitive data identified? | yes, with protection measures |\n| Anonymization or pseudonymization? | documented method |\n| Controlled access? | roles, environment, logs |\n| Consent or use basis? | clarified under the applicable frame |\n| Bias assessed? | subgroups and representativeness tested |\n| Medical validation? | planned for sensitive outputs |\n| Limited retention? | duration and deletion defined |\n| Audit possible? | versions, traces, and responsibilities documented |\n\nFraming references: WHO on ethics and governance of AI for health, NIST AI RMF, the European AI Act, and Tunisia’s Organic Law No. 2004-63 on personal data."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous savez maintenant construire le cadre éthique et données d’un projet IA santé : finalité, minimisation, anonymisation, biais, accès, audit, validation médicale et gouvernance. Le lab suivant vous demande de produire un plan complet d’éthique et d’anonymisation.",
+        "en": "You now know how to build the ethical and data frame for a healthcare AI project: purpose, minimization, anonymization, bias, access, audit, medical validation, and governance. The next lab asks you to produce a complete ethics and anonymization plan."
+      },
+      "next_url": "/courses/ai-healthcare/labs/03_healthcare_ai_ethics_anonymization_lab"
+    }
+  ]
+}

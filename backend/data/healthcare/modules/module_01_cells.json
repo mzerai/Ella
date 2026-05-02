@@ -1,0 +1,163 @@
+{
+  "module_id": "01_medical_computer_vision_imaging_diagnosis",
+  "title": {
+    "fr": "Module 1 — Computer Vision médicale : imagerie et diagnostic assisté",
+    "en": "Module 1 — Medical Computer Vision: Imaging and Assisted Diagnosis"
+  },
+  "description": {
+    "fr": "Ce module apprend à concevoir un pipeline de computer vision médicale robuste, depuis les données d’imagerie jusqu’à l’intégration clinique supervisée.",
+    "en": "This module teaches how to design a robust medical computer vision pipeline, from imaging data to supervised clinical integration."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Objectif du module",
+        "en": "Module objective"
+      },
+      "content": {
+        "fr": "Dans ce module, vous allez concevoir une solution de computer vision médicale pour l’imagerie et le diagnostic assisté. L’objectif n’est pas de produire une démonstration qui reconnaît une anomalie sur quelques images. L’objectif est de comprendre ce qu’il faut pour qu’un modèle d’imagerie devienne **cliniquement utile, testable, traçable et intégrable**.\n\nVous allez travailler sur quatre tâches fréquentes : classification, détection, segmentation et priorisation. Vous verrez aussi pourquoi le pipeline autour du modèle compte autant que le modèle lui-même : données DICOM, qualité d’image, annotation, validation externe, biais, workflow clinique et revue humaine.",
+        "en": "In this module, you will design a medical computer vision solution for imaging and assisted diagnosis. The goal is not to produce a demo that recognizes an abnormality on a few images. The goal is to understand what is required for an imaging model to become **clinically useful, testable, traceable, and integrable**.\n\nYou will work on four common tasks: classification, detection, segmentation, and prioritization. You will also see why the pipeline around the model matters as much as the model itself: DICOM data, image quality, annotation, external validation, bias, clinical workflow, and human review."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "Comprendre les données d’imagerie médicale",
+        "en": "Understanding medical imaging data"
+      },
+      "content": {
+        "fr": "L’imagerie médicale ne se résume pas à une image PNG ou JPEG. Dans les systèmes cliniques, les images sont souvent gérées via le standard DICOM, qui organise l’image et ses métadonnées : modalité, paramètres d’acquisition, orientation, série, étude, patient, établissement, appareil, date et autres informations utiles.\n\nLe standard DICOM est central car il permet de transmettre, stocker, récupérer, traiter et afficher les informations d’imagerie médicale. Il rend aussi l’imagerie interopérable entre PACS, scanners, modalités, stations de lecture et systèmes hospitaliers.\n\nPour un projet IA, cela change votre approche : vous ne devez pas seulement charger des pixels. Vous devez comprendre la modalité, le protocole, la qualité, les métadonnées, les variations entre appareils et les risques de fuite de données personnelles dans les métadonnées.",
+        "en": "Medical imaging is not just a PNG or JPEG image. In clinical systems, images are often managed through the DICOM standard, which organizes the image and its metadata: modality, acquisition parameters, orientation, series, study, patient, institution, device, date, and other useful information.\n\nThe DICOM standard is central because it supports transmitting, storing, retrieving, processing, and displaying medical imaging information. It also makes imaging interoperable between PACS, scanners, modalities, reading stations, and hospital systems.\n\nFor an AI project, this changes your approach: you must not only load pixels. You must understand modality, protocol, quality, metadata, variation between devices, and personal-data leakage risks in metadata."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Données d’imagerie médicale",
+        "section_context": "L’étudiant vient de voir que l’imagerie médicale repose souvent sur DICOM, avec image et métadonnées, et qu’un projet IA doit tenir compte de la modalité, du protocole, de la qualité et du risque de fuite dans les métadonnées.",
+        "question_type": "applied_comprehension",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse doit distinguer les pixels, les métadonnées et la qualité clinique de l’acquisition.",
+        "anti_gpt_instructions": "Propose un cas où une équipe veut entraîner un modèle à partir d’images exportées en JPEG sans métadonnées. Demande à l’étudiant d’identifier deux problèmes et une correction. Exiger une réponse située dans un service d’imagerie ou un CHU."
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Pipeline de computer vision médicale",
+        "en": "Medical computer vision pipeline"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 820 400\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <marker id=\"arr_cv_01\" markerWidth=\"10\" markerHeight=\"10\" refX=\"9\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/>\n    </marker>\n  </defs>\n  <rect x=\"0\" y=\"0\" width=\"820\" height=\"400\" fill=\"#F1EFE8\"/>\n  <text x=\"410\" y=\"36\" text-anchor=\"middle\" font-size=\"22\" fill=\"#2C2C2A\" font-family=\"Arial\">Medical Computer Vision Pipeline</text>\n\n  <rect x=\"35\" y=\"90\" width=\"120\" height=\"72\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"2\"/>\n  <text x=\"95\" y=\"118\" text-anchor=\"middle\" font-size=\"14\" fill=\"#185FA5\" font-family=\"Arial\">DICOM / PACS</text>\n  <text x=\"95\" y=\"140\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Image + metadata</text>\n\n  <line x1=\"155\" y1=\"126\" x2=\"210\" y2=\"126\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_cv_01)\"/>\n\n  <rect x=\"210\" y=\"90\" width=\"120\" height=\"72\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\" stroke-width=\"2\"/>\n  <text x=\"270\" y=\"118\" text-anchor=\"middle\" font-size=\"14\" fill=\"#534AB7\" font-family=\"Arial\">Preprocess</text>\n  <text x=\"270\" y=\"140\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Window, resize, QA</text>\n\n  <line x1=\"330\" y1=\"126\" x2=\"385\" y2=\"126\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_cv_01)\"/>\n\n  <rect x=\"385\" y=\"90\" width=\"120\" height=\"72\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"2\"/>\n  <text x=\"445\" y=\"118\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0F6E56\" font-family=\"Arial\">Model</text>\n  <text x=\"445\" y=\"140\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Classify, detect, segment</text>\n\n  <line x1=\"505\" y1=\"126\" x2=\"560\" y2=\"126\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_cv_01)\"/>\n\n  <rect x=\"560\" y=\"90\" width=\"120\" height=\"72\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"2\"/>\n  <text x=\"620\" y=\"118\" text-anchor=\"middle\" font-size=\"14\" fill=\"#993C1D\" font-family=\"Arial\">Clinical output</text>\n  <text x=\"620\" y=\"140\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Alert, mask, score</text>\n\n  <line x1=\"680\" y1=\"126\" x2=\"735\" y2=\"126\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_cv_01)\"/>\n\n  <rect x=\"735\" y=\"90\" width=\"70\" height=\"72\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#2C2C2A\" stroke-width=\"2\"/>\n  <text x=\"770\" y=\"118\" text-anchor=\"middle\" font-size=\"13\" fill=\"#2C2C2A\" font-family=\"Arial\">Review</text>\n  <text x=\"770\" y=\"140\" text-anchor=\"middle\" font-size=\"10\" fill=\"#5F5E5A\" font-family=\"Arial\">Clinician</text>\n\n  <rect x=\"85\" y=\"245\" width=\"160\" height=\"72\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"2\"/>\n  <text x=\"165\" y=\"274\" text-anchor=\"middle\" font-size=\"14\" fill=\"#993C1D\" font-family=\"Arial\">Validation</text>\n  <text x=\"165\" y=\"296\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">External site, drift, QA</text>\n\n  <rect x=\"330\" y=\"245\" width=\"160\" height=\"72\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"2\"/>\n  <text x=\"410\" y=\"274\" text-anchor=\"middle\" font-size=\"14\" fill=\"#185FA5\" font-family=\"Arial\">Governance</text>\n  <text x=\"410\" y=\"296\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Consent, access, audit</text>\n\n  <rect x=\"575\" y=\"245\" width=\"160\" height=\"72\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"2\"/>\n  <text x=\"655\" y=\"274\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0F6E56\" font-family=\"Arial\">Clinical value</text>\n  <text x=\"655\" y=\"296\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Workflow impact</text>\n</svg>"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "Quatre tâches : classification, détection, segmentation, priorisation",
+        "en": "Four tasks: classification, detection, segmentation, prioritization"
+      },
+      "content": {
+        "fr": "Un modèle de vision médicale peut servir plusieurs tâches. Vous devez choisir la tâche avant de choisir l’architecture.\n\n| Tâche | Question | Exemple | Sortie attendue |\n|---|---|---|---|\n| Classification | l’image contient-elle une anomalie ? | radio thorax normale/anormale | probabilité, classe |\n| Détection | où se trouve l’anomalie ? | nodule, fracture, lésion | boîte ou localisation |\n| Segmentation | quelle zone exacte est concernée ? | tumeur, organe, lésion | masque pixel par pixel |\n| Priorisation | quel examen doit être lu en priorité ? | suspicion d’urgence | score ou file d’attente |\n\nLe choix de la tâche change les données, l’annotation, l’évaluation et le risque clinique. Un score de classification peut aider au tri, mais il ne remplace pas un compte rendu médical.",
+        "en": "A medical vision model can serve several tasks. You must choose the task before choosing the architecture.\n\n| Task | Question | Example | Expected output |\n|---|---|---|---|\n| Classification | does the image contain an abnormality? | normal/abnormal chest X-ray | probability, class |\n| Detection | where is the abnormality? | nodule, fracture, lesion | box or location |\n| Segmentation | which exact area is involved? | tumor, organ, lesion | pixel-level mask |\n| Prioritization | which exam should be read first? | suspected emergency | score or queue |\n\nThe task choice changes data, annotation, evaluation, and clinical risk. A classification score can support triage, but it does not replace a medical report."
+      }
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "Pipeline minimal : de l’image brute à la sortie clinique",
+        "en": "Minimal pipeline: from raw image to clinical output"
+      },
+      "content": {
+        "fr": "Un pipeline de vision médicale fiable suit une chaîne claire.\n\n1. **Acquisition** : modalité, protocole, appareil, qualité.\n2. **Extraction** : lecture DICOM, métadonnées utiles, suppression des identifiants.\n3. **Prétraitement** : normalisation, redimensionnement, fenêtrage, contrôle qualité.\n4. **Annotation** : labels, boîtes, masques, double lecture si nécessaire.\n5. **Entraînement** : séparation train/validation/test par patient, pas par image isolée.\n6. **Évaluation** : performance, erreurs critiques, sous-groupes, calibration.\n7. **Intégration** : sortie compréhensible dans le workflow clinique.\n8. **Suivi** : dérive, retours radiologues, audit, mise à jour.\n\nLe modèle n’est qu’un maillon. Un mauvais prétraitement ou une fuite entre patients dans les splits peut rendre les résultats trompeurs.",
+        "en": "A reliable medical vision pipeline follows a clear chain.\n\n1. **Acquisition**: modality, protocol, device, quality.\n2. **Extraction**: DICOM reading, useful metadata, identifier removal.\n3. **Preprocessing**: normalization, resizing, windowing, quality control.\n4. **Annotation**: labels, boxes, masks, double reading when needed.\n5. **Training**: train/validation/test split by patient, not by isolated image.\n6. **Evaluation**: performance, critical errors, subgroups, calibration.\n7. **Integration**: understandable output in the clinical workflow.\n8. **Monitoring**: drift, radiologist feedback, audit, update.\n\nThe model is only one link. Poor preprocessing or patient leakage across splits can make results misleading."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Pipeline de vision médicale",
+        "section_context": "L’étudiant vient de voir le pipeline minimal : acquisition, extraction, prétraitement, annotation, entraînement, évaluation, intégration et suivi. Il a aussi vu l’importance d’éviter les fuites par patient entre les jeux d’entraînement et de test.",
+        "question_type": "diagnose_pipeline_issue",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse doit repérer une erreur de pipeline, expliquer son impact clinique ou statistique, puis proposer une correction.",
+        "anti_gpt_instructions": "Présente un cas fictif où les images d’un même patient sont réparties entre train et test et où les images de faible qualité sont gardées sans contrôle. Demande à l’étudiant d’identifier les risques pour l’évaluation. Demander une réponse concise mais argumentée."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "Annotation : le vrai coût caché",
+        "en": "Annotation: the real hidden cost"
+      },
+      "content": {
+        "fr": "En imagerie médicale, l’annotation est souvent le point le plus difficile. Un label clinique peut être incertain, dépendre du lecteur ou du protocole, et varier selon la modalité. Une segmentation exige du temps médical. Une boîte de détection peut être plus rapide, mais moins précise.\n\nVous devez documenter :\n\n- qui annote ;\n- avec quelle consigne ;\n- avec quel outil ;\n- selon quelle définition clinique ;\n- avec quelle gestion des désaccords ;\n- avec quel niveau de confiance ;\n- avec quelle traçabilité.\n\nUne annotation faible produit un modèle faible. Dans un contexte tunisien, où le temps médical peut être rare, il faut choisir des tâches d’annotation réalistes et concentrer l’expertise sur les cas à forte valeur.",
+        "en": "In medical imaging, annotation is often the hardest part. A clinical label can be uncertain, depend on the reader or protocol, and vary by modality. Segmentation requires medical time. A detection box can be faster, but less precise.\n\nYou must document:\n\n- who annotates;\n- with which instructions;\n- with which tool;\n- according to which clinical definition;\n- with what disagreement management;\n- with what confidence level;\n- with what traceability.\n\nWeak annotation produces a weak model. In the Tunisian context, where medical time may be scarce, annotation tasks must be realistic and expert time should focus on high-value cases."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "Évaluer pour la clinique, pas seulement pour le score",
+        "en": "Evaluate for the clinic, not only for the score"
+      },
+      "content": {
+        "fr": "Les métriques classiques comme accuracy, AUC, sensibilité, spécificité, précision ou Dice sont utiles. Mais elles ne suffisent pas.\n\nDemandez aussi :\n\n- quels faux négatifs sont dangereux ?\n- quels faux positifs créent une surcharge inutile ?\n- le modèle fonctionne-t-il sur différents appareils ou établissements ?\n- les performances changent-elles selon âge, sexe, protocole ou qualité d’image ?\n- le seuil est-il choisi selon un objectif clinique ?\n- la sortie est-elle compréhensible pour le médecin ?\n- le modèle améliore-t-il le workflow ou ajoute-t-il du bruit ?\n\nUne performance globale élevée peut cacher un échec sur un sous-groupe patient. En santé, ce point est critique.",
+        "en": "Classic metrics such as accuracy, AUC, sensitivity, specificity, precision, or Dice are useful. But they are not enough.\n\nAlso ask:\n\n- which false negatives are dangerous?\n- which false positives create unnecessary workload?\n- does the model work across devices or institutions?\n- do performances change by age, sex, protocol, or image quality?\n- is the threshold chosen according to a clinical objective?\n- is the output understandable for the physician?\n- does the model improve the workflow or add noise?\n\nHigh global performance can hide failure on a patient subgroup. In healthcare, this is critical."
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "Intégration clinique : sortie, revue humaine et audit",
+        "en": "Clinical integration: output, human review, and audit"
+      },
+      "content": {
+        "fr": "Un modèle de vision médicale ne doit pas rester dans un notebook. Sa sortie doit s’intégrer dans un workflow réel : PACS, station de lecture, système d’information hospitalier, outil de tri ou interface de recherche.\n\nUne sortie utile peut être :\n\n- une alerte de priorisation ;\n- un score avec seuil documenté ;\n- une heatmap ou une zone suspecte ;\n- un masque de segmentation ;\n- une synthèse pour revue ;\n- une liste de cas à vérifier.\n\nLa sortie doit rester auditable : image source, version du modèle, seuil, date, utilisateur, résultat, validation médicale et correction éventuelle. Le médecin garde la décision finale.",
+        "en": "A medical vision model should not remain in a notebook. Its output must integrate into a real workflow: PACS, reading workstation, hospital information system, triage tool, or research interface.\n\nA useful output can be:\n\n- a prioritization alert;\n- a score with a documented threshold;\n- a heatmap or suspicious region;\n- a segmentation mask;\n- a summary for review;\n- a list of cases to verify.\n\nThe output must remain auditable: source image, model version, threshold, date, user, result, medical validation, and possible correction. The physician keeps the final decision."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Évaluation clinique et intégration",
+        "section_context": "L’étudiant vient de voir que les métriques globales ne suffisent pas et qu’un modèle doit être évalué selon les faux négatifs, faux positifs, sous-groupes, appareils, seuil clinique, workflow et audit.",
+        "question_type": "critical_reasoning",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse doit mentionner le risque clinique, la métrique adaptée, le seuil, et la revue humaine.",
+        "anti_gpt_instructions": "Présente un mini-cas : un modèle de priorisation radio atteint une AUC élevée mais génère beaucoup de faux positifs dans un service déjà saturé. Demande à l’étudiant d’expliquer pourquoi ce n’est pas forcément acceptable et quelles évaluations supplémentaires exiger."
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "Références et repères pour ce module",
+        "en": "References and anchors for this module"
+      },
+      "content": {
+        "fr": "Gardez ces repères pour cadrer vos projets de vision médicale.\n\n- **DICOM** est le standard international pour transmettre, stocker, récupérer, traiter et afficher les informations d’imagerie médicale. Il est essentiel pour l’interopérabilité entre systèmes d’imagerie.\n- L’**OMS** insiste sur l’éthique, la gouvernance, la sécurité, la transparence et la supervision humaine dans l’IA en santé.\n- La **FDA** traite les logiciels IA/ML médicaux dans le cadre du Software as a Medical Device, avec une attention particulière au changement, à la performance et à la surveillance.\n- Le **NIST AI RMF** aide à raisonner sur les risques avec Govern, Map, Measure, Manage.\n\nDans votre pratique, ces repères doivent se traduire en décisions concrètes : qualité de données, validation médicale, anonymisation, audit, seuils cliniques et supervision.",
+        "en": "Keep these anchors in mind when framing medical vision projects.\n\n- **DICOM** is the international standard for transmitting, storing, retrieving, processing, and displaying medical imaging information. It is essential for interoperability across imaging systems.\n- **WHO** stresses ethics, governance, safety, transparency, and human oversight in AI for health.\n- The **FDA** addresses AI/ML medical software within Software as a Medical Device, with attention to change, performance, and monitoring.\n- The **NIST AI RMF** helps reason about risk through Govern, Map, Measure, Manage.\n\nIn practice, these anchors must translate into concrete decisions: data quality, medical validation, anonymization, audit, clinical thresholds, and supervision."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous savez maintenant cadrer un pipeline de computer vision médicale, depuis les données DICOM jusqu’à la sortie clinique supervisée. Le lab suivant vous demande de concevoir un pipeline d’imagerie médicale responsable et testable.",
+        "en": "You now know how to frame a medical computer vision pipeline, from DICOM data to supervised clinical output. The next lab asks you to design a responsible and testable medical imaging pipeline."
+      },
+      "next_url": "/courses/ai-healthcare/labs/01_medical_cv_diagnostic_support_lab"
+    }
+  ]
+}

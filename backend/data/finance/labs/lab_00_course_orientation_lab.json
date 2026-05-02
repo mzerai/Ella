@@ -1,0 +1,51 @@
+{
+  "lab_id": "00_course_orientation_lab",
+  "course_id": "ella_industry_ai_finance_banking",
+  "title": {
+    "fr": "Lab 0 — Cadrer un cas d’usage IA financier",
+    "en": "Lab 0 — Frame a Financial AI Use Case"
+  },
+  "description": {
+    "fr": "Vous cadrez un cas d’usage IA financier avec ses bénéfices, risques, données et contrôles.",
+    "en": "You frame a financial AI use case with its benefits, risks, data, and controls."
+  },
+  "concept": {
+    "fr": "Performance, risque, conformité, données sensibles et responsabilité institutionnelle.",
+    "en": "Performance, risk, compliance, sensitive data, and institutional accountability."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "frame_financial_ai_use_case",
+      "title": {
+        "fr": "Cartographier un cas d’usage IA",
+        "en": "Map an AI use case"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Choisissez un cas d’usage IA dans une banque, une assurance, une fintech ou une direction financière. Produisez une note courte qui précise l’objectif, les données utilisées, la décision ou le processus influencé, les principaux risques et les contrôles attendus. Votre réponse doit rester concrète et exploitable par un responsable métier.",
+        "en": "Choose an AI use case in a bank, insurance company, fintech, or finance department. Produce a short note that specifies the objective, the data used, the decision or process affected, the main risks, and the controls expected. Your answer must be concrete and usable by a business owner."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par un cas limité : un processus, une population, une décision.",
+          "en": "Start with a limited case: one process, one population, one decision."
+        },
+        {
+          "fr": "Séparez le bénéfice attendu du risque créé par le système.",
+          "en": "Separate the expected benefit from the risk created by the system."
+        },
+        {
+          "fr": "Citez les données sensibles ou critiques sans utiliser de données réelles.",
+          "en": "Name sensitive or critical data without using real data."
+        },
+        {
+          "fr": "Terminez par au moins deux contrôles : humain, technique, juridique ou opérationnel.",
+          "en": "End with at least two controls: human, technical, legal, or operational."
+        }
+      ]
+    }
+  ]
+}

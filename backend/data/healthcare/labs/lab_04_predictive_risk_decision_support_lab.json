@@ -1,0 +1,51 @@
+{
+  "lab_id": "04_predictive_risk_decision_support_lab",
+  "course_id": "ella_industry_ai_for_healthcare",
+  "title": {
+    "fr": "Lab 4 — Concevoir un modèle prédictif santé",
+    "en": "Lab 4 — Design a Healthcare Predictive Model"
+  },
+  "description": {
+    "fr": "L’apprenant conçoit un modèle prédictif de risque en santé, depuis l’événement prédit jusqu’au seuil clinique, à la validation et au suivi.",
+    "en": "The learner designs a healthcare risk prediction model, from predicted event to clinical threshold, validation, and monitoring."
+  },
+  "concept": {
+    "fr": "Prédiction de risque, label clinique, horizon, calibration, seuil, validation externe, biais, suivi post-déploiement.",
+    "en": "Risk prediction, clinical label, horizon, calibration, threshold, external validation, bias, post-deployment monitoring."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "design_predictive_risk_decision_support_model",
+      "title": {
+        "fr": "Spécifier un modèle prédictif d’aide à la décision",
+        "en": "Specify a predictive decision-support model"
+      },
+      "audience": "healthcare",
+      "difficulty": "advanced",
+      "instructions": {
+        "fr": "Choisissez un cas de prédiction en santé : réadmission, détérioration, complication, sepsis, non-observance, réponse au traitement ou priorisation. Spécifiez l’événement prédit, l’horizon temporel, la population, les variables disponibles au moment de la décision, le label, la stratégie de split, les métriques, la calibration, le seuil clinique, l’action associée, les risques de faux positifs et faux négatifs, les biais à surveiller, la validation externe et le plan de suivi après déploiement. Votre réponse doit montrer que le score aide une décision humaine sans décider seul.",
+        "en": "Choose a healthcare prediction case: readmission, deterioration, complication, sepsis, non-adherence, treatment response, or prioritization. Specify the predicted event, time horizon, population, variables available at decision time, label, split strategy, metrics, calibration, clinical threshold, associated action, false-positive and false-negative risks, biases to monitor, external validation, and post-deployment monitoring plan. Your answer must show that the score supports a human decision without deciding alone."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par l’événement prédit, son horizon temporel et l’action clinique qui suivra le score.",
+          "en": "Start with the predicted event, its time horizon, and the clinical action that follows the score."
+        },
+        {
+          "fr": "Vérifiez que toutes les variables sont disponibles au moment de la décision.",
+          "en": "Check that all variables are available at decision time."
+        },
+        {
+          "fr": "Ajoutez calibration, seuil clinique et analyse des faux positifs/faux négatifs.",
+          "en": "Add calibration, clinical threshold, and false-positive/false-negative analysis."
+        },
+        {
+          "fr": "Prévoyez validation externe, audit par sous-groupe et suivi de dérive.",
+          "en": "Plan external validation, subgroup audit, and drift monitoring."
+        }
+      ]
+    }
+  ]
+}

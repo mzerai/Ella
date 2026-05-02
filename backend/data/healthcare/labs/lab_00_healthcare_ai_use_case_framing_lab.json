@@ -1,0 +1,51 @@
+{
+  "lab_id": "00_healthcare_ai_use_case_framing_lab",
+  "course_id": "ella_industry_ai_for_healthcare",
+  "title": {
+    "fr": "Lab 0 — Cadrer un cas d’usage IA santé",
+    "en": "Lab 0 — Frame a Healthcare AI Use Case"
+  },
+  "description": {
+    "fr": "L’apprenant cadre un cas d’usage IA santé en reliant décision clinique, données, risques et garde-fous.",
+    "en": "The learner frames a healthcare AI use case by connecting clinical decision, data, risks, and guardrails."
+  },
+  "concept": {
+    "fr": "Décision clinique, données de santé, responsabilité humaine, risques patients, conformité et garde-fous.",
+    "en": "Clinical decision, health data, human responsibility, patient risks, compliance, and guardrails."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "frame_healthcare_ai_use_case",
+      "title": {
+        "fr": "Cadrer un cas d’usage IA santé avant modélisation",
+        "en": "Frame a healthcare AI use case before modeling"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Choisissez un cas d’usage IA santé réel ou plausible : imagerie, dossier médical, prédiction de risque, recherche clinique ou assistance administrative médicale. Décrivez la décision aidée, les données utilisées, les utilisateurs, les risques patients, les risques de données et les garde-fous nécessaires. Votre réponse doit montrer que l’IA assiste une décision humaine, sans se substituer au médecin, au chercheur ou à l’institution.",
+        "en": "Choose a real or plausible healthcare AI use case: imaging, medical record, risk prediction, clinical research, or medical administrative support. Describe the supported decision, data used, users, patient risks, data risks, and required guardrails. Your answer must show that AI supports a human decision without replacing the physician, researcher, or institution."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par la décision aidée : tri, diagnostic assisté, extraction, alerte, suivi ou recherche.",
+          "en": "Start with the supported decision: triage, assisted diagnosis, extraction, alert, follow-up, or research."
+        },
+        {
+          "fr": "Précisez les données utilisées et indiquez quelles données ne doivent pas être exposées.",
+          "en": "Specify the data used and state which data must not be exposed."
+        },
+        {
+          "fr": "Identifiez au moins deux risques : un risque patient et un risque de protection des données.",
+          "en": "Identify at least two risks: one patient risk and one data-protection risk."
+        },
+        {
+          "fr": "Ajoutez des garde-fous concrets : validation médicale, anonymisation, contrôle d’accès, audit ou escalade.",
+          "en": "Add concrete guardrails: medical validation, anonymization, access control, audit, or escalation."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "module_id": "02_clinical_nlp_information_extraction",
+  "title": {
+    "fr": "Module 2 — NLP clinique : extraction d’information des dossiers médicaux",
+    "en": "Module 2 — Clinical NLP: Extracting Information from Medical Records"
+  },
+  "description": {
+    "fr": "Ce module apprend à concevoir un pipeline NLP clinique pour extraire, qualifier, normaliser et sécuriser les informations issues des textes médicaux.",
+    "en": "This module teaches how to design a clinical NLP pipeline to extract, qualify, normalize, and secure information from medical text."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Objectif du module",
+        "en": "Module objective"
+      },
+      "content": {
+        "fr": "Dans ce module, vous allez concevoir un pipeline NLP clinique pour extraire de l’information à partir de textes médicaux : dossiers patients, comptes rendus, lettres de sortie, prescriptions, résultats biologiques, notes de consultation, formulaires ou documents de recherche.\n\nL’objectif n’est pas de demander à un LLM de “résumer un dossier”. L’objectif est de transformer un texte clinique souvent long, hétérogène et sensible en information structurée, vérifiable et utile, sans exposer les données patients ni inventer des informations.\n\nVous allez apprendre à distinguer extraction, normalisation, codage, synthèse et aide à la décision. Vous verrez aussi pourquoi le NLP clinique exige de traiter la négation, la temporalité, l’incertitude, les abréviations, les langues mixtes et la validation médicale.",
+        "en": "In this module, you will design a clinical NLP pipeline to extract information from medical text: patient records, reports, discharge letters, prescriptions, lab results, consultation notes, forms, or research documents.\n\nThe goal is not to ask an LLM to “summarize a file.” The goal is to turn clinical text that is often long, heterogeneous, and sensitive into structured, verifiable, and useful information, without exposing patient data or inventing information.\n\nYou will learn to distinguish extraction, normalization, coding, summarization, and decision support. You will also see why clinical NLP must handle negation, temporality, uncertainty, abbreviations, mixed languages, and medical validation."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "Les textes cliniques ne sont pas des textes ordinaires",
+        "en": "Clinical text is not ordinary text"
+      },
+      "content": {
+        "fr": "Un texte clinique est dense, contextuel et risqué. Une phrase courte peut changer de sens selon le contexte.\n\nExemples :\n\n- “Pas de diabète connu” ne signifie pas diabète présent.\n- “Antécédent familial d’AVC” ne signifie pas AVC chez le patient.\n- “Suspicion de pneumonie” n’est pas un diagnostic confirmé.\n- “Arrêt de traitement envisagé” n’est pas un arrêt déjà réalisé.\n- “Contrôle dans trois mois” est une recommandation temporelle.\n\nUn pipeline NLP clinique doit donc reconnaître : entités médicales, négation, temporalité, statut du patient, certitude, relation entre entités et source de l’information. Sans cela, il peut transformer une hypothèse en fait ou un antécédent familial en pathologie patient.",
+        "en": "Clinical text is dense, contextual, and risky. A short sentence can change meaning depending on context.\n\nExamples:\n\n- “No known diabetes” does not mean diabetes is present.\n- “Family history of stroke” does not mean the patient had a stroke.\n- “Suspected pneumonia” is not a confirmed diagnosis.\n- “Treatment discontinuation considered” is not a completed stop.\n- “Follow-up in three months” is a temporal recommendation.\n\nA clinical NLP pipeline must therefore recognize medical entities, negation, temporality, patient status, certainty, relationships between entities, and information source. Without this, it can turn a hypothesis into a fact or a family history into a patient condition."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Nature du texte clinique",
+        "section_context": "L’étudiant vient de voir que le texte clinique contient négation, temporalité, incertitude, antécédents familiaux, recommandations et hypothèses. Il doit éviter de transformer une mention clinique en fait patient sans contexte.",
+        "question_type": "applied_comprehension",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse doit distinguer diagnostic confirmé, suspicion, négation et antécédent familial.",
+        "anti_gpt_instructions": "Présente quatre courtes phrases cliniques fictives en français, dont une négation, une suspicion, un antécédent familial et une recommandation temporelle. Demande à l’étudiant de dire ce qui peut être extrait et ce qui ne doit pas être codé comme fait confirmé chez le patient."
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Pipeline NLP clinique",
+        "en": "Clinical NLP pipeline"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 840 420\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <marker id=\"arr_nlp_02\" markerWidth=\"10\" markerHeight=\"10\" refX=\"9\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\">\n      <path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/>\n    </marker>\n  </defs>\n  <rect x=\"0\" y=\"0\" width=\"840\" height=\"420\" fill=\"#F1EFE8\"/>\n  <text x=\"420\" y=\"36\" text-anchor=\"middle\" font-size=\"22\" fill=\"#2C2C2A\" font-family=\"Arial\">Clinical NLP Pipeline</text>\n\n  <rect x=\"35\" y=\"85\" width=\"125\" height=\"78\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"2\"/>\n  <text x=\"97\" y=\"113\" text-anchor=\"middle\" font-size=\"14\" fill=\"#185FA5\" font-family=\"Arial\">Clinical text</text>\n  <text x=\"97\" y=\"136\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Reports, notes, PDFs</text>\n\n  <line x1=\"160\" y1=\"124\" x2=\"215\" y2=\"124\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_nlp_02)\"/>\n\n  <rect x=\"215\" y=\"85\" width=\"125\" height=\"78\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"2\"/>\n  <text x=\"277\" y=\"113\" text-anchor=\"middle\" font-size=\"14\" fill=\"#993C1D\" font-family=\"Arial\">De-identify</text>\n  <text x=\"277\" y=\"136\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Names, IDs, dates</text>\n\n  <line x1=\"340\" y1=\"124\" x2=\"395\" y2=\"124\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_nlp_02)\"/>\n\n  <rect x=\"395\" y=\"85\" width=\"125\" height=\"78\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\" stroke-width=\"2\"/>\n  <text x=\"457\" y=\"113\" text-anchor=\"middle\" font-size=\"14\" fill=\"#534AB7\" font-family=\"Arial\">Extract</text>\n  <text x=\"457\" y=\"136\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Entities, negation</text>\n\n  <line x1=\"520\" y1=\"124\" x2=\"575\" y2=\"124\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_nlp_02)\"/>\n\n  <rect x=\"575\" y=\"85\" width=\"125\" height=\"78\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"2\"/>\n  <text x=\"637\" y=\"113\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0F6E56\" font-family=\"Arial\">Normalize</text>\n  <text x=\"637\" y=\"136\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">ICD, SNOMED, FHIR</text>\n\n  <line x1=\"700\" y1=\"124\" x2=\"755\" y2=\"124\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_nlp_02)\"/>\n\n  <rect x=\"755\" y=\"85\" width=\"70\" height=\"78\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#2C2C2A\" stroke-width=\"2\"/>\n  <text x=\"790\" y=\"113\" text-anchor=\"middle\" font-size=\"13\" fill=\"#2C2C2A\" font-family=\"Arial\">Review</text>\n  <text x=\"790\" y=\"136\" text-anchor=\"middle\" font-size=\"10\" fill=\"#5F5E5A\" font-family=\"Arial\">Clinician</text>\n\n  <rect x=\"95\" y=\"245\" width=\"165\" height=\"78\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"2\"/>\n  <text x=\"177\" y=\"275\" text-anchor=\"middle\" font-size=\"14\" fill=\"#993C1D\" font-family=\"Arial\">Risks</text>\n  <text x=\"177\" y=\"297\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">PHI leak, hallucination</text>\n\n  <rect x=\"337\" y=\"245\" width=\"165\" height=\"78\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"2\"/>\n  <text x=\"419\" y=\"275\" text-anchor=\"middle\" font-size=\"14\" fill=\"#185FA5\" font-family=\"Arial\">Controls</text>\n  <text x=\"419\" y=\"297\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Schema, audit, validation</text>\n\n  <rect x=\"579\" y=\"245\" width=\"165\" height=\"78\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"2\"/>\n  <text x=\"661\" y=\"275\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0F6E56\" font-family=\"Arial\">Output</text>\n  <text x=\"661\" y=\"297\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">Structured clinical data</text>\n</svg>"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "Du document brut à l’information structurée",
+        "en": "From raw document to structured information"
+      },
+      "content": {
+        "fr": "Un pipeline NLP clinique fiable suit une chaîne claire.\n\n1. **Ingestion** : document texte, PDF, scan OCR, compte rendu, formulaire ou note.\n2. **Dé-identification** : suppression ou masquage des noms, identifiants, adresses, dates directes ou informations ré-identifiantes.\n3. **Segmentation** : titres, sections, antécédents, diagnostic, traitement, conclusion, recommandations.\n4. **Extraction** : pathologies, symptômes, traitements, examens, valeurs, dates, événements.\n5. **Qualification** : négation, incertitude, temporalité, patient ou famille, actuel ou passé.\n6. **Normalisation** : alignement vers une terminologie ou un standard.\n7. **Validation** : revue médicale ou contrôle qualité sur les sorties sensibles.\n8. **Sortie** : JSON, FHIR, tableau de recherche, alerte ou synthèse clinique.\n\nLe modèle ne suffit pas. Le pipeline doit contrôler la donnée avant, pendant et après l’extraction.",
+        "en": "A reliable clinical NLP pipeline follows a clear chain.\n\n1. **Ingestion**: text document, PDF, OCR scan, report, form, or note.\n2. **De-identification**: removal or masking of names, identifiers, addresses, direct dates, or re-identifying information.\n3. **Segmentation**: titles, sections, history, diagnosis, treatment, conclusion, recommendations.\n4. **Extraction**: conditions, symptoms, treatments, exams, values, dates, events.\n5. **Qualification**: negation, uncertainty, temporality, patient or family, current or past.\n6. **Normalization**: alignment to a terminology or standard.\n7. **Validation**: medical review or quality control on sensitive outputs.\n8. **Output**: JSON, FHIR, research table, alert, or clinical summary.\n\nThe model is not enough. The pipeline must control data before, during, and after extraction."
+      }
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "Extraction, normalisation et codage",
+        "en": "Extraction, normalization, and coding"
+      },
+      "content": {
+        "fr": "L’extraction identifie une information dans le texte. La normalisation relie cette information à un concept standard. Le codage transforme ce concept en code utilisable pour l’analyse, la recherche ou l’interopérabilité.\n\nExemple :\n\n- Texte : “diabète de type 2 mal équilibré”.\n- Extraction : condition médicale = diabète de type 2.\n- Qualification : présent, patient, actuel, certitude élevée.\n- Normalisation : concept clinique standard.\n- Codage : code ICD-11 ou SNOMED CT selon le besoin.\n\nSNOMED CT est une terminologie clinique globale et multilingue qui permet une représentation cohérente du contenu clinique. ICD-11 est la classification internationale de l’OMS pour enregistrer et rapporter les maladies et causes de décès. FHIR, standard HL7, structure l’échange électronique des informations de santé.\n\nLe bon pipeline doit préciser quelle terminologie est utilisée et pourquoi.",
+        "en": "Extraction identifies information in the text. Normalization links that information to a standard concept. Coding turns that concept into a code usable for analysis, research, or interoperability.\n\nExample:\n\n- Text: “poorly controlled type 2 diabetes.”\n- Extraction: medical condition = type 2 diabetes.\n- Qualification: present, patient, current, high certainty.\n- Normalization: standard clinical concept.\n- Coding: ICD-11 or SNOMED CT code depending on the need.\n\nSNOMED CT is a global, multilingual clinical terminology that enables consistent representation of clinical content. ICD-11 is WHO’s international classification for recording and reporting diseases and causes of death. FHIR, an HL7 standard, structures electronic exchange of health information.\n\nA good pipeline must specify which terminology is used and why."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Extraction et normalisation clinique",
+        "section_context": "L’étudiant vient de distinguer extraction, qualification, normalisation et codage. Il a vu SNOMED CT, ICD-11 et FHIR comme repères pour représenter et échanger les informations cliniques.",
+        "question_type": "pipeline_reasoning",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse doit séparer l’entité extraite, son statut clinique, puis le standard utilisé pour la représenter.",
+        "anti_gpt_instructions": "Présente un mini-extrait clinique avec une maladie présente, une maladie niée et un médicament arrêté. Demande à l’étudiant de structurer la sortie en entité, statut, temporalité et représentation standard possible. Ne demande pas de codes réels."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "Dé-identification et anonymisation",
+        "en": "De-identification and anonymization"
+      },
+      "content": {
+        "fr": "Le NLP clinique manipule souvent des informations directement identifiantes ou indirectement ré-identifiantes. Avant extraction, vous devez décider ce qui doit être supprimé, masqué, pseudonymisé ou conservé sous contrôle.\n\nExemples de données à traiter avec prudence :\n\n- nom, prénom ;\n- identifiant patient ;\n- CIN ou numéro administratif ;\n- adresse ;\n- téléphone ;\n- date exacte ;\n- nom du médecin ;\n- établissement ;\n- événement rare qui permet de réidentifier ;\n- combinaison de plusieurs éléments apparemment neutres.\n\nEn Tunisie, les données personnelles sont protégées par la loi organique n°2004-63. Les données de santé demandent une prudence renforcée. Dans un pipeline NLP, cela implique minimisation, contrôle d’accès, journalisation, limitation de conservation et revue avant réutilisation en recherche.",
+        "en": "Clinical NLP often handles directly identifying or indirectly re-identifying information. Before extraction, you must decide what should be removed, masked, pseudonymized, or kept under control.\n\nExamples of data to handle carefully:\n\n- first name, last name;\n- patient identifier;\n- national or administrative ID;\n- address;\n- phone number;\n- exact date;\n- physician name;\n- institution;\n- rare event that enables re-identification;\n- combination of several apparently neutral elements.\n\nIn Tunisia, personal data is protected by Organic Law No. 2004-63. Health data requires stronger caution. In an NLP pipeline, this means minimization, access control, logging, retention limits, and review before reuse in research."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "Spécificités tunisiennes : langues, formats et hétérogénéité",
+        "en": "Tunisian specifics: languages, formats, and heterogeneity"
+      },
+      "content": {
+        "fr": "Dans le contexte tunisien, un pipeline NLP clinique peut rencontrer des documents en français, arabe, parfois anglais, avec abréviations médicales, expressions locales, saisies non standardisées et mélange de langues. Les dossiers peuvent être numériques, semi-structurés, scannés, ou encore sous forme de comptes rendus PDF.\n\nCela crée des défis :\n\n- OCR de qualité variable ;\n- abréviations propres à un service ;\n- noms de médicaments écrits de plusieurs façons ;\n- mélange français/arabe dans une même note ;\n- absence de structure uniforme ;\n- hétérogénéité entre cliniques, CHU et laboratoires.\n\nLa bonne approche consiste à commencer par un périmètre limité : un type de document, une langue dominante, une spécialité, un service, un objectif d’extraction et une validation métier claire.",
+        "en": "In the Tunisian context, a clinical NLP pipeline may encounter documents in French, Arabic, sometimes English, with medical abbreviations, local expressions, non-standard entries, and mixed languages. Records may be digital, semi-structured, scanned, or provided as PDF reports.\n\nThis creates challenges:\n\n- variable OCR quality;\n- department-specific abbreviations;\n- medication names written in several ways;\n- French/Arabic mix in the same note;\n- lack of uniform structure;\n- heterogeneity between clinics, university hospitals, and laboratories.\n\nThe right approach is to start with a limited scope: one document type, one dominant language, one specialty, one department, one extraction objective, and clear business validation."
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "Évaluer un pipeline NLP clinique",
+        "en": "Evaluating a clinical NLP pipeline"
+      },
+      "content": {
+        "fr": "L’évaluation doit mesurer plus que la qualité linguistique. Elle doit vérifier que l’information extraite est correcte, utile et sûre.\n\nMesurez :\n\n- précision et rappel des entités ;\n- erreurs de négation ;\n- erreurs de temporalité ;\n- confusion patient/famille ;\n- hallucinations ou informations non présentes ;\n- qualité de la dé-identification ;\n- conformité au schéma de sortie ;\n- taux de revue médicale nécessaire ;\n- impact sur le workflow.\n\nPour un usage de recherche, vous pouvez tolérer certaines erreurs si elles sont connues et contrôlées. Pour un usage clinique direct ou une alerte, le seuil doit être plus strict et la validation humaine devient centrale.",
+        "en": "Evaluation must measure more than language quality. It must verify that extracted information is correct, useful, and safe.\n\nMeasure:\n\n- entity precision and recall;\n- negation errors;\n- temporality errors;\n- patient/family confusion;\n- hallucinations or information not present;\n- de-identification quality;\n- output schema compliance;\n- medical-review rate;\n- workflow impact.\n\nFor research use, some errors may be acceptable if they are known and controlled. For direct clinical use or alerts, the threshold must be stricter and human validation becomes central."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Évaluation du NLP clinique",
+        "section_context": "L’étudiant vient de voir que l’évaluation doit mesurer précision/rappel, négation, temporalité, confusion patient/famille, hallucination, dé-identification, conformité du schéma et impact workflow.",
+        "question_type": "critical_evaluation",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse doit relier la métrique au risque clinique ou au risque de données.",
+        "anti_gpt_instructions": "Présente un pipeline qui extrait correctement les maladies dans 90% des cas mais échoue souvent sur les négations et conserve parfois des dates exactes. Demande à l’étudiant pourquoi ce résultat est insuffisant et quels tests ajouter avant pilote."
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "Références et repères pour ce module",
+        "en": "References and anchors for this module"
+      },
+      "content": {
+        "fr": "Gardez ces repères pour vos projets NLP clinique.\n\n- **HL7 FHIR** est un standard d’échange électronique des informations de santé. Il aide à structurer des données cliniques pour l’interopérabilité.\n- **SNOMED CT** est une terminologie clinique globale, multilingue, scientifiquement validée, qui permet une représentation cohérente du contenu clinique.\n- **ICD-11** est la classification internationale de l’OMS pour les maladies et informations de santé diagnostiques.\n- L’**OMS** rappelle que les usages de l’IA en santé doivent préserver la sécurité, la transparence, la responsabilité et la supervision humaine.\n- Le **NIST AI RMF** aide à cadrer les risques avec Govern, Map, Measure, Manage.\n\nDans un projet réel, ces repères doivent devenir des choix explicites : standard de sortie, terminologie, règles de dé-identification, validation médicale et audit.",
+        "en": "Keep these anchors in mind for clinical NLP projects.\n\n- **HL7 FHIR** is a standard for electronic exchange of health information. It helps structure clinical data for interoperability.\n- **SNOMED CT** is a global, multilingual, scientifically validated clinical terminology that enables consistent representation of clinical content.\n- **ICD-11** is WHO’s international classification for diseases and diagnostic health information.\n- **WHO** reminds that healthcare AI uses must preserve safety, transparency, accountability, and human oversight.\n- The **NIST AI RMF** helps frame risks through Govern, Map, Measure, Manage.\n\nIn a real project, these anchors must become explicit choices: output standard, terminology, de-identification rules, medical validation, and audit."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous savez maintenant concevoir un pipeline NLP clinique pour extraire, qualifier, normaliser et sécuriser l’information issue des dossiers médicaux. Le lab suivant vous demande de spécifier un pipeline NLP clinique complet et validable.",
+        "en": "You now know how to design a clinical NLP pipeline to extract, qualify, normalize, and secure information from medical records. The next lab asks you to specify a complete and validatable clinical NLP pipeline."
+      },
+      "next_url": "/courses/ai-healthcare/labs/02_clinical_nlp_information_extraction_lab"
+    }
+  ]
+}

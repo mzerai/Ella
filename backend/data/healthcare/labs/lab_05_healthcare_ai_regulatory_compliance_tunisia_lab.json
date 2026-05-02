@@ -1,0 +1,51 @@
+{
+  "lab_id": "05_healthcare_ai_regulatory_compliance_tunisia_lab",
+  "course_id": "ella_industry_ai_for_healthcare",
+  "title": {
+    "fr": "Lab 5 — Préparer la conformité d’un projet IA santé en Tunisie",
+    "en": "Lab 5 — Prepare Compliance for a Healthcare AI Project in Tunisia"
+  },
+  "description": {
+    "fr": "L’apprenant produit une checklist de conformité avant pilote pour un projet IA santé, avec finalité, données, accès, anonymisation, transfert, documentation et validation médicale.",
+    "en": "The learner produces a pre-pilot compliance checklist for a healthcare AI project, with purpose, data, access, anonymization, transfer, documentation, and medical validation."
+  },
+  "concept": {
+    "fr": "Protection des données de santé, loi tunisienne 2004-63, INPDP, conformité, transfert, audit, validation humaine.",
+    "en": "Health data protection, Tunisian Law 2004-63, INPDP, compliance, transfer, audit, human validation."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "prepare_healthcare_ai_compliance_checklist",
+      "title": {
+        "fr": "Produire une checklist conformité avant pilote",
+        "en": "Produce a pre-pilot compliance checklist"
+      },
+      "audience": "healthcare",
+      "difficulty": "advanced",
+      "instructions": {
+        "fr": "Choisissez un projet IA santé réel ou plausible en Tunisie : imagerie, NLP clinique, prédiction de risque, recherche clinique ou outil HealthTech. Produisez une checklist de conformité avant pilote : finalité, données nécessaires, données exclues, responsable de traitement, acteurs, accès, anonymisation ou pseudonymisation, sécurité, transfert ou hébergement, documentation, validation médicale, droits des personnes, durée de conservation, audit, incident response et critères go/no-go. Votre réponse doit montrer comment protéger les données patients sans bloquer la valeur clinique ou scientifique.",
+        "en": "Choose a real or plausible healthcare AI project in Tunisia: imaging, clinical NLP, risk prediction, clinical research, or HealthTech tool. Produce a pre-pilot compliance checklist: purpose, necessary data, excluded data, data controller, actors, access, anonymization or pseudonymization, security, transfer or hosting, documentation, medical validation, data-subject rights, retention period, audit, incident response, and go/no-go criteria. Your answer must show how to protect patient data without blocking clinical or scientific value."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par la finalité et les données strictement nécessaires.",
+          "en": "Start with the purpose and strictly necessary data."
+        },
+        {
+          "fr": "Identifiez les acteurs : responsable de traitement, équipe médicale, IT, sécurité, juridique et partenaires.",
+          "en": "Identify actors: data controller, medical team, IT, security, legal, and partners."
+        },
+        {
+          "fr": "Traitez explicitement anonymisation, accès, transfert, hébergement et durée de conservation.",
+          "en": "Explicitly address anonymization, access, transfer, hosting, and retention period."
+        },
+        {
+          "fr": "Terminez par une décision go/no-go ou go limité, avec corrections obligatoires avant pilote.",
+          "en": "End with a go/no-go or limited-go decision, with mandatory corrections before pilot."
+        }
+      ]
+    }
+  ]
+}

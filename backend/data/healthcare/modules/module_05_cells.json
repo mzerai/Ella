@@ -1,0 +1,163 @@
+{
+  "module_id": "05_healthcare_ai_regulatory_framework_tunisia",
+  "title": {
+    "fr": "Module 5 — Cadre réglementaire : protection des données de santé en Tunisie",
+    "en": "Module 5 — Regulatory Framework: Health Data Protection in Tunisia"
+  },
+  "description": {
+    "fr": "Ce module apprend à traduire les exigences réglementaires et éthiques en checklist opérationnelle pour un projet IA santé en Tunisie.",
+    "en": "This module teaches how to translate regulatory and ethical requirements into an operational checklist for a healthcare AI project in Tunisia."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Objectif du module",
+        "en": "Module objective"
+      },
+      "content": {
+        "fr": "Dans ce module, vous allez transformer le cadre réglementaire en décisions opérationnelles pour un projet IA santé en Tunisie. Vous ne devez pas seulement connaître la loi. Vous devez savoir traduire la conformité en architecture de données, gouvernance, documentation, accès, validation médicale et audit.\n\nUne solution IA santé conforme commence par une question simple : **quelles données de santé sont utilisées, pour quelle finalité, par qui, avec quel contrôle, et avec quelle responsabilité ?**\n\nCe module ne remplace pas un avis juridique. Il vous donne une méthode de cadrage pour dialoguer avec la direction médicale, la direction juridique, l’IT, les chercheurs, les DPO ou référents données, et les partenaires externes.",
+        "en": "In this module, you will turn the regulatory frame into operational decisions for a healthcare AI project in Tunisia. You should not only know the law. You must translate compliance into data architecture, governance, documentation, access, medical validation, and audit.\n\nA compliant healthcare AI solution starts with one simple question: **which health data are used, for which purpose, by whom, under which control, and with which responsibility?**\n\nThis module does not replace legal advice. It gives you a framing method to work with medical leadership, legal teams, IT, researchers, DPOs or data referents, and external partners."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "Point de départ tunisien : données personnelles et données de santé",
+        "en": "Tunisian starting point: personal data and health data"
+      },
+      "content": {
+        "fr": "En Tunisie, la loi organique n°2004-63 reconnaît la protection des données personnelles comme un droit fondamental. Elle pose des principes utiles pour tout projet IA santé : finalité licite, traitement loyal, limitation aux besoins de la finalité, exactitude, mise à jour, sécurité et droits des personnes.\n\nLes données de santé appellent une prudence renforcée. Elles peuvent révéler l’état de santé, le diagnostic, le traitement, le handicap, la grossesse, la santé mentale, les antécédents, les résultats biologiques ou l’imagerie d’une personne. Une fuite ou un mauvais usage peut créer un dommage direct : stigmatisation, perte de confiance, discrimination, atteinte à la vie privée ou décision clinique inadaptée.\n\nDans vos projets, partez toujours de la finalité : soin, recherche, qualité, pilotage, formation ou innovation. La finalité décide ce qui est nécessaire et ce qui doit être exclu.",
+        "en": "In Tunisia, Organic Law No. 2004-63 recognizes personal-data protection as a fundamental right. It sets principles useful for any healthcare AI project: lawful purpose, fair processing, limitation to purpose needs, accuracy, update, security, and data-subject rights.\n\nHealth data requires stronger caution. It can reveal a person’s health status, diagnosis, treatment, disability, pregnancy, mental health, history, lab results, or imaging. Leakage or misuse can cause direct harm: stigma, loss of trust, discrimination, privacy violation, or inappropriate clinical decision.\n\nIn your projects, always start with purpose: care, research, quality, management, training, or innovation. The purpose decides what is necessary and what must be excluded."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Données de santé et finalité",
+        "section_context": "L’étudiant vient de voir que la conformité commence par la finalité du traitement et que les données de santé exigent une prudence renforcée en raison des risques pour les patients.",
+        "question_type": "compliance_framing",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse doit préciser la finalité, les données nécessaires et les données à exclure.",
+        "anti_gpt_instructions": "Présente un cas fictif dans une clinique tunisienne qui veut réutiliser tous les dossiers patients pour entraîner un modèle de prédiction. Demande à l’étudiant de formuler la finalité et de dire quelles données ne doivent pas être collectées par défaut."
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Chemin de conformité d’un projet IA santé",
+        "en": "Healthcare AI compliance pathway"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 900 440\" xmlns=\"http://www.w3.org/2000/svg\">\n<defs><marker id=\"arr_reg_05\" markerWidth=\"10\" markerHeight=\"10\" refX=\"9\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/></marker></defs>\n<rect width=\"900\" height=\"440\" fill=\"#F1EFE8\"/>\n<text x=\"450\" y=\"38\" text-anchor=\"middle\" font-size=\"22\" fill=\"#2C2C2A\" font-family=\"Arial\">Healthcare AI Compliance Pathway in Tunisia</text>\n\n<rect x=\"35\" y=\"90\" width=\"130\" height=\"82\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"2\"/>\n<text x=\"100\" y=\"120\" text-anchor=\"middle\" font-size=\"14\" fill=\"#185FA5\" font-family=\"Arial\">Purpose</text>\n<text x=\"100\" y=\"144\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">care, research, quality</text>\n\n<line x1=\"165\" y1=\"131\" x2=\"225\" y2=\"131\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_reg_05)\"/>\n\n<rect x=\"225\" y=\"90\" width=\"130\" height=\"82\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"2\"/>\n<text x=\"290\" y=\"120\" text-anchor=\"middle\" font-size=\"14\" fill=\"#993C1D\" font-family=\"Arial\">Legal basis</text>\n<text x=\"290\" y=\"144\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">authorization, consent</text>\n\n<line x1=\"355\" y1=\"131\" x2=\"415\" y2=\"131\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_reg_05)\"/>\n\n<rect x=\"415\" y=\"90\" width=\"130\" height=\"82\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"2\"/>\n<text x=\"480\" y=\"120\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0F6E56\" font-family=\"Arial\">Data controls</text>\n<text x=\"480\" y=\"144\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">minimize, secure</text>\n\n<line x1=\"545\" y1=\"131\" x2=\"605\" y2=\"131\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_reg_05)\"/>\n\n<rect x=\"605\" y=\"90\" width=\"130\" height=\"82\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\" stroke-width=\"2\"/>\n<text x=\"670\" y=\"120\" text-anchor=\"middle\" font-size=\"14\" fill=\"#534AB7\" font-family=\"Arial\">AI controls</text>\n<text x=\"670\" y=\"144\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">validation, audit</text>\n\n<line x1=\"735\" y1=\"131\" x2=\"795\" y2=\"131\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_reg_05)\"/>\n\n<rect x=\"795\" y=\"90\" width=\"85\" height=\"82\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#2C2C2A\" stroke-width=\"2\"/>\n<text x=\"837\" y=\"120\" text-anchor=\"middle\" font-size=\"13\" fill=\"#2C2C2A\" font-family=\"Arial\">Pilot</text>\n<text x=\"837\" y=\"144\" text-anchor=\"middle\" font-size=\"10\" fill=\"#5F5E5A\" font-family=\"Arial\">governed use</text>\n\n<rect x=\"70\" y=\"255\" width=\"175\" height=\"86\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\" stroke-width=\"2\"/>\n<text x=\"157\" y=\"284\" text-anchor=\"middle\" font-size=\"14\" fill=\"#993C1D\" font-family=\"Arial\">Patient rights</text>\n<text x=\"157\" y=\"306\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">information, access, correction</text>\n\n<rect x=\"362\" y=\"255\" width=\"175\" height=\"86\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\" stroke-width=\"2\"/>\n<text x=\"450\" y=\"284\" text-anchor=\"middle\" font-size=\"14\" fill=\"#185FA5\" font-family=\"Arial\">Institutional duty</text>\n<text x=\"450\" y=\"306\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">owner, logs, security</text>\n\n<rect x=\"655\" y=\"255\" width=\"175\" height=\"86\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\" stroke-width=\"2\"/>\n<text x=\"742\" y=\"284\" text-anchor=\"middle\" font-size=\"14\" fill=\"#0F6E56\" font-family=\"Arial\">Clinical trust</text>\n<text x=\"742\" y=\"306\" text-anchor=\"middle\" font-size=\"11\" fill=\"#5F5E5A\" font-family=\"Arial\">human oversight</text>\n</svg>"
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "Responsable de traitement, acteurs et responsabilités",
+        "en": "Data controller, actors, and responsibilities"
+      },
+      "content": {
+        "fr": "Un projet IA santé doit nommer les responsabilités. Sans responsable, il n’y a pas de gouvernance réelle.\n\nIdentifiez au minimum :\n\n- le responsable de traitement ;\n- le propriétaire médical du cas d’usage ;\n- le responsable technique ;\n- le responsable sécurité ;\n- le référent juridique ou données ;\n- les personnes autorisées à accéder aux données ;\n- les partenaires externes ;\n- les sous-traitants techniques ;\n- le comité de revue si le projet concerne la recherche ou un impact patient.\n\nChaque acteur doit avoir un rôle clair. Un chercheur ne doit pas accéder à des identifiants patients si l’analyse peut être menée sur des données anonymisées ou pseudonymisées. Un prestataire technique ne doit pas voir plus que ce qui est nécessaire à sa mission.",
+        "en": "A healthcare AI project must name responsibilities. Without an owner, there is no real governance.\n\nIdentify at least:\n\n- the data controller;\n- the medical owner of the use case;\n- the technical owner;\n- the security owner;\n- the legal or data referent;\n- people authorized to access data;\n- external partners;\n- technical processors;\n- the review committee if the project involves research or patient impact.\n\nEach actor must have a clear role. A researcher should not access patient identifiers if the analysis can be done on anonymized or pseudonymized data. A technical provider should not see more than what is necessary for its task."
+      }
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "Procédures préalables et documentation",
+        "en": "Prior procedures and documentation"
+      },
+      "content": {
+        "fr": "La conformité doit être documentée avant le traitement, pas reconstruite après l’incident. L’INPDP indique que la loi organique 2004-63 impose au responsable de traitement des procédures préalables au traitement de données personnelles. Pour les données de santé, les exigences de prudence sont plus fortes.\n\nPréparez au minimum :\n\n- fiche de finalité ;\n- description des données ;\n- justification de la nécessité ;\n- cartographie des accès ;\n- méthode d’anonymisation ou pseudonymisation ;\n- mesures de sécurité ;\n- durée de conservation ;\n- modalités d’information des personnes ;\n- droits d’accès, correction ou suppression selon le cadre applicable ;\n- registre des traitements ;\n- procédure d’incident ;\n- plan d’audit.\n\nUn bon dossier de conformité doit être lisible par un médecin, un juriste, un DSI et un auditeur.",
+        "en": "Compliance must be documented before processing, not reconstructed after an incident. INPDP states that Organic Law 2004-63 requires the data controller to complete prior procedures before processing personal data. For health data, caution requirements are stronger.\n\nPrepare at least:\n\n- purpose sheet;\n- data description;\n- necessity justification;\n- access map;\n- anonymization or pseudonymization method;\n- security measures;\n- retention duration;\n- information process for individuals;\n- access, correction, or deletion rights according to the applicable frame;\n- processing register;\n- incident procedure;\n- audit plan.\n\nA good compliance file must be readable by a physician, lawyer, CIO, and auditor."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Documentation et responsabilités",
+        "section_context": "L’étudiant vient de voir qu’un projet IA santé doit nommer les responsabilités et documenter finalité, données, accès, anonymisation, sécurité, conservation, information, droits, registre, incident et audit.",
+        "question_type": "documentation_checklist",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse doit séparer responsabilités, documentation et mesures techniques.",
+        "anti_gpt_instructions": "Présente un projet fictif de recherche clinique qui a déjà collecté des données patients mais sans registre, sans durée de conservation et sans cartographie d’accès. Demande à l’étudiant de lister les manques critiques avant toute modélisation."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "Transfert, hébergement et partage des données",
+        "en": "Transfer, hosting, and data sharing"
+      },
+      "content": {
+        "fr": "La question du transfert est centrale. Les données de santé ne doivent pas circuler librement entre équipes, prestataires ou pays. Une note INPDP destinée aux établissements de santé rappelle l’importance d’encadrer les transferts de données de santé, notamment vers l’étranger, et de respecter les exigences et formalités applicables.\n\nAvant tout partage, posez ces questions :\n\n- les données doivent-elles sortir de l’établissement ?\n- peuvent-elles rester dans un environnement local sécurisé ?\n- faut-il anonymiser ou pseudonymiser avant transfert ?\n- le destinataire a-t-il un rôle documenté ?\n- existe-t-il un contrat ou une convention ?\n- quelles copies sont créées ?\n- où sont hébergées les données ?\n- qui peut y accéder ?\n- comment le transfert est-il journalisé ?\n- comment les données sont-elles supprimées à la fin ?\n\nPour les projets HealthTech, cette étape doit être traitée dès l’architecture, surtout si des clouds, APIs externes, LLMs ou partenaires étrangers sont impliqués.",
+        "en": "Transfer is central. Health data should not circulate freely between teams, providers, or countries. An INPDP note for health institutions highlights the need to frame transfers of health data, especially abroad, and to respect applicable requirements and formalities.\n\nBefore any sharing, ask:\n\n- must the data leave the institution?\n- can it stay in a secure local environment?\n- should it be anonymized or pseudonymized before transfer?\n- does the recipient have a documented role?\n- is there a contract or agreement?\n- which copies are created?\n- where are data hosted?\n- who can access them?\n- how is the transfer logged?\n- how are data deleted at the end?\n\nFor HealthTech projects, this step must be handled at architecture level, especially if clouds, external APIs, LLMs, or foreign partners are involved."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "IA médicale, dispositif médical et ouverture européenne",
+        "en": "Medical AI, medical devices, and European exposure"
+      },
+      "content": {
+        "fr": "Un projet IA santé peut rester un outil de recherche interne, devenir un outil d’aide au soin, ou entrer dans une logique de dispositif médical logiciel. Le niveau d’exigence change fortement selon l’usage.\n\nSi le système est destiné à soutenir un diagnostic, une décision thérapeutique ou une gestion clinique, il faut se demander s’il relève d’un cadre de dispositif médical ou d’un cadre d’IA à haut risque selon le marché visé.\n\nL’Union européenne a fait entrer en vigueur le règlement sur l’IA en août 2024. La Commission européenne indique que les systèmes IA à haut risque, dont certains logiciels IA à finalité médicale, doivent répondre à des exigences comme gestion des risques, qualité des données, information des utilisateurs et supervision humaine.\n\nPour une startup tunisienne HealthTech qui vise des partenaires ou marchés européens, ces exigences doivent être anticipées dès le prototype.",
+        "en": "A healthcare AI project can remain an internal research tool, become care-support software, or enter the logic of software as a medical device. Requirements change strongly depending on use.\n\nIf the system is intended to support diagnosis, therapeutic decisions, or clinical management, you must ask whether it falls under a medical-device frame or a high-risk AI frame in the target market.\n\nThe European Union AI Act entered into force in August 2024. The European Commission states that high-risk AI systems, including certain AI-based software intended for medical purposes, must meet requirements such as risk management, high-quality datasets, user information, and human oversight.\n\nFor a Tunisian HealthTech startup targeting European partners or markets, these requirements must be anticipated from the prototype stage."
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "Checklist conformité avant pilote",
+        "en": "Compliance checklist before pilot"
+      },
+      "content": {
+        "fr": "Avant un pilote IA santé en Tunisie, vérifiez cette checklist.\n\n| Domaine | Questions clés |\n|---|---|\n| Finalité | Le but est-il licite, clair et validé ? |\n| Données | Les données sont-elles nécessaires et minimisées ? |\n| Santé | Les données sensibles sont-elles protégées par des mesures renforcées ? |\n| Accès | Qui peut voir, extraire ou modifier les données ? |\n| Anonymisation | Le risque de ré-identification est-il évalué ? |\n| Sécurité | Les environnements, logs, sauvegardes et secrets sont-ils contrôlés ? |\n| Humain | La validation médicale est-elle obligatoire pour les sorties sensibles ? |\n| Documentation | Registre, protocole, versions et incidents sont-ils traçables ? |\n| Transfert | Tout transfert interne, externe ou international est-il encadré ? |\n| Pilote | Les critères go/no-go et le rollback sont-ils définis ? |\n\nSi une réponse critique est floue, le pilote doit être suspendu ou limité.",
+        "en": "Before a healthcare AI pilot in Tunisia, check this list.\n\n| Domain | Key questions |\n|---|---|\n| Purpose | Is the purpose lawful, clear, and validated? |\n| Data | Are data necessary and minimized? |\n| Health | Are sensitive data protected with reinforced measures? |\n| Access | Who can view, extract, or modify data? |\n| Anonymization | Is re-identification risk assessed? |\n| Security | Are environments, logs, backups, and secrets controlled? |\n| Human | Is medical validation mandatory for sensitive outputs? |\n| Documentation | Are register, protocol, versions, and incidents traceable? |\n| Transfer | Is any internal, external, or international transfer framed? |\n| Pilot | Are go/no-go criteria and rollback defined? |\n\nIf a critical answer is unclear, the pilot must be suspended or limited."
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Checklist conformité avant pilote",
+        "section_context": "L’étudiant vient de voir la checklist conformité avant pilote : finalité, minimisation, santé, accès, anonymisation, sécurité, validation humaine, documentation, transfert, critères go/no-go et rollback.",
+        "question_type": "go_no_go_decision",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse doit dire go, no-go ou go limité, puis justifier par les risques et corrections nécessaires.",
+        "anti_gpt_instructions": "Présente un cas de pilote IA santé avec finalité claire mais accès trop large, absence de durée de conservation et transfert cloud non documenté. Demande à l’étudiant de décider go/no-go/go limité et de proposer les corrections minimales."
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "Références de cadrage",
+        "en": "Framing references"
+      },
+      "content": {
+        "fr": "Références à garder dans le dossier du projet :\n\n- Loi organique tunisienne n°2004-63 du 27 juillet 2004 sur la protection des données à caractère personnel.\n- INPDP : autorité tunisienne créée par la loi organique n°63 de 2004, avec procédures préalables au traitement de données personnelles.\n- Documentation INPDP relative aux obligations dans les établissements de santé et au traitement des données liées à la santé.\n- OMS : recommandations sur l’éthique et la gouvernance de l’IA en santé, avec supervision humaine, sécurité, transparence et responsabilité.\n- NIST AI RMF : Govern, Map, Measure, Manage.\n- EU AI Act : cadre européen par les risques, pertinent si la solution vise des partenaires, patients ou marchés européens.\n\nDans votre livrable, ne citez pas ces références comme décoration. Utilisez-les pour justifier les choix : finalité, données, accès, anonymisation, validation, traçabilité et pilote.",
+        "en": "References to keep in the project file:\n\n- Tunisian Organic Law No. 2004-63 of July 27, 2004 on personal-data protection.\n- INPDP: Tunisian authority created by Organic Law No. 63 of 2004, with prior procedures before personal-data processing.\n- INPDP documentation on obligations in health institutions and processing of health-related personal data.\n- WHO: recommendations on ethics and governance of AI for health, with human oversight, safety, transparency, and accountability.\n- NIST AI RMF: Govern, Map, Measure, Manage.\n- EU AI Act: European risk-based frame, relevant if the solution targets European partners, patients, or markets.\n\nIn your deliverable, do not cite these references as decoration. Use them to justify choices: purpose, data, access, anonymization, validation, traceability, and pilot."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous savez maintenant traduire le cadre réglementaire et éthique en plan opérationnel pour un projet IA santé en Tunisie. Le lab suivant vous demande de produire une checklist de conformité complète avant pilote.",
+        "en": "You now know how to translate the regulatory and ethical frame into an operational plan for a healthcare AI project in Tunisia. The next lab asks you to produce a complete pre-pilot compliance checklist."
+      },
+      "next_url": "/courses/ai-healthcare/labs/05_healthcare_ai_regulatory_compliance_tunisia_lab"
+    }
+  ]
+}
