@@ -1,0 +1,51 @@
+{
+  "rubric_id": "industrial_ai_roadmap_final_rubric",
+  "course_id": "ella_industry_ai_manufacturing_industry_4_0",
+  "lab_id": "final_industrial_ai_roadmap_lab",
+  "max_total": 12,
+  "target_score": 10,
+  "criteria": {
+    "industrial_problem_and_priority": {
+      "description": {
+        "fr": "Le problème industriel est précis, prioritaire et relié à des impacts métier mesurables.",
+        "en": "The industrial problem is precise, high-priority, and connected to measurable business impacts."
+      },
+      "max_score": 2
+    },
+    "scope_and_use_case": {
+      "description": {
+        "fr": "Le périmètre du pilote est limité et le cas d’usage IA est concret.",
+        "en": "The pilot scope is limited and the AI use case is concrete."
+      },
+      "max_score": 2
+    },
+    "data_and_architecture": {
+      "description": {
+        "fr": "Les données nécessaires, leurs limites et l’architecture cible sont clairement décrites.",
+        "en": "Required data, limitations, and target architecture are clearly described."
+      },
+      "max_score": 2
+    },
+    "field_decision_and_kpis": {
+      "description": {
+        "fr": "Le résultat IA est relié à une décision terrain et à des KPI mesurables.",
+        "en": "The AI output is connected to a field decision and measurable KPIs."
+      },
+      "max_score": 2
+    },
+    "risks_guardrails_and_ot_security": {
+      "description": {
+        "fr": "Les risques, les garde-fous, la cybersécurité OT et le contrôle humain sont pris en compte.",
+        "en": "Risks, guardrails, OT cybersecurity, and human control are addressed."
+      },
+      "max_score": 2
+    },
+    "pilot_and_scaling_logic": {
+      "description": {
+        "fr": "Le pilote 90 jours est réaliste et inclut des critères de poursuite, ajustement, arrêt ou passage à l’échelle.",
+        "en": "The 90-day pilot is realistic and includes criteria to continue, adjust, stop, or scale."
+      },
+      "max_score": 2
+    }
+  }
+}

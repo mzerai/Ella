@@ -1,0 +1,51 @@
+{
+  "lab_id": "02_predictive_maintenance_strategy_lab",
+  "course_id": "ella_industry_ai_manufacturing_industry_4_0",
+  "title": {
+    "fr": "Lab 2 — Spécifier une stratégie de maintenance prédictive",
+    "en": "Lab 2 — Specify a Predictive Maintenance Strategy"
+  },
+  "description": {
+    "fr": "Vous concevez une stratégie de maintenance prédictive pour une machine critique avec données, modèle, seuils, erreurs et action terrain.",
+    "en": "You design a predictive maintenance strategy for a critical machine with data, model, thresholds, errors, and field action."
+  },
+  "concept": {
+    "fr": "Maintenance conditionnelle et prédictive, labels, signaux faibles, horizon d’alerte, coût des erreurs et pilote.",
+    "en": "Condition-based and predictive maintenance, labels, weak signals, alert horizon, error cost, and pilot."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "design_predictive_maintenance_pilot",
+      "title": {
+        "fr": "Concevoir un pilote de maintenance prédictive",
+        "en": "Design a predictive maintenance pilot"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Choisissez une machine critique et décrivez un pilote de maintenance prédictive. Votre réponse doit couvrir les données, l’existence ou non de labels, l’approche modèle, le seuil d’alerte, l’horizon d’anticipation, le coût d’une fausse alerte et le coût d’une panne ratée. Précisez qui reçoit l’alerte et quelle action est déclenchée.",
+        "en": "Choose a critical machine and describe a predictive maintenance pilot. Your answer must cover the data, whether labels exist, the model approach, the alert threshold, the anticipation horizon, the cost of a false alert, and the cost of a missed failure. State who receives the alert and what action is triggered."
+      },
+      "hints": [
+        {
+          "fr": "La maintenance prédictive commence par l’arrêt à réduire, pas par l’algorithme.",
+          "en": "Predictive maintenance starts with the downtime to reduce, not with the algorithm."
+        },
+        {
+          "fr": "Si les labels manquent, proposez une phase d’observation ou d’anomalie.",
+          "en": "If labels are missing, propose an observation or anomaly phase."
+        },
+        {
+          "fr": "Expliquez le compromis entre alerter trop tôt et alerter trop tard.",
+          "en": "Explain the trade-off between alerting too early and too late."
+        },
+        {
+          "fr": "Associez chaque alerte à une procédure maintenance réaliste.",
+          "en": "Connect each alert to a realistic maintenance procedure."
+        }
+      ]
+    }
+  ]
+}

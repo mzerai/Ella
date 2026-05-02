@@ -1,0 +1,51 @@
+{
+  "lab_id": "05_digital_twin_scenario_lab",
+  "course_id": "ella_industry_ai_manufacturing_industry_4_0",
+  "title": {
+    "fr": "Lab 5 — Concevoir un jumeau numérique utile",
+    "en": "Lab 5 — Design a Useful Digital Twin"
+  },
+  "description": {
+    "fr": "Vous concevez un jumeau numérique simplifié pour simuler un scénario industriel avant action terrain.",
+    "en": "You design a simplified digital twin to simulate an industrial scenario before field action."
+  },
+  "concept": {
+    "fr": "Système réel, données, modèle, simulation, validation, scénarios, recommandation et limites.",
+    "en": "Real system, data, model, simulation, validation, scenarios, recommendation, and limitations."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "design_digital_twin_scenario",
+      "title": {
+        "fr": "Spécifier le jumeau et les scénarios",
+        "en": "Specify the twin and scenarios"
+      },
+      "audience": "enterprise",
+      "difficulty": "advanced",
+      "instructions": {
+        "fr": "Choisissez une machine, une ligne, un atelier ou un flux à représenter. Décrivez le système réel, les données nécessaires, le modèle simplifié, les scénarios à simuler, les limites du jumeau et la méthode de validation. Concluez par la recommandation que ce jumeau pourrait soutenir.",
+        "en": "Choose a machine, line, workshop, or flow to represent. Describe the real system, required data, simplified model, scenarios to simulate, twin limitations, and validation method. End with the recommendation that this twin could support."
+      },
+      "hints": [
+        {
+          "fr": "Un jumeau utile répond à une question de décision précise.",
+          "en": "A useful twin answers a precise decision question."
+        },
+        {
+          "fr": "Commencez avec une échelle réduite plutôt qu’un jumeau complet de l’usine.",
+          "en": "Start with a reduced scale rather than a full plant twin."
+        },
+        {
+          "fr": "Expliquez quelles hypothèses doivent être validées par les équipes terrain.",
+          "en": "Explain which assumptions must be validated by field teams."
+        },
+        {
+          "fr": "Présentez les limites pour éviter que le modèle soit traité comme une vérité absolue.",
+          "en": "State the limits so the model is not treated as absolute truth."
+        }
+      ]
+    }
+  ]
+}

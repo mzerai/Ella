@@ -43,7 +43,7 @@ interface NotebookProps {
     cells: NotebookCell[];
     moduleId: string;
     lang: "fr" | "en";
-    courseId?: "pe" | "rl" | "aile";
+    courseId?: "pe" | "rl" | "aile" | "finance" | "healthcare" | "manufacturing";
     onCheckpointUpdate?: (summaries: CheckpointSummaryEntry[]) => void;
 }
 

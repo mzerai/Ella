@@ -1,0 +1,223 @@
+{
+  "course_id": "ella_industry_ai_manufacturing_industry_4_0",
+  "version": "1.0.0",
+  "status": "converted_ready_for_ella_integration",
+  "created_at": "2026-05-01",
+  "slug": "ai-manufacturing-industry-4-0",
+  "pathway": "industry",
+  "secondary_pathways": [
+    "tech"
+  ],
+  "level": "advanced",
+  "title": {
+    "fr": "IA industrielle pour la performance, la qualité et la maintenance prédictive",
+    "en": "AI for Manufacturing & Industry 4.0"
+  },
+  "short_title": {
+    "fr": "IA industrielle",
+    "en": "Industrial AI"
+  },
+  "description": {
+    "fr": "Une formation avancée pour concevoir et piloter des cas d’usage d’IA industrielle : données IT/OT, maintenance prédictive, vision qualité, optimisation des flux, jumeaux numériques et déploiement sécurisé.",
+    "en": "An advanced course to design and guide industrial AI use cases: IT/OT data, predictive maintenance, quality vision, flow optimization, digital twins, and secure deployment."
+  },
+  "positioning": {
+    "fr": "Apprendre à transformer l’IA industrielle en pilotes mesurables, sécurisés et acceptables par les équipes terrain.",
+    "en": "Learn how to turn industrial AI into measurable, secure pilots that field teams can accept."
+  },
+  "delivery_modes": {
+    "instructor_led_workshop": {
+      "duration_days": 4,
+      "duration_hours": 32,
+      "format": {
+        "fr": "Présentiel + labs pratiques",
+        "en": "In-person + practical labs"
+      },
+      "cohort_size": "12-15",
+      "pricing": {
+        "launch_price_tnd": 3200,
+        "standard_price_tnd": 5000
+      }
+    },
+    "self_paced": {
+      "estimated_duration_hours": "20-26",
+      "format": {
+        "fr": "Autonomie guidée par Ella",
+        "en": "Self-paced learning guided by Ella"
+      },
+      "design_note": {
+        "fr": "Le mode autonome met l’accent sur les checkpoints dynamiques, les cas contextualisés et les labs de spécification.",
+        "en": "The self-paced mode emphasizes dynamic checkpoints, contextualized cases, and specification labs."
+      }
+    }
+  },
+  "target_audience": {
+    "fr": [
+      "Directeurs industriels",
+      "Responsables production",
+      "Responsables maintenance",
+      "Ingénieurs qualité",
+      "Responsables supply chain",
+      "Responsables transformation digitale industrielle"
+    ],
+    "en": [
+      "Industrial directors",
+      "Production managers",
+      "Maintenance managers",
+      "Quality engineers",
+      "Supply-chain managers",
+      "Industrial digital transformation leads"
+    ]
+  },
+  "prerequisites": {
+    "fr": [
+      "Compréhension des processus industriels",
+      "Notions de données, KPI et amélioration continue",
+      "Culture de base en IA ou expérience projet data"
+    ],
+    "en": [
+      "Understanding of industrial processes",
+      "Basic literacy in data, KPIs, and continuous improvement",
+      "Basic AI culture or data project experience"
+    ]
+  },
+  "learning_objectives": {
+    "fr": [
+      "Identifier un cas d’usage IA industriel pertinent à partir d’un problème de performance réel.",
+      "Cartographier les données disponibles dans une architecture IT/OT et évaluer leur qualité d’usage.",
+      "Concevoir une stratégie de maintenance prédictive reliée à une action terrain.",
+      "Cadrer un cas de vision par ordinateur pour le contrôle qualité.",
+      "Structurer un cas d’optimisation des flux ou de la supply chain sous contraintes.",
+      "Définir un jumeau numérique utile pour simuler des scénarios industriels.",
+      "Construire une feuille de route IA industrielle intégrant KPI, risques, cybersécurité OT, gouvernance et pilote 90 jours."
+    ],
+    "en": [
+      "Identify a relevant industrial AI use case from a real performance problem.",
+      "Map available data in an IT/OT architecture and assess its usable quality.",
+      "Design a predictive maintenance strategy connected to a field action.",
+      "Frame a computer vision use case for quality control.",
+      "Structure a flow or supply-chain optimization case under constraints.",
+      "Define a useful digital twin to simulate industrial scenarios.",
+      "Build an industrial AI roadmap that includes KPIs, risks, OT cybersecurity, governance, and a 90-day pilot."
+    ]
+  },
+  "modules": [
+    {
+      "module_id": "00_course_positioning",
+      "lab_id": "00_industrial_ai_framing_lab"
+    },
+    {
+      "module_id": "01_industrial_data_iot_it_ot_architecture",
+      "lab_id": "01_industrial_data_architecture_lab"
+    },
+    {
+      "module_id": "02_predictive_maintenance_machine_learning",
+      "lab_id": "02_predictive_maintenance_strategy_lab"
+    },
+    {
+      "module_id": "03_computer_vision_quality_control",
+      "lab_id": "03_computer_vision_quality_control_lab"
+    },
+    {
+      "module_id": "04_ai_production_flow_supply_chain_optimization",
+      "lab_id": "04_flow_supply_chain_optimization_lab"
+    },
+    {
+      "module_id": "05_digital_twins_simulation_industrial_scenarios",
+      "lab_id": "05_digital_twin_scenario_lab"
+    },
+    {
+      "module_id": "06_deployment_ot_cybersecurity_industrial_ai_roadmap",
+      "lab_id": "06_final_industrial_ai_roadmap_lab"
+    }
+  ],
+  "certificate_requirements": {
+    "each_standard_lab_min_score": 8,
+    "final_lab_min_score": 16,
+    "certificate_title": {
+      "fr": "Certificat ELLA - IA industrielle et Industry 4.0",
+      "en": "ELLA Certificate - Industrial AI and Industry 4.0"
+    }
+  },
+  "international_and_tunisian_context": {
+    "fr": "Le cours s’appuie sur des cas industriels tunisiens et internationaux. Toute mise en production doit tenir compte des contraintes OT, de la cybersécurité, de la sécurité humaine, de la qualité, de la continuité de production et des standards applicables comme ISA-95, ISA/IEC 62443 et ISO 23247.",
+    "en": "The course uses Tunisian and international industrial cases. Any production deployment must account for OT constraints, cybersecurity, human safety, quality, production continuity, and applicable standards such as ISA-95, ISA/IEC 62443, and ISO 23247."
+  },
+  "sources": [
+    {
+      "id": "unido_tunisia_industry",
+      "label": "UNIDO - Industry in Tunisia",
+      "url": "https://www.unido.org/regional-offices/tunisia/industry-in-tunisia"
+    },
+    {
+      "id": "isa_95",
+      "label": "ISA-95 Enterprise-Control System Integration",
+      "url": "https://www.isa.org/standards-and-publications/isa-standards/isa-95-standard"
+    },
+    {
+      "id": "isa_iec_62443",
+      "label": "ISA/IEC 62443 Industrial automation and control systems security",
+      "url": "https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards"
+    },
+    {
+      "id": "iso_23247",
+      "label": "ISO 23247 Digital twin framework for manufacturing",
+      "url": "https://www.iso.org/standard/75066.html"
+    },
+    {
+      "id": "nist_ai_rmf",
+      "label": "NIST AI Risk Management Framework 1.0",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+    },
+    {
+      "id": "nist_digital_twins",
+      "label": "NIST Digital Twins for Advanced Manufacturing",
+      "url": "https://www.nist.gov/programs-projects/digital-twins-advanced-manufacturing"
+    }
+  ],
+  "converted_at": "2026-05-01",
+  "generated_files": [
+    {
+      "module_id": "00_course_positioning",
+      "lab_id": "00_industrial_ai_framing_lab",
+      "module_file": "modules/module_00_course_positioning_cells.json",
+      "lab_file": "labs/lab_00_industrial_ai_framing_lab.json"
+    },
+    {
+      "module_id": "01_industrial_data_iot_it_ot_architecture",
+      "lab_id": "01_industrial_data_architecture_lab",
+      "module_file": "modules/module_01_industrial_data_iot_it_ot_architecture_cells.json",
+      "lab_file": "labs/lab_01_industrial_data_architecture_lab.json"
+    },
+    {
+      "module_id": "02_predictive_maintenance_machine_learning",
+      "lab_id": "02_predictive_maintenance_strategy_lab",
+      "module_file": "modules/module_02_predictive_maintenance_machine_learning_cells.json",
+      "lab_file": "labs/lab_02_predictive_maintenance_strategy_lab.json"
+    },
+    {
+      "module_id": "03_computer_vision_quality_control",
+      "lab_id": "03_computer_vision_quality_control_lab",
+      "module_file": "modules/module_03_computer_vision_quality_control_cells.json",
+      "lab_file": "labs/lab_03_computer_vision_quality_control_lab.json"
+    },
+    {
+      "module_id": "04_ai_production_flow_supply_chain_optimization",
+      "lab_id": "04_flow_supply_chain_optimization_lab",
+      "module_file": "modules/module_04_ai_production_flow_supply_chain_optimization_cells.json",
+      "lab_file": "labs/lab_04_flow_supply_chain_optimization_lab.json"
+    },
+    {
+      "module_id": "05_digital_twins_simulation_industrial_scenarios",
+      "lab_id": "05_digital_twin_scenario_lab",
+      "module_file": "modules/module_05_digital_twins_simulation_industrial_scenarios_cells.json",
+      "lab_file": "labs/lab_05_digital_twin_scenario_lab.json"
+    },
+    {
+      "module_id": "06_deployment_ot_cybersecurity_industrial_ai_roadmap",
+      "lab_id": "06_final_industrial_ai_roadmap_lab",
+      "module_file": "modules/module_06_deployment_ot_cybersecurity_industrial_ai_roadmap_cells.json",
+      "lab_file": "labs/lab_06_final_industrial_ai_roadmap_lab.json"
+    }
+  ]
+}

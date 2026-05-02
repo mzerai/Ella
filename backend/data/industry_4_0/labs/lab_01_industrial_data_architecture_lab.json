@@ -1,0 +1,51 @@
+{
+  "lab_id": "01_industrial_data_architecture_lab",
+  "course_id": "ella_industry_ai_manufacturing_industry_4_0",
+  "title": {
+    "fr": "Lab 1 — Cartographier les données industrielles et l’architecture IT/OT",
+    "en": "Lab 1 — Map Industrial Data and the IT/OT Architecture"
+  },
+  "description": {
+    "fr": "Vous cartographiez les données d’une situation industrielle et proposez un flux IT/OT exploitable par un projet IA.",
+    "en": "You map the data of an industrial situation and propose an IT/OT flow usable by an AI project."
+  },
+  "concept": {
+    "fr": "Données capteurs, SCADA, MES, ERP, qualité de donnée, IT/OT et donnée actionnable.",
+    "en": "Sensor data, SCADA, MES, ERP, data quality, IT/OT, and actionable data."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "map_industrial_data_flow",
+      "title": {
+        "fr": "Décrire le flux de données utile",
+        "en": "Describe the useful data flow"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Choisissez une ligne industrielle et décrivez les données nécessaires pour un cas IA. Pour chaque donnée, indiquez la source, la fréquence, le propriétaire, la limite connue et le lien avec la décision terrain. Ajoutez une architecture simple qui montre comment la donnée passe du capteur ou du poste opérateur vers l’analyse et le tableau de bord.",
+        "en": "Choose an industrial line and describe the data needed for an AI use case. For each data item, specify the source, frequency, owner, known limitation, and link to the field decision. Add a simple architecture that shows how data moves from the sensor or operator station to analysis and dashboarding."
+      },
+      "hints": [
+        {
+          "fr": "Séparez les données automatiques, manuelles, visuelles et transactionnelles.",
+          "en": "Separate automatic, manual, visual, and transactional data."
+        },
+        {
+          "fr": "Ne supposez pas que la donnée disponible est fiable ou utile.",
+          "en": "Do not assume that available data is reliable or useful."
+        },
+        {
+          "fr": "Mentionnez la frontière IT/OT et les accès à contrôler.",
+          "en": "Mention the IT/OT boundary and the accesses to control."
+        },
+        {
+          "fr": "Une donnée devient actionnable quand quelqu’un sait quoi faire avec elle.",
+          "en": "Data becomes actionable when someone knows what to do with it."
+        }
+      ]
+    }
+  ]
+}

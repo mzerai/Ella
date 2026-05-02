@@ -1,0 +1,51 @@
+{
+  "lab_id": "00_industrial_ai_framing_lab",
+  "course_id": "ella_industry_ai_manufacturing_industry_4_0",
+  "title": {
+    "fr": "Lab 0 — Cadrer un premier cas d’usage IA industrielle",
+    "en": "Lab 0 — Frame a First Industrial AI Use Case"
+  },
+  "description": {
+    "fr": "Vous cadrez un premier cas d’usage IA industriel en partant d’un problème terrain, des données et d’une décision à améliorer.",
+    "en": "You frame a first industrial AI use case from a field problem, the available data, and the decision to improve."
+  },
+  "concept": {
+    "fr": "Problème industriel, données, décision terrain, valeur, risques et premier pilote.",
+    "en": "Industrial problem, data, field decision, value, risks, and first pilot."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "frame_first_industrial_ai_use_case",
+      "title": {
+        "fr": "Cadrer un cas d’usage réaliste",
+        "en": "Frame a realistic use case"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Choisissez une usine, une ligne, un atelier ou un cas fictif proche de votre secteur. Rédigez une note courte qui précise le problème industriel, les données disponibles, la décision à améliorer, la valeur attendue, les risques terrain et un premier pilote limité. Votre proposition doit éviter le discours générique sur “faire de l’IA”.",
+        "en": "Choose a plant, line, workshop, or realistic fictional case from your sector. Write a short note that states the industrial problem, available data, the decision to improve, expected value, field risks, and a limited first pilot. Your proposal must avoid generic language about “doing AI”."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par une perte visible : arrêt, rebut, retard, énergie, qualité ou surcharge d’équipe.",
+          "en": "Start with a visible loss: downtime, scrap, delay, energy, quality, or team overload."
+        },
+        {
+          "fr": "Limitez le périmètre à une machine, une ligne, un poste ou une famille produit.",
+          "en": "Limit the scope to one machine, line, station, or product family."
+        },
+        {
+          "fr": "Reliez toujours la sortie IA à une action humaine ou opérationnelle.",
+          "en": "Always connect the AI output to a human or operational action."
+        },
+        {
+          "fr": "Terminez par 2 ou 3 indicateurs qui diront si le pilote mérite de continuer.",
+          "en": "End with 2 or 3 indicators that show whether the pilot deserves to continue."
+        }
+      ]
+    }
+  ]
+}

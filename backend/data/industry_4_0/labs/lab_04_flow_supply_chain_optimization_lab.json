@@ -1,0 +1,51 @@
+{
+  "lab_id": "04_flow_supply_chain_optimization_lab",
+  "course_id": "ella_industry_ai_manufacturing_industry_4_0",
+  "title": {
+    "fr": "Lab 4 — Concevoir un cas d’optimisation des flux industriels",
+    "en": "Lab 4 — Design an Industrial Flow Optimization Case"
+  },
+  "description": {
+    "fr": "Vous construisez un cas d’optimisation production ou supply chain fondé sur contraintes, KPI et décision opérationnelle.",
+    "en": "You build a production or supply-chain optimization case based on constraints, KPIs, and operational decision-making."
+  },
+  "concept": {
+    "fr": "Flux, goulets, prévision, optimisation sous contraintes, KPI, simulation et acceptabilité terrain.",
+    "en": "Flows, bottlenecks, forecasting, constrained optimization, KPIs, simulation, and field acceptance."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "design_flow_optimization_pilot",
+      "title": {
+        "fr": "Structurer un pilote d’optimisation",
+        "en": "Structure an optimization pilot"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Choisissez un problème de flux : retard client, WIP excessif, goulet, rupture, changement de série ou variabilité fournisseur. Décrivez les données, les contraintes, le type de recommandation IA, les KPI et la décision qui changera sur le terrain. Précisez comment vous évitez l’optimisation locale au détriment du flux global.",
+        "en": "Choose a flow problem: customer delay, excessive WIP, bottleneck, stockout, changeover, or supplier variability. Describe the data, constraints, AI recommendation type, KPIs, and the decision that will change in the field. State how you avoid local optimization at the expense of the global flow."
+      },
+      "hints": [
+        {
+          "fr": "Formulez le système à améliorer avant de traiter une machine isolée.",
+          "en": "State the system to improve before treating an isolated machine."
+        },
+        {
+          "fr": "Listez les contraintes réelles : capacité, équipe, fournisseur, qualité, énergie.",
+          "en": "List real constraints: capacity, team, supplier, quality, energy."
+        },
+        {
+          "fr": "Une prévision seule ne suffit pas ; précisez l’action qu’elle déclenche.",
+          "en": "A forecast alone is not enough; state the action it triggers."
+        },
+        {
+          "fr": "Incluez au moins un KPI global, pas seulement un KPI local.",
+          "en": "Include at least one global KPI, not only a local KPI."
+        }
+      ]
+    }
+  ]
+}

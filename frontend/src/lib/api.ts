@@ -613,3 +613,31 @@ export async function evaluateHealthcareResponse(params: {
     body: JSON.stringify(params),
   });
 }
+// ============================================
+// AI Manufacturing & Industry 4.0 API
+// ============================================
+
+export async function getManufacturingModuleCells(moduleId: string): Promise<ModuleData> {
+  return apiFetch<ModuleData>(`/api/labs/manufacturing/modules/${moduleId}`);
+}
+
+export async function getManufacturingLabDetail(labId: string): Promise<PELabDetail> {
+  return apiFetch<PELabDetail>(`/api/labs/manufacturing/labs/${labId}`);
+}
+
+export interface ManufacturingEvalResponse {
+  feedback: string;
+  score_qualitative: "excellent" | "good" | "needs_improvement";
+}
+
+export async function evaluateManufacturingResponse(params: {
+  lab_id: string;
+  mission_id: string;
+  student_response: string;
+  language: string;
+}): Promise<ManufacturingEvalResponse> {
+  return apiFetch<ManufacturingEvalResponse>("/api/labs/manufacturing/evaluate", {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+}

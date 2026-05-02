@@ -1,0 +1,51 @@
+{
+  "lab_id": "06_final_industrial_ai_roadmap_lab",
+  "course_id": "ella_industry_ai_manufacturing_industry_4_0",
+  "title": {
+    "fr": "Lab final — Construire une feuille de route IA industrielle",
+    "en": "Final Lab — Build an Industrial AI Roadmap"
+  },
+  "description": {
+    "fr": "Vous construisez une feuille de route IA industrielle pour un premier pilote réaliste, mesurable, sécurisé et acceptable par les équipes terrain.",
+    "en": "You build an industrial AI roadmap for a first pilot that is realistic, measurable, secure, and acceptable to field teams."
+  },
+  "concept": {
+    "fr": "Passer d’un cas d’usage IA industriel à un pilote 90 jours avec données, décision terrain, KPI, risques, garde-fous et cybersécurité OT.",
+    "en": "Move from an industrial AI use case to a 90-day pilot with data, field decision, KPIs, risks, guardrails, and OT cybersecurity."
+  },
+  "target_score": 16,
+  "max_score": 20,
+  "missions": [
+    {
+      "mission_id": "industrial_ai_roadmap",
+      "title": {
+        "fr": "Construire une feuille de route IA industrielle",
+        "en": "Build an industrial AI roadmap"
+      },
+      "audience": "enterprise",
+      "difficulty": "advanced",
+      "instructions": {
+        "fr": "Choisissez un cas réel ou simulé : maintenance prédictive, vision qualité, optimisation des flux, jumeau numérique simplifié, ou cas réel de votre organisation. Produisez une feuille de route en 11 sections : problème, priorité, périmètre, cas d’usage IA, données, architecture, décision terrain, KPI, risques, garde-fous et pilote 90 jours. Votre livrable doit permettre à une direction industrielle de décider si le pilote mérite d’être lancé.",
+        "en": "Choose a real or simulated case: predictive maintenance, quality vision, flow optimization, simplified digital twin, or a real organizational case. Produce an 11-section roadmap: problem, priority, scope, AI use case, data, architecture, field decision, KPIs, risks, guardrails, and 90-day pilot. Your deliverable must help an industrial leadership team decide whether the pilot deserves to be launched."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par le problème industriel, pas par l’outil.",
+          "en": "Start with the industrial problem, not the tool."
+        },
+        {
+          "fr": "Limitez le périmètre : une machine, une ligne, un poste qualité, un flux ou une famille produit.",
+          "en": "Limit the scope: one machine, one line, one quality station, one flow, or one product family."
+        },
+        {
+          "fr": "Reliez toujours le modèle à une décision terrain.",
+          "en": "Always connect the model to a field decision."
+        },
+        {
+          "fr": "Ajoutez les risques OT, les garde-fous et le mode observation avant action.",
+          "en": "Add OT risks, guardrails, and observation mode before action."
+        }
+      ]
+    }
+  ]
+}

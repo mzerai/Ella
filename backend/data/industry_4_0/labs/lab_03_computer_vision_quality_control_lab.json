@@ -1,0 +1,51 @@
+{
+  "lab_id": "03_computer_vision_quality_control_lab",
+  "course_id": "ella_industry_ai_manufacturing_industry_4_0",
+  "title": {
+    "fr": "Lab 3 — Cadrer un contrôle qualité par vision IA",
+    "en": "Lab 3 — Frame an AI Vision Quality Control Case"
+  },
+  "description": {
+    "fr": "Vous spécifiez un cas de vision IA pour le contrôle qualité avec défauts, capture, annotation, métriques et revue humaine.",
+    "en": "You specify an AI vision quality control case with defects, capture, annotation, metrics, and human review."
+  },
+  "concept": {
+    "fr": "Défaut visuel, données image, annotation, éclairage, faux rejet, défaut raté et intégration qualité.",
+    "en": "Visual defect, image data, annotation, lighting, false reject, missed defect, and quality integration."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "specify_quality_vision_case",
+      "title": {
+        "fr": "Spécifier le poste de contrôle vision",
+        "en": "Specify the vision inspection station"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Choisissez un défaut visuel sur une ligne industrielle. Décrivez le poste de capture, les images à collecter, la règle d’annotation, les métriques, la gestion des faux rejets et des défauts ratés, puis la procédure de revue humaine. Votre réponse doit montrer comment le contrôle s’intègre au processus qualité existant.",
+        "en": "Choose a visual defect on an industrial line. Describe the capture station, images to collect, annotation rule, metrics, management of false rejects and missed defects, and the human review procedure. Your answer must show how the inspection fits into the existing quality process."
+      },
+      "hints": [
+        {
+          "fr": "Définissez le défaut avant de choisir le modèle.",
+          "en": "Define the defect before choosing the model."
+        },
+        {
+          "fr": "Stabilisez éclairage, angle, distance et fond de capture.",
+          "en": "Stabilize lighting, angle, distance, and capture background."
+        },
+        {
+          "fr": "Traitez séparément faux rejet et défaut raté.",
+          "en": "Handle false rejects and missed defects separately."
+        },
+        {
+          "fr": "Prévoyez une règle de revue pour les cas incertains.",
+          "en": "Plan a review rule for uncertain cases."
+        }
+      ]
+    }
+  ]
+}
