@@ -1,0 +1,51 @@
+{
+  "lab_id": "02_daily_ai_use_control_lab",
+  "course_id": "ella_foundation_ai_literacy_digital_transformation",
+  "title": {
+    "fr": "Lab 2 — Utiliser l’IA générative sans perdre le contrôle",
+    "en": "Lab 2 — Use Generative AI Without Losing Control"
+  },
+  "description": {
+    "fr": "L’apprenant transforme une tâche quotidienne en demande IA contrôlée.",
+    "en": "The learner turns a daily task into a controlled AI request."
+  },
+  "concept": {
+    "fr": "IA générative, brief de travail, méthode C.T.R.O.L., confidentialité, lecture critique.",
+    "en": "Generative AI, work brief, C.T.R.O.L. method, confidentiality, critical review."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "design_controlled_daily_ai_request",
+      "title": {
+        "fr": "Concevoir une demande IA contrôlée",
+        "en": "Design a controlled AI request"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Choisissez une tâche quotidienne que vous pourriez confier à une IA générative : synthèse, reformulation, préparation de réunion ou rédaction. Rédigez le brief selon C.T.R.O.L. : contexte, tâche, règles, output attendu, lecture critique. Précisez aussi ce que vous ne devez pas partager avec l’outil.",
+        "en": "Choose a daily task you could give to a generative AI tool: summarization, rewriting, meeting preparation, or drafting. Write the brief using C.T.R.O.L.: context, task, rules, expected output, critical review. Also state what you must not share with the tool."
+      },
+      "hints": [
+        {
+          "fr": "Le contexte doit permettre à l’IA de comprendre la situation sans données sensibles.",
+          "en": "The context must let the AI understand the situation without sensitive data."
+        },
+        {
+          "fr": "Les règles doivent limiter les promesses, le ton et les informations inventées.",
+          "en": "Rules should limit promises, tone, and invented information."
+        },
+        {
+          "fr": "L’output attendu doit préciser le format et la longueur.",
+          "en": "The expected output must specify format and length."
+        },
+        {
+          "fr": "La lecture critique doit indiquer comment vous repérez les erreurs.",
+          "en": "The critical review must state how you detect errors."
+        }
+      ]
+    }
+  ]
+}

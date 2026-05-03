@@ -1,0 +1,163 @@
+{
+  "module_id": "02_daily_generative_ai_work",
+  "title": {
+    "fr": "Utiliser l’IA générative au quotidien, sans perdre le contrôle",
+    "en": "Using Generative AI in Daily Work Without Losing Control"
+  },
+  "description": {
+    "fr": "Dans cette leçon, vous allez apprendre à utiliser l’IA générative comme un assistant de travail.",
+    "en": "In this lesson, you will learn how to use generative AI as a work assistant."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Objectif de la leçon",
+        "en": "Lesson objective"
+      },
+      "content": {
+        "fr": "Dans cette leçon, vous allez apprendre à utiliser l’IA générative comme un assistant de travail.\n\nVous n’allez pas apprendre une liste de commandes magiques. Vous allez apprendre une méthode simple : choisir la bonne tâche, donner le bon contexte, demander un livrable clair, puis vérifier le résultat.\n\nÀ la fin de cette leçon, vous devrez pouvoir utiliser un outil comme ChatGPT, Claude, Copilot ou un assistant interne pour gagner du temps sur une tâche professionnelle, sans exposer de données sensibles et sans accepter une réponse sans contrôle.",
+        "en": "In this lesson, you will learn how to use generative AI as a work assistant.\n\nYou will not learn a list of magic commands. You will learn a simple method: choose the right task, give the right context, request a clear output, then review the result.\n\nBy the end of this lesson, you should be able to use a tool such as ChatGPT, Claude, Copilot, or an internal assistant to save time on a professional task, without exposing sensitive data and without accepting an answer without review."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "1. L’IA générative n’est pas un moteur de vérité",
+        "en": "1. Generative AI is not a truth engine"
+      },
+      "content": {
+        "fr": "Une IA générative produit du texte, du code, des tableaux, des plans, des synthèses ou des idées à partir d’une demande. Elle peut vous aider à écrire, reformuler, structurer, comparer, résumer et préparer une décision.\n\nMais elle ne “sait” pas au sens humain. Elle génère une réponse probable à partir de modèles appris sur de grands volumes de données. Elle peut donc produire une réponse utile, mais aussi une réponse fausse, incomplète ou trop confiante.\n\nDans une organisation, cela change votre posture. Vous ne devez pas demander à l’IA de “faire le travail à votre place”. Vous devez lui confier une partie précise du travail, puis garder la responsabilité du jugement final.\n\n❌ **Mauvaise posture**  \n“L’IA m’a donné une réponse, donc je peux l’envoyer.”\n\n✅ **Bonne posture**  \n“L’IA m’aide à produire une première version. Je vérifie, je corrige, j’adapte au contexte, puis je valide.”",
+        "en": "Generative AI can produce text, code, tables, plans, summaries, or ideas from a request. It can help you write, rewrite, structure, compare, summarize, and prepare a decision.\n\nBut it does not “know” in the human sense. It generates a likely response from patterns learned from large volumes of data. It can produce a useful answer, but it can also produce an answer that is false, incomplete, or too confident.\n\nIn an organization, this changes your role. You should not ask AI to “do the job for you.” You should give it a precise part of the job, then keep responsibility for the final judgment.\n\n❌ **Wrong posture**  \n“AI gave me an answer, so I can send it.”\n\n✅ **Right posture**  \n“AI helps me create a first version. I review it, correct it, adapt it to the context, then validate it.”"
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "IA générative et vérité / Generative AI and truth",
+        "section_context": "L’apprenant vient de voir que l’IA générative produit du texte plausible et non une vérité garantie. Il doit savoir quand vérifier les réponses.",
+        "question_type": "comprehension",
+        "difficulty": "beginner",
+        "hint": "Une bonne réponse cite un usage utile et une vérification adaptée au niveau de risque.",
+        "anti_gpt_instructions": "Donner une tâche quotidienne fictive avec un résultat IA plausible mais incomplet. Demander à l’apprenant d’indiquer ce qu’il vérifierait avant de l’envoyer."
+      }
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "2. Les bons usages au quotidien",
+        "en": "2. Useful daily work applications"
+      },
+      "content": {
+        "fr": "L’IA générative devient utile quand vous l’utilisez sur des tâches fréquentes et bien cadrées.\n\nVoici cinq familles d’usages pratiques.\n\n### 1. Rédiger plus vite\n\nVous pouvez demander une première version d’un email, d’une note, d’un compte rendu, d’une réponse client, d’une fiche procédure ou d’un support interne.\n\nL’IA vous aide à démarrer. Vous gardez le contrôle sur le ton, les informations, les engagements et les décisions.\n\n### 2. Reformuler et clarifier\n\nVous pouvez transformer un texte long, confus ou trop technique en version claire pour un public précis : direction générale, client, étudiant, collègue, équipe opérationnelle.\n\nCe cas est très utile dans les organisations tunisiennes, où l’on passe souvent d’un registre à l’autre : français professionnel, arabe tunisien oral, anglais métier, communication interne, communication client.\n\n### 3. Résumer et structurer\n\nVous pouvez résumer un rapport, un compte rendu, une réunion, une réclamation ou un échange long.\n\nMais attention : si le texte contient des données personnelles, des informations confidentielles ou des données clients, vous devez respecter la politique de votre organisation. En Tunisie, la loi organique n°2004-63 encadre la protection des données à caractère personnel et reconnaît cette protection comme un droit fondamental.\n\n### 4. Préparer une décision\n\nVous pouvez demander à l’IA de comparer des options, construire une matrice avantages/risques, proposer des critères de choix ou organiser un argumentaire.\n\nL’IA ne décide pas. Elle vous aide à rendre votre réflexion plus claire.\n\n### 5. Apprendre plus vite\n\nVous pouvez demander une explication adaptée à votre niveau, une analogie métier, un glossaire, un quiz d’entraînement ou une synthèse progressive.\n\nC’est l’un des usages les plus puissants pour une organisation : l’IA peut accélérer la montée en compétence, à condition que les sources et les réponses soient vérifiées.",
+        "en": "Generative AI becomes useful when you apply it to frequent and well-scoped tasks.\n\nHere are five practical use families.\n\n### 1. Draft faster\n\nYou can ask for a first draft of an email, memo, meeting minutes, customer reply, procedure sheet, or internal document.\n\nAI helps you start. You keep control over tone, facts, commitments, and decisions.\n\n### 2. Rewrite and clarify\n\nYou can transform a long, unclear, or technical text into a clear version for a specific audience: senior management, a customer, a student, a colleague, or an operations team.\n\nThis is useful in Tunisian organizations, where people often move between registers: professional French, spoken Tunisian Arabic, business English, internal communication, and customer communication.\n\n### 3. Summarize and structure\n\nYou can summarize a report, meeting note, complaint, or long exchange.\n\nBe careful: if the text contains personal data, confidential information, or customer data, you must follow your organization’s policy. In Tunisia, Organic Law No. 2004-63 regulates personal data protection and recognizes it as a fundamental right.\n\n### 4. Prepare a decision\n\nYou can ask AI to compare options, build a benefits/risks matrix, suggest decision criteria, or structure an argument.\n\nAI does not decide. It helps you make your reasoning clearer.\n\n### 5. Learn faster\n\nYou can ask for an explanation adapted to your level, a business analogy, a glossary, a practice quiz, or a step-by-step summary.\n\nThis is one of the strongest uses for an organization: AI can speed up skill development, as long as sources and answers are checked."
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Schéma clé — La méthode C.T.R.O.L.",
+        "en": "Key diagram — The C.T.R.O.L. method"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 360\" xmlns=\"http://www.w3.org/2000/svg\"><defs><marker id=\"arr_lit_03\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/></marker></defs><rect x=\"0\" y=\"0\" width=\"780\" height=\"360\" fill=\"#F1EFE8\"/><text x=\"390\" y=\"62\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"20\">Key diagram — The C.T.R.O.L. method</text><rect x=\"40\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\"/><text x=\"95\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Contexte</text><line x1=\"155\" y1=\"180\" x2=\"180\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_03)\"/><rect x=\"190\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\"/><text x=\"245\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Tâche</text><line x1=\"305\" y1=\"180\" x2=\"330\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_03)\"/><rect x=\"340\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"395\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Règles</text><line x1=\"455\" y1=\"180\" x2=\"480\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_03)\"/><rect x=\"490\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\"/><text x=\"545\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Output</text><line x1=\"605\" y1=\"180\" x2=\"630\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_03)\"/><rect x=\"640\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"695\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Lecture critique</text><text x=\"390\" y=\"285\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"14\">Start from work reality, then add AI with control and measurable value.</text></svg>"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "3. Le prompt n’est pas une phrase, c’est un brief de travail",
+        "en": "3. A prompt is not a sentence. It is a work brief + 4. The C.T.R.O.L. method"
+      },
+      "content": {
+        "fr": "Un prompt faible ressemble à une demande vague.\n\n❌ **Prompt faible**  \n“Fais-moi un email pour un client.”\n\nCe prompt ne dit rien sur le client, le contexte, l’objectif, le ton, les contraintes ou le résultat attendu.\n\nUn bon prompt ressemble à un brief professionnel.\n\n✅ **Prompt utile**  \n“Rédigez une première version d’email professionnel en français. Contexte : un client se plaint d’un retard de traitement. Objectif : reconnaître le problème, expliquer que le dossier est en cours de vérification, proposer un retour sous 48h, garder un ton calme et respectueux. Ne promettez pas de compensation. Format : 120 mots maximum.”\n\nLa différence est simple : vous ne demandez pas seulement une réponse. Vous donnez une mission.",
+        "en": "A weak prompt looks like a vague request.\n\n❌ **Weak prompt**  \n“Write an email for a customer.”\n\nThis prompt says nothing about the customer, context, objective, tone, constraints, or expected result.\n\nA good prompt looks like a professional brief.\n\n✅ **Useful prompt**  \n“Write a first draft of a professional email in English. Context: a customer is unhappy about a processing delay. Objective: acknowledge the issue, explain that the file is being checked, offer a reply within 48 hours, and keep a calm and respectful tone. Do not promise compensation. Format: 120 words maximum.”\n\nThe difference is simple: you are not just asking for an answer. You are giving a mission.\n\n## 4. The C.T.R.O.L. method\n\nFor daily work, use this method.\n\n### C — Context\n\nExplain the situation: department, audience, objective, constraint, and level of detail.\n\n### T — Task\n\nSay what you want to obtain: email, summary, table, plan, rewrite, argument, checklist.\n\n### R — Rules\n\nAdd limits: tone, length, language, format, elements to avoid, confidentiality level.\n\n### O — Output expected\n\nSpecify the form: table, bullet points, five-part plan, short answer, structured memo.\n\n### L — Look back critically\n\nRead the answer. Check facts, commitments, figures, names, internal rules, and risks.\n\nThis last step is mandatory. AI can improve productivity, but it does not replace your professional responsibility."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Méthode C.T.R.O.L. / C.T.R.O.L. method",
+        "section_context": "L’apprenant vient d’apprendre à transformer une demande en brief : contexte, tâche, règles, output et lecture critique. Il doit pouvoir structurer une demande.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse contient les cinq composantes de C.T.R.O.L. appliquées à un cas concret.",
+        "anti_gpt_instructions": "Proposer une demande vague d’un manager et demander à l’apprenant de la réécrire avec C.T.R.O.L. Interdire les notions de bibliothèque de prompts du module 3."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "4. La méthode C.T.R.O.L.",
+        "en": "5. What you should not share with a public AI tool"
+      },
+      "content": {
+        "fr": "Pour vos usages quotidiens, appliquez cette méthode.\n\n### C — Contexte\n\nExpliquez la situation : service, public, objectif, contrainte, niveau de détail.\n\n### T — Tâche\n\nDites ce que vous voulez obtenir : email, résumé, tableau, plan, reformulation, argumentaire, checklist.\n\n### R — Règles\n\nAjoutez les limites : ton, longueur, langue, format, éléments à éviter, niveau de confidentialité.\n\n### O — Output attendu\n\nPrécisez la forme : tableau, bullet points, plan en 5 parties, réponse courte, note structurée.\n\n### L — Lecture critique\n\nRelisez la réponse. Vérifiez les faits, les engagements, les chiffres, les noms, les règles internes et les risques.\n\nCette dernière étape est obligatoire. Une IA peut améliorer votre productivité, mais elle ne remplace pas votre responsabilité professionnelle.",
+        "en": "In a work context, the most important question is not “can AI help me?”. The real question is often: “what can I safely give it?”.\n\nAvoid entering the following into a public tool:\n\n- identifiable personal data;\n- phone numbers, addresses, national ID numbers, employee IDs, credentials;\n- customer, student, patient, or employee data;\n- confidential contracts;\n- internal financial information;\n- passwords, API keys, or access codes;\n- non-public strategic documents;\n- data covered by a confidentiality clause.\n\nWhen the need is real, use an anonymized version, a non-sensitive extract, or an internal assistant approved by the organization.\n\n❌ **Risk**  \nCopying a customer list into a public AI tool to request segmentation.\n\n✅ **Safer alternative**  \nDescribe the problem structure with fictional or anonymized data, then apply the method internally with authorized tools."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "5. Ce que vous ne devez pas partager avec une IA publique",
+        "en": "6. Concrete case: an HR manager in Tunisia + 7. Key takeaways"
+      },
+      "content": {
+        "fr": "Dans un contexte professionnel, la question la plus importante n’est pas “est-ce que l’IA peut m’aider ?”. La vraie question est souvent : “qu’est-ce que je peux lui donner ?”.\n\nÉvitez de saisir dans un outil public :\n\n- données personnelles identifiables ;\n- numéros de téléphone, adresses, CIN, matricules, identifiants ;\n- données clients, étudiants, patients ou salariés ;\n- contrats confidentiels ;\n- informations financières internes ;\n- mots de passe, clés API ou codes d’accès ;\n- documents stratégiques non publics ;\n- données couvertes par une clause de confidentialité.\n\nQuand le besoin est réel, utilisez une version anonymisée, un extrait non sensible ou un assistant interne validé par l’organisation.\n\n❌ **Risque**  \nCopier-coller une liste de clients dans une IA publique pour demander une segmentation.\n\n✅ **Alternative sûre**  \nDécrire la structure du problème avec des données fictives ou anonymisées, puis appliquer la méthode en interne avec les outils autorisés.",
+        "en": "Imagine an HR manager in a Tunisian company. She wants to prepare an internal memo on absenteeism.\n\nShe can ask AI to propose a memo structure, analysis angles, questions for managers, and a grid of possible causes.\n\nShe should not copy a named employee list, medical certificates, or sensitive individual data into a public tool.\n\nThe right approach separates reasoning from sensitive data: ask AI for an analysis method, then process real data within an authorized setting.\n\nThis is a key skill: use AI to think better, without giving it data it should not receive.\n\n## 7. Key takeaways\n\nGenerative AI can save time on drafting, summarizing, rewriting, decision preparation, and learning tasks.\n\nBut it must remain an assistant. Keep three habits: frame the request, protect the data, review the answer.\n\nYour goal is not to become an “AI expert” in one day. Your goal is more practical: learn how to integrate AI into your work with method, care, and value."
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "6. Cas concret : un manager RH en Tunisie",
+        "en": "Ella checkpoint context"
+      },
+      "content": {
+        "fr": "Imaginez une responsable RH dans une entreprise tunisienne. Elle veut préparer une note interne sur l’absentéisme.\n\nElle peut demander à l’IA de proposer une structure de note, des axes d’analyse, des questions à poser aux managers et une grille de causes possibles.\n\nElle ne doit pas copier une liste nominative d’employés, des certificats médicaux ou des données individuelles sensibles dans un outil public.\n\nLa bonne démarche consiste à séparer le raisonnement de la donnée sensible : demander à l’IA une méthode d’analyse, puis traiter les données réelles dans un cadre autorisé.\n\nC’est une compétence clé : utiliser l’IA pour penser mieux, sans lui confier ce qu’elle ne doit pas recevoir.",
+        "en": "### Learning intent\n\nElla should check whether the learner understands daily use of generative AI as controlled assistance, not as an automatic source of truth.\n\n### What Ella may generate dynamically\n\nElla may ask the learner to:\n\n- transform a vague prompt into a complete work brief;\n- identify information that should not be shared with a public AI tool;\n- propose a safer alternative to a risky use;\n- explain the C.T.R.O.L. method with a work example;\n- distinguish a task suited for AI from a task that requires human validation.\n\n### Validation criteria\n\nA good answer should show that the learner:\n\n1. gives clear context to the AI;\n2. specifies the task and expected format;\n3. understands that sensitive data must be protected;\n4. keeps a human review step;\n5. links AI use to a real professional need.\n\n### Common mistakes to detect\n\n- The learner thinks a prompt is just a short sentence.\n- They do not mention confidentiality or personal data.\n- They accept the AI answer without review.\n- They ask AI to make a final decision on a sensitive topic.\n- They propose a vague use case with no audience, objective, or output.\n\n### Possible Socratic follow-ups\n\n- “Which information should you remove before giving this text to a public tool?”\n- “What output format would make the answer more useful for your work?”\n- “Which part of this task must remain under human control?”\n- “How could you rewrite your request to get a more usable answer?”"
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "7. Ce que vous devez retenir",
+        "en": "References"
+      },
+      "content": {
+        "fr": "L’IA générative peut vous aider à gagner du temps sur les tâches de rédaction, synthèse, reformulation, préparation de décision et apprentissage.\n\nMais elle doit rester un assistant. Vous devez garder trois réflexes : cadrer la demande, protéger les données, vérifier la réponse.\n\nVotre objectif n’est pas de devenir “expert IA” en un jour. Votre objectif est plus concret : savoir intégrer l’IA dans votre travail avec méthode, prudence et valeur ajoutée.",
+        "en": "1. National Institute of Statistics, **Organic Law No. 2004-63 of July 27, 2004 on the Protection of Personal Data**, Official Journal of the Republic of Tunisia.  \n   https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf\n\n2. NIST, **Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile**, NIST AI 600-1, July 2024.  \n   https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf\n\n3. NIST, **Artificial Intelligence Risk Management Framework**, AI RMF 1.0.  \n   https://www.nist.gov/itl/ai-risk-management-framework\n\n4. European Commission, **AI Literacy — Questions & Answers**, AI Act Article 4.  \n   https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers\n\n5. OECD, **AI Principles**, adopted in 2019 and updated in 2024.  \n   https://www.oecd.org/en/topics/sub-issues/ai-principles.html"
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Données à ne pas partager / Data not to share",
+        "section_context": "L’apprenant vient de voir que certaines données ne doivent pas être copiées dans un outil IA public. Il doit distinguer usage courant et usage sensible.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse identifie les données sensibles et propose une version anonymisée ou limitée.",
+        "anti_gpt_instructions": "Présenter un email RH contenant des noms, salaires et motif d’absence. Demander à l’apprenant d’indiquer ce qui doit être retiré avant tout usage IA."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous savez maintenant utiliser l’IA générative comme un assistant de production, pas comme un moteur de vérité. Le lab vous demande de concevoir une demande IA contrôlée avec la méthode C.T.R.O.L.",
+        "en": "You can now use generative AI as a production assistant, not as a truth engine. The lab asks you to design a controlled AI request with the C.T.R.O.L. method."
+      },
+      "next_url": "/courses/ai-literacy-digital-transformation/labs/02_daily_ai_use_control_lab"
+    }
+  ]
+}

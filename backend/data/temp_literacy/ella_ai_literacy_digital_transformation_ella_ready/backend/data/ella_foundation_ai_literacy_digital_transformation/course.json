@@ -1,0 +1,117 @@
+{
+  "course_id": "ella_foundation_ai_literacy_digital_transformation",
+  "version": "1.0.0",
+  "status": "converted_ready_for_ella_integration",
+  "created_at": "2026-05-01",
+  "slug": "ai-literacy-digital-transformation",
+  "pathway": "foundation",
+  "secondary_pathways": [
+    "leadership"
+  ],
+  "level": "fundamental",
+  "title": {
+    "fr": "Culture IA pour la transformation digitale de l’organisation",
+    "en": "AI Literacy for Digital Transformation"
+  },
+  "short_title": {
+    "fr": "Culture IA",
+    "en": "AI Literacy"
+  },
+  "description": {
+    "fr": "Un parcours fondamental pour comprendre l’IA, l’utiliser au quotidien avec méthode, repérer les opportunités dans les métiers et construire une première feuille de route responsable.",
+    "en": "A foundational course to understand AI, use it in daily work with method, identify business opportunities, and build a first responsible roadmap."
+  },
+  "positioning": {
+    "fr": "Former les collaborateurs et managers à passer d’un usage individuel de l’IA à une pratique collective, responsable et mesurable.",
+    "en": "Train employees and managers to move from individual AI use to a collective, responsible, and measurable practice."
+  },
+  "delivery_modes": {
+    "instructor_led_workshop": {
+      "duration_days": 2,
+      "duration_hours": 16,
+      "format": {
+        "fr": "Atelier présentiel ou hybride + labs guidés",
+        "en": "In-person or hybrid workshop + guided labs"
+      }
+    },
+    "self_paced": {
+      "estimated_duration_hours": "8-12",
+      "format": {
+        "fr": "Autonomie guidée par Ella",
+        "en": "Self-paced learning guided by Ella"
+      }
+    }
+  },
+  "target_audience": {
+    "fr": [
+      "Managers",
+      "Cadres",
+      "Collaborateurs de tous départements",
+      "Responsables transformation digitale"
+    ],
+    "en": [
+      "Managers",
+      "Executives",
+      "Employees across departments",
+      "Digital transformation leads"
+    ]
+  },
+  "prerequisites": {
+    "fr": [
+      "Aucune compétence technique requise",
+      "Expérience professionnelle ou connaissance d’un métier"
+    ],
+    "en": [
+      "No technical skill required",
+      "Professional experience or knowledge of a business function"
+    ]
+  },
+  "learning_objectives": {
+    "fr": [
+      "Expliquer simplement ce que l’IA et l’IA générative peuvent faire et ne pas faire.",
+      "Utiliser l’IA générative au quotidien avec un brief clair et une lecture critique.",
+      "Rédiger des prompts professionnels adaptés au niveau de risque.",
+      "Identifier et prioriser des opportunités IA dans un département.",
+      "Repérer les risques liés aux données, aux biais, aux erreurs et à la conformité.",
+      "Construire une mini-feuille de route IA responsable pour un pilote d’équipe."
+    ],
+    "en": [
+      "Explain in simple terms what AI and generative AI can and cannot do.",
+      "Use generative AI in daily work with a clear brief and critical review.",
+      "Write professional prompts adapted to the risk level.",
+      "Identify and prioritize AI opportunities in a department.",
+      "Identify risks related to data, bias, errors, and compliance.",
+      "Build a responsible AI mini-roadmap for a team pilot."
+    ]
+  },
+  "modules": [
+    {
+      "module_id": "00_course_positioning",
+      "lab_id": "00_ai_literacy_framing_lab"
+    },
+    {
+      "module_id": "01_understand_ai_without_jargon",
+      "lab_id": "01_explain_ai_without_jargon_lab"
+    },
+    {
+      "module_id": "02_daily_generative_ai_work",
+      "lab_id": "02_daily_ai_use_control_lab"
+    },
+    {
+      "module_id": "03_practical_prompting_business_work",
+      "lab_id": "03_prompting_business_brief_lab"
+    },
+    {
+      "module_id": "04_identify_ai_opportunities_department",
+      "lab_id": "04_ai_opportunity_canvas_lab"
+    },
+    {
+      "module_id": "05_risks_ethics_data_responsible_use",
+      "lab_id": "05_responsible_ai_use_lab"
+    },
+    {
+      "module_id": "06_from_individual_use_to_digital_transformation",
+      "lab_id": "06_digital_transformation_roadmap_lab"
+    }
+  ]
+}

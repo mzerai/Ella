@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import EllaAvatar from "@/components/EllaAvatar";
@@ -48,12 +48,12 @@ const COURSES: Course[] = [
   },
   {
     id: "data-lit",
-    title: "Data Literacy for Managers",
-    description: "Lisez les données, challengez les résultats, prenez des décisions éclairées. La culture data.",
+    title: "AI Literacy & Digital Transformation",
+    description: "Comprenez l'IA, maîtrisez les outils génératifs et identifiez les opportunités de transformation digitale.",
     category: "Foundation",
-    duration: "1 jour · 6h",
-    available: false,
-    link: "#",
+    duration: "4 jours · 24h",
+    available: true,
+    link: "/courses/ai-literacy-digital-transformation",
     image: "/assets/courses/data-literacy.jpg",
     categoryStyles: { bg: "bg-blue-50", text: "text-blue-700" },
   },
@@ -129,6 +129,7 @@ export default function HomePage() {
   const router = useRouter();
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [pendingCourseLink, setPendingCourseLink] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleCourseClick = (course: Course) => {
     if (!course.available) return;
@@ -155,9 +156,17 @@ export default function HomePage() {
   };
 
   const playEllaJingle = () => {
-    const audio = new Audio("/assets/ella_gingle.mp3");
-    audio.volume = 0.7;
-    audio.play().catch(() => {});
+    if (audioRef.current && !audioRef.current.paused) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      return;
+    }
+    
+    if (!audioRef.current) {
+      audioRef.current = new Audio("/assets/ella_gingle.mp3");
+      audioRef.current.volume = 0.7;
+    }
+    audioRef.current.play().catch(() => {});
   };
 
   return (

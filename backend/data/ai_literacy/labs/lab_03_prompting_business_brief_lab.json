@@ -1,0 +1,51 @@
+{
+  "lab_id": "03_prompting_business_brief_lab",
+  "course_id": "ella_foundation_ai_literacy_digital_transformation",
+  "title": {
+    "fr": "Lab 3 — Transformer une demande vague en prompt métier",
+    "en": "Lab 3 — Turn a Vague Request into a Business Prompt"
+  },
+  "description": {
+    "fr": "L’apprenant rédige un prompt professionnel structuré pour un cas métier.",
+    "en": "The learner writes a structured professional prompt for a business case."
+  },
+  "concept": {
+    "fr": "Prompting métier, rôle, objectif, contraintes, format, critères qualité, niveau de risque.",
+    "en": "Business prompting, role, objective, constraints, format, quality criteria, risk level."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "rewrite_vague_request_as_business_prompt",
+      "title": {
+        "fr": "Réécrire une demande vague",
+        "en": "Rewrite a vague request"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Partez d’une demande vague que vous pourriez entendre au travail, par exemple : « fais-moi un email », « résume ce document », ou « prépare une note ». Transformez-la en prompt complet avec contexte, objectif, public cible, contraintes, format attendu et critères de vérification. Indiquez le niveau de risque de l’usage et les précautions associées.",
+        "en": "Start from a vague request you could hear at work, such as “write me an email,” “summarize this document,” or “prepare a note.” Turn it into a complete prompt with context, objective, target audience, constraints, expected format, and review criteria. State the risk level of the use and the related precautions."
+      },
+      "hints": [
+        {
+          "fr": "Un bon prompt ressemble à un brief de travail.",
+          "en": "A good prompt looks like a work brief."
+        },
+        {
+          "fr": "Le public cible change le ton et le niveau de détail.",
+          "en": "The target audience changes the tone and level of detail."
+        },
+        {
+          "fr": "Les contraintes protègent contre les réponses inventées ou inadaptées.",
+          "en": "Constraints protect against invented or unsuitable answers."
+        },
+        {
+          "fr": "Le niveau de risque détermine la vérification attendue.",
+          "en": "The risk level determines the expected review."
+        }
+      ]
+    }
+  ]
+}

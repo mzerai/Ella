@@ -630,14 +630,25 @@ export interface ManufacturingEvalResponse {
   score_qualitative: "excellent" | "good" | "needs_improvement";
 }
 
-export async function evaluateManufacturingResponse(params: {
-  lab_id: string;
-  mission_id: string;
-  student_response: string;
-  language: string;
-}): Promise<ManufacturingEvalResponse> {
-  return apiFetch<ManufacturingEvalResponse>("/api/labs/manufacturing/evaluate", {
-    method: "POST",
-    body: JSON.stringify(params),
+export async function evaluateManufacturingMission(labId: string, missionId: string, studentResponse: string, context?: string): Promise<{ feedback: string }> {
+  return apiFetch<{ feedback: string }>(`/api/labs/manufacturing/evaluate`, {
+    method: 'POST',
+    body: JSON.stringify({ lab_id: labId, mission_id: missionId, student_response: studentResponse, context }),
+  });
+}
+
+// AI Literacy & Digital Transformation
+export async function getLiteracyModuleCells(moduleId: string): Promise<ModuleData> {
+  return apiFetch<ModuleData>(`/api/labs/literacy/modules/${moduleId}`);
+}
+
+export async function getLiteracyLab(labId: string): Promise<LabContent> {
+  return apiFetch<LabContent>(`/api/labs/literacy/labs/${labId}`);
+}
+
+export async function evaluateLiteracyMission(labId: string, missionId: string, studentResponse: string, context?: string): Promise<{ feedback: string }> {
+  return apiFetch<{ feedback: string }>(`/api/labs/literacy/evaluate`, {
+    method: 'POST',
+    body: JSON.stringify({ lab_id: labId, mission_id: missionId, student_response: studentResponse, context }),
   });
 }

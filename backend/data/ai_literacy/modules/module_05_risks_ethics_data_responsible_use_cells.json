@@ -1,0 +1,163 @@
+{
+  "module_id": "05_risks_ethics_data_responsible_use",
+  "title": {
+    "fr": "Risques, éthique, données et usage responsable",
+    "en": "Risks, Ethics, Data, and Responsible Use"
+  },
+  "description": {
+    "fr": "Dans les leçons précédentes, vous avez appris à comprendre l'IA, à utiliser l'IA générative et à identifier des opportunités dans votre département.",
+    "en": "In the previous lessons, you learned how to understand AI, use generative AI, and identify opportunities in your department."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Objectif de la leçon",
+        "en": "Lesson objective + 1. AI is not risky by nature. The use can be risky."
+      },
+      "content": {
+        "fr": "Dans les leçons précédentes, vous avez appris à comprendre l'IA, à utiliser l'IA générative et à identifier des opportunités dans votre département.\n\nMaintenant, vous devez apprendre à poser une question plus exigeante :\n\n> Cet usage IA est-il acceptable pour notre organisation, nos collaborateurs, nos clients et nos obligations ?\n\nCette leçon vous aide à repérer les principaux risques liés à l'IA et à adopter des règles simples d'usage responsable. Vous n'avez pas besoin d'être juriste ou expert cybersécurité. Vous devez surtout savoir quand un usage est courant, quand il devient sensible, et quand il doit être validé avant d'être déployé.",
+        "en": "In the previous lessons, you learned how to understand AI, use generative AI, and identify opportunities in your department.\n\nNow you need to ask a more demanding question:\n\n> Is this AI use acceptable for our organization, our employees, our customers, and our obligations?\n\nThis lesson helps you identify the main risks linked to AI and adopt simple rules for responsible use. You do not need to be a lawyer or a cybersecurity expert. You mainly need to know when a use is routine, when it becomes sensitive, and when it requires validation before deployment.\n\n## 1. AI is not risky by nature. The use can be risky.\n\nThe same AI tool can be useful or dangerous depending on the context.\n\nAsking an AI tool to rewrite a public text does not carry the same level of risk as asking it to analyze named HR data, a customer file, a commercial database, or confidential internal documents.\n\nThe risk does not come only from the technology. It comes from the combination of:\n\n- the data being used;\n- the decision being influenced;\n- the person affected;\n- the level of automation;\n- the presence or absence of human control;\n- the legal, business, and cultural context.\n\nIn a Tunisian organization, this reading matters. Companies want productivity gains, but they must also respect confidentiality, individual rights, internal rules, and personal data protection."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "1. L'IA n'est pas risquée par nature. L'usage peut l'être.",
+        "en": "2. The five risks you must know how to spot"
+      },
+      "content": {
+        "fr": "Un même outil IA peut être utile ou dangereux selon le contexte.\n\nDemander à une IA de reformuler un texte public n'a pas le même niveau de risque que lui demander d'analyser des données RH nominatives, un dossier client, une base commerciale ou des documents internes confidentiels.\n\nLe risque ne vient pas seulement de la technologie. Il vient de la combinaison entre :\n\n- la donnée utilisée ;\n- la décision influencée ;\n- la personne concernée ;\n- le niveau d'automatisation ;\n- l'absence ou la présence d'un contrôle humain ;\n- le contexte juridique, métier et culturel.\n\nDans une organisation tunisienne, cette lecture est essentielle. Les entreprises veulent gagner en productivité, mais elles doivent respecter la confidentialité, les droits des personnes, les règles internes et la protection des données personnelles.",
+        "en": "You do not need to memorize a long list of risks. Start with these five families.\n\n### 1. Confidentiality risk\n\nYou share information with an AI tool that should not leave the organization: customer data, salaries, contracts, internal notes, identity documents, medical files, banking information, student files, or strategic data.\n\n**Practical rule:** if you would not publish the information in an open email or a public document, do not copy it into a public AI tool.\n\n### 2. Error or hallucination risk\n\nGenerative AI can produce an answer that sounds convincing but is false. It can invent a reference, oversimplify a subject, or mix true and false elements.\n\n**Practical rule:** the more important the decision, the more human verification is required.\n\n### 3. Bias risk\n\nAn AI tool can reproduce or amplify biases already present in data, instructions, or organizational practices.\n\nExample: if a tool helps preselect candidates with poorly designed criteria, it may penalize some profiles without legitimate justification.\n\n**Practical rule:** when AI affects a person, an opportunity, an evaluation, or a right, your level of vigilance must increase.\n\n### 4. Dependency risk\n\nIf you accept AI answers without review, you gradually weaken your own professional judgment.\n\n**Practical rule:** use AI as an assistant, never as an autopilot.\n\n### 5. Non-compliance risk\n\nSome data, uses, and decisions are governed by law, contracts, internal policies, or sector-specific rules.\n\nIn Tunisia, Organic Law No. 2004-63 states that personal data protection is a fundamental right. This must guide AI uses that process identifying information."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Risques d’usage IA / AI usage risks",
+        "section_context": "L’apprenant vient de voir les cinq risques : confidentialité, erreur, biais, dépendance et non-conformité. Il doit reconnaître ces risques dans un cas concret.",
+        "question_type": "comprehension",
+        "difficulty": "beginner",
+        "hint": "Une bonne réponse cite les risques pertinents et ne se limite pas à une phrase générale sur l’éthique.",
+        "anti_gpt_instructions": "Décrire un usage IA dans un service RH fictif et demander d’identifier deux risques majeurs et une précaution immédiate."
+      }
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "2. Les cinq risques que vous devez savoir repérer",
+        "en": "3. Data: what you can share, anonymize, or refuse to share"
+      },
+      "content": {
+        "fr": "Vous n'avez pas besoin de mémoriser une longue liste de risques. Commencez par ces cinq familles.\n\n### 1. Risque de confidentialité\n\nVous partagez avec un outil IA des informations qui ne devraient pas sortir de l'organisation : données clients, salaires, contrats, notes internes, pièces d'identité, dossiers médicaux, informations bancaires, fichiers étudiants ou données stratégiques.\n\n**Règle pratique :** si vous ne publieriez pas l'information dans un email ouvert ou un document public, ne la copiez pas dans une IA publique.\n\n### 2. Risque d'erreur ou d'hallucination\n\nL'IA générative peut produire une réponse convaincante mais fausse. Elle peut inventer une référence, simplifier abusivement un sujet ou mélanger des éléments vrais et faux.\n\n**Règle pratique :** plus la décision est importante, plus la vérification humaine est obligatoire.\n\n### 3. Risque de biais\n\nUn outil IA peut reproduire ou amplifier des biais présents dans les données, les consignes ou les pratiques de l'organisation.\n\nExemple : si un outil aide à présélectionner des candidatures avec des critères mal conçus, il peut pénaliser certains profils sans justification légitime.\n\n**Règle pratique :** quand une IA touche à une personne, une opportunité, une évaluation ou un droit, le niveau de vigilance doit augmenter.\n\n### 4. Risque de dépendance\n\nSi vous acceptez les réponses de l'IA sans relire, vous perdez progressivement votre jugement professionnel.\n\n**Règle pratique :** utilisez l'IA comme assistant, jamais comme pilote automatique.\n\n### 5. Risque de non-conformité\n\nCertaines données, certains usages ou certaines décisions sont encadrés par la loi, des contrats, des politiques internes ou des règles sectorielles.\n\nEn Tunisie, la loi organique n°2004-63 rappelle que la protection des données personnelles relève d'un droit fondamental. Cela doit guider les usages IA qui manipulent des informations identifiantes.",
+        "en": "When you use AI, first ask yourself:\n\n> What data am I giving to the system?\n\nUse this simple grid.\n\n| Type of data | Example | Recommended AI use |\n|---|---|---|\n| Public data | Published brochure, institutional web page, public official text | Usable with care |\n| Non-sensitive internal data | General procedure, meeting template without names | Usable if internal policy allows it |\n| Confidential data | Contract, strategy, commercial data, HR file | Avoid in public AI tools |\n| Personal data | Name, phone number, ID number, salary, grade, customer file | Anonymize or process only in an approved framework |\n| Sensitive data | Health, detailed financial data, social situation, disciplinary data | Validation required before use |\n\n**Anonymization does not only mean removing the name.**  \nIf a text contains a rare position, a date, a department, an amount, and a precise context, the person may still be identifiable."
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Schéma clé — Classer les risques et poser des garde-fous",
+        "en": "Key diagram — Classifying risks and setting guardrails"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 360\" xmlns=\"http://www.w3.org/2000/svg\"><defs><marker id=\"arr_lit_06\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/></marker></defs><rect x=\"0\" y=\"0\" width=\"780\" height=\"360\" fill=\"#F1EFE8\"/><text x=\"390\" y=\"62\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"20\">Key diagram — Classifying risks and setting guardrails</text><rect x=\"40\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\"/><text x=\"95\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Données</text><line x1=\"155\" y1=\"180\" x2=\"180\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_06)\"/><rect x=\"190\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\"/><text x=\"245\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Risque</text><line x1=\"305\" y1=\"180\" x2=\"330\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_06)\"/><rect x=\"340\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"395\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Feu tricolore</text><line x1=\"455\" y1=\"180\" x2=\"480\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_06)\"/><rect x=\"490\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\"/><text x=\"545\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Garde-fous</text><line x1=\"605\" y1=\"180\" x2=\"630\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_06)\"/><rect x=\"640\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"695\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Usage validé</text><text x=\"390\" y=\"285\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"14\">Start from work reality, then add AI with control and measurable value.</text></svg>"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "3. Les données : ce que vous pouvez partager, anonymiser ou refuser",
+        "en": "4. Tunisian case: a seemingly ordinary HR use"
+      },
+      "content": {
+        "fr": "Quand vous utilisez une IA, posez-vous d'abord cette question :\n\n> Quelle donnée suis-je en train de donner au système ?\n\nVoici une grille simple.\n\n| Type de donnée | Exemple | Usage IA recommandé |\n|---|---|---|\n| Donnée publique | Brochure publiée, page web institutionnelle, texte officiel public | Utilisable avec vigilance |\n| Donnée interne non sensible | Procédure générale, modèle de compte rendu sans noms | Utilisable si la politique interne l'autorise |\n| Donnée confidentielle | Contrat, stratégie, données commerciales, fichier RH | À éviter dans une IA publique |\n| Donnée personnelle | Nom, téléphone, CIN, salaire, note, dossier client | À anonymiser ou traiter dans un cadre validé |\n| Donnée sensible | Santé, données financières détaillées, situation sociale, données disciplinaires | Validation obligatoire avant usage |\n\n**Anonymiser ne veut pas dire seulement supprimer le nom.**  \nSi un texte contient un poste rare, une date, un service, un montant et un contexte précis, la personne peut rester identifiable.",
+        "en": "Imagine an HR manager in a Tunisian company. She wants to save time while preparing a summary of internal mobility files.\n\nShe copies into a public AI tool:\n\n- employee names;\n- positions;\n- salaries;\n- evaluations;\n- manager comments;\n- mobility preferences.\n\nThe intention is good: save time.  \nThe risk is serious: she exposes sensitive personal and professional data.\n\n### ❌ Poor approach\n\n> \"Analyze these HR files and rank employees by promotion potential.\"\n\nThis instruction gives too much power to AI, exposes sensitive data, and may influence an important human decision.\n\n### ✅ Responsible approach\n\n> \"Here is an anonymized and simplified internal mobility criteria grid. Help me improve the clarity of the criteria, identify ambiguities, and propose a summary structure. Do not make any decision about individuals.\"\n\nThis approach better protects people. It keeps the human responsible for evaluation."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Données et feu tricolore / Data and traffic-light rule",
+        "section_context": "L’apprenant vient d’apprendre à classer les usages en feu vert, orange ou rouge. Il doit relier le classement aux données et au niveau de décision.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse justifie le classement avec les données, la finalité et le contrôle humain.",
+        "anti_gpt_instructions": "Proposer trois usages : reformulation d’un texte public, analyse de CV nominatifs, décision disciplinaire. Demander le classement et la justification."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "4. Cas tunisien : un usage RH apparemment banal",
+        "en": "5. A simple rule: green light, orange light, red light + 6. Ethics is not an add-on. It is a condition for adoption."
+      },
+      "content": {
+        "fr": "Imaginez une responsable RH dans une entreprise tunisienne. Elle veut gagner du temps pour préparer une synthèse de dossiers de mobilité interne.\n\nElle copie dans un outil IA public :\n\n- les noms des collaborateurs ;\n- les postes ;\n- les salaires ;\n- les évaluations ;\n- les commentaires de managers ;\n- les souhaits de mobilité.\n\nL'intention est bonne : gagner du temps.  \nLe risque est sérieux : elle expose des données personnelles et professionnelles sensibles.\n\n### ❌ Mauvaise approche\n\n> \"Analyse ces dossiers RH et classe les collaborateurs par potentiel de promotion.\"\n\nCette consigne donne trop de pouvoir à l'IA, expose des données sensibles et peut influencer une décision humaine importante.\n\n### ✅ Approche responsable\n\n> \"Voici une grille anonymisée et simplifiée de critères de mobilité interne. Aidez-moi à améliorer la clarté des critères, à repérer les ambiguïtés et à proposer une structure de synthèse. Ne prenez aucune décision sur les personnes.\"\n\nCette approche protège mieux les personnes. Elle garde l'humain responsable de l'évaluation.",
+        "en": "To act fast without being reckless, use this grid.\n\n### 🟢 Green light — routine use\n\nYou can use AI to:\n\n- rewrite a non-sensitive text;\n- create a meeting plan;\n- generate a checklist;\n- summarize a public document;\n- prepare a first email draft without confidential data.\n\nYou remain responsible for the review.\n\n### 🟠 Orange light — use to frame carefully\n\nYou must anonymize, verify, or request validation if AI touches:\n\n- internal data;\n- HR decisions;\n- customer documents;\n- financial analyses;\n- internal procedures;\n- contractual information.\n\nAI can help, but the framework must be clear.\n\n### 🔴 Red light — avoid without validation\n\nDo not put the following into a public AI tool:\n\n- identifying personal data;\n- customer files;\n- named HR data;\n- medical information;\n- banking data;\n- trade secrets;\n- credentials, passwords, or API keys;\n- confidential unauthorized documents.\n\nHere, the use must go through an approved tool, an internal procedure, or a competent review.\n\n## 6. Ethics is not an add-on. It is a condition for adoption.\n\nIn an organization, AI does not succeed only because it performs well technically. It succeeds if people trust it.\n\nTrust comes from four elements:\n\n1. **Transparency**: users know when AI is involved.\n2. **Accountability**: a person or team remains responsible for the decision.\n3. **Fairness**: the tool does not treat people unfairly.\n4. **Control**: outputs are checked, corrected, and monitored.\n\nThe OECD AI Principles emphasize trustworthy AI that respects human rights and democratic values. The NIST AI Risk Management Framework also recommends structured AI risk management through governance, mapping, measurement, and management."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "5. Une règle simple : feu vert, feu orange, feu rouge",
+        "en": "7. What you should do now + Key takeaways"
+      },
+      "content": {
+        "fr": "Pour agir vite sans être imprudent, utilisez cette grille.\n\n### 🟢 Feu vert — usage courant\n\nVous pouvez utiliser l'IA pour :\n\n- reformuler un texte non sensible ;\n- créer un plan de réunion ;\n- générer une checklist ;\n- résumer un document public ;\n- préparer une première version d'email sans données confidentielles.\n\nVous restez responsable de la relecture.\n\n### 🟠 Feu orange — usage à cadrer\n\nVous devez anonymiser, vérifier ou demander validation si l'IA touche à :\n\n- des données internes ;\n- des décisions RH ;\n- des documents clients ;\n- des analyses financières ;\n- des procédures internes ;\n- des informations contractuelles.\n\nL'IA peut aider, mais le cadre doit être clair.\n\n### 🔴 Feu rouge — usage à éviter sans validation\n\nNe mettez pas dans une IA publique :\n\n- des données personnelles identifiantes ;\n- des dossiers clients ;\n- des données RH nominatives ;\n- des informations médicales ;\n- des données bancaires ;\n- des secrets commerciaux ;\n- des identifiants, mots de passe ou clés API ;\n- des documents confidentiels non autorisés.\n\nIci, l'usage doit passer par un outil validé, une procédure interne ou un avis compétent.",
+        "en": "From this lesson onward, adopt three habits.\n\n### Habit 1 — Describe the use before using the tool\n\nBefore opening an AI tool, write one sentence:\n\n> I want to use AI for [task], with [type of data], in order to [objective].\n\nThis sentence often reveals the level of risk.\n\n### Habit 2 — Remove unnecessary data\n\nDo not provide more information than needed.  \nA good prompt is not a prompt that contains everything. It is a prompt that contains what is useful, authorized, and proportionate.\n\n### Habit 3 — Keep a record of sensitive uses\n\nIf AI contributes to a decision, an important analysis, or a document that commits the organization, keep a record:\n\n- objective;\n- tool used;\n- data provided;\n- output obtained;\n- human verification;\n- final decision.\n\nThis traceability protects the organization and the user.\n\n## Key takeaways\n\nAI can help you work better, but it does not remove your responsibility.\n\nRemember this formula:\n\n> The more sensitive the data and the more important the decision, the stronger the human control must be.\n\nYou must learn to distinguish a simple use, a use that needs framing, and a use that must be refused without validation.\n\nThis discipline turns AI into a lever of trust, not a source of risk."
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "6. L'éthique n'est pas un supplément. C'est une condition d'adoption.",
+        "en": "Ella checkpoint context"
+      },
+      "content": {
+        "fr": "Dans une organisation, l'IA ne réussit pas seulement parce qu'elle est techniquement performante. Elle réussit si les personnes lui font confiance.\n\nLa confiance vient de quatre éléments :\n\n1. **Transparence** : les utilisateurs savent quand l'IA intervient.\n2. **Responsabilité** : une personne ou une équipe reste responsable de la décision.\n3. **Équité** : l'outil ne traite pas injustement certaines personnes.\n4. **Contrôle** : les résultats sont vérifiés, corrigés et suivis.\n\nLes principes de l'OCDE sur l'IA insistent sur une IA digne de confiance, respectueuse des droits humains et des valeurs démocratiques. Le NIST AI Risk Management Framework recommande aussi de gérer les risques IA de manière structurée à travers la gouvernance, la cartographie, la mesure et le traitement des risques.",
+        "en": "### Pedagogical intent\n\nElla should verify that the learner understands the main risks of AI use in an organization, especially data, confidentiality, human verification, and accountability.\n\nThe checkpoint should make the learner reason through a concrete case, not recite a definition.\n\n### Suggested situation for dynamic checkpoint generation\n\nPresent the learner with a short scenario: an employee wants to use a public AI tool to process an internal document that contains personal or confidential data.\n\nElla asks the learner to:\n\n- identify the risks;\n- classify the use as green, orange, or red;\n- propose a safer version of the use;\n- specify what must remain under human control.\n\n### What a good answer should contain\n\nA good answer should mention at least four elements:\n\n1. the risk linked to personal or confidential data;\n2. the risk of error or hallucination;\n3. the need to anonymize, reduce, or avoid sharing some data;\n4. the need to maintain human control;\n5. where relevant, the need to use an organization-approved tool.\n\n### Common mistakes to detect\n\n- Saying only: \"We need to be careful.\"\n- Suggesting AI use without removing sensitive data.\n- Confusing anonymization with removing the name.\n- Trusting AI output without verification.\n- Forgetting that the user remains responsible.\n\n### Possible Socratic follow-ups\n\n- \"Which information in the document could identify a person, even without their name?\"\n- \"What would you remove before submitting this content to an AI tool?\"\n- \"Which part can be automated, and which part must remain human?\"\n- \"Why is this use not a simple green light?\"\n\n### Validation criteria\n\nElla can validate if the learner:\n\n- spots sensitive data;\n- distinguishes authorized use, use to frame, and use to refuse;\n- proposes a safer alternative;\n- mentions human verification;\n- states a clear action rule."
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "7. Ce que vous devez faire dès maintenant + À retenir",
+        "en": "References"
+      },
+      "content": {
+        "fr": "À partir de cette leçon, adoptez trois habitudes.\n\n### Habitude 1 — Décrivez l'usage avant d'utiliser l'outil\n\nAvant d'ouvrir un outil IA, écrivez en une phrase :\n\n> Je veux utiliser l'IA pour [tâche], avec [type de données], afin de [objectif].\n\nCette phrase révèle souvent le niveau de risque.\n\n### Habitude 2 — Retirez les données inutiles\n\nNe donnez pas plus d'informations que nécessaire.  \nUn bon prompt n'est pas un prompt qui contient tout. C'est un prompt qui contient ce qui est utile, autorisé et proportionné.\n\n### Habitude 3 — Gardez une trace des usages sensibles\n\nSi l'IA contribue à une décision, une analyse importante ou un document qui engage l'organisation, gardez une trace :\n\n- objectif ;\n- outil utilisé ;\n- données fournies ;\n- résultat obtenu ;\n- vérification humaine ;\n- décision finale.\n\nCette traçabilité protège l'organisation et l'utilisateur.\n\n## À retenir\n\nL'IA peut vous aider à travailler mieux, mais elle ne supprime pas votre responsabilité.\n\nRetenez cette formule :\n\n> Plus la donnée est sensible, plus la décision est importante, plus le contrôle humain doit être fort.\n\nVous devez apprendre à distinguer un usage simple, un usage à cadrer et un usage à refuser sans validation.\n\nC'est cette discipline qui transforme l'IA en levier de confiance, pas en source de risque.",
+        "en": "1. Republic of Tunisia. **Organic Law No. 2004-63 of July 27, 2004, on the protection of personal data**.  \n   https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf\n\n2. National Authority for Personal Data Protection. **Collection of texts on personal data protection**.  \n   https://inpdp.tn/Receuil_INPDP.pdf\n\n3. National Institute of Standards and Technology. **Artificial Intelligence Risk Management Framework (AI RMF 1.0)**. NIST AI 100-1, 2023.  \n   https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf\n\n4. National Institute of Standards and Technology. **Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile**. NIST AI 600-1, 2024.  \n   https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf\n\n5. OECD. **OECD AI Principles**. Adopted in 2019, updated in 2024.  \n   https://www.oecd.org/en/topics/sub-issues/ai-principles.html\n\n6. European Union. **Artificial Intelligence Act, Article 4 — AI literacy**.  \n   https://artificialintelligenceact.eu/article/4/"
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Éthique opérationnelle / Operational ethics",
+        "section_context": "L’apprenant vient de voir que l’éthique doit se traduire en habitudes : décrire l’usage, minimiser les données, tracer les usages sensibles. Il doit corriger une mauvaise pratique.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse propose des garde-fous concrets et attribue la responsabilité.",
+        "anti_gpt_instructions": "Présenter une équipe qui utilise l’IA pour traiter des réclamations clients sans règle commune. Demander à l’apprenant de corriger le processus."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous savez maintenant repérer les risques liés aux données, aux erreurs, aux biais et à la responsabilité. Le lab vous demande de classer un usage sensible et de proposer des garde-fous réalistes.",
+        "en": "You can now identify risks linked to data, errors, bias, and responsibility. The lab asks you to classify a sensitive use and propose realistic guardrails."
+      },
+      "next_url": "/courses/ai-literacy-digital-transformation/labs/05_responsible_ai_use_lab"
+    }
+  ]
+}

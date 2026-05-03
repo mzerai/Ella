@@ -1,0 +1,51 @@
+{
+  "lab_id": "01_credit_scoring_intro_lab",
+  "course_id": "ella_industry_ai_finance_banking",
+  "title": {
+    "fr": "Lab 1 — Séparer score, décision et contrôle",
+    "en": "Lab 1 — Separate Score, Decision, and Control"
+  },
+  "description": {
+    "fr": "Vous concevez un flux de scoring crédit qui distingue estimation du risque, décision d’octroi et contrôle.",
+    "en": "You design a credit scoring flow that separates risk estimation, lending decision, and control."
+  },
+  "concept": {
+    "fr": "Score crédit, politique d’octroi, seuils, revue humaine, contrôle de risque.",
+    "en": "Credit score, lending policy, thresholds, human review, risk control."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "design_credit_decision_flow",
+      "title": {
+        "fr": "Concevoir un flux de décision crédit",
+        "en": "Design a credit decision flow"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Une banque veut utiliser un score IA pour accélérer l’analyse d’un crédit consommation. Décrivez le flux cible en séparant clairement : ce que produit le modèle, ce que décide la politique crédit, quand une revue humaine intervient et comment le contrôle suit le système. Ajoutez deux risques de mauvaise conception et une mesure de prévention pour chacun.",
+        "en": "A bank wants to use an AI score to accelerate personal loan assessment. Describe the target flow by clearly separating what the model produces, what the credit policy decides, when human review intervenes, and how control monitors the system. Add two design risks and one prevention measure for each."
+      },
+      "hints": [
+        {
+          "fr": "Ne présentez jamais le score comme une décision finale.",
+          "en": "Never present the score as the final decision."
+        },
+        {
+          "fr": "Définissez au moins une zone grise qui déclenche une revue humaine.",
+          "en": "Define at least one gray zone that triggers human review."
+        },
+        {
+          "fr": "Reliez chaque seuil à une règle métier ou à une politique crédit.",
+          "en": "Connect each threshold to a business rule or credit policy."
+        },
+        {
+          "fr": "Prévoyez un contrôle après déploiement : dérive, biais, réclamations ou performance.",
+          "en": "Plan a post-deployment control: drift, bias, complaints, or performance."
+        }
+      ]
+    }
+  ]
+}

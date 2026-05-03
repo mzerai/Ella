@@ -1,0 +1,163 @@
+{
+  "module_id": "04_identify_ai_opportunities_department",
+  "title": {
+    "fr": "Identifier les opportunités IA dans votre département",
+    "en": "Identifying AI Opportunities in Your Department"
+  },
+  "description": {
+    "fr": "Vous savez maintenant mieux utiliser l’IA générative.",
+    "en": "You now know how to use generative AI more effectively."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Objectif de la leçon + 1. Une opportunité IA n’est pas une idée vague",
+        "en": "Lesson objective + 1. An AI opportunity is not a vague idea"
+      },
+      "content": {
+        "fr": "Vous savez maintenant mieux utiliser l’IA générative. Vous savez aussi formuler un prompt plus clair, avec contexte, contraintes et format de sortie.\n\nDans cette leçon, vous allez changer de niveau. Vous ne partez plus d’un outil. Vous partez d’un **problème métier**.\n\nC’est une différence importante. Beaucoup d’organisations commencent par la mauvaise question : “Quel outil IA devons-nous acheter ?” La bonne question est plus simple et plus exigeante : “Quel problème réel voulons-nous mieux traiter ?”\n\nÀ la fin de cette leçon, vous devrez pouvoir identifier un cas d’usage IA utile dans votre département, le décrire clairement, estimer sa faisabilité et repérer ses risques.\n\n## 1. Une opportunité IA n’est pas une idée vague\n\nUne idée vague ressemble à ceci : “On devrait utiliser l’IA dans les RH”, “Il faut un chatbot”, “On doit automatiser le support client”, “L’IA peut aider la finance”.\n\nCe type d’idée peut lancer une discussion. Mais ce n’est pas encore un cas d’usage.\n\nUn cas d’usage IA doit répondre à cinq questions.\n\n| Question | Exemple de réponse attendue |\n|---|---|\n| Quel problème voulons-nous résoudre ? | Trop de temps passé à résumer des réclamations clients |\n| Qui est concerné ? | L’équipe support et les responsables qualité |\n| Quelles données ou documents sont disponibles ? | Emails, tickets, catégories de réclamations, procédures internes |\n| Quel résultat concret attendons-nous ? | Une synthèse structurée et des motifs de réclamation classés |\n| Quel risque devons-nous contrôler ? | Confidentialité, erreurs de synthèse, ton inadapté, données personnelles |\n\nVous voyez le point : une opportunité IA n’est pas une phrase enthousiaste. C’est une hypothèse de transformation.\n\n❌ **Idée vague**  \n“Utiliser l’IA pour améliorer le service client.”\n\n✅ **Cas d’usage mieux formulé**  \n“Utiliser l’IA pour classer les réclamations clients, produire une synthèse hebdomadaire des motifs récurrents et proposer trois actions d’amélioration à valider par le responsable qualité.”\n\nLa deuxième formulation est plus utile. Elle décrit une tâche, des utilisateurs, un livrable et un contrôle humain.",
+        "en": "You now know how to use generative AI more effectively. You also know how to write clearer prompts with context, constraints, and an expected output format.\n\nIn this lesson, you will move to the next level. You will no longer start from a tool. You will start from a **business problem**.\n\nThis distinction matters. Many organizations start with the wrong question: “Which AI tool should we buy?” The better question is simpler and more demanding: “Which real problem do we want to handle better?”\n\nBy the end of this lesson, you should be able to identify a useful AI use case in your department, describe it clearly, estimate its feasibility, and identify its risks.\n\n## 1. An AI opportunity is not a vague idea\n\nA vague idea sounds like this: “We should use AI in HR”, “We need a chatbot”, “We should automate customer support”, “AI can help finance”.\n\nThis type of idea can start a discussion. But it is not yet a use case.\n\nAn AI use case must answer five questions.\n\n| Question | Example of expected answer |\n|---|---|\n| What problem do we want to solve? | Too much time spent summarizing customer complaints |\n| Who is affected? | The support team and quality managers |\n| What data or documents are available? | Emails, tickets, complaint categories, internal procedures |\n| What concrete output do we expect? | A structured summary and a classification of recurring complaint reasons |\n| What risk must we control? | Confidentiality, summary errors, inappropriate tone, personal data |\n\nHere is the key point: an AI opportunity is not an enthusiastic sentence. It is a transformation hypothesis.\n\n❌ **Vague idea**  \n“Use AI to improve customer service.”\n\n✅ **Better framed use case**  \n“Use AI to classify customer complaints, produce a weekly summary of recurring issues, and suggest three improvement actions to be validated by the quality manager.”\n\nThe second version is more useful. It describes a task, users, a deliverable, and human control."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "2. Commencez par les irritants métier",
+        "en": "2. Start with business pain points"
+      },
+      "content": {
+        "fr": "Ne cherchez pas d’abord les technologies. Cherchez les irritants.\n\nUn irritant métier est une tâche qui prend trop de temps, crée trop d’erreurs, bloque la décision ou fatigue les équipes.\n\nDans une organisation tunisienne, ces irritants peuvent être très concrets : dossiers papier encore nombreux, échanges dispersés par email ou messagerie, procédures mal documentées, reporting manuel, faible intégration entre outils, manque de visibilité sur les demandes internes, réponses client répétitives.\n\nL’IA devient pertinente quand elle aide à traiter un irritant réel.\n\nExemples d’irritants :\n\n- l’équipe RH reçoit les mêmes questions chaque semaine ;\n- la direction financière consolide des tableaux à la main ;\n- le service commercial perd du temps à reformuler des propositions ;\n- le support client lit de longs historiques avant de répondre ;\n- la qualité doit analyser des réclamations dispersées ;\n- les managers préparent des comptes rendus mais n’en tirent pas d’actions suivies ;\n- les enseignants ou formateurs corrigent des productions répétitives sans feedback rapide.\n\nUn bon exercice consiste à demander : **où perdons-nous du temps sans créer beaucoup de valeur ?**",
+        "en": "Do not start with technologies. Start with pain points.\n\nA business pain point is a task that takes too much time, creates too many errors, slows down decisions, or drains teams.\n\nIn a Tunisian organization, these pain points can be very concrete: paper-based files, exchanges spread across email or messaging apps, poorly documented procedures, manual reporting, weak integration between tools, low visibility on internal requests, and repetitive customer replies.\n\nAI becomes relevant when it helps address a real pain point.\n\nExamples of pain points:\n\n- the HR team receives the same questions every week;\n- the finance team consolidates spreadsheets manually;\n- the sales team spends time rewriting proposals;\n- customer support reads long histories before answering;\n- the quality team analyzes scattered complaints;\n- managers prepare meeting notes but do not extract follow-up actions;\n- trainers or teachers review repetitive work without fast feedback.\n\nA good exercise is to ask: **where do we lose time without creating much value?**"
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Irritant métier / Business pain point",
+        "section_context": "L’apprenant vient de comprendre qu’une opportunité IA part d’un irritant observable et non d’une envie d’utiliser un outil. Il doit formuler un problème concret.",
+        "question_type": "comprehension",
+        "difficulty": "beginner",
+        "hint": "Une bonne réponse décrit un irritant mesurable ou observable, puis le relie à un usage IA limité.",
+        "anti_gpt_instructions": "Présenter une équipe administrative avec retards, dossiers incomplets et demandes répétées. Demander à l’apprenant de choisir un seul irritant IA-candidat."
+      }
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "3. Les quatre familles d’opportunités IA",
+        "en": "3. Four families of AI opportunities"
+      },
+      "content": {
+        "fr": "Pour éviter de chercher au hasard, utilisez quatre familles simples.\n\n### 1. Produire et améliorer des contenus\n\nL’IA aide à rédiger, reformuler, adapter un ton, traduire, préparer une FAQ, simplifier un document ou générer une première version.\n\nExemples : email client, annonce interne, compte rendu, argumentaire commercial, support de formation, fiche procédure.\n\nCette famille convient souvent pour démarrer, car le risque peut être maîtrisé si les données sont non sensibles et si la relecture humaine est prévue.\n\n### 2. Résumer et structurer l’information\n\nL’IA aide à transformer des notes, emails, tickets, rapports ou documents longs en synthèses exploitables.\n\nExemples : synthèse de réunion, résumé de réclamations, regroupement de feedbacks, extraction de points d’action, analyse d’un rapport.\n\nAttention : la synthèse peut masquer une erreur. Vous devez demander à l’IA de signaler les informations incertaines et les points à vérifier.\n\n### 3. Assister la décision\n\nL’IA aide à comparer des options, construire une matrice, préparer des scénarios ou structurer une recommandation.\n\nExemples : prioriser des projets, comparer des fournisseurs, préparer un plan d’action, analyser les risques d’une initiative.\n\nIci, l’IA ne décide pas à la place du manager. Elle prépare la réflexion.\n\n### 4. Automatiser un processus simple\n\nL’IA peut s’intégrer dans un flux de travail : classifier une demande, orienter un ticket, préremplir une réponse, générer une alerte, extraire une information.\n\nExemples : tri de tickets support, qualification de leads, extraction de champs dans un document, génération d’une réponse standard.\n\nCette famille demande plus de prudence. Dès qu’un processus touche des clients, des employés, des décisions ou des données personnelles, il faut cadrer l’usage.",
+        "en": "To avoid searching randomly, use four simple families.\n\n### 1. Producing and improving content\n\nAI can help write, rephrase, adapt tone, translate, prepare a FAQ, simplify a document, or generate a first draft.\n\nExamples: customer email, internal announcement, meeting notes, sales pitch, training material, procedure sheet.\n\nThis is often a good starting point, because the risk can be managed when data is non-sensitive and human review is planned.\n\n### 2. Summarizing and structuring information\n\nAI can help turn notes, emails, tickets, reports, or long documents into usable summaries.\n\nExamples: meeting summary, complaint summary, feedback grouping, action-item extraction, report analysis.\n\nBe careful: a summary can hide an error. Ask the AI to flag uncertain information and points to verify.\n\n### 3. Supporting decisions\n\nAI can help compare options, build a matrix, prepare scenarios, or structure a recommendation.\n\nExamples: prioritizing projects, comparing suppliers, preparing an action plan, analyzing initiative risks.\n\nHere, AI does not decide for the manager. It prepares the thinking.\n\n### 4. Automating a simple process\n\nAI can be integrated into a workflow: classify a request, route a ticket, prefill a reply, generate an alert, or extract information.\n\nExamples: support-ticket triage, lead qualification, field extraction from a document, standard reply generation.\n\nThis family requires more caution. As soon as a process touches customers, employees, decisions, or personal data, the use case must be framed."
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Schéma clé — Prioriser une opportunité IA",
+        "en": "Key diagram — Prioritizing an AI opportunity"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 360\" xmlns=\"http://www.w3.org/2000/svg\"><defs><marker id=\"arr_lit_05\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/></marker></defs><rect x=\"0\" y=\"0\" width=\"780\" height=\"360\" fill=\"#F1EFE8\"/><text x=\"390\" y=\"62\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"20\">Key diagram — Prioritizing an AI opportunity</text><rect x=\"40\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\"/><text x=\"95\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Irritant</text><line x1=\"155\" y1=\"180\" x2=\"180\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_05)\"/><rect x=\"190\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\"/><text x=\"245\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Famille d’usage</text><line x1=\"305\" y1=\"180\" x2=\"330\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_05)\"/><rect x=\"340\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"395\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Valeur</text><line x1=\"455\" y1=\"180\" x2=\"480\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_05)\"/><rect x=\"490\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\"/><text x=\"545\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Risque</text><line x1=\"605\" y1=\"180\" x2=\"630\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_05)\"/><rect x=\"640\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"695\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Priorité</text><text x=\"390\" y=\"285\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"14\">Start from work reality, then add AI with control and measurable value.</text></svg>"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "4. La matrice valeur, faisabilité, risque",
+        "en": "4. The value, feasibility, risk matrix + 5. The Tunisian context changes how you choose"
+      },
+      "content": {
+        "fr": "Une organisation n’a pas besoin de lancer vingt projets IA. Elle doit choisir les bons premiers cas d’usage.\n\nUtilisez une matrice simple : **valeur, faisabilité, risque**.\n\n| Critère | Question à poser | Score simple |\n|---|---|---|\n| Valeur | Est-ce que ce cas réduit un vrai irritant ou crée un vrai gain ? | Faible / Moyen / Fort |\n| Faisabilité | Avons-nous les données, les outils, les compétences et le temps ? | Faible / Moyen / Fort |\n| Risque | Le cas touche-t-il des données sensibles, des décisions ou des obligations légales ? | Faible / Moyen / Fort |\n\nLe meilleur premier cas d’usage n’est pas toujours celui qui fait rêver. C’est souvent celui qui combine : **valeur forte, faisabilité moyenne à forte, risque maîtrisable**.\n\n❌ **Mauvais premier choix**  \n“Automatiser les décisions RH sensibles avec une IA publique.”\n\n✅ **Bon premier choix**  \n“Créer un assistant interne qui aide les RH à rédiger des réponses génériques aux questions fréquentes, à partir d’une FAQ validée, sans données nominatives.”\n\nLe deuxième cas a moins de prestige. Mais il est plus réaliste, plus sûr et plus facile à déployer.",
+        "en": "An organization does not need to launch twenty AI projects. It needs to choose the right first use cases.\n\nUse a simple matrix: **value, feasibility, risk**.\n\n| Criterion | Question to ask | Simple score |\n|---|---|---|\n| Value | Does this use case reduce a real pain point or create a real gain? | Low / Medium / High |\n| Feasibility | Do we have the data, tools, skills, and time? | Low / Medium / High |\n| Risk | Does the use case touch sensitive data, decisions, or legal obligations? | Low / Medium / High |\n\nThe best first use case is not always the most impressive one. It is often the one that combines **high value, medium to high feasibility, and manageable risk**.\n\n❌ **Poor first choice**  \n“Automate sensitive HR decisions with a public AI tool.”\n\n✅ **Better first choice**  \n“Create an internal assistant that helps HR write generic answers to frequently asked questions, based on a validated FAQ, without named personal data.”\n\nThe second case is less spectacular. But it is more realistic, safer, and easier to deploy.\n\n## 5. The Tunisian context changes how you choose\n\nIn Tunisia, many organizations are moving through digital transformation step by step. Maturity levels differ by sector, region, internal tools, data quality, and management culture.\n\nTunisia’s Digital Strategy 2021-2025 places digitalization at the heart of economic and social development, with areas such as digital governance, digital and financial inclusion, public-administration transformation, infrastructure, and emerging technologies.\n\nThis gives you a useful frame: AI should not be seen as an extra layer added to disorganized processes. It should fit into a wider effort to digitalize, simplify, and build skills.\n\nIn a Tunisian organization, ask three additional questions.\n\n1. **Is the process clear enough?**  \n   If the process is unclear, AI may accelerate disorder.\n\n2. **Is the data usable?**  \n   If data is scattered, incomplete, or not authorized for use, the use case must be simplified.\n\n3. **Will teams accept the use?**  \n   If employees see AI as a surveillance or replacement tool, the project can fail even when it is technically feasible.\n\nDigital transformation is social too. It affects trust, habits, skills, and ways of working."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Valeur, faisabilité, risque / Value, feasibility, risk",
+        "section_context": "L’apprenant vient d’apprendre à prioriser un cas d’usage par valeur, faisabilité et risque. Il doit arbitrer entre intérêt et prudence.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse compare au moins deux critères et justifie une décision.",
+        "anti_gpt_instructions": "Donner trois cas d’usage IA fictifs pour une PME tunisienne. Demander à l’apprenant de choisir lequel tester en premier et pourquoi."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "5. Le contexte tunisien change la manière de choisir",
+        "en": "6. Concrete case: HR department"
+      },
+      "content": {
+        "fr": "En Tunisie, beaucoup d’organisations vivent une transformation digitale progressive. Les niveaux de maturité diffèrent selon les secteurs, les régions, les outils internes, la qualité des données et la culture managériale.\n\nLa Stratégie digitale tunisienne 2021-2025 place la digitalisation au cœur du développement économique et social, avec des axes comme la gouvernance numérique, l’inclusion numérique et financière, la transformation de l’administration, l’infrastructure et les technologies émergentes.\n\nCela donne un cadre utile : l’IA ne doit pas être pensée comme une couche ajoutée à des processus désorganisés. Elle doit s’inscrire dans un effort plus large de digitalisation, de simplification et de montée en compétences.\n\nDans une organisation tunisienne, posez donc trois questions supplémentaires.\n\n1. **Le processus est-il assez clair ?**  \n   Si le processus est flou, l’IA risque d’accélérer le désordre.\n\n2. **Les données sont-elles utilisables ?**  \n   Si les données sont dispersées, incomplètes ou non autorisées, le cas d’usage doit être simplifié.\n\n3. **Les équipes accepteront-elles l’usage ?**  \n   Si les collaborateurs perçoivent l’IA comme un outil de surveillance ou de remplacement, le projet peut échouer même s’il est techniquement faisable.\n\nLa transformation digitale est aussi sociale. Elle touche la confiance, les habitudes, les compétences et la manière de travailler.",
+        "en": "Take an HR department in a service company.\n\n### Situation\n\nThe team receives many repetitive questions: leave, certificates, schedules, internal procedures, required documents. Answers are spread across emails and shared files.\n\n### Poor starting idea\n\n“Create an HR chatbot that answers everything.”\n\nThis is too broad. It hides several risks: wrong answers, personal data, unvalidated internal rules, and confusion between general information and individual cases.\n\n### Better framed use case\n\n“Create an internal HR assistant that answers only frequent questions about general procedures, based on an HR-validated FAQ, without handling individual cases.”\n\n### Quick assessment\n\n| Criterion | Analysis |\n|---|---|\n| Value | High: reduces repetitive questions |\n| Feasibility | Medium to high: requires a validated FAQ |\n| Risk | Medium: pay attention to personal data and individual situations |\n| Guardrail | General-procedure answers only, escalation to HR for personal cases |\n\nThis is a good candidate for a first AI project. It improves work without giving AI decision power."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "6. Cas concret : département RH",
+        "en": "7. Concrete case: finance department + 9. Key takeaways"
+      },
+      "content": {
+        "fr": "Prenons un département RH dans une entreprise de services.\n\n### Situation\n\nL’équipe reçoit beaucoup de questions répétitives : congés, attestations, horaires, procédures internes, documents à fournir. Les réponses sont dispersées dans des emails et des fichiers partagés.\n\n### Mauvaise idée de départ\n\n“Créer un chatbot RH qui répond à tout.”\n\nCette formulation est trop large. Elle cache plusieurs risques : réponses fausses, données personnelles, règles internes non validées, confusion entre information générale et situation individuelle.\n\n### Cas d’usage mieux cadré\n\n“Créer un assistant RH interne qui répond uniquement aux questions fréquentes sur les procédures générales, à partir d’une FAQ validée par les RH, sans traiter de situations individuelles.”\n\n### Évaluation rapide\n\n| Critère | Analyse |\n|---|---|\n| Valeur | Forte : réduit les questions répétitives |\n| Faisabilité | Moyenne à forte : il faut créer une FAQ validée |\n| Risque | Moyen : attention aux données personnelles et aux situations individuelles |\n| Garde-fou | Réponse limitée aux procédures générales, escalade vers RH pour les cas personnels |\n\nC’est un bon candidat pour un premier projet IA. Il améliore le travail sans donner à l’IA un pouvoir de décision.",
+        "en": "Take a finance department.\n\n### Situation\n\nEach month, the team prepares reporting from several spreadsheets. Comments are written manually. Major variances need explanations.\n\n### Poor starting idea\n\n“Ask ChatGPT to analyze our financial spreadsheets.”\n\nThis may expose confidential data if the tool is not approved. It may also produce wrong interpretations if accounting context is missing.\n\n### Better framed use case\n\n“Use an internal assistant or a secure environment to generate a first draft of monthly commentary from aggregated and anonymized data, with mandatory validation by the management controller.”\n\n### Quick assessment\n\n| Criterion | Analysis |\n|---|---|\n| Value | High: time savings and more consistent reporting |\n| Feasibility | Medium: data exists but needs preparation |\n| Risk | Medium to high: financial confidentiality |\n| Guardrail | Aggregated data, secure environment, human validation |\n\nThis case can be relevant, but it requires more control than the previous HR case.\n\n## 8. Your AI use-case sheet\n\nFor each AI opportunity, use a short sheet. It forces you to move from idea to framing.\n\n```text\nUse-case name:\nDepartment:\nBusiness problem:\nUsers:\nTask assisted by AI:\nData or documents needed:\nExpected benefit:\nMain risks:\nGuardrails:\nHuman validation needed: Yes / No / Depends\nFirst action in the next 30 days:\n```\n\nThis sheet is simple. That is its strength. It lets you compare several ideas without getting lost in technology talk.\n\nYou can use it in a workshop, a team meeting, or as the starting point for an AI roadmap.\n\n## 9. Key takeaways\n\nA good AI opportunity starts with a business problem, not with hype.\n\nStart by looking for pain points: delays, repetition, errors, overload, low visibility, long documents, and low-value tasks.\n\nThen assess ideas with three criteria: **value, feasibility, and risk**.\n\nIn the Tunisian context, also check process clarity, data quality, personal-data protection, and team acceptance.\n\nYour goal is not to find “the perfect AI project”. Your goal is to select a first use case that is useful, safe, and realistic."
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "7. Cas concret : direction financière",
+        "en": "Dynamic Ella checkpoint context"
+      },
+      "content": {
+        "fr": "Prenons une direction financière.\n\n### Situation\n\nChaque mois, l’équipe prépare un reporting à partir de plusieurs tableaux. Les commentaires sont rédigés manuellement. Les écarts importants doivent être expliqués.\n\n### Mauvaise idée de départ\n\n“Demander à ChatGPT d’analyser nos tableaux financiers.”\n\nCette idée peut exposer des données confidentielles si l’outil utilisé n’est pas validé. Elle peut aussi produire des interprétations fausses si le contexte comptable manque.\n\n### Cas d’usage mieux cadré\n\n“Utiliser un assistant interne ou un environnement sécurisé pour générer une première version de commentaire mensuel à partir de données agrégées et anonymisées, avec validation obligatoire par le contrôleur de gestion.”\n\n### Évaluation rapide\n\n| Critère | Analyse |\n|---|---|\n| Valeur | Forte : gain de temps et standardisation du reporting |\n| Faisabilité | Moyenne : données disponibles mais à préparer |\n| Risque | Moyen à élevé : confidentialité financière |\n| Garde-fou | Données agrégées, environnement sécurisé, validation humaine |\n\nCe cas peut être pertinent, mais il demande plus de contrôle que le cas RH précédent.",
+        "en": "### Pedagogical intent\n\nElla should check whether the learner can turn a vague AI idea into a framed business use case. The checkpoint should focus on a concrete department: HR, finance, sales, customer support, operations, training, quality, or administration.\n\n### What Ella should verify\n\nA good answer should include:\n\n- a precise business problem;\n- identified users;\n- a task assisted by AI;\n- data or documents needed;\n- an expected benefit;\n- at least one risk;\n- at least one guardrail;\n- some form of human validation when the case is sensitive.\n\n### Common mistakes to detect\n\n- The learner only proposes “using ChatGPT” without a business problem.\n- The use case is too broad: “automate the department”.\n- The required data is not mentioned.\n- Risks are ignored.\n- AI is given decision power without human control.\n- The learner proposes using personal data in a public AI tool.\n\n### Possible Socratic follow-ups\n\n- “Which precise business pain point do you want to address?”\n- “Who will use the result?”\n- “Which data will be needed?”\n- “What could go wrong?”\n- “Which human control should remain?”\n- “Can you reduce your idea to a first 30-day experiment?”\n\n### Validation criterion\n\nElla may validate if the learner formulates a concrete, realistic, limited use case, even if the wording is simple. Ella should not validate an answer that only talks about a tool or productivity without specifying the problem, data, and risks."
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "8. Votre fiche de cas d’usage IA + 9. À retenir",
+        "en": "References"
+      },
+      "content": {
+        "fr": "Pour chaque opportunité IA, utilisez une fiche courte. Elle oblige à passer de l’idée au cadrage.\n\n```text\nNom du cas d’usage :\nDépartement concerné :\nProblème métier :\nUtilisateurs :\nTâche assistée par l’IA :\nDonnées ou documents nécessaires :\nBénéfice attendu :\nRisques principaux :\nGarde-fous :\nValidation humaine nécessaire : Oui / Non / Selon le cas\nPremière action dans les 30 jours :\n```\n\nCette fiche est simple. C’est sa force. Elle permet de comparer plusieurs idées sans se perdre dans le discours technologique.\n\nVous pouvez l’utiliser en atelier, en réunion d’équipe ou comme base pour une feuille de route IA.\n\n## 9. À retenir\n\nUne bonne opportunité IA part d’un problème métier, pas d’un effet de mode.\n\nCherchez d’abord les irritants : lenteur, répétition, erreurs, surcharge, manque de visibilité, documents longs, tâches sans valeur ajoutée.\n\nClassez ensuite les idées avec trois critères : **valeur, faisabilité, risque**.\n\nDans le contexte tunisien, vérifiez aussi la clarté du processus, la qualité des données, la protection des données personnelles et l’acceptabilité par les équipes.\n\nVotre objectif n’est pas de trouver “le projet IA parfait”. Votre objectif est de choisir un premier cas d’usage utile, sûr et réalisable.",
+        "en": "1. Republic of Tunisia, Ministry of Communication Technologies. **Tunisia’s Digital Strategy 2021-2025**. Objectives related to digitalization, digital and financial inclusion, public-administration transformation, infrastructure, and emerging technologies. https://www.ticad8.tn/content/11/digital-tunisia\n2. Republic of Tunisia. **Organic Law No. 2004-63 of 27 July 2004 on the protection of personal data**. https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf\n3. NIST. **Artificial Intelligence Risk Management Framework (AI RMF 1.0)**, 2023. https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf\n4. NIST. **Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile**, NIST AI 600-1, 2024. https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf\n5. OECD. **OECD AI Principles**, adopted in 2019 and updated in 2024. https://www.oecd.org/en/topics/sub-issues/ai-principles.html\n6. European Commission. **AI literacy under Article 4 of the EU AI Act**. https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers"
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Mauvais cas d’usage / Poor use case",
+        "section_context": "L’apprenant vient de voir des exemples RH et finance. Il doit détecter un cas mal cadré : trop large, trop risqué ou sans bénéfice clair.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse identifie l’erreur de cadrage et propose une version plus limitée.",
+        "anti_gpt_instructions": "Présenter un cas d’usage qui promet d’automatiser toute une direction sans données ni utilisateurs clairs. Demander de le corriger en fiche courte."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous savez maintenant partir d’un irritant métier pour prioriser une opportunité IA. Le lab vous demande de construire une fiche courte de cas d’usage avec valeur, faisabilité, risque et acceptabilité.",
+        "en": "You can now start from a business pain point to prioritize an AI opportunity. The lab asks you to build a short use-case sheet with value, feasibility, risk, and acceptability."
+      },
+      "next_url": "/courses/ai-literacy-digital-transformation/labs/04_ai_opportunity_canvas_lab"
+    }
+  ]
+}

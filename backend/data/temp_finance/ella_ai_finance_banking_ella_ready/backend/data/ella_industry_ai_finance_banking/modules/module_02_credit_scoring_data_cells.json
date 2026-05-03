@@ -1,0 +1,151 @@
+{
+  "module_id": "02_credit_scoring_data",
+  "title": {
+    "fr": "Les données du scoring crédit",
+    "en": "Credit Scoring Data"
+  },
+  "description": {
+    "fr": "Identifier les familles de données, les variables acceptables, les risques de biais et les contrôles de qualité nécessaires.",
+    "en": "Identify data families, acceptable variables, bias risks, and the data-quality controls required for credit scoring."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Leçon 2 — Les données du scoring crédit",
+        "en": "Lesson 2 — Credit Scoring Data"
+      },
+      "content": {
+        "fr": "# Leçon 2 — Les données du scoring crédit\n\n## Objectif de la leçon\n\nDans un modèle de scoring crédit, les données font une grande partie du travail. Avant de parler d’algorithme, vous devez savoir quelles données vous utilisez, pourquoi vous les utilises, et quel risque elles créent.\n\nÀ la fin de cette leçon, vous serez capable de :\n\n1. identifier les grandes familles de données utilisées dans un score crédit ;\n2. distinguer une variable utile d’une variable dangereuse ;\n3. repérer les problèmes de qualité, de biais et de conformité ;\n4. préparer une première fiche de données pour un projet de scoring.\n\n---",
+        "en": "# Lesson 2 — Credit Scoring Data\n\n## Lesson objective\n\nIn a credit scoring model, data does much of the work. Before you talk about algorithms, you need to know which data you use, why you use it, and what risk it creates.\n\nBy the end of this lesson, you will be able to:\n\n1. identify the main data families used in credit scoring;\n2. distinguish a useful variable from a risky variable;\n3. detect data quality, bias, and compliance issues;\n4. prepare a first data sheet for a scoring project.\n\n---"
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "1. Le modèle apprend ce que les données lui montrent",
+        "en": "1. The model learns what the data shows"
+      },
+      "content": {
+        "fr": "## 1. Le modèle apprend ce que les données lui montrent\n\nUn modèle de scoring crédit ne “comprend” pas un client comme un chargé d’affaires. Il apprend des relations statistiques à partir d’exemples passés.\n\nSi les données passées sont propres, pertinentes et bien contrôlées, le modèle peut aider à mieux estimer le risque. Si les données sont incomplètes, biaisées ou mal définies, le modèle peut amplifier les erreurs existantes.\n\nGarde cette règle simple : **un modèle de scoring ne répare pas une mauvaise donnée. Il l’exploite.**\n\n❌ **Erreur fréquente**  \nPenser que XGBoost, un réseau de neurones ou un grand modèle IA corrigera automatiquement les défauts du dataset.\n\n✅ **Bonne approche**  \nCommencezr par auditer les données : source, fraîcheur, qualité, autorisation d’usage, sens métier, risques de biais et traçabilité.\n\n---",
+        "en": "## 1. The model learns what the data shows\n\nA credit scoring model does not “understand” a customer the way a relationship manager does. It learns statistical relationships from past examples.\n\nIf past data is clean, relevant, and controlled, the model can help estimate risk. If the data is incomplete, biased, or poorly defined, the model can amplify existing errors.\n\nKeep this rule in mind: **a scoring model does not fix bad data. It uses it.**\n\n❌ **Common mistake**  \nAssuming that XGBoost, a neural network, or a large AI model will automatically correct dataset weaknesses.\n\n✅ **Better approach**  \nStart by auditing the data: source, freshness, quality, authorization of use, business meaning, bias risks, and traceability.\n\n---"
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Familles de données crédit / Credit data families",
+        "section_context": "L'apprenant vient d'étudier les familles de données : KYC, données financières, comportement bancaire, historique de crédit et garanties. Il doit distinguer leur utilité et leurs risques. / The learner has studied KYC, financial, behavioral, credit-history, and collateral data.",
+        "question_type": "comprehension",
+        "difficulty": "beginner",
+        "hint": "Une bonne réponse cite au moins trois familles et explique leur lien avec le risque crédit. / A good answer names at least three families and explains their link to credit risk.",
+        "anti_gpt_instructions": "Décrire un dossier client fictif avec cinq variables concrètes et demander à l'apprenant de les rattacher à des familles de données."
+      }
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "2. Les principales familles de données",
+        "en": "2. The main data families"
+      },
+      "content": {
+        "fr": "## 2. Les principales familles de données\n\nDans un projet de scoring crédit, vous pouvez rencontrer plusieurs familles de données.\n\n### Données d’identification et KYC\n\nElles permettent de connaître le client : type de client, situation professionnelle, secteur d’activité, ancienneté de la relation, statut du dossier, documents fournis.\n\nAttention : ces données peuvent contenir des informations personnelles. En Tunisie, la loi organique n°2004-63 encadre la protection des données à caractère personnel. Elle reconnaît cette protection comme un droit fondamental.\n\n### Données financières\n\nElles décrivent la capacité financière du client : revenus déclarés, chiffre d’affaires, charges, endettement, stabilité des flux, épargne, incidents de paiement, encours existants.\n\nCes données sont souvent très utiles. Mais elles doivent être définies avec précision. Par exemple, “revenu mensuel” ne veut pas dire la même chose pour un salarié, un commerçant, un freelance ou une entreprise.\n\n### Données de comportement bancaire\n\nElles décrivent l’usage réel du compte : régularité des entrées, fréquence des découverts, rejets de paiement, solde moyen, saisonnalité, évolution des flux.\n\nCes signaux peuvent être puissants. Mais ils doivent rester interprétables. Un comportement atypique n’est pas toujours un mauvais comportement. Un commerçant, un agriculteur et un salarié n’ont pas le même rythme financier.\n\n### Données de crédit passées\n\nElles concernent l’historique de remboursement : retards, restructurations, défauts, régularisations, garanties activées, ancienneté des engagements.\n\nElles sont centrales pour le risque crédit. La circulaire BCT n°2022-01 insiste sur la prévention et la résolution des créances non performantes, avec des dispositifs d’alerte précoce et de traitement proactif.\n\n### Données de garanties\n\nElles décrivent la couverture du risque : caution, hypothèque, nantissement, garantie institutionnelle, valeur estimée, qualité juridique et liquidité.\n\nNe confonds pas garantie et capacité de remboursement. Une garantie réduit la perte potentielle, mais elle ne transforme pas automatiquement un mauvais dossier en bon risque.\n\n---",
+        "en": "## 2. The main data families\n\nIn a credit scoring project, you may encounter several data families.\n\n### Identification and KYC data\n\nThis data helps identify the customer: customer type, professional situation, business sector, relationship history, file status, and documents provided.\n\nBe careful: this data may contain personal information. In Tunisia, Organic Law No. 2004-63 governs the protection of personal data and recognizes it as a fundamental right.\n\n### Financial data\n\nThis data describes the customer’s financial capacity: declared income, turnover, expenses, debt level, cash-flow stability, savings, payment incidents, and current exposures.\n\nThis data is often useful. But it must be defined with precision. For example, “monthly income” does not mean the same thing for an employee, a shop owner, a freelancer, or a company.\n\n### Banking behavior data\n\nThis data describes actual account usage: regularity of inflows, frequency of overdrafts, rejected payments, average balance, seasonality, and cash-flow evolution.\n\nThese signals can be powerful. But they must remain interpretable. Unusual behavior is not always bad behavior. A shop owner, a farmer, and an employee do not have the same financial rhythm.\n\n### Past credit data\n\nThis data concerns repayment history: delays, restructurings, defaults, regularizations, guarantees used, and exposure history.\n\nIt is central to credit risk. BCT Circular No. 2022-01 emphasizes the prevention and resolution of non-performing loans through early warning systems and proactive treatment.\n\n### Collateral data\n\nThis data describes risk coverage: guarantee, mortgage, pledge, institutional guarantee, estimated value, legal quality, and liquidity.\n\nDo not confuse collateral with repayment capacity. Collateral can reduce potential loss, but it does not automatically turn a weak credit file into a good risk.\n\n---"
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Schéma clé — Les données du scoring crédit",
+        "en": "Key diagram — Credit Scoring Data"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 360\" xmlns=\"http://www.w3.org/2000/svg\"><defs><marker id=\"arr_02\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/></marker></defs><rect x=\"0\" y=\"0\" width=\"780\" height=\"360\" rx=\"8\" fill=\"#F1EFE8\"/><rect x=\"45\" y=\"90\" width=\"150\" height=\"65\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\"/><text x=\"120\" y=\"128\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"15\">KYC</text><rect x=\"45\" y=\"205\" width=\"150\" height=\"65\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\"/><text x=\"120\" y=\"243\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"15\">Financial data</text><rect x=\"245\" y=\"145\" width=\"180\" height=\"75\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\"/><text x=\"335\" y=\"174\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"15\">Quality + legality</text><text x=\"335\" y=\"197\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"12\">traceability • bias • consent</text><rect x=\"480\" y=\"145\" width=\"190\" height=\"75\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"575\" y=\"174\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"15\">Approved features</text><text x=\"575\" y=\"197\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"12\">useful • explainable • defensible</text><line x1=\"195\" y1=\"123\" x2=\"245\" y2=\"165\" stroke=\"#5F5E5A\" marker-end=\"url(#arr_02)\"/><line x1=\"195\" y1=\"238\" x2=\"245\" y2=\"198\" stroke=\"#5F5E5A\" marker-end=\"url(#arr_02)\"/><line x1=\"425\" y1=\"183\" x2=\"480\" y2=\"183\" stroke=\"#5F5E5A\" marker-end=\"url(#arr_02)\"/><rect x=\"245\" y=\"270\" width=\"425\" height=\"42\" rx=\"8\" fill=\"#FFFFFF\" stroke=\"#5F5E5A\"/><text x=\"458\" y=\"296\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"14\">A scoring model cannot repair bad data.</text></svg>"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "3. Toutes les variables utiles ne sont pas acceptables",
+        "en": "3. Not every useful variable is acceptable"
+      },
+      "content": {
+        "fr": "## 3. Toutes les variables utiles ne sont pas acceptables\n\nUne variable peut être prédictive et poser problème.\n\nImagine qu’un modèle découvre qu’un quartier, une profession ou un type d’appareil mobile prédit fortement le risque. Faut-il utiliser cette variable ? Pas automatiquement.\n\nVous devez poser trois questions :\n\n1. **La variable est-elle légitime pour la décision ?**\n2. **La variable risque-t-elle de produire une discrimination indirecte ?**\n3. **La variable peut-elle être expliquée au client, au comité risque et à l’audit ?**\n\nDans l’Union européenne, l’AI Act classe les systèmes utilisés pour évaluer la solvabilité ou établir le score de crédit de personnes physiques comme systèmes à haut risque. Même si votre contexte est tunisien, cette logique est utile : le scoring crédit touche l’accès aux ressources financières et doit être traité avec prudence.\n\n---",
+        "en": "## 3. Not every useful variable is acceptable\n\nA variable can be predictive and still problematic.\n\nImagine that a model discovers that a district, a profession, or a mobile-phone type strongly predicts risk. Should you use that variable? Not automatically.\n\nAsk three questions:\n\n1. **Is the variable legitimate for the decision?**\n2. **Could it create indirect discrimination?**\n3. **Can it be explained to the customer, the risk committee, and audit?**\n\nIn the European Union, the AI Act treats systems used to evaluate the creditworthiness or credit score of natural persons as high-risk AI systems. Even in a Tunisian context, this logic is useful: credit scoring affects access to financial resources and must be treated with care.\n\n---"
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Variables acceptables / Acceptable variables",
+        "section_context": "L'apprenant a vu qu'une variable prédictive peut rester dangereuse si elle sert de proxy social, si elle manque de justification métier ou si son usage n'est pas autorisé. / The learner has seen that a predictive variable can still be risky when it acts as a proxy or lacks lawful business justification.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse distingue utilité prédictive, acceptabilité, explicabilité et autorisation d'usage. / A good answer separates predictive value, acceptability, explainability, and authorization.",
+        "anti_gpt_instructions": "Fournir une liste de variables qui inclut revenu, solde moyen, gouvernorat et type de téléphone. Demander une classification avec justification contextualisée."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "4. La qualité des données doit être mesurée",
+        "en": "4. Data quality must be measured"
+      },
+      "content": {
+        "fr": "## 4. La qualité des données doit être mesurée\n\nNe dis jamais : “les données sont bonnes”. Prouve-le.\n\nPour un dataset de scoring, vérifie au minimum :\n\n| Contrôle | Question à poser |\n|---|---|\n| Complétude | Combien de valeurs sont manquantes ? |\n| Fraîcheur | Les données sont-elles récentes ? |\n| Cohérence | Les revenus, charges et encours sont-ils compatibles ? |\n| Stabilité | Les variables gardent-elles le même sens dans le temps ? |\n| Traçabilité | Sait-on d’où vient chaque donnée ? |\n| Autorisation d’usage | A-t-on le droit d’utiliser cette donnée pour ce cas ? |\n| Sens métier | La variable a-t-elle une logique financière compréhensible ? |\n\nUn bon modèle commencez par cette discipline. Le Basel Committee rappelle que la gestion du risque crédit repose sur un environnement adapté, un processus sain d’octroi, une mesure et un suivi du risque, et des contrôles suffisants.\n\n---",
+        "en": "## 4. Data quality must be measured\n\nNever say: “the data is good.” Prove it.\n\nFor a scoring dataset, check at least:\n\n| Control | Question to ask |\n|---|---|\n| Completeness | How many values are missing? |\n| Freshness | Is the data recent? |\n| Consistency | Are income, expenses, and exposures compatible? |\n| Stability | Do variables keep the same meaning over time? |\n| Traceability | Do we know where each data point comes from? |\n| Authorization of use | Are we allowed to use this data for this case? |\n| Business meaning | Does the variable make financial sense? |\n\nA good model starts with this discipline. The Basel Committee states that credit risk management relies on a sound credit risk environment, a sound credit-granting process, appropriate risk measurement and monitoring, and adequate controls.\n\n---"
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "5. Mini-cas : dossier de crédit personnel",
+        "en": "5. Mini-case: personal loan application"
+      },
+      "content": {
+        "fr": "## 5. Mini-cas : dossier de crédit personnel\n\nVoici un exemple simple.\n\nUn client demande un crédit personnel. Vous avez les données suivantes :\n\n| Variable | Exemple | Commentaire |\n|---|---:|---|\n| Revenu mensuel net | 2 400 DT | Utile, mais à vérifier |\n| Ancienneté professionnelle | 18 mois | Utile pour stabilité |\n| Charges mensuelles | 1 100 DT | Utile pour capacité restante |\n| Incidents de paiement 12 mois | 2 | Signal de risque |\n| Solde moyen 6 mois | 350 DT | Signal de liquidité |\n| Canal de demande | Mobile app | À utiliser avec prudence |\n| Gouvernorat | Tunis | Variable sensible si elle sert de proxy social |\n| Type de téléphone | Modèle récent | Risque de variable proxy, faible légitimité |\n\nVotre mission de praticien n’est pas de tout jeter dans un modèle. Votre mission est de sélectionner les variables qui ont du sens, qui sont autorisées, qui sont explicables et qui servent réellement l’analyse du risque.\n\n❌ **Mauvaise pratique**  \nUtiliser toutes les variables disponibles parce qu’elles améliorent l’AUC.\n\n✅ **Bonne pratique**  \nConstruire une liste de variables candidates, justifier leur usage, supprimer les variables faibles ou dangereuses, puis documenter les choix.\n\n---",
+        "en": "## 5. Mini-case: personal loan application\n\nHere is a simple example.\n\nA customer applies for a personal loan. You have the following data:\n\n| Variable | Example | Comment |\n|---|---:|---|\n| Net monthly income | 2,400 TND | Useful, but must be verified |\n| Employment seniority | 18 months | Useful for stability |\n| Monthly expenses | 1,100 TND | Useful for remaining capacity |\n| Payment incidents in 12 months | 2 | Risk signal |\n| Average balance over 6 months | 350 TND | Liquidity signal |\n| Application channel | Mobile app | Use with caution |\n| Governorate | Tunis | Sensitive if used as a social proxy |\n| Phone type | Recent model | Proxy risk, weak legitimacy |\n\nYour job as a practitioner is not to throw everything into a model. Your job is to select variables that make sense, are authorized, are explainable, and truly support risk analysis.\n\n❌ **Poor practice**  \nUsing every available variable because it improves AUC.\n\n✅ **Good practice**  \nBuild a list of candidate variables, justify their use, remove weak or risky variables, then document your choices.\n\n---"
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "6. Ce que vous devez retenir",
+        "en": "6. What you should remember"
+      },
+      "content": {
+        "fr": "## 6. Ce que vous devez retenir\n\nAvant de construire un modèle de scoring, commencez par les données.\n\nPosez-vous toujours ces cinq questions :\n\n1. **D’où vient la donnée ?**\n2. **A-t-on le droit de l’utiliser ?**\n3. **Que veut-elle dire métier ?**\n4. **Peut-elle créer un biais ou une exclusion injustifiée ?**\n5. **Peut-on expliquer son rôle dans la décision ?**\n\nSi vous ne pouvez pas répondre, la variable n’est pas prête pour un modèle de scoring crédit.\n\n---\n\n## Références\n\n1. Banque Centrale de Tunisie, **Circulaire aux banques et aux établissements financiers n°2021-05 du 19 août 2021 — Cadre de gouvernance des banques et des établissements financiers**.  \n   https://www.cbf.org.tn/wp-content/uploads/2023/01/05-Circulaire-aux-banques-et-aux-etablissements-financiers-n%C2%B02021-05-du-19-Aout-2021.pdf\n\n2. Banque Centrale de Tunisie, **Circulaire aux banques et aux établissements financiers n°2022-01 du 1er mars 2022 — Prévention et résolution des créances non performantes**.  \n   https://www.cbf.org.tn/wp-content/uploads/2023/01/01-Circulaire-aux-banques-et-aux-etablissements-financiers-n%C2%B02022-01-du-01-Mars-2022.pdf\n\n3. République Tunisienne, **Loi organique n°2004-63 du 27 juillet 2004 portant sur la protection des données à caractère personnel**.  \n   https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf\n\n4. Basel Committee on Banking Supervision, **Principles for the management of credit risk**, Bank for International Settlements, 2025.  \n   https://www.bis.org/bcbs/publ/d595.pdf\n\n5. NIST, **Artificial Intelligence Risk Management Framework (AI RMF 1.0)**, 2023.  \n   https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf\n\n6. European Banking Authority, **AI Act: implications for the EU banking and payments sector**, 2025.  \n   https://www.eba.europa.eu/sites/default/files/2025-11/d8b999ce-a1d9-4964-9606-971bbc2aaf89/AI%20Act%20implications%20for%20the%20EU%20banking%20sector.pdf",
+        "en": "## 6. What you should remember\n\nBefore building a scoring model, start with the data.\n\nAlways ask these five questions:\n\n1. **Where does the data come from?**\n2. **Are we allowed to use it?**\n3. **What does it mean in business terms?**\n4. **Could it create bias or unfair exclusion?**\n5. **Can its role in the decision be explained?**\n\nIf you cannot answer, the variable is not ready for a credit scoring model.\n\n---\n\n## References\n\n1. Central Bank of Tunisia, **Circular to Banks and Financial Institutions No. 2021-05 of 19 August 2021 — Governance framework for banks and financial institutions**.  \n   https://www.cbf.org.tn/wp-content/uploads/2023/01/05-Circulaire-aux-banques-et-aux-etablissements-financiers-n%C2%B02021-05-du-19-Aout-2021.pdf\n\n2. Central Bank of Tunisia, **Circular to Banks and Financial Institutions No. 2022-01 of 1 March 2022 — Prevention and resolution of non-performing loans**.  \n   https://www.cbf.org.tn/wp-content/uploads/2023/01/01-Circulaire-aux-banques-et-aux-etablissements-financiers-n%C2%B02022-01-du-01-Mars-2022.pdf\n\n3. Republic of Tunisia, **Organic Law No. 2004-63 of 27 July 2004 on the protection of personal data**.  \n   https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf\n\n4. Basel Committee on Banking Supervision, **Principles for the management of credit risk**, Bank for International Settlements, 2025.  \n   https://www.bis.org/bcbs/publ/d595.pdf\n\n5. NIST, **Artificial Intelligence Risk Management Framework (AI RMF 1.0)**, 2023.  \n   https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf\n\n6. European Banking Authority, **AI Act: implications for the EU banking and payments sector**, 2025.  \n   https://www.eba.europa.eu/sites/default/files/2025-11/d8b999ce-a1d9-4964-9606-971bbc2aaf89/AI%20Act%20implications%20for%20the%20EU%20banking%20sector.pdf"
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Dataset mal préparé / Flawed dataset",
+        "section_context": "L'apprenant a étudié les contrôles de qualité : complétude, fraîcheur, cohérence, traçabilité, stabilité et mesure des valeurs manquantes. / The learner has studied quality controls such as completeness, freshness, consistency, traceability, stability, and missing-value checks.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse identifie les risques de qualité, de biais, de traçabilité et de conformité. / A good answer identifies quality, bias, traceability, and compliance risks.",
+        "anti_gpt_instructions": "Présenter une data card volontairement incomplète pour un scoring crédit fictif. Demander à l'apprenant de trouver trois failles et une mesure de correction par faille."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous avez maintenant structuré l'essentiel du module « Les données du scoring crédit ». Le lab qui suit vous demande d'appliquer ces concepts dans une situation financière concrète, avec un raisonnement défendable pour une équipe risque, conformité ou innovation.",
+        "en": "You have now structured the core ideas of “Credit Scoring Data”. The next lab asks you to apply these concepts to a concrete financial situation, with reasoning that a risk, compliance, or innovation team can defend."
+      },
+      "next_url": "/courses/ai-finance-banking/labs/02_credit_scoring_data_lab"
+    }
+  ]
+}

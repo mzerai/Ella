@@ -1,0 +1,51 @@
+{
+  "lab_id": "03_credit_scoring_models_lab",
+  "course_id": "ella_industry_ai_finance_banking",
+  "title": {
+    "fr": "Lab 3 — Justifier le choix d’un modèle de scoring",
+    "en": "Lab 3 — Justify a Scoring Model Choice"
+  },
+  "description": {
+    "fr": "Vous rédigez une note de choix modèle pour un comité risque ou conformité.",
+    "en": "You write a model-choice memo for a risk or compliance committee."
+  },
+  "concept": {
+    "fr": "Baseline, modèles d’arbres, Gradient Boosting, explicabilité, calibration, monitoring et documentation.",
+    "en": "Baseline, tree models, Gradient Boosting, explainability, calibration, monitoring, and documentation."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "justify_credit_scoring_model_choice",
+      "title": {
+        "fr": "Rédiger une note de choix modèle",
+        "en": "Write a model-choice memo"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Votre équipe compare une régression logistique, un arbre de décision et un Gradient Boosting pour un scoring crédit. Rédigez une recommandation courte qui explique le modèle retenu, les modèles rejetés, les critères de comparaison et les contrôles nécessaires avant tout pilote. Votre note doit pouvoir être lue par un responsable risque.",
+        "en": "Your team compares logistic regression, a decision tree, and Gradient Boosting for credit scoring. Write a short recommendation that explains the selected model, the rejected models, the comparison criteria, and the controls required before any pilot. Your memo must be readable by a risk owner."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par la baseline ; elle sert de point de comparaison.",
+          "en": "Start with the baseline; it provides the comparison point."
+        },
+        {
+          "fr": "Ne choisissez pas seulement la meilleure métrique technique.",
+          "en": "Do not choose only the best technical metric."
+        },
+        {
+          "fr": "Mentionnez explicabilité, calibration, stabilité et capacité de monitoring.",
+          "en": "Mention explainability, calibration, stability, and monitoring capacity."
+        },
+        {
+          "fr": "Formulez la décision comme une recommandation défendable, pas comme une préférence technique.",
+          "en": "Frame the decision as a defensible recommendation, not as a technical preference."
+        }
+      ]
+    }
+  ]
+}

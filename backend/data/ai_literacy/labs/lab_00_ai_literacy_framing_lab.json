@@ -1,0 +1,51 @@
+{
+  "lab_id": "00_ai_literacy_framing_lab",
+  "course_id": "ella_foundation_ai_literacy_digital_transformation",
+  "title": {
+    "fr": "Lab 0 — Cadrer un usage IA utile et responsable",
+    "en": "Lab 0 — Frame a Useful and Responsible AI Use"
+  },
+  "description": {
+    "fr": "L’apprenant relie l’IA à un besoin professionnel concret et identifie les premières limites d’usage.",
+    "en": "The learner connects AI to a concrete professional need and identifies the first usage limits."
+  },
+  "concept": {
+    "fr": "Culture IA, valeur métier, confidentialité, contrôle humain, transformation digitale.",
+    "en": "AI literacy, business value, confidentiality, human oversight, digital transformation."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "frame_responsible_ai_use",
+      "title": {
+        "fr": "Cadrer une première situation d’usage IA",
+        "en": "Frame a first AI use situation"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Choisissez une situation réelle dans votre département où l’IA pourrait vous aider. Décrivez le problème métier, le type de livrable attendu, les données à ne pas exposer, et la manière dont un humain vérifierait le résultat avant usage. Votre réponse doit rester concrète et limitée à un seul usage.",
+        "en": "Choose a real situation in your department where AI could help. Describe the business problem, the expected deliverable, the data that must not be exposed, and how a human would check the output before use. Keep your answer concrete and limited to one use."
+      },
+      "hints": [
+        {
+          "fr": "Commencez par un problème précis, pas par le nom d’un outil.",
+          "en": "Start with a precise problem, not with the name of a tool."
+        },
+        {
+          "fr": "Distinguez les informations partageables des informations confidentielles.",
+          "en": "Separate shareable information from confidential information."
+        },
+        {
+          "fr": "Expliquez qui vérifie le résultat et sur quels critères.",
+          "en": "Explain who checks the output and against which criteria."
+        },
+        {
+          "fr": "Ajoutez un bénéfice mesurable ou observable pour l’équipe.",
+          "en": "Add one measurable or observable benefit for the team."
+        }
+      ]
+    }
+  ]
+}

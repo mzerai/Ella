@@ -1,0 +1,51 @@
+{
+  "lab_id": "04_ai_opportunity_canvas_lab",
+  "course_id": "ella_foundation_ai_literacy_digital_transformation",
+  "title": {
+    "fr": "Lab 4 — Prioriser une opportunité IA dans votre département",
+    "en": "Lab 4 — Prioritize an AI Opportunity in Your Department"
+  },
+  "description": {
+    "fr": "L’apprenant transforme un irritant métier en cas d’usage IA priorisé.",
+    "en": "The learner turns a business pain point into a prioritized AI use case."
+  },
+  "concept": {
+    "fr": "Irritant métier, famille d’usage IA, valeur, faisabilité, risque, acceptabilité.",
+    "en": "Business pain point, AI use-case family, value, feasibility, risk, acceptability."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "prioritize_department_ai_use_case",
+      "title": {
+        "fr": "Construire une fiche courte de cas d’usage IA",
+        "en": "Build a short AI use-case sheet"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Identifiez un irritant réel dans un département : RH, finance, support, marketing, pédagogie, administration ou relation client. Transformez-le en cas d’usage IA précis. Évaluez-le avec quatre critères : valeur, faisabilité, risque et acceptabilité. Concluez par une décision : tester maintenant, préparer plus tard, ou rejeter.",
+        "en": "Identify a real pain point in a department: HR, finance, support, marketing, teaching, administration, or customer relations. Turn it into a precise AI use case. Evaluate it with four criteria: value, feasibility, risk, and acceptability. Conclude with a decision: test now, prepare later, or reject."
+      },
+      "hints": [
+        {
+          "fr": "L’irritant doit être observable : délai, erreur, volume, répétition ou frustration.",
+          "en": "The pain point must be observable: delay, error, volume, repetition, or frustration."
+        },
+        {
+          "fr": "Le cas d’usage doit produire un livrable ou soutenir une décision.",
+          "en": "The use case must produce a deliverable or support a decision."
+        },
+        {
+          "fr": "Un cas à forte valeur peut rester mauvais si le risque est trop élevé.",
+          "en": "A high-value case may still be poor if the risk is too high."
+        },
+        {
+          "fr": "L’acceptabilité dépend des utilisateurs, des règles et du contrôle humain.",
+          "en": "Acceptability depends on users, rules, and human oversight."
+        }
+      ]
+    }
+  ]
+}

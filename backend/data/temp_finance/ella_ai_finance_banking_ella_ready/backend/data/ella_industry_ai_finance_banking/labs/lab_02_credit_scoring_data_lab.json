@@ -1,0 +1,51 @@
+{
+  "lab_id": "02_credit_scoring_data_lab",
+  "course_id": "ella_industry_ai_finance_banking",
+  "title": {
+    "fr": "Lab 2 — Construire une data card de scoring crédit",
+    "en": "Lab 2 — Build a Credit Scoring Data Card"
+  },
+  "description": {
+    "fr": "Vous spécifiez les données d’un projet de scoring crédit avant tout choix de modèle.",
+    "en": "You specify the data for a credit scoring project before any model choice."
+  },
+  "concept": {
+    "fr": "Familles de données, variables acceptables, qualité, biais, traçabilité et conformité.",
+    "en": "Data families, acceptable variables, quality, bias, traceability, and compliance."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "build_credit_scoring_data_card",
+      "title": {
+        "fr": "Rédiger la data card du projet",
+        "en": "Write the project data card"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate-advanced",
+      "instructions": {
+        "fr": "Vous préparez un modèle de scoring crédit pour une institution financière. Rédigez une data card courte avec les familles de données, les variables candidates, les variables à exclure ou à justifier fortement, les contrôles de qualité et les risques de biais ou de conformité. Votre réponse doit montrer que vous ne choisissezsez pas les variables seulement parce qu’elles améliorent la performance.",
+        "en": "You are preparing a credit scoring model for a financial institution. Write a short data card with data families, candidate variables, variables to exclude or strongly justify, quality controls, and bias or compliance risks. Your answer must show that you do not choose variables only because they improve performance."
+      },
+      "hints": [
+        {
+          "fr": "Classez les variables par famille : KYC, financières, comportementales, historique crédit, garanties.",
+          "en": "Classify variables by family: KYC, financial, behavioral, credit history, collateral."
+        },
+        {
+          "fr": "Pour chaque variable sensible, demandez : utile, autorisée, explicable, proportionnée ?",
+          "en": "For each sensitive variable, ask: useful, authorized, explainable, proportionate?"
+        },
+        {
+          "fr": "Incluez des contrôles mesurables : valeurs manquantes, fraîcheur, cohérence, stabilité.",
+          "en": "Include measurable controls: missing values, freshness, consistency, stability."
+        },
+        {
+          "fr": "Signalez les variables proxy qui peuvent créer un risque d’équité.",
+          "en": "Flag proxy variables that may create fairness risk."
+        }
+      ]
+    }
+  ]
+}

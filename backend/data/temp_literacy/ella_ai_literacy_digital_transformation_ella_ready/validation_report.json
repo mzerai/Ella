@@ -1,0 +1,88 @@
+{
+  "course_id": "ella_foundation_ai_literacy_digital_transformation",
+  "status": "valid",
+  "generated_at": "2026-05-01",
+  "source_zip": "ella_ai_literacy_digital_transformation_lesson6_v2_2026_context.zip",
+  "modules_count": 7,
+  "labs_count": 7,
+  "modules": [
+    {
+      "module_id": "00_course_positioning",
+      "content_cells": 8,
+      "checkpoints": 3,
+      "diagrams": 1,
+      "gates": 1,
+      "last_cell": "ella_gate",
+      "module_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/modules/module_00_course_positioning_cells.json",
+      "lab_id": "00_ai_literacy_framing_lab",
+      "lab_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/labs/lab_00_ai_literacy_framing_lab.json"
+    },
+    {
+      "module_id": "01_understand_ai_without_jargon",
+      "content_cells": 8,
+      "checkpoints": 3,
+      "diagrams": 1,
+      "gates": 1,
+      "last_cell": "ella_gate",
+      "module_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/modules/module_01_understand_ai_without_jargon_cells.json",
+      "lab_id": "01_explain_ai_without_jargon_lab",
+      "lab_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/labs/lab_01_explain_ai_without_jargon_lab.json"
+    },
+    {
+      "module_id": "02_daily_generative_ai_work",
+      "content_cells": 8,
+      "checkpoints": 3,
+      "diagrams": 1,
+      "gates": 1,
+      "last_cell": "ella_gate",
+      "module_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/modules/module_02_daily_generative_ai_work_cells.json",
+      "lab_id": "02_daily_ai_use_control_lab",
+      "lab_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/labs/lab_02_daily_ai_use_control_lab.json"
+    },
+    {
+      "module_id": "03_practical_prompting_business_work",
+      "content_cells": 8,
+      "checkpoints": 3,
+      "diagrams": 1,
+      "gates": 1,
+      "last_cell": "ella_gate",
+      "module_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/modules/module_03_practical_prompting_business_work_cells.json",
+      "lab_id": "03_prompting_business_brief_lab",
+      "lab_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/labs/lab_03_prompting_business_brief_lab.json"
+    },
+    {
+      "module_id": "04_identify_ai_opportunities_department",
+      "content_cells": 8,
+      "checkpoints": 3,
+      "diagrams": 1,
+      "gates": 1,
+      "last_cell": "ella_gate",
+      "module_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/modules/module_04_identify_ai_opportunities_department_cells.json",
+      "lab_id": "04_ai_opportunity_canvas_lab",
+      "lab_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/labs/lab_04_ai_opportunity_canvas_lab.json"
+    },
+    {
+      "module_id": "05_risks_ethics_data_responsible_use",
+      "content_cells": 8,
+      "checkpoints": 3,
+      "diagrams": 1,
+      "gates": 1,
+      "last_cell": "ella_gate",
+      "module_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/modules/module_05_risks_ethics_data_responsible_use_cells.json",
+      "lab_id": "05_responsible_ai_use_lab",
+      "lab_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/labs/lab_05_responsible_ai_use_lab.json"
+    },
+    {
+      "module_id": "06_from_individual_use_to_digital_transformation",
+      "content_cells": 8,
+      "checkpoints": 3,
+      "diagrams": 1,
+      "gates": 1,
+      "last_cell": "ella_gate",
+      "module_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/modules/module_06_from_individual_use_to_digital_transformation_cells.json",
+      "lab_id": "06_digital_transformation_roadmap_lab",
+      "lab_file": "backend/data/ella_foundation_ai_literacy_digital_transformation/labs/lab_06_digital_transformation_roadmap_lab.json"
+    }
+  ],
+  "errors": []
+}

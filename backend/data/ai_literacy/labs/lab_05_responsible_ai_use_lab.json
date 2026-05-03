@@ -1,0 +1,51 @@
+{
+  "lab_id": "05_responsible_ai_use_lab",
+  "course_id": "ella_foundation_ai_literacy_digital_transformation",
+  "title": {
+    "fr": "Lab 5 — Classer les risques et poser des garde-fous",
+    "en": "Lab 5 — Classify Risks and Set Guardrails"
+  },
+  "description": {
+    "fr": "L’apprenant évalue un usage IA sensible et propose des garde-fous.",
+    "en": "The learner evaluates a sensitive AI use and proposes guardrails."
+  },
+  "concept": {
+    "fr": "Confidentialité, hallucination, biais, non-conformité, données personnelles, feu vert/orange/rouge.",
+    "en": "Confidentiality, hallucination, bias, non-compliance, personal data, green/orange/red rule."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "classify_sensitive_ai_use_risks",
+      "title": {
+        "fr": "Analyser un usage IA sensible",
+        "en": "Analyze a sensitive AI use"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Choisissez ou imaginez un usage IA sensible dans une organisation tunisienne : RH, finance, étudiants, clients, dossiers administratifs ou réclamations. Classez l’usage en feu vert, feu orange ou feu rouge. Justifiez votre choix avec les risques de données, d’erreur, de biais et de responsabilité. Proposez trois garde-fous réalistes.",
+        "en": "Choose or imagine a sensitive AI use in a Tunisian organization: HR, finance, students, customers, administrative files, or complaints. Classify the use as green, orange, or red. Justify your choice with data, error, bias, and responsibility risks. Propose three realistic guardrails."
+      },
+      "hints": [
+        {
+          "fr": "Cherchez d’abord s’il y a des données personnelles ou confidentielles.",
+          "en": "First check whether personal or confidential data is involved."
+        },
+        {
+          "fr": "Un outil public augmente le niveau de prudence.",
+          "en": "A public tool raises the required caution level."
+        },
+        {
+          "fr": "Un garde-fou doit changer la manière d’utiliser l’outil, pas seulement rappeler une intention.",
+          "en": "A guardrail must change how the tool is used, not just state an intention."
+        },
+        {
+          "fr": "La décision finale doit rester attribuée à une personne ou à une procédure.",
+          "en": "The final decision must remain assigned to a person or procedure."
+        }
+      ]
+    }
+  ]
+}

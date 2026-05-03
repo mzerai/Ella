@@ -1,0 +1,163 @@
+{
+  "module_id": "06_from_individual_use_to_digital_transformation",
+  "title": {
+    "fr": "De l'usage individuel à la transformation digitale",
+    "en": "From Individual Use to Digital Transformation"
+  },
+  "description": {
+    "fr": "Vous savez maintenant utiliser l'IA avec plus de méthode.",
+    "en": "You now know how to use AI with more method."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Objectif de la leçon + 1. La transformation digitale ne commence pas par un outil",
+        "en": "Lesson objective + 1. Digital transformation does not start with a tool"
+      },
+      "content": {
+        "fr": "Vous savez maintenant utiliser l'IA avec plus de méthode. Vous savez aussi repérer les risques.\n\nLa dernière étape est plus ambitieuse : passer d'un usage personnel à une transformation utile pour votre équipe, votre département ou votre organisation.\n\nCette leçon vous montre comment transformer une idée IA en mini-feuille de route. Vous n'allez pas produire une stratégie complète. Vous allez apprendre à cadrer une première action réaliste, mesurable et responsable.\n\n## 1. La transformation digitale ne commence pas par un outil\n\nBeaucoup d'organisations commencent par la mauvaise question :\n\n> Quel outil IA devons-nous acheter ?\n\nLa bonne question vient avant :\n\n> Quel problème métier voulons-nous mieux traiter ?\n\nUn outil IA peut rédiger, résumer, classer, chercher, assister, contrôler ou recommander. Mais il ne doit pas définir le problème à votre place.\n\nDans une organisation tunisienne en 2026, cette discipline est encore plus importante. Le pays entre dans une nouvelle phase de transformation numérique portée par le plan de développement 2026-2030, avec une priorité donnée à la digitalisation complète de l'administration, à l'interopérabilité, à l'open data, à l'intelligence artificielle, à la cybersécurité et à l'expérience usager.\n\nPour une entreprise ou une institution, cela crée une attente claire : les projets IA doivent améliorer des services réels, simplifier les procédures, protéger les données et produire des résultats mesurables. Un projet IA utile doit donc partir d'un irritant concret, pas d'une démonstration séduisante.",
+        "en": "You now know how to use AI with more method. You also know how to spot risks.\n\nThe last step is more ambitious: move from personal use to useful transformation for your team, department, or organization.\n\nThis lesson shows you how to turn an AI idea into a mini-roadmap. You will not produce a full strategy. You will learn how to frame a first action that is realistic, measurable, and responsible.\n\n## 1. Digital transformation does not start with a tool\n\nMany organizations start with the wrong question:\n\n> Which AI tool should we buy?\n\nThe right question comes first:\n\n> Which business problem do we want to handle better?\n\nAn AI tool can write, summarize, classify, search, assist, check, or recommend. But it should not define the problem for you.\n\nIn a Tunisian organization in 2026, this discipline matters even more. The country is entering a new phase of digital transformation under the 2026-2030 development plan, with priority given to full administrative digitalization, interoperability, open data, artificial intelligence, cybersecurity, and user experience.\n\nFor a company or institution, this creates a clear expectation: AI projects should improve real services, simplify procedures, protect data, and produce measurable results. A useful AI project must therefore start from a concrete pain point, not from an impressive demonstration."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "2. Du gain individuel au gain collectif",
+        "en": "2. From individual gain to collective gain + 3. The four levels of AI adoption"
+      },
+      "content": {
+        "fr": "L'usage individuel de l'IA est simple à observer.\n\nVous gagnez du temps pour :\n\n- rédiger un email ;\n- structurer une note ;\n- préparer une réunion ;\n- résumer un document ;\n- reformuler une présentation.\n\nC'est utile. Mais ce n'est pas encore une transformation.\n\nLa transformation commence quand l'usage devient collectif, stable et intégré à un processus.\n\nExemple :\n\n- **Usage individuel** : un collaborateur utilise l'IA pour résumer des réclamations client.\n- **Usage collectif** : le département support met en place une méthode commune pour classer les réclamations, repérer les thèmes fréquents, générer une synthèse hebdomadaire et décider des actions correctives.\n- **Transformation** : la direction suit les irritants client dans un tableau de bord, corrige les processus et mesure la baisse des réclamations.\n\nL'IA n'est alors plus un gadget. Elle devient un levier de pilotage.",
+        "en": "Individual AI use is easy to observe.\n\nYou save time when you:\n\n- draft an email;\n- structure a memo;\n- prepare a meeting;\n- summarize a document;\n- reformulate a presentation.\n\nThis is useful. But it is not yet transformation.\n\nTransformation starts when the use becomes collective, stable, and integrated into a process.\n\nExample:\n\n- **Individual use**: one employee uses AI to summarize customer complaints.\n- **Collective use**: the support department sets a shared method to classify complaints, identify frequent themes, generate a weekly summary, and decide corrective actions.\n- **Transformation**: management tracks customer pain points in a dashboard, corrects processes, and measures the reduction in complaints.\n\nAI is no longer a gadget. It becomes a management lever.\n\n## 3. The four levels of AI adoption\n\nUse this simple scale to locate your organization.\n\n| Level | Description | Example |\n|---|---|---|\n| 1. Curiosity | People test AI without a shared method | \"I asked ChatGPT to rewrite a text.\" |\n| 2. Individual productivity | Employees use AI to save time | Summary, email, plan, translation, preparation |\n| 3. Improved process | A department integrates AI into a business routine | Complaint analysis, HR support, reporting |\n| 4. Governed transformation | The organization governs, measures, and secures AI uses | Use-case portfolio, rules, KPIs, controls |\n\nYour goal in this course is not to jump directly to level 4.  \nYour goal is to propose a credible move from level 1 or 2 to level 3."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Adoption IA collective / Collective AI adoption",
+        "section_context": "L’apprenant vient de voir que la transformation digitale commence par un problème métier et par des pratiques partagées. Il doit distinguer gain individuel et gain collectif.",
+        "question_type": "comprehension",
+        "difficulty": "beginner",
+        "hint": "Une bonne réponse explique le passage d’une pratique personnelle à une pratique d’équipe mesurée.",
+        "anti_gpt_instructions": "Décrire trois salariés qui utilisent l’IA chacun à leur manière. Demander ce qu’il faut standardiser pour obtenir une valeur collective."
+      }
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "3. Les quatre niveaux d'adoption IA",
+        "en": "4. Choose a responsible first use case"
+      },
+      "content": {
+        "fr": "Pour situer votre organisation, utilisez cette échelle simple.\n\n| Niveau | Description | Exemple |\n|---|---|---|\n| 1. Curiosité | Les personnes testent l'IA sans méthode commune | \"J'ai demandé à ChatGPT de reformuler un texte.\" |\n| 2. Productivité individuelle | Les collaborateurs utilisent l'IA pour gagner du temps | Synthèse, email, plan, traduction, préparation |\n| 3. Processus amélioré | Un département intègre l'IA dans une routine métier | Analyse de réclamations, support RH, reporting |\n| 4. Transformation pilotée | L'organisation gouverne, mesure et sécurise les usages | Portefeuille de cas d'usage, règles, KPIs, contrôle |\n\nVotre objectif dans ce cours n'est pas de sauter directement au niveau 4.  \nVotre objectif est de savoir proposer un passage crédible du niveau 1 ou 2 vers le niveau 3.",
+        "en": "A good first use case is not necessarily the most impressive one. It brings together four conditions:\n\n1. **A clear problem**  \n   The need is concrete and observable.\n\n2. **Accessible and acceptable data**  \n   The data exists, has sufficient quality, and can be used without excessive risk.\n\n3. **Measurable value**  \n   You can measure time saved, quality, delay, satisfaction, or error reduction.\n\n4. **Manageable risk**  \n   The use can be tested with a limited scope, human control, and clear rules.\n\n### ❌ Poor first project\n\n> \"Create an AI that automates all HR decisions.\"\n\nToo broad, too risky, too sensitive.\n\n### ✅ Better first project\n\n> \"Create an internal assistant that helps managers prepare an annual review outline from a validated template, without named personal data and with mandatory human review.\"\n\nThe scope is clearer. The risk is easier to manage. The value can be tested."
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Schéma clé — Du gain individuel au pilote mesuré",
+        "en": "Key diagram — From individual gain to measured pilot"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 360\" xmlns=\"http://www.w3.org/2000/svg\"><defs><marker id=\"arr_lit_07\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/></marker></defs><rect x=\"0\" y=\"0\" width=\"780\" height=\"360\" fill=\"#F1EFE8\"/><text x=\"390\" y=\"62\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"20\">Key diagram — From individual gain to measured pilot</text><rect x=\"40\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\"/><text x=\"95\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Usage individuel</text><line x1=\"155\" y1=\"180\" x2=\"180\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_07)\"/><rect x=\"190\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\"/><text x=\"245\" y=\"172\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Pratique</text><text x=\"245\" y=\"190\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">d’équipe</text><line x1=\"305\" y1=\"180\" x2=\"330\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_07)\"/><rect x=\"340\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"395\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Pilote mesuré</text><line x1=\"455\" y1=\"180\" x2=\"480\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_07)\"/><rect x=\"490\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\"/><text x=\"545\" y=\"172\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Gouvernance</text><text x=\"545\" y=\"190\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">légère</text><line x1=\"605\" y1=\"180\" x2=\"630\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_07)\"/><rect x=\"640\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"695\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Transformation</text><text x=\"390\" y=\"285\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"14\">Start from work reality, then add AI with control and measurable value.</text></svg>"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "4. Choisir un premier cas d'usage responsable",
+        "en": "5. The AI mini-roadmap"
+      },
+      "content": {
+        "fr": "Un bon premier cas d'usage n'est pas forcément le plus impressionnant. C'est celui qui réunit quatre conditions :\n\n1. **Un problème clair**  \n   Le besoin est concret et observable.\n\n2. **Des données accessibles et acceptables**  \n   Les données existent, sont de qualité suffisante et peuvent être utilisées sans risque excessif.\n\n3. **Une valeur mesurable**  \n   Vous pouvez mesurer le gain de temps, la qualité, le délai, la satisfaction ou la réduction d'erreurs.\n\n4. **Un risque maîtrisable**  \n   L'usage peut être testé avec un périmètre limité, un contrôle humain et des règles claires.\n\n### ❌ Mauvaise idée de premier projet\n\n> \"Créer une IA qui automatise toutes les décisions RH.\"\n\nTrop large, trop risqué, trop sensible.\n\n### ✅ Meilleure idée de premier projet\n\n> \"Créer un assistant interne qui aide les managers à préparer une trame d'entretien annuel à partir d'une grille validée, sans données nominatives et avec relecture obligatoire.\"\n\nLe périmètre est plus clair. Le risque est plus maîtrisable. La valeur peut être testée.",
+        "en": "Your mini-roadmap should fit on one page. It should allow a manager, business owner, or project team to understand the idea without a long meeting.\n\nUse this structure.\n\n### 1. Business problem\n\nWhich pain point do you want to reduce?\n\nExamples:\n\n- too much time spent writing meeting minutes;\n- customer complaints are poorly classified;\n- internal procedures are hard to find;\n- manual reporting is too slow;\n- HR documents are inconsistent;\n- commercial answers vary too much.\n\n### 2. AI use case\n\nWhat will AI do concretely?\n\nExample:\n\n> AI will help the support team classify customer complaints by theme, urgency, and recommended action type.\n\n### 3. Users\n\nWho will use the system?\n\n- employees;\n- managers;\n- support team;\n- HR;\n- finance;\n- sales;\n- students;\n- customers;\n- partners.\n\n### 4. Required data\n\nWhat data will be used?\n\nAlso indicate its sensitivity level:\n\n- public;\n- internal;\n- confidential;\n- personal;\n- sensitive.\n\n### 5. Expected benefits\n\nChoose two or three benefits maximum:\n\n- reduce delay;\n- improve quality;\n- reduce errors;\n- standardize answers;\n- make information easier to access;\n- improve activity monitoring.\n\n### 6. Risks and guardrails\n\nState the main risks and protection rules.\n\nExamples:\n\n- anonymization;\n- approved tool;\n- human review;\n- limited access;\n- logging;\n- no automatic decision;\n- legal or compliance review when needed.\n\n### 7. First action in 30 days\n\nA credible roadmap ends with a short action.\n\nExamples:\n\n- map 20 recurring requests;\n- collect 10 non-sensitive documents;\n- test 5 prompts with a pilot team;\n- define an evaluation grid;\n- measure time saved on one task."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Mini-feuille de route / Mini-roadmap",
+        "section_context": "L’apprenant vient d’étudier les composantes d’une mini-feuille de route IA : problème, cas d’usage, utilisateurs, données, bénéfices, risques, garde-fous et action 30 jours.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse couvre les composantes clés sans élargir le projet au-delà d’un pilote.",
+        "anti_gpt_instructions": "Donner un département fictif avec un irritant précis et demander à l’apprenant de proposer une mini-feuille de route de pilote."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "5. La mini-feuille de route IA",
+        "en": "6. Concrete case: administrative service in a Tunisian organization"
+      },
+      "content": {
+        "fr": "Votre mini-feuille de route doit tenir sur une page. Elle doit permettre à un manager, un responsable métier ou une équipe projet de comprendre l'idée sans réunion interminable.\n\nUtilisez cette structure.\n\n### 1. Problème métier\n\nQuel irritant voulez-vous réduire ?\n\nExemples :\n\n- trop de temps passé à rédiger des comptes rendus ;\n- réclamations client mal classées ;\n- procédures internes difficiles à trouver ;\n- reporting manuel trop lent ;\n- documents RH peu homogènes ;\n- réponses commerciales incohérentes.\n\n### 2. Cas d'usage IA\n\nQue fera l'IA concrètement ?\n\nExemple :\n\n> L'IA aidera l'équipe support à classer les réclamations client par thème, urgence et type d'action recommandée.\n\n### 3. Utilisateurs\n\nQui utilisera le système ?\n\n- collaborateurs ;\n- managers ;\n- équipe support ;\n- RH ;\n- finance ;\n- commercial ;\n- étudiants ;\n- clients ;\n- partenaires.\n\n### 4. Données nécessaires\n\nQuelles données seront utilisées ?\n\nIndiquez aussi leur niveau de sensibilité :\n\n- publiques ;\n- internes ;\n- confidentielles ;\n- personnelles ;\n- sensibles.\n\n### 5. Bénéfices attendus\n\nChoisissez deux ou trois bénéfices maximum :\n\n- réduire le délai ;\n- améliorer la qualité ;\n- diminuer les erreurs ;\n- standardiser les réponses ;\n- faciliter l'accès à l'information ;\n- mieux piloter une activité.\n\n### 6. Risques et garde-fous\n\nIndiquez les risques principaux et les règles de protection.\n\nExemples :\n\n- anonymisation ;\n- outil validé ;\n- relecture humaine ;\n- accès limité ;\n- journalisation ;\n- interdiction de décision automatique ;\n- validation juridique ou conformité si nécessaire.\n\n### 7. Première action dans les 30 jours\n\nUne feuille de route crédible se termine par une action courte.\n\nExemples :\n\n- cartographier 20 demandes récurrentes ;\n- collecter 10 documents non sensibles ;\n- tester 5 prompts avec une équipe pilote ;\n- définir une grille d'évaluation ;\n- mesurer le temps gagné sur une tâche.",
+        "en": "Imagine an administrative service that receives dozens of internal requests every week: certificates, supporting documents, procedures, deadlines, missing documents, errors in forms.\n\nThe problem is not only volume. The problem often comes from scattered information, repeated answers, and processing delays.\n\n### Possible AI use case\n\nCreate an internal assistant that helps employees find the right procedure and prepare a complete request.\n\n### Required data\n\n- validated internal procedures;\n- request templates;\n- FAQ;\n- processing rules;\n- indicative deadlines;\n- useful contacts.\n\n### Guardrails\n\n- no personal data in initial tests;\n- answers based on validated documents;\n- clear statement when information is missing;\n- escalation to a human for ambiguous cases;\n- regular update of the knowledge base.\n\n### Measurable benefits\n\n- fewer incomplete requests;\n- shorter response time;\n- better employee satisfaction;\n- fewer interruptions for administrative teams.\n\nThis case is intentionally simple. That is often the best starting point."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "6. Cas concret : service administratif dans une organisation tunisienne",
+        "en": "7. Measure before scaling + Key takeaways"
+      },
+      "content": {
+        "fr": "Imaginez un service administratif qui reçoit chaque semaine des dizaines de demandes internes : attestations, justificatifs, procédures, délais, documents manquants, erreurs dans les formulaires.\n\nLe problème n'est pas seulement le volume. Le problème vient souvent de la dispersion de l'information, des réponses répétitives et des délais de traitement.\n\n### Cas d'usage IA possible\n\nCréer un assistant interne qui aide les collaborateurs à trouver la bonne procédure et à préparer une demande complète.\n\n### Données nécessaires\n\n- procédures internes validées ;\n- modèles de demandes ;\n- FAQ ;\n- règles de traitement ;\n- délais indicatifs ;\n- contacts utiles.\n\n### Garde-fous\n\n- pas de données personnelles dans les tests initiaux ;\n- réponses fondées sur des documents validés ;\n- mention claire si l'information manque ;\n- escalade vers un humain pour les cas ambigus ;\n- mise à jour régulière de la base documentaire.\n\n### Bénéfices mesurables\n\n- baisse des demandes incomplètes ;\n- réduction du temps de réponse ;\n- meilleure satisfaction des collaborateurs ;\n- moins d'interruptions pour les équipes administratives.\n\nCe cas est volontairement simple. C'est souvent le meilleur point de départ.",
+        "en": "An AI project should not be scaled because it looks impressive in a demo. It should be scaled because it delivers measurable results.\n\nChoose 3 to 5 indicators.\n\nExamples:\n\n| Objective | Indicator |\n|---|---|\n| Save time | Average time before/after |\n| Improve quality | Rate of complete documents |\n| Reduce errors | Number of detected errors |\n| Improve satisfaction | User satisfaction score |\n| Reduce support load | Number of repetitive requests |\n\nThe NIST AI Risk Management Framework reminds us that AI risk management must be structured around governance, mapping, measurement, and management. This logic helps you avoid separating performance from responsibility.\n\n## 8. Govern without blocking\n\nAI governance should not feel like a brake. It helps accelerate good uses and avoid dangerous ones.\n\nA simple governance approach can start with five rules:\n\n1. Sensitive AI uses must be declared.\n2. Personal data must not be copied into unapproved public tools.\n3. Important decisions require human validation.\n4. AI outputs must be reviewed before distribution.\n5. Use cases must be assessed with value, risk, and feasibility criteria.\n\nThis approach reflects the spirit of AI literacy: people who use AI must understand capabilities, limits, and risks in their context of use.\n\n## 9. Your final deliverable\n\nAt the end of this course, you will prepare an AI mini-roadmap for your department.\n\nIt must answer seven questions:\n\n1. Which business problem do you want to address?\n2. Which AI use case do you propose?\n3. Who will use the solution?\n4. What data will be used?\n5. Which benefits do you want to measure?\n6. Which risks do you need to control?\n7. Which first action can you launch in the next 30 days?\n\nYour deliverable does not need to be spectacular. It must be clear, useful, and responsible.\n\n## Key takeaways\n\nDigital transformation does not start with the tool. It starts with a well-framed problem.\n\nAI becomes useful when it improves a real process, respects people, protects data, and remains measurable.\n\nYour role is not to promise a revolution. Your role is to propose a credible first step."
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "7. Mesurer avant de généraliser + 8. Gouverner sans bloquer",
+        "en": "Ella checkpoint context"
+      },
+      "content": {
+        "fr": "Un projet IA ne doit pas être généralisé parce qu'il impressionne en démonstration. Il doit être généralisé parce qu'il donne des résultats mesurables.\n\nChoisissez 3 à 5 indicateurs.\n\nExemples :\n\n| Objectif | Indicateur |\n|---|---|\n| Gagner du temps | Temps moyen avant/après |\n| Améliorer la qualité | Taux de documents complets |\n| Réduire les erreurs | Nombre d'erreurs détectées |\n| Améliorer la satisfaction | Score de satisfaction utilisateur |\n| Réduire la charge support | Nombre de demandes répétitives |\n\nLe NIST AI Risk Management Framework rappelle que la gestion du risque IA doit être structurée autour de la gouvernance, de la cartographie, de la mesure et du traitement des risques. Cette logique vous aide à ne pas séparer performance et responsabilité.\n\n## 8. Gouverner sans bloquer\n\nLa gouvernance IA ne doit pas être vécue comme un frein. Elle sert à accélérer les bons usages et à éviter les usages dangereux.\n\nUne gouvernance simple peut commencer avec cinq règles :\n\n1. Les usages IA sensibles doivent être déclarés.\n2. Les données personnelles ne doivent pas être copiées dans des outils publics non validés.\n3. Les décisions importantes gardent une validation humaine.\n4. Les résultats IA doivent être relus avant diffusion.\n5. Les cas d'usage doivent être évalués avec des critères de valeur, risque et faisabilité.\n\nCette approche rejoint l'esprit de l'AI literacy : les personnes qui utilisent l'IA doivent comprendre les capacités, les limites et les risques dans leur contexte d'usage.",
+        "en": "### Pedagogical intent\n\nElla should verify that the learner can move from a general AI idea to a structured, realistic, and responsible use case.\n\nThe checkpoint should directly prepare the final lab.\n\n### Suggested situation for dynamic checkpoint generation\n\nAsk the learner to choose a problem in their department or in a department proposed by Ella: HR, finance, marketing, customer support, operations, administration, education, IT.\n\nElla asks the learner to formulate:\n\n- the business problem;\n- the AI use case;\n- the users;\n- the required data;\n- two measurable benefits;\n- two risks;\n- two guardrails;\n- one first action in the next 30 days.\n\n### What a good answer should contain\n\nA good answer must be concrete. It must describe a limited, testable, and useful use.\n\nIt should also mention data, risks, and human control when the use touches internal or personal information.\n\n### Common mistakes to detect\n\n- Proposing a tool without a clear problem.\n- Writing an objective that is too broad, such as \"digitalize the whole department.\"\n- Forgetting the required data.\n- Forgetting risks.\n- Promising full automation when controlled assistance is enough.\n- Proposing a benefit that cannot be measured.\n\n### Possible Socratic follow-ups\n\n- \"Which precise pain point do you want to reduce?\"\n- \"Who will use this solution every day?\"\n- \"What data must you provide to the AI?\"\n- \"How will you know the project succeeded?\"\n- \"Which part must remain under human control?\"\n- \"Which action can you launch in the next 30 days?\"\n\n### Validation criteria\n\nElla can validate if the learner:\n\n- formulates a precise business problem;\n- proposes a limited and useful AI use case;\n- identifies users and data;\n- proposes at least two measurable benefits;\n- identifies risks and guardrails;\n- defines a realistic first action."
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "9. Votre livrable final + À retenir",
+        "en": "Transition to the final lab + References"
+      },
+      "content": {
+        "fr": "À la fin de ce cours, vous allez préparer une mini-feuille de route IA pour votre département.\n\nElle doit répondre à sept questions :\n\n1. Quel problème métier voulez-vous traiter ?\n2. Quel cas d'usage IA proposez-vous ?\n3. Qui utilisera la solution ?\n4. Quelles données seront utilisées ?\n5. Quels bénéfices voulez-vous mesurer ?\n6. Quels risques devez-vous contrôler ?\n7. Quelle première action pouvez-vous lancer dans les 30 jours ?\n\nVotre livrable n'a pas besoin d'être spectaculaire. Il doit être clair, utile et responsable.\n\n## À retenir\n\nLa transformation digitale ne commence pas par l'outil. Elle commence par un problème bien formulé.\n\nL'IA devient utile quand elle améliore un processus réel, respecte les personnes, protège les données et reste mesurable.\n\nVotre rôle n'est pas de promettre une révolution. Votre rôle est de proposer un premier pas crédible.",
+        "en": "You are ready for the final lab.\n\nYour mission will be to build an AI mini-roadmap for a real or simulated department.\n\nYou will need to show that you can use AI as a lever for measurable, responsible transformation adapted to your professional context.\n\n## References\n\n1. Presidency of the Government, Tunisia. **2026 as the effective start of full administrative digitalization**. February 13, 2026.  \n   https://pm.gov.tn/fr/decision-gouvernementale/zenzri-lors-dun-conseil-ministeriel-2026-annee-du-demarrage-effectif-de-la\n\n2. Presidency of the Government, Tunisia. **Ministerial council on digital transformation, open data, and artificial intelligence**.  \n   https://pm.gov.tn/fr/detail-decision/2875\n\n3. Republic of Tunisia. **Organic Law No. 2004-63 of July 27, 2004, on the protection of personal data**.  \n   https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf\n\n4. National Institute of Standards and Technology. **Artificial Intelligence Risk Management Framework (AI RMF 1.0)**. NIST AI 100-1, 2023.  \n   https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf\n\n5. National Institute of Standards and Technology. **Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile**. NIST AI 600-1, 2024.  \n   https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf\n\n6. OECD. **OECD AI Principles**. Adopted in 2019, updated in 2024.  \n   https://www.oecd.org/en/topics/sub-issues/ai-principles.html\n\n7. European Union. **Artificial Intelligence Act, Article 4 — AI literacy**.  \n   https://artificialintelligenceact.eu/article/4/"
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Gouverner sans bloquer / Govern without blocking",
+        "section_context": "L’apprenant vient de voir qu’un pilote IA doit être mesuré et gouverné sans étouffer l’expérimentation. Il doit repérer une gouvernance excessive ou absente.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse propose quelques règles simples, des KPI et une responsabilité claire.",
+        "anti_gpt_instructions": "Présenter deux approches extrêmes : laisser tout le monde utiliser n’importe quel outil ou bloquer tout usage IA. Demander à l’apprenant de proposer une voie équilibrée."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous savez maintenant passer d’un usage individuel à un pilote IA mesuré, gouverné et utile pour l’équipe. Le lab final vous demande de construire une mini-feuille de route IA responsable.",
+        "en": "You can now move from individual use to a measured, governed AI pilot that helps the team. The final lab asks you to build a responsible AI mini-roadmap."
+      },
+      "next_url": "/courses/ai-literacy-digital-transformation/labs/06_digital_transformation_roadmap_lab"
+    }
+  ]
+}

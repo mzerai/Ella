@@ -1,0 +1,51 @@
+{
+  "lab_id": "06_digital_transformation_roadmap_lab",
+  "course_id": "ella_foundation_ai_literacy_digital_transformation",
+  "title": {
+    "fr": "Lab final — Mini-feuille de route IA responsable",
+    "en": "Final Lab — Responsible AI Mini-Roadmap"
+  },
+  "description": {
+    "fr": "L’apprenant produit une mini-feuille de route pour passer d’un usage individuel à un pilote IA d’équipe.",
+    "en": "The learner produces a mini-roadmap to move from individual use to a team AI pilot."
+  },
+  "concept": {
+    "fr": "Transformation digitale, adoption IA, cas d’usage, données, bénéfices, risques, KPI, gouvernance.",
+    "en": "Digital transformation, AI adoption, use case, data, benefits, risks, KPIs, governance."
+  },
+  "target_score": 16,
+  "max_score": 20,
+  "missions": [
+    {
+      "mission_id": "build_responsible_ai_mini_roadmap",
+      "title": {
+        "fr": "Construire une mini-feuille de route IA",
+        "en": "Build an AI mini-roadmap"
+      },
+      "audience": "enterprise",
+      "difficulty": "advanced",
+      "instructions": {
+        "fr": "Construisez une mini-feuille de route IA pour votre équipe ou un département fictif proche de votre réalité. Votre livrable doit couvrir : problème métier, cas d’usage IA, utilisateurs, données nécessaires, bénéfices attendus, risques et garde-fous, indicateurs de mesure, gouvernance légère, et première action dans les 30 jours. Le périmètre doit rester réaliste pour un pilote.",
+        "en": "Build an AI mini-roadmap for your team or a fictional department close to your reality. Your deliverable must cover: business problem, AI use case, users, required data, expected benefits, risks and guardrails, measurement indicators, light governance, and first action within 30 days. Keep the scope realistic for a pilot."
+      },
+      "hints": [
+        {
+          "fr": "Un pilote utile commence par un problème métier limité.",
+          "en": "A useful pilot starts from a limited business problem."
+        },
+        {
+          "fr": "Les données nécessaires doivent être accessibles, légitimes et minimisées.",
+          "en": "Required data must be accessible, legitimate, and minimized."
+        },
+        {
+          "fr": "Les KPI doivent mesurer un changement de travail, pas seulement l’usage de l’outil.",
+          "en": "KPIs must measure a change in work, not just tool usage."
+        },
+        {
+          "fr": "La gouvernance doit protéger sans bloquer l’expérimentation.",
+          "en": "Governance must protect without blocking experimentation."
+        }
+      ]
+    }
+  ]
+}

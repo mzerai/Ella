@@ -1,0 +1,163 @@
+{
+  "module_id": "01_understand_ai_without_jargon",
+  "title": {
+    "fr": "Comprendre l’IA sans jargon inutile",
+    "en": "Understanding AI Without Unnecessary Jargon"
+  },
+  "description": {
+    "fr": "À la fin de cette leçon, vous devez pouvoir expliquer simplement ce qu’est l’IA, la différence entre automatisation, machine learning et IA générative, et pourquoi un outil IA peut produire une réponse utile un jour puis une réponse faible ",
+    "en": "By the end of this lesson, you should be able to explain what AI is in simple terms, distinguish automation, machine learning, and generative AI, and understand why an AI tool can produce a useful answer one day and a weak answer the next."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Objectif de la leçon",
+        "en": "Lesson objective + AI is not “an intelligent computer”"
+      },
+      "content": {
+        "fr": "À la fin de cette leçon, vous devez pouvoir expliquer simplement ce qu’est l’IA, la différence entre automatisation, machine learning et IA générative, et pourquoi un outil IA peut produire une réponse utile un jour puis une réponse faible le lendemain.\n\nVous n’avez pas besoin de retenir des définitions académiques. Vous devez surtout acquérir les bons réflexes pour travailler avec l’IA dans votre métier : savoir ce que vous pouvez lui demander, ce que vous devez vérifier, et quand vous devez garder la main.",
+        "en": "By the end of this lesson, you should be able to explain what AI is in simple terms, distinguish automation, machine learning, and generative AI, and understand why an AI tool can produce a useful answer one day and a weak answer the next.\n\nYou do not need to memorize academic definitions. You need practical reflexes for using AI at work: what you can ask it to do, what you must check, and when you must keep human control.\n\n## AI is not “an intelligent computer”\n\nLet us remove a dangerous idea first: AI does not think like a person. It does not automatically understand your organization like a colleague. It does not know your internal rules, legal constraints, customers, priorities, or organizational culture unless those elements are provided in a controlled way.\n\nAn AI system processes data, identifies patterns, produces predictions, classifies information, generates text, or proposes likely answers based on its training and the context you give it.\n\nThis changes one thing in your work: you should not treat AI as an authority. Treat it as a powerful and fast assistant that needs framing and verification.\n\n❌ **Bad reflex**  \n“AI answered, so it must be true.”\n\n✅ **Good reflex**  \n“AI proposed an answer. I check the logic, sources, sensitive data, and fit with my context.”"
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "L’IA, ce n’est pas “un ordinateur intelligent”",
+        "en": "Automation, AI, machine learning: do not mix everything"
+      },
+      "content": {
+        "fr": "Commençons par retirer une idée dangereuse : l’IA ne pense pas comme une personne. Elle ne comprend pas votre entreprise comme un collègue. Elle ne connaît pas automatiquement vos règles internes, vos contraintes juridiques, vos clients, vos priorités ou votre culture d’organisation.\n\nUn système IA traite des données, repère des régularités, produit des prédictions, classe des informations, génère du texte ou propose une réponse probable selon son entraînement et le contexte que vous lui donnez.\n\nDans votre travail, cela change une chose : vous ne devez pas traiter l’IA comme une autorité. Vous devez la traiter comme un assistant puissant, rapide, mais à encadrer.\n\n❌ **Mauvais réflexe**  \n“L’IA a répondu, donc c’est vrai.”\n\n✅ **Bon réflexe**  \n“L’IA a proposé une réponse. Je vérifie la logique, les sources, les données sensibles et l’adéquation avec mon contexte.”",
+        "en": "In organizations, many things are called “AI” even when they are simple automation.\n\n**Classic automation** follows a rule written in advance. For example: “if an invoice exceeds 5,000 TND, send an approval request to the manager.” This is useful, but it is not necessarily AI.\n\n**Machine learning** goes further. The system learns from examples. For example, a model can learn to identify urgent customer complaints from past emails that were already classified.\n\n**Generative AI** produces content: text, summaries, images, code, plans, emails, tables, scripts, or conversational answers. Tools such as ChatGPT, Claude, Copilot, or Gemini belong to this family when they generate or transform content.\n\nThe important point is not the label. The important point is the type of task: applying a rule, predicting, classifying, searching, summarizing, generating, or deciding."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Automatisation, IA et IA générative / Automation, AI and generative AI",
+        "section_context": "L’apprenant vient de distinguer automatisation, IA, machine learning et IA générative. Le checkpoint doit vérifier qu’il peut expliquer ces notions sans jargon.",
+        "question_type": "comprehension",
+        "difficulty": "beginner",
+        "hint": "Une bonne réponse donne une distinction simple et un exemple professionnel.",
+        "anti_gpt_instructions": "Proposer trois situations métier concrètes et demander à l’apprenant de classer chacune en automatisation, IA prédictive ou IA générative. Interdire les méthodes de prompting détaillées du module 3."
+      }
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "Automatisation, IA, machine learning : ne mélangez pas tout",
+        "en": "Three families of AI use cases to recognize + The word “model”: your first key concept"
+      },
+      "content": {
+        "fr": "Dans une organisation, beaucoup de choses sont appelées “IA” alors qu’elles relèvent parfois d’une simple automatisation.\n\nUne **automatisation classique** suit une règle écrite à l’avance. Par exemple : “si une facture dépasse 5 000 DT, envoyer une demande de validation au manager”. C’est utile, mais ce n’est pas forcément de l’IA.\n\nLe **machine learning** va plus loin. Le système apprend à partir d’exemples. Par exemple, un modèle peut apprendre à repérer les emails de réclamation urgents à partir d’anciens emails déjà classés.\n\nL’**IA générative** produit du contenu : texte, synthèse, image, code, plan, email, tableau, script ou réponse conversationnelle. Des outils comme ChatGPT, Claude, Copilot ou Gemini appartiennent à cette famille quand ils génèrent ou transforment du contenu.\n\nLe point important n’est pas le mot utilisé. Le point important est de savoir quel type de tâche vous traitez : appliquer une règle, prédire, classer, chercher, résumer, générer ou décider.",
+        "en": "To work with AI, start with three simple families.\n\n### 1. Classification AI\n\nIt helps sort, route, or categorize.\n\nExamples:\n\n- classify customer requests by urgency;\n- distinguish a complaint, a question, and a sales inquiry;\n- detect a suspicious transaction;\n- route a support ticket to the right team.\n\n### 2. Prediction AI\n\nIt estimates a probability, risk, trend, or future value.\n\nExamples:\n\n- forecast product demand;\n- estimate the risk of customer churn;\n- anticipate late payment;\n- identify files that require human review.\n\n### 3. Generative AI\n\nIt creates or transforms content.\n\nExamples:\n\n- summarize meeting notes;\n- prepare a customer response;\n- rewrite an email;\n- generate a first draft of a procedure;\n- create a presentation outline;\n- help analyze a long document.\n\nThese three families can be combined. An internal assistant can classify a request, retrieve a procedure, then generate a response. That is powerful, but each step adds a different type of risk.\n\n## The word “model”: your first key concept\n\nAn **AI model** is a system that has learned patterns from data. It does not simply store a list of answers. It learns relationships.\n\nFor example, a model can learn that certain words indicate urgency in a complaint, that some combinations of signals look like fraud, or that a text follows a professional writing style.\n\nBut a model always depends on three elements:\n\n1. **its training data**;\n2. **the task it was designed for**;\n3. **the context you provide at the moment of use**.\n\nIf one of these three elements is weak, the output can be weak."
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Schéma clé — Comprendre les familles d’IA",
+        "en": "Key diagram — Understanding AI families"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 360\" xmlns=\"http://www.w3.org/2000/svg\"><defs><marker id=\"arr_lit_02\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/></marker></defs><rect x=\"0\" y=\"0\" width=\"780\" height=\"360\" fill=\"#F1EFE8\"/><text x=\"390\" y=\"62\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"20\">Key diagram — Understanding AI families</text><rect x=\"40\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\"/><text x=\"95\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Automatisation</text><line x1=\"155\" y1=\"180\" x2=\"180\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_02)\"/><rect x=\"190\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\"/><text x=\"245\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">IA</text><line x1=\"305\" y1=\"180\" x2=\"330\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_02)\"/><rect x=\"340\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"395\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Machine learning</text><line x1=\"455\" y1=\"180\" x2=\"480\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_02)\"/><rect x=\"490\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\"/><text x=\"545\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">IA générative</text><line x1=\"605\" y1=\"180\" x2=\"630\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_02)\"/><rect x=\"640\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"695\" y=\"172\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Décision</text><text x=\"695\" y=\"190\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">vérifiée</text><text x=\"390\" y=\"285\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"14\">Start from work reality, then add AI with control and measurable value.</text></svg>"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "Trois familles d’usages à reconnaître",
+        "en": "Generative AI: a production assistant, not an oracle"
+      },
+      "content": {
+        "fr": "Pour travailler avec l’IA, vous pouvez commencer avec trois familles simples.\n\n### 1. IA de classification\n\nElle aide à ranger, trier ou catégoriser.\n\nExemples :\n\n- classer des demandes clients par urgence ;\n- distinguer une réclamation, une question et une demande commerciale ;\n- détecter une transaction suspecte ;\n- orienter un ticket support vers le bon service.\n\n### 2. IA de prédiction\n\nElle estime une probabilité, un risque, une tendance ou une valeur future.\n\nExemples :\n\n- prévoir la demande d’un produit ;\n- estimer le risque de départ d’un client ;\n- anticiper un retard de paiement ;\n- identifier les dossiers qui nécessitent une revue humaine.\n\n### 3. IA générative\n\nElle produit ou transforme un contenu.\n\nExemples :\n\n- résumer un compte rendu ;\n- préparer une réponse client ;\n- reformuler un email ;\n- générer une première version de procédure ;\n- créer un plan de présentation ;\n- aider à analyser un document long.\n\nCes trois familles peuvent se combiner. Un assistant interne peut classer une demande, chercher une procédure, puis générer une réponse. C’est puissant, mais chaque étape ajoute un risque différent.",
+        "en": "Generative AI often works as a writing, structuring, or analysis assistant. It can produce fluent, well-written, persuasive answers. This is what makes it useful, but also risky.\n\nA fluent answer is not always an accurate answer. A well-written paragraph can contain an error. A summary can omit a critical point. A recommendation can sound logical while ignoring a local, legal, or business constraint.\n\nIn a Tunisian organization, this matters. If you use AI to process an HR file, a customer complaint, a contract, a student database, or a financial document, you must think about personal data, confidentiality, and the purpose of use. Tunisian Organic Law No. 2004-63 regulates personal data protection and recognizes it as a fundamental right.\n\n❌ **Risky use**  \nCopying a named list of customers, students, patients, or employees into a public AI tool to get a quick analysis.\n\n✅ **Safer use**  \nAnonymizing information, limiting what is shared, using an organization-approved tool, then checking the result before any decision."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Familles d’usages IA / AI usage families",
+        "section_context": "L’apprenant vient de voir classification, prédiction et génération. Il doit comprendre que chaque famille répond à un besoin différent.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse relie au moins deux familles d’usage à des décisions ou livrables différents.",
+        "anti_gpt_instructions": "Décrire une direction commerciale fictive avec tri de leads, prévision de ventes et rédaction d’email. Demander de choisir la famille IA adaptée à chaque besoin."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "Le mot “modèle” : votre première notion clé",
+        "en": "The prompt: your work brief + What AI does well, and what it does less well"
+      },
+      "content": {
+        "fr": "Un **modèle IA** est un système qui a appris des régularités à partir de données. Il ne garde pas seulement une liste de réponses. Il apprend des relations.\n\nPar exemple, un modèle peut apprendre que certains mots indiquent une urgence dans une réclamation, que certaines combinaisons de signaux ressemblent à une fraude, ou qu’un texte ressemble à un style professionnel.\n\nMais un modèle reste dépendant de trois éléments :\n\n1. **ses données d’entraînement** ;\n2. **la tâche pour laquelle il a été conçu** ;\n3. **le contexte que vous lui donnez au moment de l’usage**.\n\nSi l’un de ces trois éléments est faible, la réponse peut être faible.",
+        "en": "A **prompt** is the instruction you give to AI. Think of it as a brief given to an assistant.\n\nA weak prompt often produces a vague answer.\n\n❌ **Weak prompt**  \n“Give me a digital transformation plan.”\n\n✅ **Professional prompt**  \n“Act as a digital transformation consultant for a Tunisian services SME. Propose a 90-day action plan to reduce customer request processing delays. The plan must include 5 actions, owners, risks, monitoring indicators, and required data. Avoid solutions that are costly or hard to deploy.”\n\nThe second prompt is better because it specifies the role, context, objective, constraints, and format. You will learn how to build this type of prompt later in the course.\n\n## What AI does well, and what it does less well\n\nAI is useful for speeding up selected tasks. It helps explore, rewrite, summarize, compare, classify, generate ideas, prepare deliverables, and identify blind spots.\n\nBut it has important limits.\n\nIt can invent information. It can lack context. It can reproduce bias. It can misunderstand an instruction. It can produce an answer that sounds convincing but is legally or operationally dangerous.\n\nNIST reminds us that AI risks can affect individuals, organizations, and society. For an employee, this means one practical thing: even daily AI use must be framed by verification, confidentiality, and responsibility."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "L’IA générative : un assistant de production, pas un oracle",
+        "en": "Concrete case — Sales department in Tunisia + Key takeaways"
+      },
+      "content": {
+        "fr": "L’IA générative fonctionne souvent comme un assistant de rédaction, de structuration ou d’analyse. Elle peut produire une réponse fluide, bien écrite et convaincante. C’est précisément ce qui la rend utile, mais aussi risquée.\n\nUne réponse fluide n’est pas forcément une réponse exacte. Une phrase bien formulée peut contenir une erreur. Un résumé peut oublier un point critique. Une recommandation peut sembler logique mais ignorer une contrainte locale, juridique ou métier.\n\nDans une organisation tunisienne, ce point est concret. Si vous utilisez une IA pour traiter un dossier RH, une réclamation client, un contrat, une base d’étudiants ou un document financier, vous devez penser aux données personnelles, à la confidentialité et à la finalité d’usage. La loi tunisienne n°2004-63 encadre la protection des données à caractère personnel et reconnaît cette protection comme un droit fondamental.\n\n❌ **Usage risqué**  \nCopier dans un outil public une liste nominative de clients, d’étudiants, de patients ou de collaborateurs pour demander une analyse rapide.\n\n✅ **Usage plus sûr**  \nAnonymiser les informations, limiter le contenu partagé, utiliser un outil approuvé par l’organisation, puis vérifier le résultat avant toute décision.",
+        "en": "Imagine a sales team that receives dozens of emails each week: quotes, complaints, information requests, follow-ups, and urgent messages.\n\nSimple automation can send every email containing the word “urgent” to a manager. That is limited.\n\nA classification model can learn to identify urgent requests even when the word “urgent” does not appear.\n\nGenerative AI can propose a polite reply, summarize the customer history, or prepare an internal FAQ.\n\nReal value appears when the organization connects the three levels: routing, response support, and human control. But responsibility remains human, especially if the response involves a price, commercial promise, contractual clause, or personal data.\n\n## Key takeaways\n\nYou do not need to become a technical specialist to use AI wisely.\n\nRemember five ideas:\n\n1. AI is not an authority. It is an assistant that needs framing.\n2. Automation applies rules. Machine learning learns from examples. Generative AI produces content.\n3. A model depends on its data, task, and context.\n4. A fluent answer can be false, incomplete, or risky.\n5. Your responsibility is to frame the request, protect data, and verify the result.\n\nThis is the foundation of AI literacy: understand enough to use, question, and decide."
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "Le prompt : votre brief de travail + Ce que l’IA fait bien, et ce qu’elle fait moins bien",
+        "en": "Ella checkpoint context"
+      },
+      "content": {
+        "fr": "Un **prompt** est la consigne que vous donnez à l’IA. Pensez-y comme à un brief donné à un assistant.\n\nUn prompt faible produit souvent une réponse vague.\n\n❌ **Prompt faible**  \n“Fais-moi un plan de transformation digitale.”\n\n✅ **Prompt professionnel**  \n“Agissez comme un consultant en transformation digitale pour une PME tunisienne de services. Proposez un plan d’action sur 90 jours pour réduire les délais de traitement des demandes clients. Le plan doit inclure 5 actions, les responsables, les risques, les indicateurs de suivi et les données nécessaires. Évitez les solutions coûteuses ou difficiles à déployer.”\n\nLe second prompt est meilleur parce qu’il précise le rôle, le contexte, l’objectif, les contraintes et le format. Vous apprendrez à construire ce type de prompt dans la suite du cours.\n\n## Ce que l’IA fait bien, et ce qu’elle fait moins bien\n\nL’IA est utile pour accélérer certaines tâches. Elle aide à explorer, reformuler, résumer, comparer, classer, générer des idées, préparer des livrables et repérer des angles morts.\n\nMais elle a des limites importantes.\n\nElle peut inventer des informations. Elle peut manquer de contexte. Elle peut reproduire des biais. Elle peut mal interpréter une consigne. Elle peut produire une réponse convaincante mais juridiquement ou opérationnellement dangereuse.\n\nLe NIST rappelle que les risques IA peuvent toucher les individus, les organisations et la société. Pour un collaborateur, cela veut dire une chose simple : même un usage quotidien doit être encadré par des réflexes de vérification, de confidentialité et de responsabilité.",
+        "en": "### Pedagogical intent\n\nElla should check that the learner distinguishes the main families of AI and understands that AI is not an automatic source of truth. The checkpoint should push the learner to connect the concepts to a concrete professional use case.\n\n### What Ella should check\n\nThe learner’s answer should show that they understand:\n\n- the difference between automation, machine learning, and generative AI;\n- the role of data and context;\n- the fact that AI outputs must be checked;\n- the need to protect personal or sensitive data;\n- the difference between saving time and delegating a decision.\n\n### Frequent mistakes to detect\n\n- Saying that every automation is AI.\n- Presenting AI as human intelligence.\n- Believing that generative AI always “knows” the truth.\n- Forgetting input data and confidentiality.\n- Confusing decision support with automatic decision-making.\n\n### Possible Socratic follow-ups for Ella\n\n- “Can you give an example of automation that is not really AI?”\n- “In your job, which task would require classification rather than text generation?”\n- “What would you check before using an AI answer in a professional document?”\n- “What data should you avoid copying into a public AI tool?”\n\n### Validation criteria\n\nElla can validate if the learner explains at least two differences between automation, machine learning, and generative AI in their own words, then adds a verification or data-protection reflex."
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "Cas concret — Direction commerciale en Tunisie + À retenir",
+        "en": "References"
+      },
+      "content": {
+        "fr": "Imaginez une équipe commerciale qui reçoit chaque semaine des dizaines de demandes par email : devis, réclamations, demandes d’information, relances, demandes urgentes.\n\nUne automatisation simple peut envoyer tous les emails contenant “urgent” au responsable. C’est limité.\n\nUn modèle de classification peut apprendre à reconnaître les demandes urgentes même quand le mot “urgent” n’apparaît pas.\n\nUne IA générative peut proposer une réponse polie, synthétiser l’historique client ou préparer une FAQ interne.\n\nLa vraie valeur apparaît quand l’organisation relie les trois niveaux : tri, aide à la réponse, contrôle humain. Mais la responsabilité reste humaine, surtout si la réponse engage un prix, une promesse commerciale, une clause contractuelle ou une donnée personnelle.\n\n## À retenir\n\nVous n’avez pas besoin de devenir spécialiste technique pour utiliser l’IA avec intelligence.\n\nVous devez retenir cinq idées :\n\n1. L’IA n’est pas une autorité. C’est un assistant à encadrer.\n2. L’automatisation applique des règles. Le machine learning apprend à partir d’exemples. L’IA générative produit du contenu.\n3. Un modèle dépend de ses données, de sa tâche et de votre contexte.\n4. Une réponse fluide peut être fausse, incomplète ou risquée.\n5. Votre responsabilité est de cadrer la demande, protéger les données et vérifier le résultat.\n\nC’est la base de la culture IA : comprendre assez pour utiliser, questionner et décider.",
+        "en": "1. Republic of Tunisia, **Organic Law No. 2004-63 of 27 July 2004 on the Protection of Personal Data**.  \n   Source: Institut National de la Statistique, hosted official PDF: https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf\n\n2. NIST, **Artificial Intelligence Risk Management Framework (AI RMF 1.0)**, 2023.  \n   Source: https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf\n\n3. NIST, **Artificial Intelligence Risk Management Framework — Generative AI Profile**, NIST AI 600-1, 2024.  \n   Source: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf\n\n4. OECD, **OECD AI Principles**, adopted in 2019 and updated in 2024.  \n   Source: https://www.oecd.org/en/topics/sub-issues/ai-principles.html\n\n5. European Commission, **AI Literacy — Questions & Answers**, Article 4 of the AI Act.  \n   Source: https://digital-strategy.ec.europa.eu/en/faqs/ai-literacy-questions-answers"
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Modèle, prompt et limites / Model, prompt and limits",
+        "section_context": "L’apprenant vient de comprendre qu’un modèle produit une réponse probable à partir d’une consigne et d’un contexte. Il doit repérer les erreurs d’interprétation courantes.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse explique pourquoi l’IA générative n’est pas un oracle et doit être vérifiée.",
+        "anti_gpt_instructions": "Donner un exemple d’explication trompeuse produite par un assistant IA fictif. Demander à l’apprenant d’identifier deux signes de confiance excessive et de proposer une vérification."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous savez maintenant expliquer l’IA sans la réduire à un mot magique ou à ChatGPT. Le lab vous demande de traduire ces notions en langage clair pour un collègue non technique.",
+        "en": "You can now explain AI without reducing it to a magic word or to ChatGPT. The lab asks you to translate these ideas into clear language for a non-technical colleague."
+      },
+      "next_url": "/courses/ai-literacy-digital-transformation/labs/01_explain_ai_without_jargon_lab"
+    }
+  ]
+}

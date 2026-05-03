@@ -13,7 +13,7 @@ from app.services.ella.agentic_prompts import build_agentic_system_prompt
 from app.services.ella.finance_prompts import build_finance_system_prompt
 from app.services.ella.healthcare_prompts import build_healthcare_system_prompt
 from app.services.ella.manufacturing_prompts import build_manufacturing_system_prompt
-from app.services.ella.retriever import retrieve_context
+from app.services.ella.literacy_prompts import build_literacy_system_prompt
 from app.services.ella.client import request_chat_completion
 from app.services.ella.formatter import parse_llm_response, format_for_ui
 from app.services.ella.analytics import log_interaction
@@ -52,6 +52,8 @@ def generate_response(request: ConversationRequest) -> str:
         system_prompt = build_healthcare_system_prompt(request.context, retrieved_chunks)
     elif course_id == "manufacturing":
         system_prompt = build_manufacturing_system_prompt(request.context, retrieved_chunks)
+    elif course_id == "literacy":
+        system_prompt = build_literacy_system_prompt(request.context, retrieved_chunks)
     else:
         system_prompt = build_system_prompt(request.context, retrieved_chunks)
 

@@ -1,0 +1,163 @@
+{
+  "module_id": "00_course_positioning",
+  "title": {
+    "fr": "Bienvenue : comprendre l’IA pour agir dans votre organisation",
+    "en": "Welcome: Understand AI to Act Within Your Organization"
+  },
+  "description": {
+    "fr": "Vous entendez parler d’intelligence artificielle partout : ChatGPT, Copilot, automatisation, assistants internes, analyse de documents, génération de contenus, décision augmentée.",
+    "en": "You hear about artificial intelligence everywhere: ChatGPT, Copilot, automation, internal assistants, document analysis, content generation, augmented decision making."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Pourquoi ce cours existe",
+        "en": "Why this course exists"
+      },
+      "content": {
+        "fr": "Vous entendez parler d’intelligence artificielle partout : ChatGPT, Copilot, automatisation, assistants internes, analyse de documents, génération de contenus, décision augmentée. Vous avez peut-être déjà essayé un outil. Vous avez peut-être obtenu une réponse impressionnante. Vous avez peut-être aussi obtenu une réponse fausse, trop générale ou impossible à utiliser.\n\nCe cours part de cette réalité. L’IA n’est plus un sujet réservé aux informaticiens. Elle entre dans les métiers, les réunions, les emails, les tableaux de bord, la relation client, les ressources humaines, la finance, la pédagogie, le marketing, l’administration et le support.\n\nVotre objectif n’est pas de devenir data scientist. Votre objectif est plus concret : comprendre ce que l’IA peut faire, ce qu’elle ne doit pas faire, et comment l’utiliser dans votre contexte professionnel avec méthode, prudence et impact.",
+        "en": "You hear about artificial intelligence everywhere: ChatGPT, Copilot, automation, internal assistants, document analysis, content generation, augmented decision-making. You may have already tried a tool. You may have received an impressive answer. You may also have received a false, vague, or unusable answer.\n\nThis course starts from that reality. AI is no longer a topic reserved for IT teams. It is entering daily work: meetings, emails, dashboards, customer relations, human resources, finance, teaching, marketing, administration, and support.\n\nYour goal is not to become a data scientist. Your goal is more concrete: understand what AI can do, what it should not do, and how to use it in your professional context with method, caution, and impact."
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "L’IA, ce n’est pas une mode : c’est un changement d’organisation",
+        "en": "AI is not a trend: it is an organizational shift"
+      },
+      "content": {
+        "fr": "Une organisation adopte rarement l’IA parce qu’elle aime la technologie. Elle l’adopte pour résoudre des problèmes : délais trop longs, tâches répétitives, surcharge documentaire, perte d’information, difficulté à exploiter les données, manque de personnalisation, faible qualité de service ou décision trop lente.\n\nMais l’IA ne crée pas de valeur par magie. Elle crée de la valeur quand trois conditions sont réunies :\n\n1. un problème métier clair ;\n2. des données ou des connaissances exploitables ;\n3. des personnes capables d’utiliser l’outil, de vérifier le résultat et de décider avec discernement.\n\nC’est ici que la culture IA devient stratégique. Une organisation peut acheter des outils IA. Elle ne peut pas acheter instantanément la maturité d’usage. Cette maturité se construit avec des pratiques, des règles, des exemples, des réflexes et une compréhension partagée.",
+        "en": "Organizations rarely adopt AI because they like technology. They adopt it to solve problems: long delays, repetitive work, document overload, lost information, difficulty using data, lack of personalization, weak service quality, or slow decision-making.\n\nBut AI does not create value by magic. It creates value when three conditions are met:\n\n1. a clear business problem;\n2. usable data or knowledge;\n3. people who can use the tool, check the result, and decide with judgment.\n\nThis is why AI literacy becomes strategic. An organization can buy AI tools. It cannot instantly buy mature usage. That maturity is built through practices, rules, examples, reflexes, and a shared understanding."
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Culture IA et valeur métier / AI literacy and business value",
+        "section_context": "L’apprenant vient de voir que l’IA doit être reliée à un problème métier, à des données exploitables et à une vérification humaine. Le checkpoint doit vérifier qu’il ne réduit pas l’IA à un outil à la mode.",
+        "question_type": "comprehension",
+        "difficulty": "beginner",
+        "hint": "Une bonne réponse cite un usage métier concret, une limite ou un risque, et le rôle du contrôle humain.",
+        "anti_gpt_instructions": "Proposer une organisation tunisienne fictive qui veut lancer un assistant IA après une démonstration. Demander à l’apprenant d’identifier le problème métier réel, le risque principal et la responsabilité humaine. Interdire les concepts détaillés des modules suivants."
+      }
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "Le contexte tunisien : opportunité réelle, prudence nécessaire",
+        "en": "The Tunisian context: real opportunity, necessary caution"
+      },
+      "content": {
+        "fr": "En Tunisie, l’IA représente une opportunité pour les entreprises, les institutions, les écoles, les administrations et les services. Elle peut aider à gagner du temps, améliorer l’accès à l’information, accélérer certains processus et soutenir la montée en compétence des équipes.\n\nMais le contexte tunisien impose aussi des précautions. Les organisations manipulent souvent des données personnelles : dossiers clients, données RH, informations financières, données d’étudiants, réclamations, contrats, pièces justificatives ou échanges internes. La loi organique tunisienne n°2004-63 reconnaît la protection des données à caractère personnel comme un droit fondamental. Cela signifie qu’un usage IA ne peut pas ignorer la confidentialité, la finalité du traitement, la loyauté et la transparence.\n\nVous devez donc apprendre à distinguer deux attitudes :\n\n❌ **Usage improvisé**  \nCopier un fichier interne sensible dans un outil public, demander une réponse immédiate, puis réutiliser le résultat sans vérification.\n\n✅ **Usage professionnel responsable**  \nDéfinir la tâche, limiter les données partagées, anonymiser quand c’est nécessaire, vérifier la réponse, citer les sources quand elles existent, et garder l’humain responsable de la décision.",
+        "en": "In Tunisia, AI is an opportunity for companies, institutions, schools, public bodies, and service organizations. It can save time, improve access to information, speed up selected processes, and support employee upskilling.\n\nBut the Tunisian context also requires caution. Organizations often handle personal data: customer files, HR data, financial information, student data, complaints, contracts, supporting documents, or internal exchanges. Tunisian Organic Law No. 2004-63 recognizes the protection of personal data as a fundamental right. This means that AI use cannot ignore confidentiality, purpose limitation, fairness, and transparency.\n\nYou must therefore distinguish two attitudes:\n\n❌ **Improvised use**  \nCopying a sensitive internal file into a public AI tool, asking for an instant answer, then reusing the output without verification.\n\n✅ **Responsible professional use**  \nDefining the task, limiting shared data, anonymizing when needed, checking the answer, citing sources when they exist, and keeping humans responsible for decisions."
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Schéma clé — De l’usage IA à la valeur responsable",
+        "en": "Key diagram — From AI use to responsible value"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 360\" xmlns=\"http://www.w3.org/2000/svg\"><defs><marker id=\"arr_lit_01\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/></marker></defs><rect x=\"0\" y=\"0\" width=\"780\" height=\"360\" fill=\"#F1EFE8\"/><text x=\"390\" y=\"62\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"20\">Key diagram — From AI use to responsible value</text><rect x=\"40\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\"/><text x=\"95\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Problème métier</text><line x1=\"155\" y1=\"180\" x2=\"180\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_01)\"/><rect x=\"190\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\"/><text x=\"245\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Données utiles</text><line x1=\"305\" y1=\"180\" x2=\"330\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_01)\"/><rect x=\"340\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"395\" y=\"183\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Assistant IA</text><line x1=\"455\" y1=\"180\" x2=\"480\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_01)\"/><rect x=\"490\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\"/><text x=\"545\" y=\"172\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Vérification</text><text x=\"545\" y=\"190\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">humaine</text><line x1=\"605\" y1=\"180\" x2=\"630\" y2=\"180\" stroke=\"#5F5E5A\" stroke-width=\"2\" marker-end=\"url(#arr_lit_01)\"/><rect x=\"640\" y=\"145\" width=\"110\" height=\"70\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"695\" y=\"172\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">Valeur</text><text x=\"695\" y=\"190\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"12\">responsable</text><text x=\"390\" y=\"285\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"14\">Start from work reality, then add AI with control and measurable value.</text></svg>"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "Le contexte international : l’AI literacy devient une obligation de fait",
+        "en": "The international context: AI literacy is becoming a practical obligation + What this course will change for you"
+      },
+      "content": {
+        "fr": "La culture IA devient un sujet mondial. L’Union européenne a inscrit l’**AI literacy** dans l’AI Act. Les fournisseurs et déployeurs de systèmes IA doivent prendre des mesures pour assurer un niveau suffisant de culture IA chez les personnes qui utilisent ces systèmes, selon leur rôle, leur expérience, leur formation et le contexte d’usage.\n\nCette idée est simple : on ne peut pas déployer l’IA dans une organisation sans former les personnes qui l’utilisent.\n\nLe NIST AI Risk Management Framework va dans le même sens. Il propose de gérer les risques IA à travers quatre fonctions : **Govern, Map, Measure, Manage**. En clair : gouverner, comprendre le contexte, mesurer les risques, puis les gérer. Même pour un cours fondamental, ce réflexe est utile. Vous n’avez pas besoin de devenir expert en gouvernance IA, mais vous devez comprendre qu’un usage IA a toujours un contexte, un risque et une responsabilité.",
+        "en": "AI literacy is becoming a global concern. The European Union included **AI literacy** in the AI Act. Providers and deployers of AI systems must take measures to ensure a sufficient level of AI literacy among people who use these systems, based on their role, experience, training, and context of use.\n\nThe idea is simple: an organization cannot deploy AI without training the people who use it.\n\nThe NIST AI Risk Management Framework follows the same direction. It organizes AI risk management around four functions: **Govern, Map, Measure, Manage**. In plain words: govern, understand the context, measure risks, and manage them. Even in a fundamental course, this reflex matters. You do not need to become an AI governance expert, but you must understand that every AI use has a context, a risk, and a responsibility.\n\n## What this course will change for you\n\nBy the end of this course, you should no longer say:\n\n> “AI is interesting, but I do not know what to do with it in my work.”\n\nYou should be able to say:\n\n> “I understand what AI can bring to my work, I can use it with method, and I can propose a responsible use case for my organization.”\n\nThis shift matters. AI does not replace your judgment. It can augment it if you know how to frame the task, check the output, and connect the result to a real need."
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Contexte tunisien et confidentialité / Tunisian context and confidentiality",
+        "section_context": "L’apprenant vient de relier l’IA aux données personnelles, à la loi tunisienne de protection des données et aux réflexes de prudence. Il doit distinguer usage improvisé et usage responsable.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse distingue les données sensibles, la finalité de l’usage et la vérification avant réutilisation.",
+        "anti_gpt_instructions": "Décrire un collaborateur qui copie un fichier RH dans un outil public. Demander à l’apprenant de reformuler l’usage de manière responsable. Interdire de traiter les mécanismes de gouvernance avancée."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "Ce que ce cours va changer pour vous",
+        "en": "What you will learn"
+      },
+      "content": {
+        "fr": "À la fin de ce cours, vous ne devez plus dire :\n\n> “L’IA est intéressante, mais je ne sais pas quoi en faire dans mon travail.”\n\nVous devez pouvoir dire :\n\n> “Je comprends ce que l’IA peut apporter à mon métier, je sais l’utiliser avec méthode, et je peux proposer un cas d’usage responsable pour mon organisation.”\n\nCe changement est important. L’IA ne remplace pas votre jugement. Elle peut l’augmenter si vous savez lui donner un cadre, contrôler ses réponses et relier ses résultats à un besoin réel.",
+        "en": "The course is structured into six blocks after this introductory lesson.\n\n### 1. Understand AI without unnecessary jargon\n\nYou will clarify the core ideas: artificial intelligence, machine learning, deep learning, generative AI, model, data, prompt, and AI assistant. The goal is not to memorize definitions. The goal is to understand the mechanisms that explain the strengths and limits of AI tools.\n\n### 2. Use generative AI in daily work\n\nYou will learn how to use tools such as ChatGPT, Claude, Copilot, or an internal assistant for professional tasks: summarization, writing, rewriting, analysis, meeting preparation, idea generation, decision support, and deliverable creation.\n\n### 3. Write better prompts\n\nYou will move from vague prompts to professional prompts. You will learn how to specify the role, context, objective, constraints, expected format, and quality criteria.\n\n### 4. Identify AI opportunities in your job\n\nYou will learn how to spot useful AI use cases in your department. A good AI idea does not start with “let us use ChatGPT.” It starts with a concrete problem: time lost, frequent error, scattered information, slow process, or insufficient quality.\n\n### 5. Use AI with caution and responsibility\n\nYou will identify risks: personal data, confidentiality, bias, hallucinations, intellectual property, cybersecurity, tool dependency, and loss of human control.\n\n### 6. Move from individual use to digital transformation\n\nYou will turn an idea into a mini-roadmap: objective, users, data, benefits, risks, guardrails, and first action within 30 days."
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "Ce que vous allez apprendre",
+        "en": "What you will be able to do by the end + Key takeaway"
+      },
+      "content": {
+        "fr": "Le cours est structuré en six blocs après cette leçon d’introduction.\n\n### 1. Comprendre l’IA sans jargon inutile\n\nVous allez clarifier les notions de base : intelligence artificielle, machine learning, deep learning, IA générative, modèle, données, prompt, assistant IA. Le but n’est pas de mémoriser des définitions, mais de comprendre les mécanismes qui expliquent les forces et les limites des outils.\n\n### 2. Utiliser l’IA générative au quotidien\n\nVous allez apprendre à utiliser des outils comme ChatGPT, Claude, Copilot ou un assistant interne pour des tâches professionnelles : synthèse, rédaction, reformulation, analyse, préparation de réunion, recherche d’idées, aide à la décision et production de livrables.\n\n### 3. Formuler de meilleurs prompts\n\nVous allez passer du prompt vague au prompt professionnel. Vous apprendrez à préciser le rôle, le contexte, l’objectif, les contraintes, le format attendu et les critères de qualité.\n\n### 4. Identifier les opportunités IA dans votre métier\n\nVous allez apprendre à repérer les cas d’usage utiles dans votre département. Une bonne idée IA ne commence pas par “utilisons ChatGPT”. Elle commence par un problème concret : temps perdu, erreur fréquente, information dispersée, processus lent, qualité insuffisante.\n\n### 5. Utiliser l’IA avec prudence et responsabilité\n\nVous allez identifier les risques : données personnelles, confidentialité, biais, hallucinations, propriété intellectuelle, cybersécurité, dépendance aux outils et perte de contrôle humain.\n\n### 6. Passer de l’usage individuel à la transformation digitale\n\nVous allez transformer une idée en mini-feuille de route : objectif, utilisateurs, données, bénéfices, risques, garde-fous et première action dans les 30 jours.",
+        "en": "By the end of the course, you will be able to:\n\n1. explain what AI and generative AI are in simple terms;\n2. distinguish real capability from marketing promise;\n3. use an AI assistant to produce a verifiable professional deliverable;\n4. write a clear, contextualized, and controllable prompt;\n5. identify an AI use case in your job;\n6. evaluate a use case with four criteria: value, feasibility, risk, and acceptability;\n7. recognize risks related to personal data and confidentiality;\n8. propose a responsible first AI action for your team or department.\n\n## How you will learn with Ella\n\nYou will not follow this course passively.\n\nEach lesson gives you a concept, an example, and a situation. Ella then checks your understanding with a dynamic checkpoint. She is not looking for a memorized sentence. She is looking for clear reasoning.\n\nDuring the workshops, you will produce short deliverables: an improved prompt, a risk analysis, a use-case idea, and a mini-roadmap. Each time, Ella will help you improve your answer without giving you the final work directly.\n\n## Key takeaway\n\nAI is not just a technology. It is a new way of working with information, tools, and decisions.\n\nTo create value, you need three reflexes:\n\n- **usefulness**: what real problem do you want to solve?\n- **control**: how will you verify the result?\n- **responsibility**: what data, risks, and rules must you respect?\n\nIf you keep these three reflexes, you are already on the right path."
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "Ce que vous serez capable de faire à la fin",
+        "en": "Ella checkpoint context"
+      },
+      "content": {
+        "fr": "À la fin du parcours, vous serez capable de :\n\n1. expliquer simplement ce qu’est l’IA et ce qu’est l’IA générative ;\n2. distinguer une capacité réelle d’une promesse marketing ;\n3. utiliser un assistant IA pour produire un livrable professionnel vérifiable ;\n4. rédiger un prompt clair, contextualisé et contrôlable ;\n5. identifier un cas d’usage IA dans votre métier ;\n6. évaluer un cas d’usage avec quatre critères : valeur, faisabilité, risque, acceptabilité ;\n7. reconnaître les risques liés aux données personnelles et à la confidentialité ;\n8. proposer une première action IA responsable pour votre équipe ou votre département.",
+        "en": "### Learning intent\n\nElla should check whether the learner understands the overall positioning of the course. The checkpoint should measure the ability to connect AI to a concrete professional use, not to abstract technological curiosity.\n\n### What Ella should check\n\nThe learner’s answer should show that they understand:\n\n- AI can create value across multiple business functions;\n- value depends on a clear problem, not on the tool alone;\n- data and confidentiality matter;\n- humans remain responsible for checking and deciding;\n- AI literacy supports the digital transformation of the organization.\n\n### Frequent mistakes to detect\n\n- Reducing AI to ChatGPT only.\n- Saying that AI “replaces employees.”\n- Assuming AI always gives reliable answers.\n- Ignoring confidentiality and personal data.\n- Confusing individual use with organizational transformation.\n\n### Possible Socratic follow-ups for Ella\n\n- “Can you give a concrete example from your department?”\n- “What risk would appear if you used a public AI tool with an internal document?”\n- “How would you know that an AI use case creates real business value?”\n- “Who should check the result before it is used?”\n\n### Validation criteria\n\nElla can validate if the learner gives a simple but complete answer with at least three elements: a business use, a limit or risk, and the need for human control."
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "Comment vous allez apprendre avec Ella + À retenir",
+        "en": "References"
+      },
+      "content": {
+        "fr": "Vous n’allez pas suivre ce cours comme une vidéo passive. Vous allez avancer par petites étapes.\n\nChaque leçon vous donne un concept, un exemple et une mise en situation. Ella vérifie ensuite votre compréhension avec un checkpoint dynamique. Elle ne cherche pas une phrase apprise par cœur. Elle cherche un raisonnement clair.\n\nDans les ateliers, vous produirez des livrables courts : un prompt amélioré, une analyse de risque, une idée de cas d’usage, une mini-feuille de route. À chaque fois, Ella vous aidera à améliorer votre réponse sans vous donner directement le travail final.\n\n## À retenir\n\nL’IA n’est pas seulement une technologie. C’est une nouvelle manière de travailler avec l’information, les outils et les décisions.\n\nPour créer de la valeur, vous devez apprendre à l’utiliser avec trois réflexes :\n\n- **utilité** : quel problème réel voulez-vous résoudre ?\n- **maîtrise** : comment vérifiez-vous le résultat ?\n- **responsabilité** : quelles données, quels risques et quelles règles devez-vous respecter ?\n\nSi vous gardez ces trois réflexes, vous êtes déjà sur la bonne voie.",
+        "en": "1. Republic of Tunisia, **Organic Law No. 2004-63 of July 27, 2004 on the protection of personal data**.  \n   Source: Institut National de la Statistique, official hosted PDF: https://www.ins.tn/sites/default/files/2020-04/Loi%2063-2004%20Fr.pdf\n\n2. European Union, **Regulation (EU) 2024/1689 — Artificial Intelligence Act**, Article 4, AI literacy.  \n   Source: EU AI Act Service Desk: https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-4\n\n3. NIST, **Artificial Intelligence Risk Management Framework (AI RMF 1.0)**, 2023.  \n   Source: https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf\n\n4. OECD, **OECD AI Principles**, adopted in 2019 and updated in 2024.  \n   Source: https://www.oecd.org/en/topics/sub-issues/ai-principles.html\n\n5. NIST, **Artificial Intelligence Risk Management Framework — Generative AI Profile**, NIST AI 600-1, 2024.  \n   Source: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf"
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Usage individuel vs transformation / Individual use vs transformation",
+        "section_context": "L’apprenant vient de voir que le cours vise à passer d’un usage personnel de l’IA à une capacité collective mieux cadrée. Il doit comprendre le rôle de la culture IA.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse explique pourquoi la formation des utilisateurs compte avant le déploiement d’outils à grande échelle.",
+        "anti_gpt_instructions": "Donner trois comportements d’utilisateurs dans une entreprise fictive et demander lequel soutient une vraie transformation digitale. Interdire de mentionner les niveaux d’adoption du module 6."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous savez maintenant pourquoi la culture IA doit partir d’un besoin professionnel, d’un cadre de données et d’un contrôle humain. Le lab vous demande de cadrer un premier usage IA utile et responsable dans votre contexte.",
+        "en": "You now understand why AI literacy must start from a professional need, a data frame, and human oversight. The lab asks you to frame a first useful and responsible AI use in your context."
+      },
+      "next_url": "/courses/ai-literacy-digital-transformation/labs/00_ai_literacy_framing_lab"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "lab_id": "01_explain_ai_without_jargon_lab",
+  "course_id": "ella_foundation_ai_literacy_digital_transformation",
+  "title": {
+    "fr": "Lab 1 — Expliquer l’IA sans jargon",
+    "en": "Lab 1 — Explain AI Without Jargon"
+  },
+  "description": {
+    "fr": "L’apprenant explique une situation IA en langage métier clair.",
+    "en": "The learner explains an AI situation in clear business language."
+  },
+  "concept": {
+    "fr": "Automatisation, IA, machine learning, IA générative, modèle, prompt, limites.",
+    "en": "Automation, AI, machine learning, generative AI, model, prompt, limits."
+  },
+  "target_score": 8,
+  "max_score": 10,
+  "missions": [
+    {
+      "mission_id": "explain_ai_to_non_technical_colleague",
+      "title": {
+        "fr": "Expliquer l’IA à un collègue non technique",
+        "en": "Explain AI to a non-technical colleague"
+      },
+      "audience": "enterprise",
+      "difficulty": "intermediate",
+      "instructions": {
+        "fr": "Rédigez une explication courte destinée à un collègue non technique. Votre texte doit distinguer automatisation, IA et IA générative, puis donner un exemple dans votre métier. Terminez par une limite importante : pourquoi la réponse d’un système IA doit être vérifiée.",
+        "en": "Write a short explanation for a non-technical colleague. Your text must distinguish automation, AI, and generative AI, then give an example in your work. End with one important limit: why an AI system output must be checked."
+      },
+      "hints": [
+        {
+          "fr": "Utilisez des phrases simples et évitez les termes techniques non expliqués.",
+          "en": "Use simple sentences and avoid unexplained technical terms."
+        },
+        {
+          "fr": "Un exemple métier vaut mieux qu’une définition abstraite.",
+          "en": "A business example is stronger than an abstract definition."
+        },
+        {
+          "fr": "Montrez que le modèle produit une réponse à partir de données ou de consignes.",
+          "en": "Show that the model produces an output from data or instructions."
+        },
+        {
+          "fr": "N’oubliez pas la vérification humaine.",
+          "en": "Do not forget human verification."
+        }
+      ]
+    }
+  ]
+}

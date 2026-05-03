@@ -1,0 +1,234 @@
+{
+  "course_id": "ella_industry_ai_finance_banking",
+  "version": "1.0.0",
+  "status": "converted_ready_for_ella_integration",
+  "created_at": "2026-04-30",
+  "slug": "ai-finance-banking",
+  "pathway": "industry",
+  "secondary_pathways": [
+    "tech",
+    "leadership"
+  ],
+  "level": "advanced",
+  "title": {
+    "fr": "Intelligence artificielle appliquée aux services financiers",
+    "en": "AI for Finance & Banking"
+  },
+  "short_title": {
+    "fr": "IA Finance & Banking",
+    "en": "AI Finance & Banking"
+  },
+  "description": {
+    "fr": "Une formation avancée pour concevoir, évaluer et intégrer l'IA dans les services financiers : scoring crédit, détection de fraude, NLP conformité, chatbots bancaires et gouvernance responsable.",
+    "en": "An advanced course to design, evaluate, and integrate AI into financial services: credit scoring, fraud detection, compliance NLP, banking chatbots, and responsible governance."
+  },
+  "positioning": {
+    "fr": "Apprendre à intégrer l'IA dans les services financiers sans séparer performance, conformité, explicabilité et responsabilité.",
+    "en": "Learn how to integrate AI into financial services while keeping performance, compliance, explainability, and accountability connected."
+  },
+  "delivery_modes": {
+    "instructor_led_workshop": {
+      "duration_days": 4,
+      "duration_hours": 32,
+      "format": {
+        "fr": "Présentiel + labs pratiques",
+        "en": "In-person + practical labs"
+      },
+      "cohort_size": "12-15",
+      "pricing": {
+        "launch_price_tnd": 3200,
+        "standard_price_tnd": 5200
+      }
+    },
+    "self_paced": {
+      "estimated_duration_hours": "18-24",
+      "format": {
+        "fr": "Autonomie guidée par Ella",
+        "en": "Self-paced learning guided by Ella"
+      },
+      "design_note": {
+        "fr": "Le mode autonome réduit les exposés longs et renforce les checkpoints, les cas guidés, les indices progressifs et les retours Ella.",
+        "en": "The self-paced mode reduces long lectures and strengthens checkpoints, guided cases, progressive hints, and Ella feedback."
+      }
+    }
+  },
+  "target_audience": {
+    "fr": [
+      "Banques",
+      "Assurances",
+      "Fintechs",
+      "Directions financières",
+      "Directions risque",
+      "Directions conformité",
+      "Innovation bancaire"
+    ],
+    "en": [
+      "Banks",
+      "Insurance companies",
+      "Fintechs",
+      "Finance departments",
+      "Risk departments",
+      "Compliance teams",
+      "Banking innovation teams"
+    ]
+  },
+  "prerequisites": {
+    "fr": [
+      "Compréhension de base des processus bancaires ou financiers",
+      "Notions de données et de reporting",
+      "Familiarité minimale avec les concepts IA ou participation préalable à une formation Foundation IA"
+    ],
+    "en": [
+      "Basic understanding of banking or financial processes",
+      "Basic data and reporting literacy",
+      "Minimum familiarity with AI concepts or prior participation in an AI Foundation course"
+    ]
+  },
+  "learning_objectives": {
+    "fr": [
+      "Concevoir un cas d'usage IA réaliste pour le scoring crédit, la fraude, la conformité documentaire ou le service client.",
+      "Évaluer la qualité d'un modèle de scoring ou de détection de fraude avec des métriques adaptées au risque financier.",
+      "Identifier les risques liés aux données, au biais, à l'explicabilité, à la sécurité et à la conformité.",
+      "Construire un prototype de pipeline IA pour un cas bancaire ou financier.",
+      "Utiliser le NLP et le RAG pour analyser des documents financiers, KYC, réglementaires ou contractuels.",
+      "Concevoir un chatbot bancaire avec garde-fous, escalade humaine et protection des données.",
+      "Produire une fiche de gouvernance IA exploitable par un comité risque, conformité ou innovation."
+    ],
+    "en": [
+      "Design a realistic AI use case for credit scoring, fraud, document compliance, or customer service.",
+      "Evaluate a scoring or fraud-detection model with metrics adapted to financial risk.",
+      "Identify risks related to data, bias, explainability, security, and compliance.",
+      "Build a prototype AI pipeline for a banking or financial use case.",
+      "Use NLP and RAG to analyze financial, KYC, regulatory, or contractual documents.",
+      "Design a banking chatbot with guardrails, human escalation, and data protection.",
+      "Produce an AI governance sheet that a risk, compliance, or innovation committee can use."
+    ]
+  },
+  "modules": [
+    {
+      "module_id": "00_welcome_intro",
+      "lab_id": "00_course_orientation_lab"
+    },
+    {
+      "module_id": "01_credit_scoring_intro",
+      "lab_id": "01_credit_scoring_intro_lab"
+    },
+    {
+      "module_id": "02_credit_scoring_data",
+      "lab_id": "02_credit_scoring_data_lab"
+    },
+    {
+      "module_id": "03_credit_scoring_models",
+      "lab_id": "03_credit_scoring_models_lab"
+    },
+    {
+      "module_id": "04_credit_scoring_metrics_thresholds",
+      "lab_id": "04_credit_scoring_metrics_thresholds_lab"
+    }
+  ],
+  "certificate_requirements": {
+    "each_lab_min_score": 8,
+    "overall_average_min_score": 8,
+    "certificate_title": {
+      "fr": "Certificat ELLA - Intelligence artificielle appliquée aux services financiers",
+      "en": "ELLA Certificate - AI for Finance & Banking"
+    }
+  },
+  "international_and_tunisian_context": {
+    "fr": "Le cours utilise des cas tunisiens et internationaux. Toute décision de production doit rester alignée avec les textes BCT applicables, la protection des données personnelles en Tunisie, les contrôles internes de l'institution et les cadres internationaux de gestion du risque IA.",
+    "en": "The course uses Tunisian and international cases. Any production decision must stay aligned with applicable BCT texts, personal-data protection in Tunisia, the institution's internal controls, and international AI risk-management frameworks."
+  },
+  "sources": [
+    {
+      "id": "bct_circulars",
+      "label": "Banque Centrale de Tunisie - Circulaires",
+      "url": "https://www.bct.gov.tn/bct/siteprod/page.jsp?id=226",
+      "use": {
+        "fr": "Références réglementaires tunisiennes à vérifier avant toute mise en production.",
+        "en": "Tunisian regulatory references to check before production use."
+      }
+    },
+    {
+      "id": "bct_fintech_regulation",
+      "label": "BCT Fintech - Regulation toolbox",
+      "url": "https://fintech.bct.gov.tn/en/r%C3%A9glementation",
+      "use": {
+        "fr": "Références fintech, paiements, e-commerce et données personnelles.",
+        "en": "Fintech, payments, e-commerce, and personal-data references."
+      }
+    },
+    {
+      "id": "bct_sandbox",
+      "label": "BCT Fintech - Regulatory Sandbox",
+      "url": "https://fintech.bct.gov.tn/en/sandbox",
+      "use": {
+        "fr": "Cadre de tests encadrés pour innovations financières.",
+        "en": "Controlled testing framework for financial innovation."
+      }
+    },
+    {
+      "id": "inpdp_texts",
+      "label": "Instance Nationale de Protection des Données Personnelles - Textes",
+      "url": "https://www.inpdp.tn/Texte.html",
+      "use": {
+        "fr": "Références tunisiennes relatives aux données à caractère personnel.",
+        "en": "Tunisian references related to personal data."
+      }
+    },
+    {
+      "id": "nist_ai_rmf",
+      "label": "NIST AI Risk Management Framework 1.0",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "use": {
+        "fr": "Cadre international pour structurer Govern, Map, Measure, Manage.",
+        "en": "International framework to structure Govern, Map, Measure, Manage."
+      }
+    },
+    {
+      "id": "eba_ai_act_banking",
+      "label": "European Banking Authority - AI Act implications for EU banking and payments sector",
+      "url": "https://www.eba.europa.eu/sites/default/files/2025-11/d8b999ce-a1d9-4964-9606-971bbc2aaf89/AI%20Act%20implications%20for%20the%20EU%20banking%20sector.pdf",
+      "use": {
+        "fr": "Référence comparative sur les systèmes IA à haut risque dans la banque.",
+        "en": "Comparative reference for high-risk AI systems in banking."
+      }
+    }
+  ],
+  "converted_at": "2026-05-01",
+  "generated_files": [
+    {
+      "module_id": "00_welcome_intro",
+      "lab_id": "00_course_orientation_lab",
+      "module_file": "modules/module_00_welcome_intro_cells.json",
+      "lab_file": "labs/lab_00_course_orientation_lab.json"
+    },
+    {
+      "module_id": "01_credit_scoring_intro",
+      "lab_id": "01_credit_scoring_intro_lab",
+      "module_file": "modules/module_01_credit_scoring_intro_cells.json",
+      "lab_file": "labs/lab_01_credit_scoring_intro_lab.json"
+    },
+    {
+      "module_id": "02_credit_scoring_data",
+      "lab_id": "02_credit_scoring_data_lab",
+      "module_file": "modules/module_02_credit_scoring_data_cells.json",
+      "lab_file": "labs/lab_02_credit_scoring_data_lab.json"
+    },
+    {
+      "module_id": "03_credit_scoring_models",
+      "lab_id": "03_credit_scoring_models_lab",
+      "module_file": "modules/module_03_credit_scoring_models_cells.json",
+      "lab_file": "labs/lab_03_credit_scoring_models_lab.json"
+    },
+    {
+      "module_id": "04_credit_scoring_metrics_thresholds",
+      "lab_id": "04_credit_scoring_metrics_thresholds_lab",
+      "module_file": "modules/module_04_credit_scoring_metrics_thresholds_cells.json",
+      "lab_file": "labs/lab_04_credit_scoring_metrics_thresholds_lab.json"
+    }
+  ],
+  "source_scope_note": {
+    "fr": "Ce package convertit les cinq leçons markdown présentes dans le zip source. Les autres modules annoncés dans le README source ne figuraient pas sous forme de fichiers markdown dans l'archive fournie.",
+    "en": "This package converts the five markdown lessons present in the source zip. Other modules mentioned in the source README were not present as markdown files in the provided archive."
+  }
+}

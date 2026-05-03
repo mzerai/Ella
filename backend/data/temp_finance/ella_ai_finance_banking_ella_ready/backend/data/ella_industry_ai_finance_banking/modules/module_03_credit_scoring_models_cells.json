@@ -1,0 +1,163 @@
+{
+  "module_id": "03_credit_scoring_models",
+  "title": {
+    "fr": "Choisir le bon modèle de scoring crédit",
+    "en": "Choosing the Right Credit Scoring Model"
+  },
+  "description": {
+    "fr": "Comparer modèles simples et modèles plus puissants avec une logique de performance, explicabilité, calibration et gouvernance.",
+    "en": "Compare simple and more powerful models through performance, explainability, calibration, and governance criteria."
+  },
+  "cells": [
+    {
+      "id": "content_01",
+      "type": "content",
+      "title": {
+        "fr": "Leçon 3 — Choisir le bon modèle de scoring crédit",
+        "en": "Lesson 3 — Choosing the Right Credit Scoring Model"
+      },
+      "content": {
+        "fr": "# Leçon 3 — Choisir le bon modèle de scoring crédit\n\n## Objectif de la leçon\n\nVous avez vu que les données font une grande partie du travail. Maintenant, vous allez choisir le modèle.\n\nVotre réflexe doit rester simple : **ne cherche pas le modèle le plus impressionnant. Cherche le modèle le plus utile, contrôlable et défendable pour la décision crédit.**\n\nÀ la fin de cette leçon, vous serez capable de :\n\n1. distinguer les familles de modèles utiles en scoring crédit ;\n2. choisir entre modèle simple, modèle d’arbres et modèle plus complexe ;\n3. comprendre pourquoi une probabilité doit être calibrée ;\n4. préparer une justification de choix modèle pour une équipe risque ou conformité.\n\n---",
+        "en": "# Lesson 3 — Choosing the Right Credit Scoring Model\n\n## Lesson objective\n\nYou have seen that data does a large part of the work. Now you need to choose the model.\n\nKeep one simple reflex: **do not look for the most impressive model. Look for the model that is useful, controllable, and defensible for credit decision-making.**\n\nBy the end of this lesson, you will be able to:\n\n1. distinguish the main model families used in credit scoring;\n2. choose between a simple model, a tree-based model, and a more complex model;\n3. understand why a probability must be calibrated;\n4. prepare a model-choice justification for a risk or compliance team.\n\n---"
+      }
+    },
+    {
+      "id": "content_02",
+      "type": "content",
+      "title": {
+        "fr": "1. Le modèle ne décide pas à votre place",
+        "en": "1. The model does not decide for you"
+      },
+      "content": {
+        "fr": "## 1. Le modèle ne décide pas à votre place\n\nUn modèle de scoring crédit estime un niveau de risque. Il ne doit pas remplacer toute la décision.\n\nDans un environnement financier, une décision crédit engage le client, l’institution, le risque de défaut, la relation commerciale et la conformité. C’est pour cela que le modèle doit être relié à une politique d’octroi, à des seuils, à une revue humaine et à un dispositif de contrôle.\n\nLa circulaire BCT n°2021-05 insiste sur la gouvernance, la culture du risque et les dispositifs de contrôle dans les banques et établissements financiers [1]. Le Basel Committee rappelle aussi que la gestion du risque crédit doit reposer sur un processus sain d’octroi, de mesure, de suivi et de contrôle du risque [3].\n\n❌ **Erreur fréquente**  \nDire : “Le modèle a donné 0,82, donc le crédit est refusé.”\n\n✅ **Bonne approche**  \nDire : “Le modèle estime un risque élevé. Nous devons regarder les facteurs explicatifs, le seuil de décision, les garanties, les règles internes et le besoin éventuel de revue humaine.”\n\n---",
+        "en": "## 1. The model does not decide for you\n\nA credit scoring model estimates a level of risk. It should not replace the whole decision.\n\nIn a financial environment, a credit decision affects the customer, the institution, default risk, the commercial relationship, and compliance. That is why the model must be connected to a credit policy, thresholds, human review, and a control framework.\n\nBCT Circular No. 2021-05 stresses governance, risk culture, and control mechanisms for banks and financial institutions [1]. The Basel Committee also states that credit risk management should rely on sound credit-granting, risk measurement, monitoring, and control processes [3].\n\n❌ **Common mistake**  \nSaying: “The model returned 0.82, so the credit request is rejected.”\n\n✅ **Better approach**  \nSaying: “The model estimates high risk. We need to review the explanatory factors, the decision threshold, collateral, internal rules, and the possible need for human review.”\n\n---"
+      }
+    },
+    {
+      "id": "checkpoint_01",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Choix du modèle / Model choice",
+        "section_context": "L'apprenant vient de voir que le modèle estime le risque, mais ne décide pas seul. Il a aussi vu la valeur d'une baseline simple comme la régression logistique. / The learner has seen that the model estimates risk but does not decide alone, and that a simple baseline has value.",
+        "question_type": "comprehension",
+        "difficulty": "beginner",
+        "hint": "Une bonne réponse expliquez pourquoi une baseline simple aide à comparer, expliquer et défendre le choix. / A good answer explains why a simple baseline helps comparison, explanation, and defense.",
+        "anti_gpt_instructions": "Demander à l'apprenant de choisir une première baseline pour un projet de scoring à huit semaines, puis de justifier ce choix."
+      }
+    },
+    {
+      "id": "content_03",
+      "type": "content",
+      "title": {
+        "fr": "2. Le modèle de référence : la régression logistique",
+        "en": "2. The baseline model: logistic regression"
+      },
+      "content": {
+        "fr": "## 2. Le modèle de référence : la régression logistique\n\nLa régression logistique reste un excellent point de départ pour le scoring crédit.\n\nElle estime une probabilité d’appartenance à une classe. Dans notre cas, la classe peut être “défaut”, “retard significatif” ou “risque élevé”. Les bibliothèques comme scikit-learn proposent une version régularisée par défaut, ce qui aide à limiter certains problèmes de surapprentissage [6].\n\nSon avantage principal est sa lisibilité. Vous pouvez expliquer qu’une variable augmente ou diminue le risque, toutes choses égales par ailleurs. Cela parle aux équipes risque, audit et conformité.\n\nMais elle a une limite : elle capte moins bien les relations complexes si vous ne prépares pas les variables avec soin.\n\n**Quand l’utiliser ?**\n\n| Situation | Pourquoi elle convient |\n|---|---|\n| Premier prototype | Elle donne une baseline claire. |\n| Besoin d’explicabilité forte | Les coefficients sont plus faciles à discuter. |\n| Dataset modéré | Elle fonctionne bien avec des données structurées propres. |\n| Comité risque exigeant | Elle se défend plus simplement qu’un modèle opaque. |\n\n---",
+        "en": "## 2. The baseline model: logistic regression\n\nLogistic regression remains a strong starting point for credit scoring.\n\nIt estimates the probability of belonging to a class. In our case, the class may be “default”, “significant delay”, or “high risk”. Libraries such as scikit-learn provide a regularized version by default, which helps limit some overfitting issues [6].\n\nIts main advantage is readability. You can explain that a variable increases or decreases risk, all else equal. This is useful for risk, audit, and compliance teams.\n\nBut it has a limit: it may capture complex relationships poorly if the variables are not prepared with care.\n\n**When should you use it?**\n\n| Situation | Why it fits |\n|---|---|\n| First prototype | It gives a clear baseline. |\n| Strong explainability need | Coefficients are easier to discuss. |\n| Moderate dataset | It works well with clean structured data. |\n| Strict risk committee | It is easier to defend than an opaque model. |\n\n---"
+      }
+    },
+    {
+      "id": "diagram_01",
+      "type": "diagram",
+      "title": {
+        "fr": "Schéma clé — Choisir le bon modèle de scoring crédit",
+        "en": "Key diagram — Choosing the Right Credit Scoring Model"
+      },
+      "svg": "<svg width=\"100%\" viewBox=\"0 0 780 360\" xmlns=\"http://www.w3.org/2000/svg\"><defs><marker id=\"arr_03\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L9,3 z\" fill=\"#5F5E5A\"/></marker></defs><rect x=\"0\" y=\"0\" width=\"780\" height=\"360\" rx=\"8\" fill=\"#F1EFE8\"/><rect x=\"45\" y=\"65\" width=\"155\" height=\"65\" rx=\"8\" fill=\"#E6F1FB\" stroke=\"#185FA5\"/><text x=\"122\" y=\"103\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"15\">Baseline</text><rect x=\"45\" y=\"155\" width=\"155\" height=\"65\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\"/><text x=\"122\" y=\"193\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"15\">Tree models</text><rect x=\"45\" y=\"245\" width=\"155\" height=\"65\" rx=\"8\" fill=\"#EEEDFE\" stroke=\"#534AB7\"/><text x=\"122\" y=\"283\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"15\">Boosting</text><rect x=\"280\" y=\"135\" width=\"185\" height=\"90\" rx=\"8\" fill=\"#FAECE7\" stroke=\"#993C1D\"/><text x=\"372\" y=\"165\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"15\">Evaluation</text><text x=\"372\" y=\"188\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"12\">performance • calibration</text><text x=\"372\" y=\"207\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"12\">explainability • stability</text><rect x=\"545\" y=\"135\" width=\"185\" height=\"90\" rx=\"8\" fill=\"#E1F5EE\" stroke=\"#0F6E56\"/><text x=\"637\" y=\"165\" text-anchor=\"middle\" fill=\"#2C2C2A\" font-size=\"15\">Defensible choice</text><text x=\"637\" y=\"188\" text-anchor=\"middle\" fill=\"#5F5E5A\" font-size=\"12\">risk committee ready</text><line x1=\"200\" y1=\"98\" x2=\"280\" y2=\"165\" stroke=\"#5F5E5A\" marker-end=\"url(#arr_03)\"/><line x1=\"200\" y1=\"188\" x2=\"280\" y2=\"183\" stroke=\"#5F5E5A\" marker-end=\"url(#arr_03)\"/><line x1=\"200\" y1=\"278\" x2=\"280\" y2=\"203\" stroke=\"#5F5E5A\" marker-end=\"url(#arr_03)\"/><line x1=\"465\" y1=\"180\" x2=\"545\" y2=\"180\" stroke=\"#5F5E5A\" marker-end=\"url(#arr_03)\"/></svg>"
+    },
+    {
+      "id": "content_04",
+      "type": "content",
+      "title": {
+        "fr": "3. Les arbres de décision : simples à lire, parfois instables",
+        "en": "3. Decision trees: easy to read, sometimes unstable"
+      },
+      "content": {
+        "fr": "## 3. Les arbres de décision : simples à lire, parfois instables\n\nUn arbre de décision découpe la population en segments. Par exemple : revenu inférieur à un seuil, incidents récents, ancienneté faible, solde moyen bas.\n\nC’est intuitif. Vous pouvez montrer un chemin de décision. Mais un arbre seul peut devenir instable : une petite variation dans les données peut changer la structure de l’arbre.\n\nUtilise-le souvent comme outil pédagogique ou exploratoire. Pour une production sérieuse, on préfère souvent des ensembles d’arbres, mieux contrôlés et mieux évalués.\n\n❌ **Erreur fréquente**  \nCroire qu’un arbre lisible est automatiquement fiable.\n\n✅ **Bonne approche**  \nTester sa stabilité, vérifier ses performances sur données hors échantillon, et comparer avec une baseline simple.\n\n---\n\n## 4. Random Forest et Gradient Boosting : plus puissants, plus exigeants\n\nLes modèles à base d’arbres en ensemble captent mieux les interactions entre variables.\n\nUne **Random Forest** combine plusieurs arbres. Elle réduit souvent l’instabilité d’un arbre seul.\n\nLe **Gradient Boosting** construit les arbres de manière séquentielle. Chaque nouvel arbre corrige une partie des erreurs précédentes. Scikit-learn décrit le Gradient Boosting comme un modèle additif construit étape par étape pour optimiser une fonction de perte différentiable [7].\n\nCes modèles peuvent être très performants en scoring. Mais leur usage demande plus de discipline : validation, explicabilité, calibration, documentation, monitoring et contrôle de dérive.\n\nDans la finance, la question n’est pas : “Quel modèle donne la meilleure AUC ?”  \nLa vraie question est : **“Quel modèle donne une performance suffisante avec un niveau d’explicabilité, de stabilité et de gouvernance acceptable ?”**\n\n---",
+        "en": "## 3. Decision trees: easy to read, sometimes unstable\n\nA decision tree splits the population into segments. For example: income below a threshold, recent incidents, low employment stability, low average balance.\n\nIt is intuitive. You can show a decision path. But a single tree can be unstable: a small change in the data can change the structure of the tree.\n\nUse it often as a teaching or exploratory tool. For serious production, teams often prefer tree ensembles, which are better controlled and better evaluated.\n\n❌ **Common mistake**  \nBelieving that a readable tree is automatically reliable.\n\n✅ **Better approach**  \nTest its stability, verify its out-of-sample performance, and compare it with a simple baseline.\n\n---\n\n## 4. Random Forest and Gradient Boosting: more powerful, more demanding\n\nTree ensemble models can capture interactions between variables more effectively.\n\nA **Random Forest** combines many trees. It often reduces the instability of a single tree.\n\n**Gradient Boosting** builds trees sequentially. Each new tree corrects part of the previous errors. Scikit-learn describes Gradient Boosting as an additive model built in a forward stage-wise manner to optimize a differentiable loss function [7].\n\nThese models can perform well in scoring. But their use requires more discipline: validation, explainability, calibration, documentation, monitoring, and drift control.\n\nIn finance, the question is not: “Which model gives the best AUC?”  \nThe real question is: **“Which model gives sufficient performance with an acceptable level of explainability, stability, and governance?”**\n\n---"
+      }
+    },
+    {
+      "id": "checkpoint_02",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Performance et contrôle / Performance and control",
+        "section_context": "L'apprenant a comparé régression logistique, arbres, Random Forest et Gradient Boosting. Il doit arbitrer performance, explicabilité, stabilité, calibration et monitoring. / The learner has compared logistic regression, trees, Random Forest, and Gradient Boosting.",
+        "question_type": "synthesis",
+        "difficulty": "intermediate",
+        "hint": "Une bonne réponse ne choisit pas le modèle sur une seule métrique et cite des critères métier. / A good answer does not choose the model on one metric and cites business criteria.",
+        "anti_gpt_instructions": "Présenter trois candidats modèles avec avantages et limites. Demander à l'apprenant de recommander un modèle pour un comité risque, sans utiliser les seuils détaillés du module suivant."
+      }
+    },
+    {
+      "id": "content_05",
+      "type": "content",
+      "title": {
+        "fr": "5. Le piège du modèle complexe",
+        "en": "5. The complex-model trap"
+      },
+      "content": {
+        "fr": "## 5. Le piège du modèle complexe\n\nUn modèle complexe peut améliorer les résultats techniques. Mais il peut aussi créer trois problèmes.\n\n### Problème 1 — Il est plus difficile à expliquer\n\nSi l’équipe risque ne comprend pas pourquoi le modèle classe un dossier comme risqué, la décision devient difficile à défendre.\n\n### Problème 2 — Il peut capter des signaux dangereux\n\nUn modèle puissant peut exploiter des variables proxy : zone géographique, canal digital, type d’appareil, comportement atypique. Ces signaux peuvent être prédictifs mais poser des risques d’équité et d’acceptabilité.\n\n### Problème 3 — Il peut être plus difficile à surveiller\n\nUn modèle performant au lancement peut se dégrader si le profil des clients, l’économie, les produits ou les politiques internes changent.\n\nLe NIST AI RMF propose une logique utile ici : gouverner, cartographier les risques, les mesurer, puis les gérer tout au long du cycle de vie du système IA [4].\n\n---",
+        "en": "## 5. The complex-model trap\n\nA complex model can improve technical results. It can also create three problems.\n\n### Problem 1 — It is harder to explain\n\nIf the risk team does not understand why the model classifies an application as risky, the decision becomes harder to defend.\n\n### Problem 2 — It can capture dangerous signals\n\nA powerful model can use proxy variables: geographic area, digital channel, device type, atypical behavior. These signals may be predictive but may raise fairness and acceptability issues.\n\n### Problem 3 — It can be harder to monitor\n\nA model that performs well at launch can degrade if customer profiles, the economy, products, or internal policies change.\n\nThe NIST AI RMF gives a useful logic here: govern, map risks, measure them, and manage them across the AI system lifecycle [4].\n\n---"
+      }
+    },
+    {
+      "id": "content_06",
+      "type": "content",
+      "title": {
+        "fr": "6. Une probabilité n’est pas toujours une bonne probabilité",
+        "en": "6. A probability is not always a good probability"
+      },
+      "content": {
+        "fr": "## 6. Une probabilité n’est pas toujours une bonne probabilité\n\nEn scoring crédit, le modèle produit souvent un score ou une probabilité estimée.\n\nMais attention : une probabilité prédite n’est pas toujours bien calibrée. Si un modèle attribue 20 % de risque à 1 000 dossiers, vous vous attendez à ce qu’environ 200 dossiers posent effectivement problème dans ce groupe. Si ce n’est pas le cas, le modèle est mal calibré.\n\nLa calibration est importante parce que les seuils de décision dépendent du niveau de risque. Scikit-learn rappelle qu’en classification, on veut parfois obtenir une probabilité associée à la prédiction, mais certains modèles donnent de mauvaises estimations de probabilité et doivent être calibrés [8].\n\n**Exemple simple**\n\n| Dossier | Probabilité de défaut estimée | Décision possible |\n|---|---:|---|\n| A | 3 % | Acceptation possible |\n| B | 18 % | Revue humaine |\n| C | 42 % | Refus ou demande de garanties |\n\nLe seuil n’est pas une vérité mathématique. C’est un choix métier. Il dépend de la politique de risque, du produit, du segment client, du coût du défaut, du coût du refus injustifié et des exigences internes.\n\n---",
+        "en": "## 6. A probability is not always a good probability\n\nIn credit scoring, the model often produces a score or an estimated probability.\n\nBut be careful: a predicted probability is not always well calibrated. If a model assigns 20% risk to 1,000 applications, you expect about 200 applications in that group to actually become problematic. If this is not the case, the model is poorly calibrated.\n\nCalibration matters because decision thresholds depend on risk levels. Scikit-learn notes that, in classification, you may want a probability associated with the prediction, but some models give poor probability estimates and need calibration [8].\n\n**Simple example**\n\n| Application | Estimated default probability | Possible decision |\n|---|---:|---|\n| A | 3% | Possible approval |\n| B | 18% | Human review |\n| C | 42% | Rejection or request for collateral |\n\nThe threshold is not a mathematical truth. It is a business choice. It depends on the risk policy, product, customer segment, cost of default, cost of unfair rejection, and internal requirements.\n\n---"
+      }
+    },
+    {
+      "id": "content_07",
+      "type": "content",
+      "title": {
+        "fr": "7. Comment choisir votre modèle en pratique",
+        "en": "7. How to choose your model in practice"
+      },
+      "content": {
+        "fr": "## 7. Comment choisir votre modèle en pratique\n\nUtilisez cette séquence.\n\n### Étape 1 — Construisez une baseline simple\n\nCommencez par une régression logistique ou un arbre simple. Vous obtenez un point de comparaison.\n\n### Étape 2 — Testez un modèle plus puissant\n\nEssayez Random Forest ou Gradient Boosting. Comparez les performances, mais regardez aussi la stabilité, l’explicabilité et la calibration.\n\n### Étape 3 — Comparez avec des critères métier\n\nNe comparez pas seulement l’AUC. Demande : combien de bons clients sont refusés ? Combien de dossiers risqués passent ? Combien de dossiers partent en revue humaine ?\n\n### Étape 4 — Documente le choix\n\nExpliquez pourquoi vous gardez ce modèle. Expliquez aussi pourquoi vous rejetez les autres.\n\n### Étape 5 — Prévoyez le monitoring\n\nUn modèle de scoring doit être surveillé : performance, dérive des données, dérive des scores, évolution du taux de défaut, stabilité des variables et alertes métier.\n\n---",
+        "en": "## 7. How to choose your model in practice\n\nUse this sequence.\n\n### Step 1 — Build a simple baseline\n\nStart with logistic regression or a simple tree. You get a comparison point.\n\n### Step 2 — Test a more powerful model\n\nTry Random Forest or Gradient Boosting. Compare performance, but also check stability, explainability, and calibration.\n\n### Step 3 — Compare with business criteria\n\nDo not compare AUC only. Ask: how many good customers are rejected? How many risky files pass? How many applications go to human review?\n\n### Step 4 — Document the choice\n\nExplain why you keep this model. Explain why you reject the others.\n\n### Step 5 — Plan monitoring\n\nA scoring model must be monitored: performance, data drift, score drift, default-rate evolution, variable stability, and business alerts.\n\n---"
+      }
+    },
+    {
+      "id": "content_08",
+      "type": "content",
+      "title": {
+        "fr": "8. Mini-cas : choisir un modèle pour un crédit consommation",
+        "en": "8. Mini-case: choosing a model for a consumer loan"
+      },
+      "content": {
+        "fr": "## 8. Mini-cas : choisir un modèle pour un crédit consommation\n\nVous travaillez dans une banque. L’équipe veut lancer un modèle de scoring pour un crédit consommation.\n\nVous avez :\n\n| Élément | Situation |\n|---|---|\n| Dataset | 25 000 anciens dossiers |\n| Variables | revenus, charges, incidents, ancienneté, historique de remboursement, solde moyen |\n| Objectif | estimer le risque de défaut à 12 mois |\n| Contraintes | comité risque exigeant, besoin d’explication client, revue humaine possible |\n| Temps projet | 8 semaines pour un pilote |\n\nVotre choix raisonnable :\n\n1. construire une baseline en régression logistique ;\n2. tester un Gradient Boosting en comparaison ;\n3. vérifier les métriques, la calibration et les explications ;\n4. proposer un seuil d’acceptation, un seuil de refus et une zone de revue humaine ;\n5. documenter les limites avant tout passage en production.\n\nVous voyez l’idée : vous ne choisissez pas un modèle parce qu’il est “plus IA”. Vous choisissezsez un modèle parce qu’il tient dans un dispositif complet de décision.\n\n---\n\n## 9. Ce que vous devez retenir\n\nPour le scoring crédit, retiens ceci :\n\n1. **Un modèle simple et bien contrôlé vaut mieux qu’un modèle complexe mal gouverné.**\n2. **La performance technique ne suffit pas.**\n3. **La probabilité doit être comprise, calibrée et reliée à un seuil métier.**\n4. **Chaque choix modèle doit être documenté.**\n5. **Le modèle doit rester surveillé après son déploiement.**\n\nDans l’Union européenne, les systèmes IA utilisés pour évaluer la solvabilité ou établir un score de crédit de personnes physiques sont classés comme systèmes à haut risque, sauf exceptions prévues pour certains usages comme la détection de fraude financière [5]. Même si votre cadre local est tunisien, cette classification vous donne un repère utile : le scoring crédit n’est pas un terrain d’expérimentation légère.\n\n---\n\n## Références\n\n1. Banque Centrale de Tunisie, **Circulaire aux banques et aux établissements financiers n°2021-05 du 19 août 2021 — Cadre de gouvernance des banques et des établissements financiers**.  \n   https://www.cbf.org.tn/wp-content/uploads/2023/01/05-Circulaire-aux-banques-et-aux-etablissements-financiers-n%C2%B02021-05-du-19-Aout-2021.pdf\n\n2. Banque Centrale de Tunisie, **Circulaire aux banques et aux établissements financiers n°2022-01 du 1er mars 2022 — Prévention et résolution des créances non performantes**.  \n   https://www.cbf.org.tn/wp-content/uploads/2023/01/01-Circulaire-aux-banques-et-aux-etablissements-financiers-n%C2%B02022-01-du-01-Mars-2022.pdf\n\n3. Basel Committee on Banking Supervision, **Principles for the management of credit risk**, Bank for International Settlements, 2025.  \n   https://www.bis.org/bcbs/publ/d595.pdf\n\n4. NIST, **Artificial Intelligence Risk Management Framework (AI RMF 1.0)**, 2023.  \n   https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf\n\n5. European Union, **Artificial Intelligence Act — Annex III, high-risk AI systems**, creditworthiness and credit scoring.  \n   https://artificialintelligenceact.eu/annex/3/\n\n6. scikit-learn, **LogisticRegression documentation**.  \n   https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html\n\n7. scikit-learn, **GradientBoostingClassifier documentation**.  \n   https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html\n\n8. scikit-learn, **Probability calibration — User Guide**.  \n   https://scikit-learn.org/stable/modules/calibration.html",
+        "en": "## 8. Mini-case: choosing a model for a consumer loan\n\nYou work in a bank. The team wants to launch a scoring model for a consumer loan.\n\nYou have:\n\n| Element | Situation |\n|---|---|\n| Dataset | 25,000 past applications |\n| Variables | income, expenses, incidents, employment stability, repayment history, average balance |\n| Objective | estimate 12-month default risk |\n| Constraints | strict risk committee, need for customer explanation, possible human review |\n| Project timeline | 8 weeks for a pilot |\n\nA reasonable choice:\n\n1. build a logistic regression baseline;\n2. test Gradient Boosting for comparison;\n3. check metrics, calibration, and explanations;\n4. propose an approval threshold, a rejection threshold, and a human-review zone;\n5. document limitations before any production launch.\n\nYou see the idea: you do not choose a model because it is “more AI”. You choose a model because it fits a complete decision framework.\n\n---\n\n## 9. What you should remember\n\nFor credit scoring, remember this:\n\n1. **A simple, well-controlled model is better than a complex model with weak governance.**\n2. **Technical performance is not enough.**\n3. **The probability must be understood, calibrated, and linked to a business threshold.**\n4. **Every model choice must be documented.**\n5. **The model must be monitored after deployment.**\n\nIn the European Union, AI systems used to evaluate the creditworthiness of natural persons or establish their credit score are classified as high-risk systems, with specific exceptions such as some financial-fraud detection uses [5]. Even if your local context is Tunisia, this classification gives you a useful benchmark: credit scoring is not a lightweight experimentation field.\n\n---\n\n## References\n\n1. Banque Centrale de Tunisie, **Circular to banks and financial institutions No. 2021-05 of 19 August 2021 — Governance framework for banks and financial institutions**.  \n   https://www.cbf.org.tn/wp-content/uploads/2023/01/05-Circulaire-aux-banques-et-aux-etablissements-financiers-n%C2%B02021-05-du-19-Aout-2021.pdf\n\n2. Banque Centrale de Tunisie, **Circular to banks and financial institutions No. 2022-01 of 1 March 2022 — Prevention and resolution of non-performing loans**.  \n   https://www.cbf.org.tn/wp-content/uploads/2023/01/01-Circulaire-aux-banques-et-aux-etablissements-financiers-n%C2%B02022-01-du-01-Mars-2022.pdf\n\n3. Basel Committee on Banking Supervision, **Principles for the management of credit risk**, Bank for International Settlements, 2025.  \n   https://www.bis.org/bcbs/publ/d595.pdf\n\n4. NIST, **Artificial Intelligence Risk Management Framework (AI RMF 1.0)**, 2023.  \n   https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf\n\n5. European Union, **Artificial Intelligence Act — Annex III, high-risk AI systems**, creditworthiness and credit scoring.  \n   https://artificialintelligenceact.eu/annex/3/\n\n6. scikit-learn, **LogisticRegression documentation**.  \n   https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html\n\n7. scikit-learn, **GradientBoostingClassifier documentation**.  \n   https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html\n\n8. scikit-learn, **Probability calibration — User Guide**.  \n   https://scikit-learn.org/stable/modules/calibration.html"
+      }
+    },
+    {
+      "id": "checkpoint_03",
+      "type": "ella_checkpoint",
+      "checkpoint_config": {
+        "topic": "Meilleure AUC, mauvais déploiement / Best AUC, bad deployment",
+        "section_context": "L'apprenant a vu les pièges du modèle complexe et la nécessité de calibration, validation, documentation et monitoring. / The learner has seen complex-model traps and the need for calibration, validation, documentation, and monitoring.",
+        "question_type": "analyze_flawed_examples",
+        "difficulty": "advanced",
+        "hint": "Une bonne réponse signale l'absence d'explicabilité, de calibration, de validation hors échantillon, de revue humaine et de monitoring. / A good answer flags missing explainability, calibration, out-of-sample validation, human review, and monitoring.",
+        "anti_gpt_instructions": "Décrire une équipe qui veut déployer Gradient Boosting car il a la meilleure AUC. Demander à l'apprenant de rédiger trois objections de comité risque."
+      }
+    },
+    {
+      "id": "gate_final",
+      "type": "ella_gate",
+      "message": {
+        "fr": "Vous avez maintenant structuré l'essentiel du module « Choisir le bon modèle de scoring crédit ». Le lab qui suit vous demande d'appliquer ces concepts dans une situation financière concrète, avec un raisonnement défendable pour une équipe risque, conformité ou innovation.",
+        "en": "You have now structured the core ideas of “Choosing the Right Credit Scoring Model”. The next lab asks you to apply these concepts to a concrete financial situation, with reasoning that a risk, compliance, or innovation team can defend."
+      },
+      "next_url": "/courses/ai-finance-banking/labs/03_credit_scoring_models_lab"
+    }
+  ]
+}

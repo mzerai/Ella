@@ -1,0 +1,110 @@
+{
+  "generated_at": "2026-05-01",
+  "course_id": "ella_industry_ai_finance_banking",
+  "course_slug": "ai-finance-banking",
+  "module_reports": [
+    {
+      "file": "backend/data/ella_industry_ai_finance_banking/modules/module_00_welcome_intro_cells.json",
+      "module_id": "00_welcome_intro",
+      "content_cells": 6,
+      "checkpoints": 3,
+      "diagrams": 1,
+      "gate_last": true,
+      "valid": true
+    },
+    {
+      "file": "backend/data/ella_industry_ai_finance_banking/modules/module_01_credit_scoring_intro_cells.json",
+      "module_id": "01_credit_scoring_intro",
+      "content_cells": 7,
+      "checkpoints": 3,
+      "diagrams": 1,
+      "gate_last": true,
+      "valid": true
+    },
+    {
+      "file": "backend/data/ella_industry_ai_finance_banking/modules/module_02_credit_scoring_data_cells.json",
+      "module_id": "02_credit_scoring_data",
+      "content_cells": 7,
+      "checkpoints": 3,
+      "diagrams": 1,
+      "gate_last": true,
+      "valid": true
+    },
+    {
+      "file": "backend/data/ella_industry_ai_finance_banking/modules/module_03_credit_scoring_models_cells.json",
+      "module_id": "03_credit_scoring_models",
+      "content_cells": 8,
+      "checkpoints": 3,
+      "diagrams": 1,
+      "gate_last": true,
+      "valid": true
+    },
+    {
+      "file": "backend/data/ella_industry_ai_finance_banking/modules/module_04_credit_scoring_metrics_thresholds_cells.json",
+      "module_id": "04_credit_scoring_metrics_thresholds",
+      "content_cells": 8,
+      "checkpoints": 3,
+      "diagrams": 1,
+      "gate_last": true,
+      "valid": true
+    }
+  ],
+  "lab_reports": [
+    {
+      "file": "backend/data/ella_industry_ai_finance_banking/labs/lab_00_course_orientation_lab.json",
+      "lab_id": "00_course_orientation_lab",
+      "target_score": 8,
+      "max_score": 10,
+      "missions": 1,
+      "hints_per_mission": [
+        4
+      ],
+      "valid": true
+    },
+    {
+      "file": "backend/data/ella_industry_ai_finance_banking/labs/lab_01_credit_scoring_intro_lab.json",
+      "lab_id": "01_credit_scoring_intro_lab",
+      "target_score": 8,
+      "max_score": 10,
+      "missions": 1,
+      "hints_per_mission": [
+        4
+      ],
+      "valid": true
+    },
+    {
+      "file": "backend/data/ella_industry_ai_finance_banking/labs/lab_02_credit_scoring_data_lab.json",
+      "lab_id": "02_credit_scoring_data_lab",
+      "target_score": 8,
+      "max_score": 10,
+      "missions": 1,
+      "hints_per_mission": [
+        4
+      ],
+      "valid": true
+    },
+    {
+      "file": "backend/data/ella_industry_ai_finance_banking/labs/lab_03_credit_scoring_models_lab.json",
+      "lab_id": "03_credit_scoring_models_lab",
+      "target_score": 8,
+      "max_score": 10,
+      "missions": 1,
+      "hints_per_mission": [
+        4
+      ],
+      "valid": true
+    },
+    {
+      "file": "backend/data/ella_industry_ai_finance_banking/labs/lab_04_credit_scoring_metrics_thresholds_lab.json",
+      "lab_id": "04_credit_scoring_metrics_thresholds_lab",
+      "target_score": 8,
+      "max_score": 10,
+      "missions": 1,
+      "hints_per_mission": [
+        4
+      ],
+      "valid": true
+    }
+  ],
+  "valid": true
+}
